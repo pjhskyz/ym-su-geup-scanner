@@ -408,15 +408,17 @@ function badge(d){
   return "";
 }
 
+const RENDER_LIMIT=400;
 function render(){
-  const d=filtered();
+  const all=filtered();
   const tb=document.getElementById("tbody");
-  if(!d.length){
+  if(!all.length){
     const msg=(investor==="frgn"&&!STORE.frgn.length)
       ?"외국인 누적순위는 빌더가 함께 생성합니다 — scanner_data.json 연동 시 표시됩니다."
       :"조건에 맞는 종목이 없습니다";
     tb.innerHTML=`<tr><td colspan="10" class="empty">${msg}</td></tr>`;return;
   }
+  const d=all.slice(0,RENDER_LIMIT);
   tb.innerHTML=d.map((x,i)=>{
     const barW=(Math.log10(x.net+1)/logMax*100).toFixed(1);
     const isJump=x.jump>=150;
@@ -432,7 +434,7 @@ function render(){
       <td class="ret ${retClass(x.r5)}">${sign(x.r5)}${x.r5.toFixed(1)}</td>
       <td class="ret ${retClass(x.r20)}">${sign(x.r20)}${x.r20.toFixed(1)}</td>
     </tr>`;
-  }).join("");
+  }).join("")+(all.length>d.length?`<tr><td colspan="10" class="empty">전체 ${all.length}개 중 상위 ${d.length} 표시 — 검색·업종 필터로 좁혀보세요</td></tr>`:"");
   tb.querySelectorAll(".star-cell").forEach(el=>el.onclick=e=>{e.stopPropagation();const nm=DATA[+el.dataset.star].name;if(favSet.has(nm))favSet.delete(nm);else favSet.add(nm);DATA.forEach(z=>z.fav=favSet.has(z.name));buildChips();render();});
   tb.querySelectorAll("tr[data-i]").forEach(tr=>tr.onclick=()=>openModal(DATA[+tr.dataset.i]));
 }
