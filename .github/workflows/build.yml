@@ -1,0 +1,50 @@
+name: build-scanner-data
+
+# 매일 저녁(한국 장 마감·데이터 확정 후) 기관 수급 데이터를 갱신한다.
+on:
+  schedule:
+    # cron은 UTC 기준. 11:00 UTC = 20:00 KST (월~금).
+    - cron: '0 11 * * 1-5'
+  workflow_dispatch:        # 수동 실행 버튼
+
+permissions:
+  contents: write           # scanner_data.json 을 repo에 커밋하기 위해 필요
+
+concurrency:
+  group: build-scanner
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install pykrx finance-datareader pandas
+
+      - name: Build scanner_data.json
+        env:
+          KRX_ID: ${{ secrets.KRX_ID }}
+          KRX_PW: ${{ secrets.KRX_PW }}
+        run: python build_scanner_data.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add scanner_data.json
+          if git diff --staged --quiet; then
+            echo "변경 없음 — 커밋 건너뜀 (휴장일 등)"
+          else
+            git commit -m "data: scanner_data.json 갱신 ($(date -u +%Y-%m-%d))"
+            git push
+          fi
