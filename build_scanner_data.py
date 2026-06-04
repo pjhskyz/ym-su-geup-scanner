@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-기관/외국인 수급 스캐너 — 데이터 빌더 (전종목 + 일별 시계열)
+기관/외국인 수급 스캐너 — 데이터 빌더 (전종목)
 =========================================================
-- 메인 순위/순매수/백분위 = [기준일-LOOKBACK, 기준일] '누적' (1년 맥락)
-- 시계열 순위(오늘/D-1/D-2)  = 각 일자의 '일별' 순매수 순위 → 순위 점프 포착
-- 수익률(1/5/20영업일)        = 전종목 일괄(price_change)로 효율 조회
-- 연속 순매수일(기관/외국인)  = 상위 STREAK_TOP 종목만 일별 부호로 계산
-- 출력: 순매수≠0 전종목을 inst/frgn 두 테이블로 scanner_data.json
+컬럼 구성
+  - 순위/백분위        : [기준일-LOOKBACK, 기준일] '누적' 순매수 순위(1년 맥락)
+  - 분석기간순위 시계열 : 각 일자의 '일별' 순위(오늘/D-1/D-2) → 점프 포착
+  - 순매수(메인 금액)   : '당일(D)' 순매수 거래대금 (주체별, 백만원)
+  - I1/I5/I20          : 기관 1/5/20영업일 누적 순매수 ÷ 시가총액 × 100 (%)
+  - F1/F5/F20          : 외국인 1/5/20영업일 누적 순매수 ÷ 시가총액 × 100 (%)
+  - 연속 순매수일       : 상위 STREAK_TOP 종목만 (기관/외국인)
+  - 수익률             : 1/5/20영업일 (전종목 일괄)
+  - 출력: 순매수≠0 전종목을 inst/frgn 두 테이블로 scanner_data.json
 
 설치:  pip install pykrx finance-datareader pandas
 
@@ -39,10 +43,10 @@ except Exception:
 
 
 # ----------------------------- 설정 -----------------------------
-LOOKBACK_DAYS = 365        # 누적 분석기간 1년 (2년=730, 3년=1095)
-BUCKET_SIZE   = 0.4        # 백분위 버킷 크기(%)
-MAX_BUCKET    = int(100 / BUCKET_SIZE)        # = 250
-STREAK_TOP    = 300        # 연속 순매수일을 계산할 (주체별) 상위 종목 수
+LOOKBACK_DAYS = 365
+BUCKET_SIZE   = 0.4
+MAX_BUCKET    = int(100 / BUCKET_SIZE)
+STREAK_TOP    = 300
 STREAK_WINDOW = 30
 SLEEP         = 0.4
 MARKETS       = ["KOSPI", "KOSDAQ"]
@@ -56,9 +60,7 @@ def ymd(d): return d.strftime("%Y%m%d")
 def shift(asof, days): return ymd(dt.datetime.strptime(asof, "%Y%m%d") - dt.timedelta(days=days))
 
 
-# --------------------------- 영업일 ---------------------------
 def business_days(asof: str, n: int) -> list[str]:
-    """asof 포함 직전 n 영업일을 최신순으로."""
     df = stock.get_market_ohlcv(shift(asof, n * 3 + 15), asof, "005930")
     days = [d.strftime("%Y%m%d") for d in df.index]
     if len(days) < n:
@@ -66,10 +68,9 @@ def business_days(asof: str, n: int) -> list[str]:
     return days[-n:][::-1]
 
 
-# ----------------------- 순매수 랭킹 -----------------------
+# ----------------------- 순매수 랭킹/맵 -----------------------
 def ranking(asof: str, investor: str, lookback: int) -> dict:
-    """lookback>0: [asof-lookback, asof] 누적 / lookback==0: asof 하루(일별).
-    반환: { ticker: {"net":원, "rank":1.., "bucket":1.., "name":str} }"""
+    """lookback>0: 누적 / 0: 일별. {ticker:{net,rank,bucket,name}}"""
     start = shift(asof, lookback) if lookback > 0 else asof
     frames = []
     for mkt in MARKETS:
@@ -88,6 +89,27 @@ def ranking(asof: str, investor: str, lookback: int) -> dict:
         out[tkr] = {"net": int(row["순매수거래대금"]), "rank": i,
                     "bucket": bucket, "name": str(row["종목명"])}
     return out
+
+
+def net_window(frm: str, to: str, investor: str) -> dict:
+    """[frm, to] 영업일 구간 누적 순매수 {ticker: net(원)}"""
+    out = {}
+    for mkt in MARKETS:
+        df = stock.get_market_net_purchases_of_equities(frm, to, mkt, investor)
+        time.sleep(SLEEP)
+        if df is not None and not df.empty and "순매수거래대금" in df.columns:
+            for tkr, row in df.iterrows():
+                out[tkr] = int(row["순매수거래대금"])
+    return out
+
+
+# ----------------------- 시가총액 -----------------------
+def cap_map(asof: str) -> dict:
+    df = stock.get_market_cap(asof)        # 전종목 시가총액
+    time.sleep(SLEEP)
+    if df is None or df.empty or "시가총액" not in df.columns:
+        return {}
+    return {tkr: int(row["시가총액"]) for tkr, row in df.iterrows()}
 
 
 # ----------------------- 수익률(전종목 일괄) -----------------------
@@ -128,7 +150,7 @@ def daily_net(ticker, asof):
     return df
 
 
-# ----------------------------- 업종 -----------------------------
+# ----------------------- 업종 -----------------------
 def sector_map() -> dict:
     if not _HAS_FDR:
         log("[i] finance-datareader 미설치 → 업종 공란"); return {}
@@ -156,19 +178,33 @@ def main():
     D, D1, D2 = bdays[0], bdays[1], bdays[2]
     log("기준일:", [D, D1, D2])
 
-    # 누적(메인) + 일별(시계열) 랭킹
+    # 누적(순위) + 일별(시계열·당일금액)
     cum, daily = {}, {}
     for k, inv in INVESTORS.items():
-        log(f"· {inv} 누적 랭킹…")
+        log(f"· {inv} 누적/일별 랭킹…")
         cum[k] = ranking(D, inv, LOOKBACK_DAYS)
-        log(f"· {inv} 일별 랭킹 (오늘/D-1/D-2)…")
         daily[k] = {d: ranking(d, inv, 0) for d in (D, D1, D2)}
     if not cum["inst"]:
         log("[!] 데이터가 비었습니다. 장 마감 후(18시 이후) 다시 실행하세요.")
         return
 
-    # 수익률 전종목 일괄 (1일/1주/1개월)
-    log("· 수익률 일괄 조회…")
+    # 시총 + 기간별 순매수(시총대비 비율용)
+    log("· 시가총액 + 기간 순매수(I/F 비율용)…")
+    caps = cap_map(D)
+    win = {
+        "i5": net_window(bdays[4], D, INVESTORS["inst"]),
+        "i20": net_window(bdays[19], D, INVESTORS["inst"]),
+        "f5": net_window(bdays[4], D, INVESTORS["frgn"]),
+        "f20": net_window(bdays[19], D, INVESTORS["frgn"]),
+    }
+    net1 = {k: {t: v["net"] for t, v in daily[k][D].items()} for k in INVESTORS}  # 당일
+
+    def ratio(net, tkr):
+        c = caps.get(tkr)
+        return round(net / c * 100, 2) if c else 0.0
+
+    # 수익률(전종목 일괄)
+    log("· 수익률 일괄…")
     r1m = price_change_map(bdays[1], D)
     r5m = price_change_map(bdays[5], D)
     r20m = price_change_map(bdays[20], D)
@@ -177,7 +213,7 @@ def main():
     pool = set()
     for k in INVESTORS:
         pool |= {t for t, _ in sorted(cum[k].items(), key=lambda kv: kv[1]["rank"])[:STREAK_TOP]}
-    log(f"· 연속 순매수일 계산 ({len(pool)}종목)…")
+    log(f"· 연속 순매수일 ({len(pool)}종목)…")
     streaks = {}
     for tkr in pool:
         tv = daily_net(tkr, D)
@@ -195,15 +231,22 @@ def main():
                 (istk, i30), (fstk, f30) = streaks[tkr]
             else:
                 istk = i30 = fstk = f30 = None
+            net_today = net1[key].get(tkr, 0)            # 당일 순매수(주체별)
             rows.append([
                 rank, info["name"], secmap.get(tkr, ""),
-                round(info["net"] / 1_000_000),
+                round(net_today / 1_000_000),            # 당일 순매수(백만원)
                 daily[key][D].get(tkr, {}).get("bucket", MAX_BUCKET),
                 daily[key][D1].get(tkr, {}).get("bucket", MAX_BUCKET),
                 daily[key][D2].get(tkr, {}).get("bucket", MAX_BUCKET),
                 round(rank / n * 100, 1),
                 r1m.get(tkr, 0.0), r5m.get(tkr, 0.0), r20m.get(tkr, 0.0),
                 istk, i30, fstk, f30,
+                ratio(net1["inst"].get(tkr, 0), tkr),    # I1
+                ratio(win["i5"].get(tkr, 0), tkr),       # I5
+                ratio(win["i20"].get(tkr, 0), tkr),      # I20
+                ratio(net1["frgn"].get(tkr, 0), tkr),    # F1
+                ratio(win["f5"].get(tkr, 0), tkr),       # F5
+                ratio(win["f20"].get(tkr, 0), tkr),      # F20
             ])
         return rows
 

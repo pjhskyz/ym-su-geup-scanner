@@ -90,7 +90,7 @@
 
   /* ---- Table ---- */
   .table-wrap{padding:4px 18px 40px;overflow-x:auto}
-  table{width:100%;border-collapse:collapse;min-width:840px}
+  table{width:100%;border-collapse:collapse;min-width:1200px}
   thead th{position:sticky;top:0;background:var(--bg2);color:var(--txt-faint);font-weight:500;font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;text-align:right;padding:9px 10px;border-bottom:1px solid var(--line2);white-space:nowrap;cursor:pointer;user-select:none;z-index:10}
   thead th.l{text-align:left}
   thead th.c{text-align:center}
@@ -129,6 +129,9 @@
   .stk{font-size:11px;color:var(--txt-faint)}
   .stk.pos{color:var(--up)}
   .stk.hot{color:var(--gold);font-weight:600}
+  .hm{font-size:10.5px;min-width:48px}
+  .hm-h{min-width:48px}
+  thead th.hm-h:first-of-type{border-left:1px solid var(--line2)}
   .ret.up{color:var(--up)}
   .ret.down{color:var(--down)}
   .ret.flat{color:var(--txt-faint)}
@@ -215,13 +218,19 @@
           <th class="c" style="cursor:default"></th>
           <th class="c" data-sort="rank">순위</th>
           <th class="l" data-sort="name">종목 <span class="sub">종목명 / 업종</span></th>
-          <th data-sort="net">기관순매수 <span class="sub">백만원</span></th>
+          <th data-sort="net">순매수 <span class="sub">당일·백만원</span></th>
           <th class="c" data-sort="jump">분석기간순위 <span class="sub">D-2 → D-1 → 오늘</span></th>
           <th data-sort="pct">백분위 <span class="sub">상위 %</span></th>
           <th class="c" data-sort="streak">연속 <span class="sub">순매수일</span></th>
           <th data-sort="r1">1일 <span class="sub">%</span></th>
           <th data-sort="r5">1주 <span class="sub">%</span></th>
           <th data-sort="r20">1개월 <span class="sub">%</span></th>
+          <th class="c hm-h" data-sort="i1">I1 <span class="sub">기관1일</span></th>
+          <th class="c hm-h" data-sort="i5">I5 <span class="sub">기관5일</span></th>
+          <th class="c hm-h" data-sort="i20">I20 <span class="sub">기관20일</span></th>
+          <th class="c hm-h" data-sort="f1">F1 <span class="sub">외인1일</span></th>
+          <th class="c hm-h" data-sort="f5">F5 <span class="sub">외인5일</span></th>
+          <th class="c hm-h" data-sort="f20">F20 <span class="sub">외인20일</span></th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
@@ -346,7 +355,7 @@ const RAW = [
 [100,"링크제니시스","소프트웨어",1,7,2,236,2.8,-4.1,-11.4,-8.3],
 ];
 
-const KEYS=["rank","name","sector","net","today","d1","d2","pct","r1","r5","r20","istk","i30","fstk","f30"];
+const KEYS=["rank","name","sector","net","today","d1","d2","pct","r1","r5","r20","istk","i30","fstk","f30","i1","i5","i20","f1","f5","f20"];
 let favSet=new Set();
 function mapRows(arr){return arr.map(r=>{const o={};KEYS.forEach((k,i)=>o[k]=r[i]);o.jump=o.d2-o.today;o.fav=favSet.has(o.name);return o;});}
 let STORE={inst:RAW, frgn:[]};   // 라이브 JSON 로드 시 교체됨
@@ -416,7 +425,7 @@ function render(){
     const msg=(investor==="frgn"&&!STORE.frgn.length)
       ?"외국인 누적순위는 빌더가 함께 생성합니다 — scanner_data.json 연동 시 표시됩니다."
       :"조건에 맞는 종목이 없습니다";
-    tb.innerHTML=`<tr><td colspan="10" class="empty">${msg}</td></tr>`;return;
+    tb.innerHTML=`<tr><td colspan="16" class="empty">${msg}</td></tr>`;return;
   }
   const d=all.slice(0,RENDER_LIMIT);
   tb.innerHTML=d.map((x,i)=>{
@@ -433,8 +442,9 @@ function render(){
       <td class="ret ${retClass(x.r1)}">${sign(x.r1)}${x.r1.toFixed(1)}</td>
       <td class="ret ${retClass(x.r5)}">${sign(x.r5)}${x.r5.toFixed(1)}</td>
       <td class="ret ${retClass(x.r20)}">${sign(x.r20)}${x.r20.toFixed(1)}</td>
+      ${heat(x.i1)}${heat(x.i5)}${heat(x.i20)}${heat(x.f1)}${heat(x.f5)}${heat(x.f20)}
     </tr>`;
-  }).join("")+(all.length>d.length?`<tr><td colspan="10" class="empty">전체 ${all.length}개 중 상위 ${d.length} 표시 — 검색·업종 필터로 좁혀보세요</td></tr>`:"");
+  }).join("")+(all.length>d.length?`<tr><td colspan="16" class="empty">전체 ${all.length}개 중 상위 ${d.length} 표시 — 검색·업종 필터로 좁혀보세요</td></tr>`:"");
   tb.querySelectorAll(".star-cell").forEach(el=>el.onclick=e=>{e.stopPropagation();const nm=DATA[+el.dataset.star].name;if(favSet.has(nm))favSet.delete(nm);else favSet.add(nm);DATA.forEach(z=>z.fav=favSet.has(z.name));buildChips();render();});
   tb.querySelectorAll("tr[data-i]").forEach(tr=>tr.onclick=()=>openModal(DATA[+tr.dataset.i]));
 }
@@ -442,6 +452,13 @@ function stkCell(x){
   if(x.streak==null)return '<span class="stk">·</span>';
   const c=x.streak>=5?'hot':x.streak>0?'pos':'';
   return `<span class="stk ${c}">${x.streak}일</span>`;
+}
+function heat(v){
+  if(v==null)return '<td class="c hm"></td>';
+  const a=Math.min(Math.abs(v)/3,1);
+  const bg=v>0?`rgba(255,77,77,${(a*0.55).toFixed(2)})`:v<0?`rgba(61,139,255,${(a*0.55).toFixed(2)})`:'transparent';
+  const tc=v>0?'var(--up)':v<0?'var(--down)':'var(--txt-faint)';
+  return `<td class="c hm" style="background:${bg};color:${tc}">${v>0?'+':''}${v.toFixed(1)}</td>`;
 }
 
 function renderStats(){
@@ -518,8 +535,8 @@ document.querySelectorAll("th[data-sort]").forEach(th=>th.onclick=()=>{
 document.getElementById("search").oninput=e=>{q=e.target.value.trim();render();};
 document.getElementById("jumpOnly").onchange=e=>{jumpOnly=e.target.checked;render();};
 document.getElementById("csv").onclick=()=>{
-  const head=["순위","종목명","업종","순매수(백만원)","오늘순위","D-1","D-2","점프","백분위%","연속순매수일","30일순매수일","1일%","1주%","1개월%"];
-  const rows=filtered().map(d=>[d.rank,d.name,d.sector,d.net,d.today,d.d1,d.d2,d.jump,d.pct,(d.streak??""),(d.cnt30??""),d.r1,d.r5,d.r20]);
+  const head=["순위","종목명","업종","순매수당일(백만원)","오늘순위","D-1","D-2","점프","백분위%","연속순매수일","30일순매수일","1일%","1주%","1개월%","I1","I5","I20","F1","F5","F20"];
+  const rows=filtered().map(d=>[d.rank,d.name,d.sector,d.net,d.today,d.d1,d.d2,d.jump,d.pct,(d.streak??""),(d.cnt30??""),d.r1,d.r5,d.r20,(d.i1??""),(d.i5??""),(d.i20??""),(d.f1??""),(d.f5??""),(d.f20??"")]);
   const csv="\uFEFF"+[head,...rows].map(r=>r.map(c=>`"${c}"`).join(",")).join("\n");
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
   a.download=(investor==="inst"?"기관":"외국인")+"수급_2026-06-02.csv";a.click();
