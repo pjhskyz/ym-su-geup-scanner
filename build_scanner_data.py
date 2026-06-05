@@ -4,8 +4,7 @@
 기관/외국인 수급 스캐너 — 데이터 빌더 (전종목)
 =========================================================
 컬럼 구성
-  - 순위/백분위        : [기준일-LOOKBACK, 기준일] '누적' 순매수 순위(1년 맥락)
-  - 분석기간순위 시계열 : 각 일자의 '일별' 순위(오늘/D-1/D-2) → 점프 포착
+  - 순위 시계열         : 각 일자의 '일별' 순매수 금액 순위(오늘/D-1/D-2) → 점프 포착
   - 순매수(메인 금액)   : '당일(D)' 순매수 거래대금 (주체별, 백만원)
   - I1/I5/I20          : 기관 1/5/20영업일 누적 순매수 ÷ 시가총액 × 100 (%)
   - F1/F5/F20          : 외국인 1/5/20영업일 누적 순매수 ÷ 시가총액 × 100 (%)
@@ -178,13 +177,12 @@ def main():
     D, D1, D2 = bdays[0], bdays[1], bdays[2]
     log("기준일:", [D, D1, D2])
 
-    # 누적(순위) + 일별(시계열·당일금액)
-    cum, daily = {}, {}
+    # 일별 랭킹(시계열·당일금액)
+    daily = {}
     for k, inv in INVESTORS.items():
-        log(f"· {inv} 누적/일별 랭킹…")
-        cum[k] = ranking(D, inv, LOOKBACK_DAYS)
+        log(f"· {inv} 일별 랭킹…")
         daily[k] = {d: ranking(d, inv, 0) for d in (D, D1, D2)}
-    if not cum["inst"]:
+    if not daily["inst"][D]:
         log("[!] 데이터가 비었습니다. 장 마감 후(18시 이후) 다시 실행하세요.")
         return
 
@@ -212,7 +210,7 @@ def main():
     # 연속 순매수일: 주체별 상위 STREAK_TOP 합집합만
     pool = set()
     for k in INVESTORS:
-        pool |= {t for t, _ in sorted(cum[k].items(), key=lambda kv: kv[1]["rank"])[:STREAK_TOP]}
+        pool |= {t for t, _ in sorted(net1[k].items(), key=lambda kv: abs(kv[1]), reverse=True)[:STREAK_TOP]}
     log(f"· 연속 순매수일 ({len(pool)}종목)…")
     streaks = {}
     for tkr in pool:
@@ -221,36 +219,39 @@ def main():
 
     secmap = sector_map()
 
-    def build_rows(key: str) -> list:
-        rall = cum[key]
-        n = len(rall)
+    def merged_rows() -> list:
+        tickers = set(daily["inst"][D]) | set(daily["frgn"][D])
         rows = []
-        for rank, (tkr, info) in enumerate(
-                sorted(rall.items(), key=lambda kv: kv[1]["rank"]), start=1):
+        for tkr in tickers:
+            di, df = daily["inst"][D].get(tkr), daily["frgn"][D].get(tkr)
+            name = (di or df)["name"]
             if tkr in streaks:
                 (istk, i30), (fstk, f30) = streaks[tkr]
             else:
                 istk = i30 = fstk = f30 = None
-            net_today = net1[key].get(tkr, 0)            # 당일 순매수(주체별)
             rows.append([
-                rank, info["name"], secmap.get(tkr, ""),
-                round(net_today / 1_000_000),            # 당일 순매수(백만원)
-                daily[key][D].get(tkr, {}).get("bucket", MAX_BUCKET),
-                daily[key][D1].get(tkr, {}).get("bucket", MAX_BUCKET),
-                daily[key][D2].get(tkr, {}).get("bucket", MAX_BUCKET),
-                round(rank / n * 100, 1),
-                r1m.get(tkr, 0.0), r5m.get(tkr, 0.0), r20m.get(tkr, 0.0),
+                name, secmap.get(tkr, ""),
+                round(net1["inst"].get(tkr, 0) / 1_000_000),          # 기관 당일순매수
+                daily["inst"][D].get(tkr, {}).get("bucket", MAX_BUCKET),
+                daily["inst"][D1].get(tkr, {}).get("bucket", MAX_BUCKET),
+                daily["inst"][D2].get(tkr, {}).get("bucket", MAX_BUCKET),
+                round(net1["frgn"].get(tkr, 0) / 1_000_000),          # 외국인 당일순매수
+                daily["frgn"][D].get(tkr, {}).get("bucket", MAX_BUCKET),
+                daily["frgn"][D1].get(tkr, {}).get("bucket", MAX_BUCKET),
+                daily["frgn"][D2].get(tkr, {}).get("bucket", MAX_BUCKET),
                 istk, i30, fstk, f30,
-                ratio(net1["inst"].get(tkr, 0), tkr),    # I1
-                ratio(win["i5"].get(tkr, 0), tkr),       # I5
-                ratio(win["i20"].get(tkr, 0), tkr),      # I20
-                ratio(net1["frgn"].get(tkr, 0), tkr),    # F1
-                ratio(win["f5"].get(tkr, 0), tkr),       # F5
-                ratio(win["f20"].get(tkr, 0), tkr),      # F20
+                ratio(net1["inst"].get(tkr, 0), tkr),                 # I1
+                ratio(win["i5"].get(tkr, 0), tkr),                    # I5
+                ratio(win["i20"].get(tkr, 0), tkr),                   # I20
+                ratio(net1["frgn"].get(tkr, 0), tkr),                 # F1
+                ratio(win["f5"].get(tkr, 0), tkr),                    # F5
+                ratio(win["f20"].get(tkr, 0), tkr),                   # F20
+                r1m.get(tkr, 0.0), r5m.get(tkr, 0.0), r20m.get(tkr, 0.0),
             ])
+        rows.sort(key=lambda r: r[2], reverse=True)   # 기관 당일순매수 desc
         return rows
 
-    out = {"asof": D, "inst": build_rows("inst"), "frgn": build_rows("frgn")}
+    out = {"asof": D, "rows": merged_rows()}
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     log(f"\n✓ 기관 {len(out['inst'])} · 외국인 {len(out['frgn'])}종목(전종목) → {OUT_PATH}")

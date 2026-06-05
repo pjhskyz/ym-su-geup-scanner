@@ -91,7 +91,7 @@
   /* ---- Table ---- */
   .table-wrap{padding:4px 18px 40px;overflow-x:auto}
   table{width:100%;border-collapse:collapse;min-width:1200px}
-  thead th{position:sticky;top:0;background:var(--bg2);color:var(--txt-faint);font-weight:500;font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;text-align:right;padding:9px 10px;border-bottom:1px solid var(--line2);white-space:nowrap;cursor:pointer;user-select:none;z-index:10}
+  thead th{position:sticky;top:0;background:var(--bg2);color:var(--txt-faint);font-weight:500;font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;text-align:right;padding:6px 10px;border-bottom:1px solid var(--line2);white-space:nowrap;cursor:pointer;user-select:none;z-index:10}
   thead th.l{text-align:left}
   thead th.c{text-align:center}
   thead th:hover{color:var(--txt-dim)}
@@ -102,14 +102,14 @@
   tbody tr:hover{background:var(--panel)}
   tbody tr.jump{background:linear-gradient(90deg,var(--gold-dim),transparent 60%)}
   tbody tr.jump:hover{background:linear-gradient(90deg,rgba(255,176,32,.22),var(--panel) 70%)}
-  td{padding:8px 10px;text-align:right;font-family:var(--mono);font-size:12px;white-space:nowrap;vertical-align:middle}
+  td{padding:4px 10px;text-align:right;font-family:var(--mono);font-size:12px;white-space:nowrap;vertical-align:middle}
   td.l{text-align:left;font-family:var(--sans)}
   td.c{text-align:center}
   .rk{color:var(--txt-faint);font-size:11px}
   .star-cell{cursor:pointer;font-size:14px;color:var(--line2);width:20px}
   .star-cell.on{color:var(--gold)}
-  .nm{font-weight:600;color:#fff;font-size:13px;letter-spacing:-.2px}
-  .sec{color:var(--txt-faint);font-size:10.5px;margin-top:1px}
+  .nm{font-weight:600;color:#fff;font-size:12.5px;letter-spacing:-.2px;line-height:1.15}
+  .sec{color:var(--txt-faint);font-size:10px;margin-top:0;line-height:1.1}
   .sec.semi{color:var(--accent)}
   .net-cell{position:relative}
   .net-bar{position:absolute;left:0;top:50%;transform:translateY(-50%);height:18px;background:var(--up-bg);border-radius:3px;z-index:0}
@@ -189,17 +189,8 @@
 <div id="view-su">
   <div class="controls">
     <div class="title-block">
-      <h1 id="rankTitle">기관 매수 시계열 순위</h1>
+      <h1 id="rankTitle">기관·외국인 수급 순위</h1>
       <span class="basis">기준일 2026-06-02</span>
-    </div>
-    <div class="seg" id="investor">
-      <button class="on" data-inv="inst">기관</button>
-      <button data-inv="frgn">외국인</button>
-    </div>
-    <div class="seg" id="period">
-      <button class="on" data-p="1">분석기간 1년</button>
-      <button data-p="2" disabled>2년</button>
-      <button data-p="3" disabled>3년</button>
     </div>
     <span class="spacer"></span>
     <input class="search" id="search" placeholder="종목·업종 검색">
@@ -216,21 +207,21 @@
       <thead>
         <tr>
           <th class="c" style="cursor:default"></th>
-          <th class="c" data-sort="rank">순위</th>
           <th class="l" data-sort="name">종목 <span class="sub">종목명 / 업종</span></th>
-          <th data-sort="net">순매수 <span class="sub">당일·백만원</span></th>
-          <th class="c" data-sort="jump">분석기간순위 <span class="sub">D-2 → D-1 → 오늘</span></th>
-          <th data-sort="pct">백분위 <span class="sub">상위 %</span></th>
-          <th class="c" data-sort="streak">연속 <span class="sub">순매수일</span></th>
-          <th data-sort="r1">1일 <span class="sub">%</span></th>
-          <th data-sort="r5">1주 <span class="sub">%</span></th>
-          <th data-sort="r20">1개월 <span class="sub">%</span></th>
+          <th data-sort="neti">기관 순매수 <span class="sub">당일·백만</span></th>
+          <th class="c" data-sort="iJump">기관 순위 <span class="sub">D-2 → 오늘</span></th>
+          <th data-sort="netf">외인 순매수 <span class="sub">당일·백만</span></th>
+          <th class="c" data-sort="fJump">외인 순위 <span class="sub">D-2 → 오늘</span></th>
           <th class="c hm-h" data-sort="i1">I1 <span class="sub">기관1일</span></th>
           <th class="c hm-h" data-sort="i5">I5 <span class="sub">기관5일</span></th>
           <th class="c hm-h" data-sort="i20">I20 <span class="sub">기관20일</span></th>
           <th class="c hm-h" data-sort="f1">F1 <span class="sub">외인1일</span></th>
           <th class="c hm-h" data-sort="f5">F5 <span class="sub">외인5일</span></th>
           <th class="c hm-h" data-sort="f20">F20 <span class="sub">외인20일</span></th>
+          <th class="c" data-sort="istk">연속 <span class="sub">기/외</span></th>
+          <th data-sort="r1">1일 <span class="sub">%</span></th>
+          <th data-sort="r5">1주 <span class="sub">%</span></th>
+          <th data-sort="r20">1개월 <span class="sub">%</span></th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
@@ -355,22 +346,17 @@ const RAW = [
 [100,"링크제니시스","소프트웨어",1,7,2,236,2.8,-4.1,-11.4,-8.3],
 ];
 
-const KEYS=["rank","name","sector","net","today","d1","d2","pct","r1","r5","r20","istk","i30","fstk","f30","i1","i5","i20","f1","f5","f20"];
+const KEYS=["name","sector","neti","it","id1","id2","netf","ft","fd1","fd2","istk","i30","fstk","f30","i1","i5","i20","f1","f5","f20","r1","r5","r20"];
 let favSet=new Set();
-function mapRows(arr){return arr.map(r=>{const o={};KEYS.forEach((k,i)=>o[k]=r[i]);o.jump=o.d2-o.today;o.fav=favSet.has(o.name);return o;});}
-let STORE={inst:RAW, frgn:[]};   // 라이브 JSON 로드 시 교체됨
-let investor="inst";
-let DATA=mapRows(STORE.inst);
-function applyInvestorFields(){DATA.forEach(d=>{d.streak=(investor==="inst"?d.istk:d.fstk);d.cnt30=(investor==="inst"?d.i30:d.f30);});}
-applyInvestorFields();
+function mapRows(arr){return arr.map(r=>{const o={};KEYS.forEach((k,i)=>o[k]=r[i]);o.iJump=(o.id2!=null&&o.it!=null)?o.id2-o.it:null;o.fJump=(o.fd2!=null&&o.ft!=null)?o.fd2-o.ft:null;o.fav=favSet.has(o.name);return o;});}
+// 기존 기관 시드(11필드)를 통합 구조로 변환 — 외국인/연속/IF는 라이브에서 채워짐
+let STORE=RAW.map(r=>[r[1],r[2], r[3],r[4],r[5],r[6], null,null,null,null, null,null,null,null, null,null,null,null,null,null, r[8],r[9],r[10]]);
+let DATA=mapRows(STORE);
 
 // 로이 유니버스 (강조 섹터)
 const SEMI=new Set(["반도체","IT하드웨어","디스플레이","IT가전"]);
-let maxNet, logMax;
-function recomputeScale(){const nets=DATA.map(d=>d.net);maxNet=nets.length?Math.max(...nets):0;logMax=Math.log10(maxNet+1)||1;}
-recomputeScale();
 
-let sort={key:"rank",dir:1}, q="", sectorFilter=null, jumpOnly=false, favOnly=false, tab="su";
+let sort={key:"neti",dir:-1}, q="", sectorFilter=null, jumpOnly=false, favOnly=false, tab="su";
 
 const fmt=n=>n.toLocaleString("ko-KR");
 const sign=n=>n>0?"+":"";
@@ -396,7 +382,7 @@ function filtered(){
   if(q){const lq=q.toLowerCase();d=d.filter(x=>x.name.toLowerCase().includes(lq)||x.sector.includes(q));}
   if(sectorFilter==='__semi')d=d.filter(x=>SEMI.has(x.sector));
   else if(sectorFilter)d=d.filter(x=>x.sector===sectorFilter);
-  if(jumpOnly)d=d.filter(x=>x.jump>=150);
+  if(jumpOnly)d=d.filter(x=>(x.iJump!=null&&x.iJump>=150)||(x.fJump!=null&&x.fJump>=150));
   if(favOnly)d=d.filter(x=>x.fav);
   const {key,dir}=sort;
   d.sort((a,b)=>{
@@ -407,51 +393,53 @@ function filtered(){
   return d;
 }
 
-function tlHtml(d){
-  const ar=(from,to)=>{if(to<from)return '<span class="ar u">▲</span>';if(to>from)return '<span class="ar d">▼</span>';return '<span class="pt">·</span>';};
-  return `<span class="tl"><span class="pt">${d.d2}</span>${ar(d.d2,d.d1)}<span class="pt">${d.d1}</span>${ar(d.d1,d.today)}<span class="pt now">${d.today}</span></span>`;
+function tl(d2,d1,now){
+  if(now==null)return '<span class="pt">·</span>';
+  const ar=(f,t)=>t<f?'<span class="ar u">▲</span>':t>f?'<span class="ar d">▼</span>':'<span class="pt">·</span>';
+  return `<span class="tl"><span class="pt">${d2}</span>${ar(d2,d1)}<span class="pt">${d1}</span>${ar(d1,now)}<span class="pt now">${now}</span></span>`;
 }
-function badge(d){
-  if(d.jump>=200)return `<span class="badge hot">🔥 ${sign(d.jump)}${d.jump}</span>`;
-  if(d.jump>=150)return `<span class="badge up">▲ ${sign(d.jump)}${d.jump}</span>`;
+function badge(j){
+  if(j==null)return"";
+  if(j>=200)return `<span class="badge hot">🔥${j>0?'+':''}${j}</span>`;
+  if(j>=150)return `<span class="badge up">▲${j>0?'+':''}${j}</span>`;
   return "";
+}
+function netTxt(v){
+  if(v==null)return '<span class="pt">·</span>';
+  const c=v>0?'var(--up)':v<0?'var(--down)':'var(--txt-faint)';
+  return `<span style="color:${c}">${v>0?'+':''}${fmt(v)}</span>`;
 }
 
 const RENDER_LIMIT=400;
 function render(){
   const all=filtered();
   const tb=document.getElementById("tbody");
-  if(!all.length){
-    const msg=(investor==="frgn"&&!STORE.frgn.length)
-      ?"외국인 누적순위는 빌더가 함께 생성합니다 — scanner_data.json 연동 시 표시됩니다."
-      :"조건에 맞는 종목이 없습니다";
-    tb.innerHTML=`<tr><td colspan="16" class="empty">${msg}</td></tr>`;return;
-  }
+  if(!all.length){tb.innerHTML=`<tr><td colspan="16" class="empty">조건에 맞는 종목이 없습니다</td></tr>`;return;}
   const d=all.slice(0,RENDER_LIMIT);
   tb.innerHTML=d.map((x,i)=>{
-    const barW=(Math.log10(x.net+1)/logMax*100).toFixed(1);
-    const isJump=x.jump>=150;
+    const isJump=(x.iJump!=null&&x.iJump>=150)||(x.fJump!=null&&x.fJump>=150);
     return `<tr class="${isJump?'jump':''}" data-i="${DATA.indexOf(x)}" style="animation-delay:${Math.min(i*12,400)}ms">
       <td class="star-cell ${x.fav?'on':''}" data-star="${DATA.indexOf(x)}">${x.fav?'★':'☆'}</td>
-      <td class="c rk">${x.rank}</td>
       <td class="l"><div class="nm">${x.name}</div><div class="sec ${SEMI.has(x.sector)?'semi':''}">${x.sector}</div></td>
-      <td class="net-cell"><span class="net-bar" style="width:${barW}%"></span><span class="net-val ${x.net===0?'zero':''}">${fmt(x.net)}</span></td>
-      <td class="c">${tlHtml(x)}${badge(x)}</td>
-      <td class="pct">${x.pct.toFixed(1)}%</td>
-      <td class="c">${stkCell(x)}</td>
-      <td class="ret ${retClass(x.r1)}">${sign(x.r1)}${x.r1.toFixed(1)}</td>
-      <td class="ret ${retClass(x.r5)}">${sign(x.r5)}${x.r5.toFixed(1)}</td>
-      <td class="ret ${retClass(x.r20)}">${sign(x.r20)}${x.r20.toFixed(1)}</td>
+      <td class="net-cell">${netTxt(x.neti)}</td>
+      <td class="c">${tl(x.id2,x.id1,x.it)}${badge(x.iJump)}</td>
+      <td class="net-cell">${netTxt(x.netf)}</td>
+      <td class="c">${tl(x.fd2,x.fd1,x.ft)}${badge(x.fJump)}</td>
       ${heat(x.i1)}${heat(x.i5)}${heat(x.i20)}${heat(x.f1)}${heat(x.f5)}${heat(x.f20)}
+      <td class="c">${stk2(x)}</td>
+      <td class="ret ${retClass(x.r1)}">${sign(x.r1)}${(x.r1??0).toFixed(1)}</td>
+      <td class="ret ${retClass(x.r5)}">${sign(x.r5)}${(x.r5??0).toFixed(1)}</td>
+      <td class="ret ${retClass(x.r20)}">${sign(x.r20)}${(x.r20??0).toFixed(1)}</td>
     </tr>`;
   }).join("")+(all.length>d.length?`<tr><td colspan="16" class="empty">전체 ${all.length}개 중 상위 ${d.length} 표시 — 검색·업종 필터로 좁혀보세요</td></tr>`:"");
   tb.querySelectorAll(".star-cell").forEach(el=>el.onclick=e=>{e.stopPropagation();const nm=DATA[+el.dataset.star].name;if(favSet.has(nm))favSet.delete(nm);else favSet.add(nm);DATA.forEach(z=>z.fav=favSet.has(z.name));buildChips();render();});
   tb.querySelectorAll("tr[data-i]").forEach(tr=>tr.onclick=()=>openModal(DATA[+tr.dataset.i]));
 }
-function stkCell(x){
-  if(x.streak==null)return '<span class="stk">·</span>';
-  const c=x.streak>=5?'hot':x.streak>0?'pos':'';
-  return `<span class="stk ${c}">${x.streak}일</span>`;
+function stk2(x){
+  if(x.istk==null&&x.fstk==null)return '<span class="stk">·</span>';
+  const i=x.istk??0,f=x.fstk??0;
+  const ic=i>=5?'hot':i>0?'pos':'',fc=f>=5?'hot':f>0?'pos':'';
+  return `<span class="stk ${ic}">기${i}</span> <span class="stk ${fc}">외${f}</span>`;
 }
 function heat(v){
   if(v==null)return '<td class="c hm"></td>';
@@ -462,60 +450,62 @@ function heat(v){
 }
 
 function renderStats(){
-  const hot=DATA.filter(d=>d.jump>=200).length;
-  const up=DATA.filter(d=>d.jump>=150).length;
+  const up=DATA.filter(d=>(d.iJump!=null&&d.iJump>=150)||(d.fJump!=null&&d.fJump>=150)).length;
+  const nets=DATA.map(d=>d.neti).filter(v=>v!=null);
+  const mx=nets.length?Math.max(...nets):0;
   document.getElementById("stats").innerHTML=`
     <div class="stat"><div class="k">대상 종목</div><div class="v">${DATA.length}</div></div>
     <div class="stat"><div class="k">순위 급상승 (▲150+)</div><div class="v gold">${up}</div></div>
-    <div class="stat"><div class="k">신규 폭증 (🔥200+)</div><div class="v gold">${hot}</div></div>
-    <div class="stat"><div class="k">최대 순매수</div><div class="v up">${fmt(maxNet)}</div></div>`;
+    <div class="stat"><div class="k">기관 최대 순매수(당일)</div><div class="v up">${fmt(mx)}</div></div>`;
 }
 
 function openModal(d){
-  const pend='<span class="pend">상세 API 연동 시</span>';
-  const stkTxt=(s,c)=>(s==null)?'<span class="pend">라이브 연동 시</span>':`${s}일 연속 · 30일 중 ${c}일`;
+  const pend='<span class="pend">추후 연동</span>';
+  const stkTxt=(s,c)=>(s==null)?'<span class="pend">—</span>':`${s}일 연속 · 30일 중 ${c}일`;
+  const tlbig=(d2,d1,now)=> now==null?'<div style="padding:6px 0"><span class="pend">—</span></div>':`
+    <div class="tl-big">
+      <div class="col"><div class="d">D-2</div><div class="r">${d2}</div></div><span class="sep">→</span>
+      <div class="col"><div class="d">D-1</div><div class="r">${d1}</div></div><span class="sep">→</span>
+      <div class="col"><div class="d">오늘</div><div class="r now">${now}</div></div>
+    </div>`;
+  const rt=(v)=>`<span class="ret ${retClass(v)}">${sign(v)}${(v??0).toFixed(1)}%</span>`;
+  const if3=(a,b,c)=>`${a==null?'—':a} / ${b==null?'—':b} / ${c==null?'—':c}`;
   document.getElementById("modal").innerHTML=`
     <div class="modal-h">
-      <div><div class="nm2">${d.name}</div><div class="meta">${d.sector} · 누적순위 ${d.rank}위 · 상위 ${d.pct.toFixed(1)}%</div></div>
+      <div><div class="nm2">${d.name}</div><div class="meta">${d.sector}</div></div>
       <button class="x" id="x">×</button>
     </div>
     <div class="mgrid">
-      <div class="mcard full">
-        <div class="ck">기관순매수 시계열 순위 (1년)</div>
-        <div class="tl-big">
-          <div class="col"><div class="d">D-2</div><div class="r">${d.d2}</div></div><span class="sep">→</span>
-          <div class="col"><div class="d">D-1</div><div class="r">${d.d1}</div></div><span class="sep">→</span>
-          <div class="col"><div class="d">오늘</div><div class="r now">${d.today}</div></div>
-        </div>
-      </div>
+      <div class="mcard"><div class="ck">기관 순위 시계열 (일별)</div>${tlbig(d.id2,d.id1,d.it)}</div>
+      <div class="mcard"><div class="ck">외국인 순위 시계열 (일별)</div>${tlbig(d.fd2,d.fd1,d.ft)}</div>
       <div class="mcard">
-        <div class="ck">수급</div>
-        <div class="mrow"><span class="lbl">기관순매수</span><span class="net-val">${fmt(d.net)} 백만</span></div>
-        <div class="mrow"><span class="lbl">순위 점프 (D-2→오늘)</span><span style="color:${d.jump>0?'var(--up)':'var(--down)'}">${sign(d.jump)}${d.jump}</span></div>
-      </div>
-      <div class="mcard">
-        <div class="ck">수익률</div>
-        <div class="mrow"><span class="lbl">1일</span><span class="ret ${retClass(d.r1)}">${sign(d.r1)}${d.r1.toFixed(1)}%</span></div>
-        <div class="mrow"><span class="lbl">1주</span><span class="ret ${retClass(d.r5)}">${sign(d.r5)}${d.r5.toFixed(1)}%</span></div>
-        <div class="mrow"><span class="lbl">1개월</span><span class="ret ${retClass(d.r20)}">${sign(d.r20)}${d.r20.toFixed(1)}%</span></div>
-      </div>
-      <div class="mcard">
-        <div class="ck">평균매수단가</div>
-        <div class="mrow"><span class="lbl">기관 5일</span>${pend}</div>
-        <div class="mrow"><span class="lbl">기관 20일</span>${pend}</div>
+        <div class="ck">당일 순매수 (백만)</div>
+        <div class="mrow"><span class="lbl">기관</span><span>${d.neti!=null?fmt(d.neti):'—'}</span></div>
+        <div class="mrow"><span class="lbl">외국인</span><span>${d.netf!=null?fmt(d.netf):'—'}</span></div>
       </div>
       <div class="mcard">
         <div class="ck">연속 순매수</div>
         <div class="mrow"><span class="lbl">기관</span>${stkTxt(d.istk,d.i30)}</div>
         <div class="mrow"><span class="lbl">외국인</span>${stkTxt(d.fstk,d.f30)}</div>
       </div>
+      <div class="mcard">
+        <div class="ck">시총대비 순매수 · 기관</div>
+        <div class="mrow"><span class="lbl">I1 / I5 / I20</span><span>${if3(d.i1,d.i5,d.i20)}</span></div>
+      </div>
+      <div class="mcard">
+        <div class="ck">시총대비 순매수 · 외인</div>
+        <div class="mrow"><span class="lbl">F1 / F5 / F20</span><span>${if3(d.f1,d.f5,d.f20)}</span></div>
+      </div>
+      <div class="mcard full">
+        <div class="ck">수익률</div>
+        <div class="mrow"><span class="lbl">1일 / 1주 / 1개월</span><span>${rt(d.r1)} · ${rt(d.r5)} · ${rt(d.r20)}</span></div>
+      </div>
       <div class="mcard full">
         <div class="ck">밸류에이션 (TTM)</div>
-        <div class="mrow"><span class="lbl">PER · PBR · ROE</span>${pend}</div>
-        <div class="mrow"><span class="lbl">시가총액 · 순매수 기관주체수</span>${pend}</div>
+        <div class="mrow"><span class="lbl">PER · PBR · ROE · 시가총액</span>${pend}</div>
       </div>
     </div>
-    <div class="note">실측 시드(순매수·순위 시계열·수익률)만 채워져 있고, <b>평균매수단가·연속순매수·밸류에이션</b>은 pykrx <span style="font-family:var(--mono)">get_market_fundamental_by_date</span> 등으로 연동하면 채워집니다.</div>`;
+    <div class="note">시계열·순매수·연속일·I/F·수익률은 실측, <b>평균매수단가·밸류에이션</b>은 추후 연동됩니다.</div>`;
   document.getElementById("ov").classList.add("open");
   document.getElementById("x").onclick=closeModal;
 }
@@ -526,7 +516,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
 // sort headers
 document.querySelectorAll("th[data-sort]").forEach(th=>th.onclick=()=>{
   const k=th.dataset.sort;
-  if(sort.key===k)sort.dir*=-1;else sort={key:k,dir:k==="name"?1:(k==="rank"||k==="pct"||k==="today")?1:-1};
+  if(sort.key===k)sort.dir*=-1;else sort={key:k,dir:(k==="name")?1:-1};
   document.querySelectorAll("th .arr").forEach(a=>a.remove());
   th.insertAdjacentHTML("beforeend",`<span class="arr">${sort.dir>0?'▲':'▼'}</span>`);
   render();
@@ -535,11 +525,11 @@ document.querySelectorAll("th[data-sort]").forEach(th=>th.onclick=()=>{
 document.getElementById("search").oninput=e=>{q=e.target.value.trim();render();};
 document.getElementById("jumpOnly").onchange=e=>{jumpOnly=e.target.checked;render();};
 document.getElementById("csv").onclick=()=>{
-  const head=["순위","종목명","업종","순매수당일(백만원)","오늘순위","D-1","D-2","점프","백분위%","연속순매수일","30일순매수일","1일%","1주%","1개월%","I1","I5","I20","F1","F5","F20"];
-  const rows=filtered().map(d=>[d.rank,d.name,d.sector,d.net,d.today,d.d1,d.d2,d.jump,d.pct,(d.streak??""),(d.cnt30??""),d.r1,d.r5,d.r20,(d.i1??""),(d.i5??""),(d.i20??""),(d.f1??""),(d.f5??""),(d.f20??"")]);
-  const csv="\uFEFF"+[head,...rows].map(r=>r.map(c=>`"${c}"`).join(",")).join("\n");
+  const head=["종목명","업종","기관순매수당일","기관오늘","기관D-1","기관D-2","외인순매수당일","외인오늘","외인D-1","외인D-2","기관연속","기관30일","외인연속","외인30일","I1","I5","I20","F1","F5","F20","수익1일","수익1주","수익1개월"];
+  const rows=filtered().map(d=>[d.name,d.sector,d.neti,d.it,d.id1,d.id2,d.netf,d.ft,d.fd1,d.fd2,d.istk,d.i30,d.fstk,d.f30,d.i1,d.i5,d.i20,d.f1,d.f5,d.f20,d.r1,d.r5,d.r20]);
+  const csv="\uFEFF"+[head,...rows].map(r=>r.map(c=>`"${c==null?'':c}"`).join(",")).join("\n");
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
-  a.download=(investor==="inst"?"기관":"외국인")+"수급_2026-06-02.csv";a.click();
+  a.download="기관외인수급.csv";a.click();
 };
 
 // tabs
@@ -558,24 +548,11 @@ document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
   }
 });
 
-// investor (기관/외국인 전환)
-document.querySelectorAll("#investor button").forEach(b=>b.onclick=()=>{
-  document.querySelectorAll("#investor button").forEach(x=>x.classList.remove("on"));
-  b.classList.add("on");setInvestor(b.dataset.inv);
-});
-function setInvestor(inv){
-  investor=inv;
-  DATA=mapRows(STORE[inv]);
-  applyInvestorFields();
-  document.getElementById("rankTitle").textContent=(inv==="inst"?"기관":"외국인")+" 매수 시계열 순위";
-  rebuild();
-}
-
 // clock
 function tick(){const d=new Date();document.getElementById("clock").textContent=d.toLocaleTimeString("ko-KR",{hour12:false});}
 setInterval(tick,1000);tick();
 
-function rebuild(){recomputeScale();buildChips();renderStats();render();}
+function rebuild(){buildChips();renderStats();render();}
 rebuild();
 
 // 라이브 데이터: GitHub Actions가 매일 갱신하는 scanner_data.json 을 읽어 시드를 덮어쓴다.
@@ -586,10 +563,9 @@ async function loadLive(){
     const res=await fetch("scanner_data.json",{cache:"no-store"});
     if(!res.ok)return;
     const j=await res.json();
-    if(j.inst||j.frgn){STORE.inst=j.inst||STORE.inst;STORE.frgn=j.frgn||[];}
-    else if(j.rows){STORE.inst=j.rows;}            // 구버전(단일 테이블) 호환
+    if(j.rows&&j.rows.length){STORE=j.rows;DATA=mapRows(STORE);}
     if(j.asof){const b=document.querySelector(".basis");if(b)b.textContent="기준일 "+fmtAsof(j.asof);}
-    setInvestor(investor);
+    rebuild();
   }catch(e){/* 시드 유지 */}
 }
 loadLive();
