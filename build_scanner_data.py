@@ -149,20 +149,37 @@ def daily_net(ticker, asof):
     return df
 
 
-# ----------------------- 업종 -----------------------
-def sector_map() -> dict:
-    if not _HAS_FDR:
-        log("[i] finance-datareader 미설치 → 업종 공란"); return {}
-    try:
-        df = fdr.StockListing("KRX-DESC")   # 업종(Sector)·산업(Industry) 포함
-        code_col = "Code" if "Code" in df.columns else "Symbol"
-        sec_col = next((c for c in ("Sector", "Industry") if c in df.columns), None)
-        if not sec_col:
-            return {}
-        return {str(r[code_col]).zfill(6): (str(r[sec_col]) if pd.notna(r[sec_col]) else "")
-                for _, r in df.iterrows()}
-    except Exception as e:
-        log("[!] 업종 보강 실패:", e); return {}
+# ----------------------- 업종 (WICS 중분류) -----------------------
+# FnGuide WICS 중분류 — 네이버·다음 증권이 쓰는 그 분류 (반도체/IT하드웨어/자동차/은행 …)
+WICS_CODES = [
+    "G1010", "G1510", "G2010", "G2020", "G2030", "G2510", "G2520", "G2530",
+    "G2550", "G2560", "G3010", "G3020", "G3030", "G3510", "G3520", "G4010",
+    "G4020", "G4030", "G4040", "G4050", "G4510", "G4520", "G4530", "G4535",
+    "G5010", "G5020", "G5510",
+]
+
+def sector_map(asof: str) -> dict:
+    import requests
+    hdr = {"User-Agent": "Mozilla/5.0"}
+    out = {}
+    for cd in WICS_CODES:
+        url = (f"https://www.wiseindex.com/Index/GetIndexComponets"
+               f"?ceil_yn=0&dt={asof}&sec_cd={cd}")
+        try:
+            j = requests.get(url, headers=hdr, timeout=20).json()
+            for it in j.get("list", []):
+                code = str(it.get("CMP_CD", "")).zfill(6)
+                nm = str(it.get("SEC_NM_KOR", "")).strip()
+                if code and nm:
+                    out[code] = nm
+        except Exception as e:
+            log(f"[!] WICS {cd} 실패: {e}")
+        time.sleep(0.3)
+    if out:
+        log(f"· WICS 업종 매핑 {len(out)}종목 / {len(set(out.values()))}개 업종")
+    else:
+        log("[i] WICS 업종 매핑 실패 → 업종 공란")
+    return out
 
 
 # ----------------------------- main -----------------------------
@@ -221,7 +238,7 @@ def main():
         tv = daily_net(tkr, D)
         streaks[tkr] = (continuity(tv, TV_COLS["inst"]), continuity(tv, TV_COLS["frgn"]))
 
-    secmap = sector_map()
+    secmap = sector_map(D)
 
     def merged_rows() -> list:
         tickers = set(daily["inst"][D]) | set(daily["frgn"][D])

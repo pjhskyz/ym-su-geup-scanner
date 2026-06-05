@@ -353,8 +353,8 @@ function mapRows(arr){return arr.map(r=>{const o={};KEYS.forEach((k,i)=>o[k]=r[i
 let STORE=RAW.map(r=>[r[1],r[2], r[3],r[4],r[5],r[6], null,null,null,null, null,null,null,null, null,null,null,null,null,null, r[8],r[9],r[10]]);
 let DATA=mapRows(STORE);
 
-// 로이 유니버스 (반도체·IT 강조) — KSIC 업종명 키워드로 매칭
-const SEMI_KW=["반도체","전자","디스플레이","표시장치","집적회로","컴퓨터","광학기기","영상"];
+// 로이 유니버스 (반도체·IT 강조) — WICS 업종명 키워드로 매칭
+const SEMI_KW=["반도체","디스플레이","하드웨어"];
 function isSemi(sec){return !!sec && SEMI_KW.some(k=>sec.includes(k));}
 
 let sort={key:"neti",dir:-1}, q="", sectorFilter=null, jumpOnly=false, favOnly=false, tab="su";
