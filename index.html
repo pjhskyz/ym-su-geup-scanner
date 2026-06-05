@@ -353,8 +353,9 @@ function mapRows(arr){return arr.map(r=>{const o={};KEYS.forEach((k,i)=>o[k]=r[i
 let STORE=RAW.map(r=>[r[1],r[2], r[3],r[4],r[5],r[6], null,null,null,null, null,null,null,null, null,null,null,null,null,null, r[8],r[9],r[10]]);
 let DATA=mapRows(STORE);
 
-// 로이 유니버스 (강조 섹터)
-const SEMI=new Set(["반도체","IT하드웨어","디스플레이","IT가전"]);
+// 로이 유니버스 (반도체·IT 강조) — KSIC 업종명 키워드로 매칭
+const SEMI_KW=["반도체","전자","디스플레이","표시장치","집적회로","컴퓨터","광학기기","영상"];
+function isSemi(sec){return !!sec && SEMI_KW.some(k=>sec.includes(k));}
 
 let sort={key:"neti",dir:-1}, q="", sectorFilter=null, jumpOnly=false, favOnly=false, tab="su";
 
@@ -363,7 +364,8 @@ const sign=n=>n>0?"+":"";
 const retClass=n=>n>0?"up":n<0?"down":"flat";
 
 function buildChips(){
-  const secs=[...new Set(DATA.map(d=>d.sector))].sort();
+  const cnt={};DATA.forEach(d=>{if(d.sector)cnt[d.sector]=(cnt[d.sector]||0)+1;});
+  const secs=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).slice(0,28).sort();
   const c=document.getElementById("chips");
   let h=`<span class="chip star ${favOnly?'on':''}" data-fav="1">★ 즐겨찾기</span>`;
   h+=`<span class="chip ${sectorFilter===null?'on':''}" data-sec="">전체</span>`;
@@ -380,7 +382,7 @@ function buildChips(){
 function filtered(){
   let d=DATA.slice();
   if(q){const lq=q.toLowerCase();d=d.filter(x=>x.name.toLowerCase().includes(lq)||x.sector.includes(q));}
-  if(sectorFilter==='__semi')d=d.filter(x=>SEMI.has(x.sector));
+  if(sectorFilter==='__semi')d=d.filter(x=>isSemi(x.sector));
   else if(sectorFilter)d=d.filter(x=>x.sector===sectorFilter);
   if(jumpOnly)d=d.filter(x=>(x.iJump!=null&&x.iJump>=150)||(x.fJump!=null&&x.fJump>=150));
   if(favOnly)d=d.filter(x=>x.fav);
@@ -420,7 +422,7 @@ function render(){
     const isJump=(x.iJump!=null&&x.iJump>=150)||(x.fJump!=null&&x.fJump>=150);
     return `<tr class="${isJump?'jump':''}" data-i="${DATA.indexOf(x)}" style="animation-delay:${Math.min(i*12,400)}ms">
       <td class="star-cell ${x.fav?'on':''}" data-star="${DATA.indexOf(x)}">${x.fav?'★':'☆'}</td>
-      <td class="l"><div class="nm">${x.name}</div><div class="sec ${SEMI.has(x.sector)?'semi':''}">${x.sector}</div></td>
+      <td class="l"><div class="nm">${x.name}</div><div class="sec ${isSemi(x.sector)?'semi':''}">${x.sector}</div></td>
       <td class="net-cell">${netTxt(x.neti)}</td>
       <td class="c">${tl(x.id2,x.id1,x.it)}${badge(x.iJump)}</td>
       <td class="net-cell">${netTxt(x.netf)}</td>

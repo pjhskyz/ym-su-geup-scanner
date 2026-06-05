@@ -154,7 +154,7 @@ def sector_map() -> dict:
     if not _HAS_FDR:
         log("[i] finance-datareader 미설치 → 업종 공란"); return {}
     try:
-        df = fdr.StockListing("KRX")
+        df = fdr.StockListing("KRX-DESC")   # 업종(Sector)·산업(Industry) 포함
         code_col = "Code" if "Code" in df.columns else "Symbol"
         sec_col = next((c for c in ("Sector", "Industry") if c in df.columns), None)
         if not sec_col:
