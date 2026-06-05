@@ -258,7 +258,7 @@ def main():
     out = {"asof": D, "rows": merged_rows()}
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
-    log(f"\n✓ 기관 {len(out['inst'])} · 외국인 {len(out['frgn'])}종목(전종목) → {OUT_PATH}")
+    log(f"\n✓ {len(out['rows'])}종목(전종목) → {OUT_PATH}")
 
 
 if __name__ == "__main__":
