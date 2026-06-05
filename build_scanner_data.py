@@ -173,7 +173,11 @@ def main():
         return
 
     asof = stock.get_nearest_business_day_in_a_week()
-    bdays = business_days(asof, 21)          # [D, D-1, ... D-20]
+    bdays = business_days(asof, 22)          # [D, D-1, ... D-21] (폴백 여유분 포함)
+    # 장중엔 당일 투자자별 데이터가 아직 없음 → 직전 영업일로 자동 폴백
+    if not ranking(bdays[0], INVESTORS["inst"], 0):
+        log(f"· {bdays[0]} 투자자 데이터 미확정(장중 추정) → 직전 영업일로 폴백")
+        bdays = bdays[1:]
     D, D1, D2 = bdays[0], bdays[1], bdays[2]
     log("기준일:", [D, D1, D2])
 
