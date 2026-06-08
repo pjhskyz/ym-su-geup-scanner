@@ -3,9 +3,11 @@ name: build-scanner-data
 # 매일 저녁(한국 장 마감·데이터 확정 후) 기관 수급 데이터를 갱신한다.
 on:
   schedule:
-    # cron은 UTC 기준. 11:00 UTC = 20:00 KST (월~금).
-    - cron: '0 11 * * 1-5'
-  workflow_dispatch:        # 수동 실행 버튼
+    # cron은 UTC 기준. GitHub 무료 스케줄러는 매시 '정각(:00)'이 가장 혼잡해
+    # 스케줄 실행이 자주 누락됨 → 비정각으로 잡고, 1차 누락에 대비해 2회 시도.
+    - cron: '17 11 * * 1-5'    # 20:17 KST (월~금)
+    - cron: '47 11 * * 1-5'    # 20:47 KST (1차 누락 시 백업)
+  workflow_dispatch:        # 액션 탭에서 수동 실행 버튼
 
 permissions:
   contents: write           # scanner_data.json 을 repo에 커밋하기 위해 필요
@@ -32,7 +34,7 @@ jobs:
 
       - name: Build scanner_data.json
         env:
-          KRX_ID: ${{ secrets.KRX_ID }}
+          KRX_ID: ${{ secrets.KRX_ID }}   # repo Settings → Secrets 에 등록
           KRX_PW: ${{ secrets.KRX_PW }}
         run: python build_scanner_data.py
 
