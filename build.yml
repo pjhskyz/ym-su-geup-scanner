@@ -1,0 +1,69 @@
+name: build-scanner-data
+
+# 매일 저녁(한국 장 마감·데이터 확정 후) 기관 수급 데이터를 갱신한다.
+on:
+  schedule:
+    # cron은 UTC 기준. GitHub 무료 스케줄러는 매시 '정각(:00)'이 가장 혼잡해
+    # 스케줄 실행이 자주 누락됨 → 비정각으로 잡고, 1차 누락에 대비해 2회 시도.
+    - cron: '17 11 * * 1-5'    # 20:17 KST (월~금)
+    - cron: '47 11 * * 1-5'    # 20:47 KST (1차 누락 시 백업)
+  workflow_dispatch:        # 액션 탭에서 수동 실행 버튼
+
+permissions:
+  contents: write           # scanner_data.json 을 repo에 커밋하기 위해 필요
+
+concurrency:
+  group: build-scanner
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pykrx finance-datareader pandas
+
+      - name: Build scanner_data.json
+        env:
+          KRX_ID: ${{ secrets.KRX_ID }}   # repo Settings → Secrets 에 등록
+          KRX_PW: ${{ secrets.KRX_PW }}
+        run: python build_scanner_data.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add scanner_data.json
+          if git diff --staged --quiet; then
+            echo "변경 없음 — 커밋 건너뜀 (휴장일 등)"
+            exit 0
+          fi
+          git commit -m "data: scanner_data.json 갱신 ($(date -u +%Y-%m-%d))"
+          # 동시 실행(18:30·20:15)이 겹쳐 push가 거부될 때 대비: 최대 5회 재시도.
+          # 거부되면 원격 최신 위에 '방금 만든 파일'을 다시 얹어 올린다(항상 최신 데이터 우선).
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "push 성공"
+              exit 0
+            fi
+            echo "push 거부됨 — 원격 최신 반영 후 재시도 ($i)"
+            git fetch origin
+            git reset --soft origin/main
+            git add scanner_data.json
+            if git diff --staged --quiet; then
+              echo "원격이 이미 동일 데이터 — 갱신 불필요"
+              exit 0
+            fi
+            git commit -m "data: scanner_data.json 갱신 ($(date -u +%Y-%m-%d))"
+          done
+          echo "push 5회 실패"
+          exit 1
