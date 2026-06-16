@@ -45,6 +45,7 @@ except Exception:
 LOOKBACK_DAYS = 365
 BUCKET_SIZE   = 0.4
 MAX_BUCKET    = int(100 / BUCKET_SIZE)
+MIN_CAP       = 50_000_000_000      # 시가총액 500억 미만 종목 제외 (스팩·초소형주 정리)
 STREAK_TOP    = 300
 STREAK_WINDOW = 30
 SLEEP         = 0.4
@@ -244,6 +245,8 @@ def main():
         tickers = set(daily["inst"][D]) | set(daily["frgn"][D])
         rows = []
         for tkr in tickers:
+            if caps.get(tkr, 0) < MIN_CAP:      # 시총 500억 미만 제외
+                continue
             di, df = daily["inst"][D].get(tkr), daily["frgn"][D].get(tkr)
             name = (di or df)["name"]
             if tkr in streaks:
