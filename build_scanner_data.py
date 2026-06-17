@@ -112,19 +112,20 @@ def cap_map(asof: str) -> dict:
     return {tkr: int(row["시가총액"]) for tkr, row in df.iterrows()}
 
 
-# ----------------------- 수익률(전종목 일괄) -----------------------
-def price_change_map(frm: str, to: str) -> dict:
+# ----------------------- 수익률(종가 기준, 전종목 일괄) -----------------------
+def close_at(date: str) -> dict:
+    """특정일 전종목 종가 {종목코드: 종가}."""
     out = {}
     for mkt in MARKETS:
         try:
-            df = stock.get_market_price_change(frm, to, mkt)
+            df = stock.get_market_ohlcv_by_ticker(date, market=mkt)
         except Exception:
             df = None
         time.sleep(SLEEP)
-        if df is not None and not df.empty and "등락률" in df.columns:
+        if df is not None and not df.empty and "종가" in df.columns:
             for tkr, row in df.iterrows():
                 try:
-                    out[tkr] = round(float(row["등락률"]), 1)
+                    out[tkr] = float(row["종가"])
                 except Exception:
                     pass
     return out
@@ -224,10 +225,19 @@ def main():
         return round(net / c * 100, 2) if c else 0.0
 
     # 수익률(전종목 일괄)
-    log("· 수익률 일괄…")
-    r1m = price_change_map(bdays[1], D)
-    r5m = price_change_map(bdays[5], D)
-    r20m = price_change_map(bdays[20], D)
+    log("· 종가 수집(수익률 = 종가 대비 종가)…")
+    cD  = close_at(D)
+    c1  = close_at(bdays[1])
+    c5  = close_at(bdays[5])
+    c20 = close_at(bdays[20])
+    def chg(base: dict) -> dict:
+        out = {}
+        for t, p in cD.items():
+            b = base.get(t)
+            if b:
+                out[t] = round((p / b - 1) * 100, 1)   # (당일종가/기준종가 - 1)
+        return out
+    r1m, r5m, r20m = chg(c1), chg(c5), chg(c20)
 
     # 연속 순매수일: 주체별 상위 STREAK_TOP 합집합만
     pool = set()
