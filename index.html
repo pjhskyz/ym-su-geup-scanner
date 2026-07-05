@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>기관 수급 스캐너</title>
+<title>YM리서치 스캐너</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -174,6 +174,16 @@
   .sw.k2{background:#5aa7e8}
   .disp-legend .thn{color:var(--txt-faint);margin-left:6px}
   .disp-canvas{position:relative;height:340px}
+  .disp-canvas.sm{height:250px}
+  .disp-note{margin-top:8px;font-size:11px;color:var(--txt-faint)}
+  .fund-toolbar{display:flex;align-items:center;justify-content:space-between;margin:14px 0 12px;flex-wrap:wrap;gap:8px}
+  .fchips{font-family:var(--mono);font-size:11.5px;color:var(--txt-dim)}
+  .fchips b{color:var(--txt);font-weight:600}
+  .fc-h{font-size:12.5px;color:var(--txt);font-weight:600;margin-bottom:8px}
+  .fc-h .sub{color:var(--txt-faint);font-weight:400;font-size:10.5px;margin-left:6px}
+  .fc-h .sw{display:inline-block;width:12px;height:3px;border-radius:2px;vertical-align:middle;margin:0 3px 0 6px}
+  .sw.k3{background:var(--accent)}
+  .fc-empty{padding:34px 0;text-align:center;color:var(--txt-faint);font-size:12px}
   .disp-table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
   .disp-table th{background:var(--bg2);color:var(--txt-faint);font-weight:500;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;text-align:right;padding:7px 12px;border-bottom:1px solid var(--line2)}
   .disp-table th.l,.disp-table td.l{text-align:left}
@@ -224,14 +234,14 @@
 <body>
 
 <div class="topbar">
-  <div class="brand"><span class="dot"></span>기관 수급 스캐너 <small>YM Research · prototype</small></div>
+  <div class="brand"><span class="dot"></span>YM리서치 스캐너 <small>YM Research</small></div>
   <nav class="nav" id="nav">
     <button data-tab="su" class="active">수급</button>
     <button data-tab="disp">이격도</button>
+    <button data-tab="adr">ADR</button>
+    <button data-tab="fund">증시자금</button>
     <button data-tab="stock">개별종목</button>
     <button data-tab="fav">즐겨찾기</button>
-    <button data-tab="theme">테마</button>
-    <button data-tab="eda">EDA</button>
     <button data-tab="set">설정</button>
   </nav>
   <span class="spacer"></span>
@@ -326,6 +336,90 @@
         <thead><tr><th class="l">날짜</th><th>코스피</th><th class="c">구간</th><th>코스닥</th><th class="c">구간</th></tr></thead>
         <tbody id="dispTbody"></tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<div id="view-adr" style="display:none">
+  <div class="disp-wrap">
+    <div class="disp-head">
+      <h1>ADR — 코스피 · 코스닥 등락비율</h1>
+      <span class="basis">최근 20거래일 상승 종목수 ÷ 하락 종목수 × 100 · 120% 이상 과열 · 80% 이하 바닥권</span>
+      <div class="disp-meta" id="adrMeta"></div>
+    </div>
+    <div id="adrEmpty" class="ph" style="display:none">
+      <h2>ADR 데이터 준비 중</h2>
+      <p>다음 데이터 갱신(빌더 실행) 후 표시됩니다. ADR은 하루씩 축적되는 지표라 최초 실행 시 약 1년 치가 백필됩니다.</p>
+    </div>
+    <div id="adrMain" style="display:none">
+      <div class="disp-cards" id="adrCards"></div>
+      <div class="disp-chart-card">
+        <div class="disp-toolbar">
+          <div class="seg" id="adrPeriod">
+            <button data-m="6">6M</button>
+            <button class="on" data-m="12">1Y</button>
+            <button data-m="36">3Y</button>
+            <button data-m="60">5Y</button>
+          </div>
+          <span class="disp-legend"><i class="sw k1"></i>코스피 <i class="sw k2"></i>코스닥 <span class="thn">점선 = 120 / 80 기준선</span></span>
+        </div>
+        <div class="disp-canvas"><canvas id="adrChart"></canvas></div>
+        <div class="disp-note" id="adrNote"></div>
+      </div>
+      <div class="disp-guide">
+        <div class="gk">ADR 해석</div>
+        <p class="gdef"><b>ADR(등락비율) = 최근 20거래일 상승 종목수 합계 ÷ 하락 종목수 합계 × 100.</b> 지수가 아니라 종목 수의 균형을 보는 시장 폭(breadth) 지표로, 소수 대형주가 아닌 시장 전체의 체온을 보여줍니다.</p>
+        <div class="grow"><span class="dz z-hot">과열</span><b>120% 이상</b><span class="gd">상승 종목이 하락의 1.2배 이상 — 단기 과열 신호로 봅니다</span></div>
+        <div class="grow"><span class="dz z-ok">중립</span><b>80–120%</b><span class="gd">상승·하락 균형 구간</span></div>
+        <div class="grow"><span class="dz z-cool">바닥권</span><b>80% 이하</b><span class="gd">하락 종목 우위가 누적된 침체 — 역발상 관심 구간으로 봅니다</span></div>
+        <div class="gnote">※ 보합 종목은 계산에서 제외 · 정보 제공용이며 투자 권유가 아닙니다</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="view-fund" style="display:none">
+  <div class="disp-wrap">
+    <div class="disp-head">
+      <h1>증시자금추이</h1>
+      <span class="basis">투자자예탁금 · 신용융자잔고: 금융투자협회(2거래일 지연 발표) · 거래대금 · 시가총액: KRX</span>
+      <div class="disp-meta" id="fundMeta"></div>
+    </div>
+    <div id="fundEmpty" class="ph" style="display:none">
+      <h2>증시자금 데이터 준비 중</h2>
+      <p>다음 데이터 갱신(빌더 실행) 후 표시됩니다.</p>
+    </div>
+    <div id="fundMain" style="display:none">
+      <div class="fund-toolbar">
+        <div class="seg" id="fundPeriod">
+          <button data-m="6">6M</button>
+          <button class="on" data-m="12">1Y</button>
+          <button data-m="36">3Y</button>
+        </div>
+        <span class="fchips" id="fundChips"></span>
+      </div>
+      <div class="disp-chart-card">
+        <div class="fc-h">투자자예탁금 <span class="sub">조원</span></div>
+        <div class="disp-canvas sm" id="wrapDep"><canvas id="fcDep"></canvas></div>
+        <div class="fc-empty" id="feDep" style="display:none">금융투자협회 데이터 연동 대기 — 다음 갱신 시 자동 표시됩니다</div>
+      </div>
+      <div class="disp-chart-card">
+        <div class="fc-h">신용융자잔고 <span class="sub">조원 · <i class="sw k3"></i>전체 <i class="sw k1"></i>코스피 <i class="sw k2"></i>코스닥</span></div>
+        <div class="disp-canvas sm" id="wrapMar"><canvas id="fcMar"></canvas></div>
+        <div class="fc-empty" id="feMar" style="display:none">금융투자협회 데이터 연동 대기 — 다음 갱신 시 자동 표시됩니다</div>
+      </div>
+      <div class="disp-chart-card">
+        <div class="fc-h">거래대금 <span class="sub">조원 · <i class="sw k1"></i>코스피 <i class="sw k2"></i>코스닥</span></div>
+        <div class="disp-canvas sm"><canvas id="fcVal"></canvas></div>
+      </div>
+      <div class="disp-chart-card">
+        <div class="fc-h">신용잔고 / 시가총액 <span class="sub">% · <i class="sw k3"></i>전체 <i class="sw k1"></i>코스피 <i class="sw k2"></i>코스닥</span></div>
+        <div class="disp-canvas sm" id="wrapRatio"><canvas id="fcRatio"></canvas></div>
+        <div class="fc-empty" id="feRatio" style="display:none">금융투자협회 데이터 연동 대기 — 다음 갱신 시 자동 표시됩니다</div>
+      </div>
+      <div class="disp-guide">
+        <div class="gnote">예탁금·신용잔고는 금융투자협회가 2거래일 지연 발표해 최근 이틀은 비어 보일 수 있습니다 · 신용/시총 = 신용융자잔고 ÷ 상장시가총액 · 정보 제공용이며 투자 권유가 아닙니다</div>
+      </div>
     </div>
   </div>
 </div>
@@ -729,21 +823,144 @@ document.querySelectorAll("#dispPeriod button").forEach(b=>b.onclick=()=>{
   b.classList.add("on");dispMonths=+b.dataset.m;renderDispChart();
 });
 
+// ---- 시장지표 (ADR · 증시자금) ----
+let MKT=null, adrChartObj=null, adrMonths=12, fundMonths=12, fundCharts={};
+function adrZone(v){
+  if(v==null)return{n:"·",c:""};
+  if(v>=120)return{n:"과열",c:"z-hot"};
+  if(v<=80)return{n:"바닥권",c:"z-cool"};
+  return{n:"중립",c:"z-ok"};
+}
+function lastNZ(arr){for(let i=arr.length-1;i>=0;i--)if(arr[i]!=null)return i;return -1;}
+function mkTh(labels,v,color){return{data:labels.map(()=>v),borderColor:color,borderWidth:1,borderDash:[5,5],pointRadius:0,fill:false,th:1};}
+function chOpt(dec){return{
+  responsive:true,maintainAspectRatio:false,animation:false,
+  interaction:{mode:"index",intersect:false},
+  plugins:{
+    legend:{display:false},
+    tooltip:{filter:i=>!i.dataset.th,backgroundColor:"#161d27",borderColor:"#2c3744",borderWidth:1,
+      titleColor:"#d4dbe5",bodyColor:"#d4dbe5",
+      callbacks:{label:c=>` ${c.dataset.label} ${c.parsed.y!=null?c.parsed.y.toFixed(dec):"·"}`}}
+  },
+  scales:{
+    x:{ticks:{color:"#566273",maxTicksLimit:8,font:{size:10,family:"'IBM Plex Mono',monospace"}},grid:{color:"rgba(255,255,255,.03)"}},
+    y:{ticks:{color:"#566273",font:{size:10,family:"'IBM Plex Mono',monospace"}},grid:{color:"rgba(255,255,255,.05)"}}
+  }
+};}
+function line(label,data,color,w){return{label,data,borderColor:color,borderWidth:w||1.7,pointRadius:0,tension:.25,fill:false,spanGaps:false};}
+
+function renderAdr(){
+  const empty=document.getElementById("adrEmpty"), main=document.getElementById("adrMain");
+  if(!MKT||!MKT.adr||!MKT.adr.dates||!MKT.adr.dates.length){empty.style.display="";main.style.display="none";return;}
+  empty.style.display="none";main.style.display="";
+  const A=MKT.adr, last=A.dates.length-1;
+  document.getElementById("adrMeta").textContent=
+    `기준일 ${fmtD8(A.dates[last])}${MKT.updated?` · 갱신 ${MKT.updated} KST`:""} · 매 거래일 저녁 갱신`;
+  document.getElementById("adrCards").innerHTML=["kospi","kosdaq"].map(k=>{
+    const v=A[k][last]; if(v==null)return"";
+    const z=adrZone(v), prev=A[k][last-1];
+    const chg=(prev!=null)?(v-prev):null;
+    return `<div class="disp-card">
+      <div class="dk"><span>${k==="kospi"?"코스피":"코스닥"}</span><span class="basis">20일 ADR</span></div>
+      <div class="dv ${z.c}">${v.toFixed(1)}%<span class="dz ${z.c}">${z.n}</span>${chg!=null?`<span class="dchg">${chg>0?"+":""}${chg.toFixed(1)}p vs 전일</span>`:""}</div>
+      <div class="dticks" style="position:static;height:auto"><span style="position:static">과열 ≥120 · 바닥권 ≤80</span></div>
+    </div>`;
+  }).join("");
+  const total=A.dates.length, want=Math.round(adrMonths*21), s=Math.max(0,total-want);
+  const labels=A.dates.slice(s).map(fmtD8);
+  if(typeof Chart==="undefined"){document.querySelector("#adrMain .disp-canvas").innerHTML='<div class="ph" style="padding:40px 0">차트 라이브러리를 불러오지 못했습니다</div>';return;}
+  if(adrChartObj)adrChartObj.destroy();
+  adrChartObj=new Chart(document.getElementById("adrChart"),{
+    type:"line",
+    data:{labels,datasets:[
+      line("코스피",A.kospi.slice(s),"#ffb020"),
+      line("코스닥",A.kosdaq.slice(s),"#5aa7e8"),
+      mkTh(labels,120,"rgba(255,90,74,.45)"),
+      mkTh(labels,80,"rgba(61,139,255,.45)"),
+    ]},
+    options:chOpt(1)
+  });
+  document.getElementById("adrNote").textContent=
+    total<want?`이력 축적 중 — 현재 ${total}거래일(약 ${Math.max(1,Math.round(total/21))}개월). 선택 구간보다 짧아 보유분만 표시하며, 매일 하루씩 늘어납니다.`:"";
+}
+document.querySelectorAll("#adrPeriod button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("#adrPeriod button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");adrMonths=+b.dataset.m;renderAdr();
+});
+
+function drawFund(id,wrapId,feId,datasets,dec,labels){
+  const fe=feId?document.getElementById(feId):null;
+  const wrap=wrapId?document.getElementById(wrapId):null;
+  const has=datasets.some(d=>d.data.some(v=>v!=null));
+  if(!has){if(wrap)wrap.style.display="none";if(fe)fe.style.display="";if(fundCharts[id]){fundCharts[id].destroy();delete fundCharts[id];}return;}
+  if(wrap)wrap.style.display="";if(fe)fe.style.display="none";
+  if(fundCharts[id])fundCharts[id].destroy();
+  fundCharts[id]=new Chart(document.getElementById(id),{type:"line",data:{labels,datasets},options:chOpt(dec)});
+}
+function renderFund(){
+  const empty=document.getElementById("fundEmpty"), main=document.getElementById("fundMain");
+  const F=MKT&&MKT.fund;
+  if(!F||!F.dates||!F.dates.length){empty.style.display="";main.style.display="none";return;}
+  empty.style.display="none";main.style.display="";
+  const n=F.dates.length, last=n-1;
+  let meta=`기준일 ${fmtD8(F.dates[last])}`;
+  const di=F.dep?lastNZ(F.dep):-1;
+  if(di>=0)meta+=` · 예탁금·신용 ${fmtD8(F.dates[di])}까지(2거래일 지연)`;
+  if(MKT.updated)meta+=` · 갱신 ${MKT.updated} KST`;
+  document.getElementById("fundMeta").textContent=meta;
+  const mi=F.mt?lastNZ(F.mt):-1;
+  document.getElementById("fundChips").innerHTML=(mi>=0)
+    ?`신용잔고 <b>${F.mt[mi].toFixed(1)}조</b> (코스피 ${F.mk[mi]!=null?F.mk[mi].toFixed(1):"·"} · 코스닥 ${F.mq[mi]!=null?F.mq[mi].toFixed(1):"·"})${F.rt&&F.rt[mi]!=null?` · 신용/시총 <b>${F.rt[mi].toFixed(2)}%</b>`:""}`
+    :"";
+  if(typeof Chart==="undefined")return;
+  const s=Math.max(0,n-Math.round(fundMonths*21));
+  const labels=F.dates.slice(s).map(fmtD8);
+  const sl=a=>a?a.slice(s):labels.map(()=>null);
+  drawFund("fcDep","wrapDep","feDep",[line("예탁금",sl(F.dep),"#ffb020")],1,labels);
+  drawFund("fcMar","wrapMar","feMar",[
+    line("전체",sl(F.mt),"#1fd1a3"),line("코스피",sl(F.mk),"#ffb020"),line("코스닥",sl(F.mq),"#5aa7e8"),
+  ],1,labels);
+  drawFund("fcVal",null,null,[
+    line("코스피",sl(F.vk),"#ffb020"),line("코스닥",sl(F.vq),"#5aa7e8"),
+  ],1,labels);
+  drawFund("fcRatio","wrapRatio","feRatio",[
+    line("전체",sl(F.rt),"#1fd1a3"),line("코스피",sl(F.rk),"#ffb020"),line("코스닥",sl(F.rq),"#5aa7e8"),
+  ],2,labels);
+}
+document.querySelectorAll("#fundPeriod button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("#fundPeriod button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");fundMonths=+b.dataset.m;renderFund();
+});
+
+async function loadMkt(){
+  try{
+    const r=await fetch("market_data.json",{cache:"no-store"});
+    if(!r.ok)return;
+    MKT=await r.json();
+    if(tab==="adr")renderAdr();
+    if(tab==="fund")renderFund();
+  }catch(e){/* 파일 없으면 준비 중 표시 유지 */}
+}
+loadMkt();
+
 // tabs
 document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("#nav button").forEach(x=>x.classList.remove("active"));
   b.classList.add("active");tab=b.dataset.tab;
   const V=id=>document.getElementById(id);
+  ["view-su","view-ph","view-disp","view-adr","view-fund"].forEach(id=>V(id).style.display="none");
   if(tab==="su"||tab==="fav"){
-    V("view-su").style.display="";V("view-ph").style.display="none";V("view-disp").style.display="none";
+    V("view-su").style.display="";
     favOnly=(tab==="fav");buildChips();render();
   }else if(tab==="disp"){
-    V("view-su").style.display="none";V("view-ph").style.display="none";V("view-disp").style.display="";
-    renderDisp();
+    V("view-disp").style.display="";renderDisp();
+  }else if(tab==="adr"){
+    V("view-adr").style.display="";renderAdr();
+  }else if(tab==="fund"){
+    V("view-fund").style.display="";renderFund();
   }else{
-    V("view-su").style.display="none";V("view-disp").style.display="none";
     const ph=V("view-ph");ph.style.display="";
-    const names={stock:"개별종목 차트",theme:"테마별 수급 묶음",eda:"EDA · 수급 탐색",set:"설정"};
+    const names={stock:"개별종목 차트",set:"설정"};
     ph.innerHTML=`<div class="ph"><h2>${names[tab]}</h2><p>이 탭은 화면 구조만 잡아둔 자리입니다. 데이터 레이어 연결 후 활성화됩니다.</p></div>`;
   }
 });
