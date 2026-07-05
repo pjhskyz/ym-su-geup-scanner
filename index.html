@@ -173,19 +173,23 @@
   .sw.k2{background:#5aa7e8}
   .disp-legend .thn{color:var(--txt-faint);margin-left:6px}
   .disp-canvas{position:relative;height:340px}
-  .disp-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;align-items:start}
   .disp-table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
   .disp-table th{background:var(--bg2);color:var(--txt-faint);font-weight:500;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;text-align:right;padding:7px 12px;border-bottom:1px solid var(--line2)}
   .disp-table th.l,.disp-table td.l{text-align:left}
   .disp-table th.c,.disp-table td.c{text-align:center}
   .disp-table td{padding:6px 12px;text-align:right;font-family:var(--mono);font-size:12px;border-bottom:1px solid var(--line);color:var(--txt)}
   .disp-table tr:last-child td{border-bottom:none}
-  .disp-guide{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:12px;color:var(--txt-dim);line-height:1.55}
-  .disp-guide .gk{font-size:11px;color:var(--txt-faint);text-transform:uppercase;letter-spacing:.4px;margin-bottom:9px}
-  .disp-guide .grow{margin:7px 0;font-family:var(--mono);font-size:11.5px}
-  .disp-guide .grow .dz{margin-right:7px;font-family:var(--sans)}
-  .disp-guide .gnote{margin-top:11px;color:var(--txt-faint);font-size:11px;font-family:var(--sans)}
-  @media (max-width:900px){.disp-cards,.disp-grid{grid-template-columns:1fr}}
+  .disp-guide{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:12px;font-size:12.5px;color:var(--txt-dim);line-height:1.6;word-break:keep-all}
+  .disp-guide .gk{font-size:13.5px;color:#fff;font-weight:700;margin-bottom:8px}
+  .disp-guide .gdef{margin:0 0 13px}
+  .disp-guide .gdef b{color:var(--txt)}
+  .disp-guide .grow{display:flex;align-items:center;gap:12px;margin:7px 0;flex-wrap:wrap}
+  .disp-guide .grow .dz{min-width:66px;text-align:center;padding:3px 8px}
+  .disp-guide .grow b{color:var(--txt);font-family:var(--mono);font-size:12px;font-weight:600}
+  .disp-guide .gd{color:var(--txt-dim)}
+  .disp-guide .gnote{margin-top:13px;color:var(--txt-faint);font-size:11px}
+  .disp-table{margin-bottom:24px}
+  @media (max-width:900px){.disp-cards{grid-template-columns:1fr}}
   .ph h2{color:var(--txt-dim);font-weight:600;margin-bottom:8px}
 
   /* ---- Modal ---- */
@@ -307,20 +311,19 @@
         </div>
         <div class="disp-canvas"><canvas id="dispChart"></canvas></div>
       </div>
-      <div class="disp-grid">
-        <table class="disp-table">
-          <thead><tr><th class="l">날짜</th><th>코스피</th><th class="c">구간</th><th>코스닥</th><th class="c">구간</th></tr></thead>
-          <tbody id="dispTbody"></tbody>
-        </table>
-        <div class="disp-guide">
-          <div class="gk">구간 해석 (코스피 / 코스닥)</div>
-          <div class="grow"><span class="dz z-hot">과열</span> ≥130 / ≥124 — 추격매수 자제 구간</div>
-          <div class="grow"><span class="dz z-warn">과열 경계</span> 120–130 / 118–124 — 분할·속도조절 관심</div>
-          <div class="grow"><span class="dz z-ok">정상</span> 105–120 / 106–118 — 추세 추종 유효</div>
-          <div class="grow"><span class="dz z-cool">과열 해소</span> ≤105 / ≤106 — 투매 자제, 이격조정 마친 업종부터</div>
-          <div class="gnote">지수별 변동성 차이로 기준선이 다릅니다. 정보 제공용이며 투자 권유가 아닙니다.</div>
-        </div>
+      <div class="disp-guide">
+        <div class="gk">이그전 50일 이격도 해석법</div>
+        <p class="gdef"><b>이격도 = 현재가 ÷ 50일 이동평균 × 100.</b> 주가가 최근 50거래일 평균 대비 얼마나 위/아래에 있는지를 나타냅니다. 한국 시장의 강세장은 50일선을 지지하며 상승하는 경향이 있다는 관찰에 기반합니다.</p>
+        <div class="grow"><span class="dz z-hot">과열</span><b>코스피 ≥130 · 코스닥 ≥124</b><span class="gd">추격매수 자제 구간</span></div>
+        <div class="grow"><span class="dz z-warn">과열 경계</span><b>코스피 120–130 · 코스닥 118–124</b><span class="gd">분할·속도조절 관심</span></div>
+        <div class="grow"><span class="dz z-ok">정상</span><b>코스피 105–120 · 코스닥 106–118</b><span class="gd">추세 추종 유효</span></div>
+        <div class="grow"><span class="dz z-cool">과열 해소</span><b>코스피 ≤105 · 코스닥 ≤106</b><span class="gd">투매 자제 — 이격조정을 마친 업종부터 관심</span></div>
+        <div class="gnote">※ 지수별 변동성 차이로 코스피·코스닥 기준선이 다릅니다 · 기준선 출처: 이그전(이은택의 그림전략) 참고 · 정보 제공용이며 투자 권유가 아닙니다</div>
       </div>
+      <table class="disp-table">
+        <thead><tr><th class="l">날짜</th><th>코스피</th><th class="c">구간</th><th>코스닥</th><th class="c">구간</th></tr></thead>
+        <tbody id="dispTbody"></tbody>
+      </table>
     </div>
   </div>
 </div>
