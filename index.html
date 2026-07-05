@@ -139,6 +139,53 @@
 
   /* ---- Placeholder panels ---- */
   .ph{padding:70px 18px;text-align:center;color:var(--txt-faint)}
+
+  /* ---- 이격도 탭 ---- */
+  .disp-wrap{max-width:1080px;margin:0 auto;padding:18px 18px 40px}
+  .disp-head h1{font-size:19px;font-weight:700;color:#fff;letter-spacing:-.3px;margin:0}
+  .disp-head .basis{display:inline-block;margin-top:4px}
+  .disp-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+  .disp-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .disp-card .dk{font-size:12px;color:var(--txt-dim);display:flex;justify-content:space-between;align-items:baseline}
+  .disp-card .dv{font-family:var(--mono);font-size:30px;font-weight:700;margin:6px 0 10px;display:flex;align-items:baseline;gap:10px}
+  .dchg{font-size:11px;color:var(--txt-faint);font-weight:400}
+  .dz{display:inline-block;font-size:10.5px;font-family:var(--sans);font-weight:600;padding:2px 8px;border-radius:99px;vertical-align:middle}
+  .z-hot{color:#ff6b5e;background:rgba(255,90,74,.14)}
+  .z-warn{color:var(--gold);background:var(--gold-dim)}
+  .z-ok{color:var(--accent);background:rgba(31,209,163,.12)}
+  .z-cool{color:#6fa8ff;background:rgba(61,139,255,.14)}
+  .dv.z-hot,.dv.z-warn,.dv.z-ok,.dv.z-cool{background:none}
+  .dv.z-hot{color:#ff6b5e}.dv.z-warn{color:var(--gold)}.dv.z-ok{color:var(--accent)}.dv.z-cool{color:#6fa8ff}
+  .dbar{position:relative;display:flex;height:8px;border-radius:5px;overflow:visible;margin:4px 2px 4px}
+  .dseg{height:100%}
+  .dseg.cool{background:rgba(61,139,255,.35);border-radius:5px 0 0 5px}
+  .dseg.ok{background:rgba(31,209,163,.30)}
+  .dseg.warn{background:rgba(255,176,32,.32)}
+  .dseg.hot{background:rgba(255,90,74,.36);border-radius:0 5px 5px 0;flex:1}
+  .dmark{position:absolute;top:-3px;width:3px;height:14px;background:#fff;border-radius:2px;box-shadow:0 0 6px rgba(255,255,255,.7);transform:translateX(-50%)}
+  .dticks{position:relative;height:14px;font-family:var(--mono);font-size:9.5px;color:var(--txt-faint)}
+  .dticks span{position:absolute;transform:translateX(-50%)}
+  .disp-chart-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:12px}
+  .disp-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .disp-legend{font-size:11px;color:var(--txt-dim);display:flex;align-items:center;gap:7px}
+  .disp-legend .sw{display:inline-block;width:14px;height:3px;border-radius:2px}
+  .sw.k1{background:var(--gold)}
+  .sw.k2{background:#5aa7e8}
+  .disp-legend .thn{color:var(--txt-faint);margin-left:6px}
+  .disp-canvas{position:relative;height:340px}
+  .disp-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;align-items:start}
+  .disp-table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .disp-table th{background:var(--bg2);color:var(--txt-faint);font-weight:500;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;text-align:right;padding:7px 12px;border-bottom:1px solid var(--line2)}
+  .disp-table th.l,.disp-table td.l{text-align:left}
+  .disp-table th.c,.disp-table td.c{text-align:center}
+  .disp-table td{padding:6px 12px;text-align:right;font-family:var(--mono);font-size:12px;border-bottom:1px solid var(--line);color:var(--txt)}
+  .disp-table tr:last-child td{border-bottom:none}
+  .disp-guide{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:12px;color:var(--txt-dim);line-height:1.55}
+  .disp-guide .gk{font-size:11px;color:var(--txt-faint);text-transform:uppercase;letter-spacing:.4px;margin-bottom:9px}
+  .disp-guide .grow{margin:7px 0;font-family:var(--mono);font-size:11.5px}
+  .disp-guide .grow .dz{margin-right:7px;font-family:var(--sans)}
+  .disp-guide .gnote{margin-top:11px;color:var(--txt-faint);font-size:11px;font-family:var(--sans)}
+  @media (max-width:900px){.disp-cards,.disp-grid{grid-template-columns:1fr}}
   .ph h2{color:var(--txt-dim);font-weight:600;margin-bottom:8px}
 
   /* ---- Modal ---- */
@@ -177,6 +224,7 @@
     <button data-tab="su" class="active">수급</button>
     <button data-tab="stock">개별종목</button>
     <button data-tab="fav">즐겨찾기</button>
+    <button data-tab="disp">이격도</button>
     <button data-tab="theme">테마</button>
     <button data-tab="eda">EDA</button>
     <button data-tab="set">설정</button>
@@ -235,11 +283,54 @@
 
 <div id="view-ph" style="display:none"></div>
 
+<div id="view-disp" style="display:none">
+  <div class="disp-wrap">
+    <div class="disp-head">
+      <h1>코스피 · 코스닥 50일 이격도</h1>
+      <span class="basis">종가 ÷ 50일 이동평균 × 100 · 기준선은 이그전(이은택의 그림전략) 참고</span>
+    </div>
+    <div id="dispEmpty" class="ph" style="display:none">
+      <h2>이격도 데이터 준비 중</h2>
+      <p>다음 데이터 갱신(빌더 실행) 후 표시됩니다.</p>
+    </div>
+    <div id="dispMain" style="display:none">
+      <div class="disp-cards" id="dispCards"></div>
+      <div class="disp-chart-card">
+        <div class="disp-toolbar">
+          <div class="seg" id="dispPeriod">
+            <button data-m="3">3M</button>
+            <button data-m="6">6M</button>
+            <button class="on" data-m="12">1Y</button>
+            <button data-m="24">2Y</button>
+          </div>
+          <span class="disp-legend"><i class="sw k1"></i>코스피 <i class="sw k2"></i>코스닥 <span class="thn">점선 = 과열/해소 기준선</span></span>
+        </div>
+        <div class="disp-canvas"><canvas id="dispChart"></canvas></div>
+      </div>
+      <div class="disp-grid">
+        <table class="disp-table">
+          <thead><tr><th class="l">날짜</th><th>코스피</th><th class="c">구간</th><th>코스닥</th><th class="c">구간</th></tr></thead>
+          <tbody id="dispTbody"></tbody>
+        </table>
+        <div class="disp-guide">
+          <div class="gk">구간 해석 (코스피 / 코스닥)</div>
+          <div class="grow"><span class="dz z-hot">과열</span> ≥130 / ≥124 — 추격매수 자제 구간</div>
+          <div class="grow"><span class="dz z-warn">과열 경계</span> 120–130 / 118–124 — 분할·속도조절 관심</div>
+          <div class="grow"><span class="dz z-ok">정상</span> 105–120 / 106–118 — 추세 추종 유효</div>
+          <div class="grow"><span class="dz z-cool">과열 해소</span> ≤105 / ≤106 — 투매 자제, 이격조정 마친 업종부터</div>
+          <div class="gnote">지수별 변동성 차이로 기준선이 다릅니다. 정보 제공용이며 투자 권유가 아닙니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal -->
 <div class="ov" id="ov">
   <div class="modal" id="modal"></div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
 // ===== 실측 시드 데이터 (todaytoppick 2026-06-02, 기관 매수 시계열 상위 100) =====
 // [순위, 종목명, 업종, 기관순매수(백만원), 오늘버킷, D-1, D-2, 백분위%, 1일%, 1주%, 1개월%]
@@ -534,17 +625,116 @@ document.getElementById("csv").onclick=()=>{
   a.download="기관외인수급.csv";a.click();
 };
 
+// ---- 이격도 (코스피·코스닥 50일) ----
+const DISP_TH={kospi:{hot:130,warn:120,cool:105},kosdaq:{hot:124,warn:118,cool:106}};
+let DISP=null, dispChart=null, dispMonths=12;
+function dispZone(k,v){
+  const t=DISP_TH[k];
+  if(v>=t.hot)return{n:"과열",c:"z-hot"};
+  if(v>=t.warn)return{n:"과열 경계",c:"z-warn"};
+  if(v>t.cool)return{n:"정상",c:"z-ok"};
+  return{n:"과열 해소",c:"z-cool"};
+}
+function fmtD8(d){return d.slice(0,4)+"-"+d.slice(4,6)+"-"+d.slice(6);}
+function renderDisp(){
+  const empty=document.getElementById("dispEmpty"), main=document.getElementById("dispMain");
+  if(!DISP||!DISP.dates||!DISP.dates.length){empty.style.display="";main.style.display="none";return;}
+  empty.style.display="none";main.style.display="";
+  renderDispCards();renderDispTable();renderDispChart();
+}
+function renderDispCards(){
+  const last=DISP.dates.length-1;
+  document.getElementById("dispCards").innerHTML=["kospi","kosdaq"].map(k=>{
+    const v=DISP[k][last];
+    if(v==null)return"";
+    const z=dispZone(k,v), t=DISP_TH[k];
+    const prev=DISP[k][last-1];
+    const chg=(prev!=null)?(v-prev):null;
+    const lo=t.cool-8, hi=t.hot+8, span=hi-lo;
+    const pct=x=>Math.max(0,Math.min(100,(x-lo)/span*100));
+    return `<div class="disp-card">
+      <div class="dk"><span>${k==="kospi"?"코스피":"코스닥"}</span><span class="basis">기준일 ${fmtD8(DISP.dates[last])}</span></div>
+      <div class="dv ${z.c}">${v.toFixed(1)}<span class="dz ${z.c}">${z.n}</span>${chg!=null?`<span class="dchg">${chg>0?"+":""}${chg.toFixed(2)} vs 전일</span>`:""}</div>
+      <div class="dbar">
+        <div class="dseg cool" style="width:${pct(t.cool)}%"></div>
+        <div class="dseg ok" style="width:${pct(t.warn)-pct(t.cool)}%"></div>
+        <div class="dseg warn" style="width:${pct(t.hot)-pct(t.warn)}%"></div>
+        <div class="dseg hot"></div>
+        <div class="dmark" style="left:${pct(v)}%"></div>
+      </div>
+      <div class="dticks">
+        <span style="left:${pct(t.cool)}%">${t.cool} 해소</span>
+        <span style="left:${pct(t.warn)}%">${t.warn}</span>
+        <span style="left:${pct(t.hot)}%">${t.hot} 과열</span>
+      </div>
+    </div>`;
+  }).join("");
+}
+function renderDispTable(){
+  const n=DISP.dates.length, rows=[];
+  for(let i=n-1;i>=Math.max(0,n-10);i--){
+    const kv=DISP.kospi[i], qv=DISP.kosdaq[i];
+    const kz=kv!=null?dispZone("kospi",kv):null;
+    const qz=qv!=null?dispZone("kosdaq",qv):null;
+    rows.push(`<tr><td class="l">${fmtD8(DISP.dates[i])}</td>
+      <td>${kv!=null?kv.toFixed(1):"·"}</td><td class="c">${kz?`<span class="dz ${kz.c}">${kz.n}</span>`:"·"}</td>
+      <td>${qv!=null?qv.toFixed(1):"·"}</td><td class="c">${qz?`<span class="dz ${qz.c}">${qz.n}</span>`:"·"}</td></tr>`);
+  }
+  document.getElementById("dispTbody").innerHTML=rows.join("");
+}
+function renderDispChart(){
+  const wrap=document.querySelector(".disp-canvas");
+  if(typeof Chart==="undefined"){wrap.innerHTML='<div class="ph" style="padding:40px 0">차트 라이브러리를 불러오지 못했습니다 (네트워크 확인)</div>';return;}
+  const n=DISP.dates.length, days=Math.round(dispMonths*21), s=Math.max(0,n-days);
+  const labels=DISP.dates.slice(s).map(fmtD8);
+  const th=(v,color)=>({data:labels.map(()=>v),borderColor:color,borderWidth:1,borderDash:[5,5],pointRadius:0,fill:false,th:1});
+  if(dispChart)dispChart.destroy();
+  dispChart=new Chart(document.getElementById("dispChart"),{
+    type:"line",
+    data:{labels,datasets:[
+      {label:"코스피",data:DISP.kospi.slice(s),borderColor:"#ffb020",borderWidth:1.7,pointRadius:0,tension:.25,fill:false},
+      {label:"코스닥",data:DISP.kosdaq.slice(s),borderColor:"#5aa7e8",borderWidth:1.7,pointRadius:0,tension:.25,fill:false},
+      th(DISP_TH.kospi.hot,"rgba(255,176,32,.45)"),th(DISP_TH.kospi.cool,"rgba(255,176,32,.35)"),
+      th(DISP_TH.kosdaq.hot,"rgba(90,167,232,.45)"),th(DISP_TH.kosdaq.cool,"rgba(90,167,232,.35)"),
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,animation:false,
+      interaction:{mode:"index",intersect:false},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          filter:i=>!i.dataset.th,
+          backgroundColor:"#161d27",borderColor:"#2c3744",borderWidth:1,
+          titleColor:"#d4dbe5",bodyColor:"#d4dbe5",
+          callbacks:{label:c=>` ${c.dataset.label} ${c.parsed.y!=null?c.parsed.y.toFixed(1):"·"}`}
+        }
+      },
+      scales:{
+        x:{ticks:{color:"#566273",maxTicksLimit:8,font:{size:10,family:"'IBM Plex Mono',monospace"}},grid:{color:"rgba(255,255,255,.03)"}},
+        y:{ticks:{color:"#566273",font:{size:10,family:"'IBM Plex Mono',monospace"}},grid:{color:"rgba(255,255,255,.05)"}}
+      }
+    }
+  });
+}
+document.querySelectorAll("#dispPeriod button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("#dispPeriod button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");dispMonths=+b.dataset.m;renderDispChart();
+});
+
 // tabs
 document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("#nav button").forEach(x=>x.classList.remove("active"));
   b.classList.add("active");tab=b.dataset.tab;
+  const V=id=>document.getElementById(id);
   if(tab==="su"||tab==="fav"){
-    document.getElementById("view-su").style.display="";
-    document.getElementById("view-ph").style.display="none";
+    V("view-su").style.display="";V("view-ph").style.display="none";V("view-disp").style.display="none";
     favOnly=(tab==="fav");buildChips();render();
+  }else if(tab==="disp"){
+    V("view-su").style.display="none";V("view-ph").style.display="none";V("view-disp").style.display="";
+    renderDisp();
   }else{
-    document.getElementById("view-su").style.display="none";
-    const ph=document.getElementById("view-ph");ph.style.display="";
+    V("view-su").style.display="none";V("view-disp").style.display="none";
+    const ph=V("view-ph");ph.style.display="";
     const names={stock:"개별종목 차트",theme:"테마별 수급 묶음",eda:"EDA · 수급 탐색",set:"설정"};
     ph.innerHTML=`<div class="ph"><h2>${names[tab]}</h2><p>이 탭은 화면 구조만 잡아둔 자리입니다. 데이터 레이어 연결 후 활성화됩니다.</p></div>`;
   }
@@ -566,6 +756,7 @@ async function loadLive(){
     if(!res.ok)return;
     const j=await res.json();
     if(j.rows&&j.rows.length){STORE=j.rows;DATA=mapRows(STORE);}
+    if(j.disparity){DISP=j.disparity;if(tab==="disp")renderDisp();}
     if(j.asof){const b=document.querySelector(".basis");if(b)b.textContent="기준일 "+fmtAsof(j.asof);}
     rebuild();
   }catch(e){/* 시드 유지 */}

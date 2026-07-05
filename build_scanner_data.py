@@ -151,6 +151,35 @@ def daily_net(ticker, asof):
     return df
 
 
+# ----------------------- 지수 이격도 (50일) -----------------------
+DISP_MA    = 50     # 이동평균 일수
+DISP_YEARS = 2      # 차트 보존 기간(년)
+
+def index_disparity(D: str):
+    """코스피·코스닥 50일 이격도 시계열 (종가 ÷ 50일 이평 × 100). 실패 시 None."""
+    frm = shift(D, int(DISP_YEARS * 365 + DISP_MA * 2.5))   # MA 워밍업 여유 포함
+    series = {}
+    for key, code in (("kospi", "1001"), ("kosdaq", "2001")):
+        try:
+            df = stock.get_index_ohlcv_by_date(frm, D, code)
+        except Exception as e:
+            log(f"[!] 지수({key}) 조회 실패: {e}")
+            return None
+        time.sleep(SLEEP)
+        if df is None or df.empty or "종가" not in df.columns:
+            log(f"[!] 지수({key}) 데이터 없음")
+            return None
+        close = df["종가"].astype(float)
+        disp = (close / close.rolling(DISP_MA).mean() * 100).round(2).dropna()
+        series[key] = {d.strftime("%Y%m%d"): float(v) for d, v in disp.items()}
+    dates = sorted(series["kospi"])[-int(DISP_YEARS * 252):]
+    return {
+        "dates": dates,
+        "kospi": [series["kospi"].get(d) for d in dates],
+        "kosdaq": [series["kosdaq"].get(d) for d in dates],
+    }
+
+
 # ----------------------- 업종 (WICS 중분류) -----------------------
 # FnGuide WICS 중분류 — 네이버·다음 증권이 쓰는 그 분류 (반도체/IT하드웨어/자동차/은행 …)
 WICS_CODES = [
@@ -285,7 +314,12 @@ def main():
         rows.sort(key=lambda r: r[2], reverse=True)   # 기관 당일순매수 desc
         return rows
 
+    log("· 지수 이격도(50일)…")
+    disp = index_disparity(D)
+
     out = {"asof": D, "rows": merged_rows()}
+    if disp:
+        out["disparity"] = disp
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     log(f"\n✓ {len(out['rows'])}종목(전종목) → {OUT_PATH}")
