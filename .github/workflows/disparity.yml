@@ -1,0 +1,68 @@
+name: build-disparity
+
+# 매 거래일 12:00 / 15:40 KST — 코스피·코스닥 50일 이격도만 경량 갱신 (1분 미만).
+# 정확한 시각은 cron-job.org 가 workflow_dispatch 로 깨운다.
+# 아래 schedule 은 cron-job.org 장애 시 백업 (GitHub 무료 cron은 지연이 큼).
+on:
+  schedule:
+    - cron: '7 3 * * 1-5'     # 12:07 KST 백업
+    - cron: '47 6 * * 1-5'    # 15:47 KST 백업
+  workflow_dispatch:
+
+permissions:
+  contents: write             # disparity_data.json 커밋용
+
+concurrency:
+  group: build-disparity
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pykrx pandas
+
+      - name: Build disparity_data.json
+        env:
+          KRX_ID: ${{ secrets.KRX_ID }}
+          KRX_PW: ${{ secrets.KRX_PW }}
+        run: python build_disparity.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add disparity_data.json
+          if git diff --staged --quiet; then
+            echo "변경 없음 — 커밋 건너뜀"
+            exit 0
+          fi
+          git commit -m "data: disparity_data.json 갱신 ($(date -u +%Y-%m-%d))"
+          # 메인 빌드 등과 push 가 겹칠 때 대비: 최대 5회 재시도
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "push 성공"
+              exit 0
+            fi
+            echo "push 거부됨 — 원격 최신 반영 후 재시도 ($i)"
+            git fetch origin
+            git reset --soft origin/main
+            git add disparity_data.json
+            if git diff --staged --quiet; then
+              echo "원격이 이미 동일 데이터 — 갱신 불필요"
+              exit 0
+            fi
+            git commit -m "data: disparity_data.json 갱신 ($(date -u +%Y-%m-%d))"
+          done
+          echo "push 5회 실패"
+          exit 1
