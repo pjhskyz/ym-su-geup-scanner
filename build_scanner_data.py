@@ -351,6 +351,8 @@ def main():
     log("· 지수 이격도(50일)…")
     disp = index_disparity(D)
     if disp:
+        kst = dt.datetime.now(dt.timezone(dt.timedelta(hours=9)))
+        disp["updated"] = kst.strftime("%Y-%m-%d %H:%M")
         out["disparity"] = disp
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)

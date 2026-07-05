@@ -144,6 +144,7 @@
   .disp-wrap{max-width:1080px;margin:0 auto;padding:18px 18px 40px}
   .disp-head h1{font-size:19px;font-weight:700;color:#fff;letter-spacing:-.3px;margin:0}
   .disp-head .basis{display:inline-block;margin-top:4px}
+  .disp-meta{margin-top:5px;font-family:var(--mono);font-size:11.5px;color:var(--gold)}
   .disp-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
   .disp-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
   .disp-card .dk{font-size:12px;color:var(--txt-dim);display:flex;justify-content:space-between;align-items:baseline}
@@ -226,9 +227,9 @@
   <div class="brand"><span class="dot"></span>기관 수급 스캐너 <small>YM Research · prototype</small></div>
   <nav class="nav" id="nav">
     <button data-tab="su" class="active">수급</button>
+    <button data-tab="disp">이격도</button>
     <button data-tab="stock">개별종목</button>
     <button data-tab="fav">즐겨찾기</button>
-    <button data-tab="disp">이격도</button>
     <button data-tab="theme">테마</button>
     <button data-tab="eda">EDA</button>
     <button data-tab="set">설정</button>
@@ -292,6 +293,7 @@
     <div class="disp-head">
       <h1>코스피 · 코스닥 50일 이격도</h1>
       <span class="basis">종가 ÷ 50일 이동평균 × 100 · 기준선은 이그전(이은택의 그림전략) 참고</span>
+      <div class="disp-meta" id="dispMeta"></div>
     </div>
     <div id="dispEmpty" class="ph" style="display:none">
       <h2>이격도 데이터 준비 중</h2>
@@ -643,6 +645,9 @@ function renderDisp(){
   const empty=document.getElementById("dispEmpty"), main=document.getElementById("dispMain");
   if(!DISP||!DISP.dates||!DISP.dates.length){empty.style.display="";main.style.display="none";return;}
   empty.style.display="none";main.style.display="";
+  const last=DISP.dates.length-1;
+  document.getElementById("dispMeta").textContent=
+    `기준일 ${fmtD8(DISP.dates[last])}${DISP.updated?` · 갱신 ${DISP.updated} KST`:""} · 매 거래일 12:00 / 15:40 갱신`;
   renderDispCards();renderDispTable();renderDispChart();
 }
 function renderDispCards(){
@@ -656,7 +661,7 @@ function renderDispCards(){
     const lo=t.cool-8, hi=t.hot+8, span=hi-lo;
     const pct=x=>Math.max(0,Math.min(100,(x-lo)/span*100));
     return `<div class="disp-card">
-      <div class="dk"><span>${k==="kospi"?"코스피":"코스닥"}</span><span class="basis">기준일 ${fmtD8(DISP.dates[last])}</span></div>
+      <div class="dk"><span>${k==="kospi"?"코스피":"코스닥"}</span><span class="basis">50일 이격도</span></div>
       <div class="dv ${z.c}">${v.toFixed(1)}<span class="dz ${z.c}">${z.n}</span>${chg!=null?`<span class="dchg">${chg>0?"+":""}${chg.toFixed(2)} vs 전일</span>`:""}</div>
       <div class="dbar">
         <div class="dseg cool" style="width:${pct(t.cool)}%"></div>
@@ -675,7 +680,7 @@ function renderDispCards(){
 }
 function renderDispTable(){
   const n=DISP.dates.length, rows=[];
-  for(let i=n-1;i>=Math.max(0,n-10);i--){
+  for(let i=n-1;i>=Math.max(0,n-21);i--){   // 최근 1개월(약 21영업일)
     const kv=DISP.kospi[i], qv=DISP.kosdaq[i];
     const kz=kv!=null?dispZone("kospi",kv):null;
     const qz=qv!=null?dispZone("kosdaq",qv):null;
@@ -759,12 +764,32 @@ async function loadLive(){
     if(!res.ok)return;
     const j=await res.json();
     if(j.rows&&j.rows.length){STORE=j.rows;DATA=mapRows(STORE);}
-    if(j.disparity){DISP=j.disparity;if(tab==="disp")renderDisp();}
+    if(j.disparity)adoptDisp(j.disparity);   // 전용 파일과 비교해 더 최신이면 채택
     if(j.asof){const b=document.querySelector(".basis");if(b)b.textContent="기준일 "+fmtAsof(j.asof);}
     rebuild();
   }catch(e){/* 시드 유지 */}
 }
 loadLive();
+
+// 이격도 데이터 채택: 기준일이 더 최신인 쪽 우선 (동일 날짜면 갱신시각 있는 전용 파일 우선)
+function adoptDisp(j){
+  if(!j||!j.dates||!j.dates.length)return;
+  const cur=(DISP&&DISP.dates&&DISP.dates.length)?DISP.dates[DISP.dates.length-1]:"";
+  const cand=j.dates[j.dates.length-1];
+  if(cand>cur||(cand===cur&&j.updated&&!DISP.updated)){
+    DISP=j;
+    if(tab==="disp")renderDisp();
+  }
+}
+// 이격도 전용 파일(12:00/15:40 갱신)
+async function loadDisp(){
+  try{
+    const r=await fetch("disparity_data.json",{cache:"no-store"});
+    if(!r.ok)return;
+    adoptDisp(await r.json());
+  }catch(e){/* 파일 없으면 scanner_data.json 폴백 사용 */}
+}
+loadDisp();
 </script>
 </body>
 </html>
