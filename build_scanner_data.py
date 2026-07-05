@@ -155,19 +155,51 @@ def daily_net(ticker, asof):
 DISP_MA    = 50     # 이동평균 일수
 DISP_YEARS = 2      # 차트 보존 기간(년)
 
+def _fetch_index(code: str, frm: str, to: str, timeout_s: int = 60):
+    """지수 OHLCV를 스레드로 감싸 하드 타임아웃 적용.
+    pykrx의 HTTP 호출엔 timeout이 없어 KRX가 응답을 물고 있으면 무한 대기 →
+    잡 전체가 죽는 사고를 여기서 차단한다."""
+    import threading
+    box = {}
+    def run():
+        try:
+            box["df"] = stock.get_index_ohlcv_by_date(frm, to, code)
+        except Exception as e:
+            box["err"] = e
+    t = threading.Thread(target=run, daemon=True)
+    t.start()
+    t.join(timeout_s)
+    if t.is_alive():
+        raise TimeoutError(f"{timeout_s}s 초과 (KRX 무응답)")
+    if "err" in box:
+        raise box["err"]
+    return box.get("df")
+
 def index_disparity(D: str):
-    """코스피·코스닥 50일 이격도 시계열 (종가 ÷ 50일 이평 × 100). 실패 시 None."""
-    frm = shift(D, int(DISP_YEARS * 365 + DISP_MA * 2.5))   # MA 워밍업 여유 포함
+    """코스피·코스닥 50일 이격도 시계열 (종가 ÷ 50일 이평 × 100).
+    연 단위 분할 요청 + 콜당 60초 제한. 어떤 실패든 None을 돌려주고
+    수급 데이터 생성에는 영향을 주지 않는다."""
+    frm_all = shift(D, int(DISP_YEARS * 365 + DISP_MA * 2.5))
     series = {}
     for key, code in (("kospi", "1001"), ("kosdaq", "2001")):
+        parts, f = [], frm_all
         try:
-            df = stock.get_index_ohlcv_by_date(frm, D, code)
+            while f <= D:
+                t = min(shift(f, -364), D)          # f + 364일 (연 단위 구간)
+                parts.append(_fetch_index(code, f, t))
+                time.sleep(SLEEP)
+                f = shift(t, -1)                    # 다음 구간 시작 = t + 1일
         except Exception as e:
-            log(f"[!] 지수({key}) 조회 실패: {e}")
+            log(f"[!] 지수({key}) 조회 실패: {e} → 이격도 생략")
             return None
-        time.sleep(SLEEP)
-        if df is None or df.empty or "종가" not in df.columns:
-            log(f"[!] 지수({key}) 데이터 없음")
+        parts = [p for p in parts if p is not None and not p.empty]
+        if not parts:
+            log(f"[!] 지수({key}) 데이터 없음 → 이격도 생략")
+            return None
+        df = pd.concat(parts)
+        df = df[~df.index.duplicated(keep="last")].sort_index()
+        if "종가" not in df.columns or len(df) < DISP_MA + 5:
+            log(f"[!] 지수({key}) 데이터 부족 → 이격도 생략")
             return None
         close = df["종가"].astype(float)
         disp = (close / close.rolling(DISP_MA).mean() * 100).round(2).dropna()
@@ -314,10 +346,10 @@ def main():
         rows.sort(key=lambda r: r[2], reverse=True)   # 기관 당일순매수 desc
         return rows
 
+    out = {"asof": D, "rows": merged_rows()}
+
     log("· 지수 이격도(50일)…")
     disp = index_disparity(D)
-
-    out = {"asof": D, "rows": merged_rows()}
     if disp:
         out["disparity"] = disp
     with open(OUT_PATH, "w", encoding="utf-8") as f:
