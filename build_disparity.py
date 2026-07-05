@@ -21,7 +21,6 @@ import threading
 import datetime as dt
 
 import pandas as pd
-from pykrx import stock
 
 OUT_PATH   = "disparity_data.json"
 SLEEP      = 0.4
@@ -32,6 +31,26 @@ DISP_YEARS = 2      # 차트 보존 기간(년)
 def log(*a): print(*a, file=sys.stderr, flush=True)
 def ymd(d): return d.strftime("%Y%m%d")
 def shift(asof, days): return ymd(dt.datetime.strptime(asof, "%Y%m%d") - dt.timedelta(days=days))
+
+
+def _import_stock(retries: int = 3, wait_s: int = 40):
+    """pykrx는 import 시점에 KRX 로그인을 시도한다. 주말 점검·일시 장애로
+    로그인 응답이 깨지면 import 자체가 예외를 던지므로 재시도로 감싼다."""
+    for attempt in range(1, retries + 1):
+        try:
+            from pykrx import stock as _stock
+            return _stock
+        except Exception as e:
+            log(f"[!] KRX 초기화 실패 (시도 {attempt}/{retries}): {e}")
+            if attempt < retries:
+                time.sleep(wait_s)
+    return None
+
+
+stock = _import_stock()
+if stock is None:
+    log("[!] KRX 로그인 반복 실패(점검·일시 장애 추정) → 기존 파일 유지, 정상 종료")
+    raise SystemExit(0)
 
 
 def _fetch_index(code: str, frm: str, to: str, timeout_s: int = 60):
