@@ -19,7 +19,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,24 +38,46 @@ jobs:
           KRX_PW: ${{ secrets.KRX_PW }}
         run: python build_scanner_data.py
 
-      - name: Build market_data.json (ADR·증시자금)
+      # 수급 데이터를 먼저 커밋 — 뒤 단계(시장지표)가 실패·타임아웃돼도 수급은 배포된다
+      - name: Commit scanner data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add scanner_data.json
+          if git diff --staged --quiet; then
+            echo "변경 없음 — 커밋 건너뜀 (휴장일 등)"
+            exit 0
+          fi
+          git commit -m "data: 수급 갱신 ($(date -u +%Y-%m-%d))"
+          for i in 1 2 3 4 5; do
+            if git push; then echo "push 성공"; exit 0; fi
+            echo "push 거부됨 — 원격 최신 반영 후 재시도 ($i)"
+            git fetch origin
+            git reset --soft origin/main
+            git add scanner_data.json
+            if git diff --staged --quiet; then echo "원격이 이미 동일 데이터"; exit 0; fi
+            git commit -m "data: 수급 갱신 ($(date -u +%Y-%m-%d))"
+          done
+          echo "push 5회 실패"
+          exit 1
+
+      - name: Build market_data.json (ADR·증시자금·개별종목)
         env:
           KRX_ID: ${{ secrets.KRX_ID }}
           KRX_PW: ${{ secrets.KRX_PW }}
         run: python build_market.py
 
-      - name: Commit if changed
+      - name: Commit market data
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add scanner_data.json market_data.json stocks_data.json
+          git add market_data.json stocks_data.json
           if git diff --staged --quiet; then
-            echo "변경 없음 — 커밋 건너뜀 (휴장일 등)"
+            echo "변경 없음 — 커밋 건너뜀"
             exit 0
           fi
-          git commit -m "data: 수급·시장지표 갱신 ($(date -u +%Y-%m-%d))"
-          # 동시 실행(18:30·20:15)이 겹쳐 push가 거부될 때 대비: 최대 5회 재시도.
-          # 거부되면 원격 최신 위에 '방금 만든 파일'을 다시 얹어 올린다(항상 최신 데이터 우선).
+          git commit -m "data: 시장지표 갱신 ($(date -u +%Y-%m-%d))"
+          # 동시 실행이 겹쳐 push가 거부될 때 대비: 최대 5회 재시도.
           for i in 1 2 3 4 5; do
             if git push; then
               echo "push 성공"
@@ -64,12 +86,12 @@ jobs:
             echo "push 거부됨 — 원격 최신 반영 후 재시도 ($i)"
             git fetch origin
             git reset --soft origin/main
-            git add scanner_data.json market_data.json stocks_data.json
+            git add market_data.json stocks_data.json
             if git diff --staged --quiet; then
               echo "원격이 이미 동일 데이터 — 갱신 불필요"
               exit 0
             fi
-            git commit -m "data: 수급·시장지표 갱신 ($(date -u +%Y-%m-%d))"
+            git commit -m "data: 시장지표 갱신 ($(date -u +%Y-%m-%d))"
           done
           echo "push 5회 실패"
           exit 1
