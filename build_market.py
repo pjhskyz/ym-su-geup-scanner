@@ -32,7 +32,7 @@ import requests
 
 OUT_PATH   = "market_data.json"
 SLEEP      = 0.4
-BACKFILL   = 250          # ADR 최초 백필 영업일 수 (~1년)
+BACKFILL   = 150          # ADR 회당 백필 상한 (며칠에 걸쳐 5년 완성)
 ADR_KEEP   = 1300         # ADR 원자료 보존 한도 (~5년)
 ADR_WIN    = 20           # ADR 산정 창(거래일)
 FUND_YEARS = 3            # 증시자금 차트 기간(년)
@@ -259,12 +259,12 @@ def kofia_series(D: str):
 
 # ----------------------- 개별종목 일별 수급 (누적) -----------------------
 STK_PATH     = "stocks_data.json"
-STK_BACKFILL = 30      # 회당 최대 수집 일수 (일당 스냅샷 4콜)
+STK_BACKFILL = 25      # 회당 최대 수집 일수 (일당 스냅샷 6콜: 수급4+시세2)
 STK_KEEP     = 130     # 보존 거래일 (~6개월)
 
 def stock_day(d: str):
-    """해당일 전종목 {ticker:[기관 순매수(백만), 외인 순매수(백만)]} + 종목명 맵."""
-    res, names = {}, {}
+    """해당일 전종목 수급 {t:[기관,외인](백만)} + 캔들 {t:[시,고,저,종,량]} + 종목명."""
+    res, names, ohlc = {}, {}, {}
     for slot, inv in ((0, "기관합계"), (1, "외국인")):
         for mkt in ("KOSPI", "KOSDAQ"):
             df = _guard(lambda a=d, m=mkt, v=inv:
@@ -279,44 +279,60 @@ def stock_day(d: str):
                 nm = str(row["종목명"]) if "종목명" in df.columns else ""
                 if nm:
                     names[t] = nm
+    for mkt in ("KOSPI", "KOSDAQ"):
+        df = _guard(lambda a=d, m=mkt: stock.get_market_ohlcv_by_ticker(a, market=m), 45)
+        time.sleep(SLEEP)
+        if df is None or df.empty or "종가" not in df.columns:
+            return None
+        for tkr, r in df.iterrows():
+            try:
+                o, h, l, c, v = (int(r["시가"]), int(r["고가"]), int(r["저가"]),
+                                 int(r["종가"]), int(r["거래량"]))
+            except Exception:
+                continue
+            if c:
+                ohlc[str(tkr)] = [o, h, l, c, v]
     vals = {t: [round(v[0] / 1e6), round(v[1] / 1e6)]
             for t, v in res.items() if v[0] or v[1]}
-    return {"vals": vals, "names": names}
+    return {"vals": vals, "names": names, "ohlc": ohlc}
 
 
 def load_prev_stocks() -> tuple[dict, dict]:
-    """기존 stocks_data.json(티커 배열형)을 날짜형 days 로 역변환해 로드."""
+    """기존 stocks_data.json(티커 배열형)을 날짜형 {d:{'f':…,'c':…}} 로 역변환."""
     if not os.path.exists(STK_PATH):
         return {}, {}
     try:
         with open(STK_PATH, encoding="utf-8") as f:
             p = json.load(f)
-        ds, s = p.get("dates", []), p.get("s", {})
+        ds, s, cc = p.get("dates", []), p.get("s", {}), p.get("c", {})
         days = {}
         for i, d in enumerate(ds):
-            row = {}
+            fr, cr = {}, {}
             for t, (ia, fa) in s.items():
                 if i < len(ia) and (ia[i] or fa[i]):
-                    row[t] = [ia[i], fa[i]]
-            days[d] = row
+                    fr[t] = [ia[i], fa[i]]
+            for t, arrs in cc.items():
+                if len(arrs) == 5 and i < len(arrs[3]) and arrs[3][i]:
+                    cr[t] = [arrs[0][i], arrs[1][i], arrs[2][i], arrs[3][i], arrs[4][i]]
+            days[d] = {"f": fr, "c": cr}
         return days, dict(p.get("names", {}))
     except Exception:
         return {}, {}
 
 
-def stocks_update(calendar: list) -> dict | None:
-    """빠진 영업일의 종목별 순매수를 수집해 티커 배열형으로 반환."""
+def stocks_update(calendar: list):
+    """빠진 영업일(수급 또는 캔들 미보유)을 수집해 티커 배열형으로 반환."""
     days, names = load_prev_stocks()
-    need = [d for d in calendar if d not in days][-STK_BACKFILL:]
+    need = [d for d in calendar if d not in days or not days[d].get("c")][-STK_BACKFILL:]
     if need:
-        log(f"· 개별종목 수급 {len(need)}일 수집 (회당 최대 {STK_BACKFILL}일)…")
+        log(f"· 개별종목 수급·캔들 {len(need)}일 수집 (회당 최대 {STK_BACKFILL}일)…")
     fails = 0
     for d in need:
         try:
             r = stock_day(d)
             if r is None:
                 raise RuntimeError("스냅샷 없음")
-            days[d] = r["vals"]
+            days[d] = {"f": r["vals"], "c": r["ohlc"]}
             names.update(r["names"])
             fails = 0
         except Exception as e:
@@ -328,13 +344,18 @@ def stocks_update(calendar: list) -> dict | None:
     if not days:
         return None
     ds = sorted(days)[-STK_KEEP:]
-    tickers = sorted({t for d in ds for t in days[d]})
-    s = {}
+    tickers = sorted({t for d in ds for t in days[d]["f"]} |
+                     {t for d in ds for t in days[d]["c"]})
+    s, c = {}, {}
     for t in tickers:
-        ia = [days[d].get(t, (0, 0))[0] for d in ds]
-        fa = [days[d].get(t, (0, 0))[1] for d in ds]
-        s[t] = [ia, fa]
-    return {"dates": ds, "names": {t: names.get(t, "") for t in tickers}, "s": s}
+        ia = [days[d]["f"].get(t, (0, 0))[0] for d in ds]
+        fa = [days[d]["f"].get(t, (0, 0))[1] for d in ds]
+        if any(ia) or any(fa):
+            s[t] = [ia, fa]
+        oh = [days[d]["c"].get(t) for d in ds]
+        if any(oh):
+            c[t] = [[(x[k] if x else 0) for x in oh] for k in range(5)]
+    return {"dates": ds, "names": {t: names.get(t, "") for t in tickers}, "s": s, "c": c}
 
 
 # ----------------------- 조립 -----------------------

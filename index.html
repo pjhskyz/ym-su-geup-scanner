@@ -453,7 +453,7 @@
   <div class="disp-wrap">
     <div class="disp-head">
       <h1>개별종목 수급 상세</h1>
-      <span class="basis">기관·외국인 일별 순매수와 누적 추이 · 주가 차트: TradingView · ※ 거래원(창구)별 데이터는 공개 API 미제공이라 투자자별로 구성</span>
+      <span class="basis">기관·외국인 일별 순매수와 누적 추이 · 주가 차트: KRX 데이터 + TradingView 차트 엔진 · ※ 거래원(창구)별 데이터는 공개 API 미제공이라 투자자별로 구성</span>
     </div>
     <div class="stk-search">
       <input id="stkSearch" placeholder="종목명 · 코드 검색 (예: 삼성전자, 005930)" autocomplete="off">
@@ -473,11 +473,12 @@
       </div>
       <div class="disp-cards" id="stkChips"></div>
       <div class="disp-chart-card">
-        <div class="fc-h">주가 차트 <span class="sub">TradingView · 확대/기간/지표는 차트 안에서 조작</span></div>
+        <div class="fc-h">주가 차트 <span class="sub">캔들·거래량: KRX · <i class="sw" style="background:#1fd1a3"></i>MA5 <i class="sw" style="background:#a78bfa"></i>MA20 · 휠 확대 / 드래그 이동</span></div>
         <div class="stk-tvwrap">
           <div id="stkTv"></div>
-          <div id="stkTvErr" class="fc-empty" style="display:none">차트를 불러오지 못했습니다 — 이 종목은 TradingView 미지원이거나 네트워크 문제입니다. 네이버금융 버튼으로 확인하세요.</div>
+          <div id="stkTvErr" class="fc-empty" style="display:none"></div>
         </div>
+        <div class="disp-note">차트 엔진: <a href="https://www.tradingview.com/" target="_blank" rel="noopener" style="color:var(--txt-faint)">TradingView Lightweight Charts™</a> · 데이터는 KRX에서 자체 수집</div>
       </div>
       <div class="disp-chart-card">
         <div class="fc-h">기관·외국인 일별 순매수 <span class="sub">막대: 일별(억) · 선: 누적(억, 우측축) · <i class="sw k1"></i>기관 <i class="sw k2"></i>외국인</span></div>
@@ -1031,7 +1032,7 @@ async function loadStocks(){
     STK=r.ok?await r.json():false;
   }catch(e){STK=false;}
   stkLoading=false;
-  if(tab==="stock"&&stkSel)renderStockFlow();
+  if(tab==="stock"&&stkSel){renderStockFlow();setStkChart();}
 }
 function openStockByCode(code){
   document.querySelector('#nav button[data-tab="stock"]').click();
@@ -1068,41 +1069,67 @@ function selectStock(code){
   loadStocks();
   renderStockFlow();
 }
-let tvReady=null;
-function ensureTv(){
-  if(window.TradingView)return Promise.resolve(true);
-  if(tvReady)return tvReady;
-  tvReady=new Promise(res=>{
+let lwcReady=null, stkPriceObj=null;
+function ensureLwc(){
+  if(window.LightweightCharts)return Promise.resolve(true);
+  if(lwcReady)return lwcReady;
+  lwcReady=new Promise(res=>{
     const s=document.createElement("script");
-    s.src="https://s3.tradingview.com/tv.js";
+    s.src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js";
     s.onload=()=>res(true);
     s.onerror=()=>res(false);
     document.head.appendChild(s);
   });
-  return tvReady;
+  return lwcReady;
+}
+function ma(closes,n){
+  const out=[];let sum=0;
+  for(let i=0;i<closes.length;i++){
+    sum+=closes[i].value;
+    if(i>=n)sum-=closes[i-n].value;
+    if(i>=n-1)out.push({time:closes[i].time,value:+(sum/n).toFixed(0)});
+  }
+  return out;
 }
 async function setStkChart(){
   if(!stkSel)return;
-  const code=stkSel;                                  // 로드 중 종목 변경 대비
-  const ok=await ensureTv();
-  if(code!==stkSel)return;
+  const code=stkSel;
   const err=document.getElementById("stkTvErr"), box=document.getElementById("stkTv");
-  if(!ok||!window.TradingView){err.style.display="";box.style.display="none";return;}
+  const showErr=t=>{err.textContent=t;err.style.display="";box.style.display="none";if(stkPriceObj){stkPriceObj.remove();stkPriceObj=null;}};
+  if(STK===false){showErr("시세 이력 파일이 아직 없습니다 — 다음 데이터 갱신 후 자동 표시됩니다.");return;}
+  if(!STK||!STK.dates){showErr("시세 이력 로딩 중…");return;}
+  const cd=STK.c&&STK.c[code];
+  if(!cd){showErr("이 종목의 캔들 이력이 아직 없습니다 — 다음 갱신부터 축적됩니다. (네이버금융 버튼으로 즉시 확인 가능)");return;}
+  const ok=await ensureLwc();
+  if(code!==stkSel)return;
+  if(!ok||!window.LightweightCharts){showErr("차트 라이브러리를 불러오지 못했습니다 (네트워크 확인).");return;}
   err.style.display="none";box.style.display="";
-  box.innerHTML="";
-  new TradingView.widget({
-    container_id:"stkTv",
-    symbol:"KRX:"+code,
-    interval:"D",
-    timezone:"Asia/Seoul",
-    theme:"dark",
-    style:"1",
-    locale:"kr",
-    autosize:true,
-    hide_side_toolbar:true,
-    allow_symbol_change:false,
-    save_image:false,
+  const candles=[],vols=[];
+  for(let i=0;i<STK.dates.length;i++){
+    const c=cd[3][i];if(!c)continue;
+    const t=fmtD8(STK.dates[i]);
+    candles.push({time:t,open:cd[0][i],high:cd[1][i],low:cd[2][i],close:c});
+    vols.push({time:t,value:cd[4][i],color:c>=cd[0][i]?"rgba(255,90,74,.35)":"rgba(61,139,255,.35)"});
+  }
+  if(stkPriceObj){stkPriceObj.remove();stkPriceObj=null;}
+  const chart=LightweightCharts.createChart(box,{
+    autoSize:true,
+    layout:{background:{color:"transparent"},textColor:"#8b93a7",fontSize:10,fontFamily:"'IBM Plex Mono',monospace"},
+    grid:{vertLines:{color:"rgba(255,255,255,.04)"},horzLines:{color:"rgba(255,255,255,.05)"}},
+    rightPriceScale:{borderColor:"#2c3744"},
+    timeScale:{borderColor:"#2c3744"},
+    crosshair:{mode:0},
   });
+  stkPriceObj=chart;
+  const cs=chart.addCandlestickSeries({upColor:"#ff5a4a",downColor:"#3d8bff",borderUpColor:"#ff5a4a",borderDownColor:"#3d8bff",wickUpColor:"#ff5a4a",wickDownColor:"#3d8bff"});
+  cs.setData(candles);
+  const vol=chart.addHistogramSeries({priceScaleId:"vol",priceFormat:{type:"volume"},lastValueVisible:false,priceLineVisible:false});
+  chart.priceScale("vol").applyOptions({scaleMargins:{top:.82,bottom:0}});
+  vol.setData(vols);
+  const closes=candles.map(x=>({time:x.time,value:x.close}));
+  if(closes.length>=5)chart.addLineSeries({color:"#1fd1a3",lineWidth:1,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false}).setData(ma(closes,5));
+  if(closes.length>=20)chart.addLineSeries({color:"#a78bfa",lineWidth:1,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false}).setData(ma(closes,20));
+  chart.timeScale().fitContent();
 }
 function renderStockFlow(){
   const note=document.getElementById("stkFlowNote");
@@ -1174,7 +1201,7 @@ document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
   }else if(tab==="fund"){
     V("view-fund").style.display="";renderFund();
   }else if(tab==="stock"){
-    V("view-stock").style.display="";loadStocks();if(stkSel)renderStockFlow();
+    V("view-stock").style.display="";loadStocks();if(stkSel){renderStockFlow();setStkChart();}
   }else{
     const ph=V("view-ph");ph.style.display="";
     const names={set:"설정"};
