@@ -257,6 +257,86 @@ def kofia_series(D: str):
     return {"dep": dep, "mar": mar}
 
 
+# ----------------------- 개별종목 일별 수급 (누적) -----------------------
+STK_PATH     = "stocks_data.json"
+STK_BACKFILL = 30      # 회당 최대 수집 일수 (일당 스냅샷 4콜)
+STK_KEEP     = 130     # 보존 거래일 (~6개월)
+
+def stock_day(d: str):
+    """해당일 전종목 {ticker:[기관 순매수(백만), 외인 순매수(백만)]} + 종목명 맵."""
+    res, names = {}, {}
+    for slot, inv in ((0, "기관합계"), (1, "외국인")):
+        for mkt in ("KOSPI", "KOSDAQ"):
+            df = _guard(lambda a=d, m=mkt, v=inv:
+                        stock.get_market_net_purchases_of_equities(a, a, m, v), 45)
+            time.sleep(SLEEP)
+            if df is None or df.empty or "순매수거래대금" not in df.columns:
+                return None
+            for tkr, row in df.iterrows():
+                t = str(tkr)
+                res.setdefault(t, [0, 0])
+                res[t][slot] += int(row["순매수거래대금"])
+                nm = str(row["종목명"]) if "종목명" in df.columns else ""
+                if nm:
+                    names[t] = nm
+    vals = {t: [round(v[0] / 1e6), round(v[1] / 1e6)]
+            for t, v in res.items() if v[0] or v[1]}
+    return {"vals": vals, "names": names}
+
+
+def load_prev_stocks() -> tuple[dict, dict]:
+    """기존 stocks_data.json(티커 배열형)을 날짜형 days 로 역변환해 로드."""
+    if not os.path.exists(STK_PATH):
+        return {}, {}
+    try:
+        with open(STK_PATH, encoding="utf-8") as f:
+            p = json.load(f)
+        ds, s = p.get("dates", []), p.get("s", {})
+        days = {}
+        for i, d in enumerate(ds):
+            row = {}
+            for t, (ia, fa) in s.items():
+                if i < len(ia) and (ia[i] or fa[i]):
+                    row[t] = [ia[i], fa[i]]
+            days[d] = row
+        return days, dict(p.get("names", {}))
+    except Exception:
+        return {}, {}
+
+
+def stocks_update(calendar: list) -> dict | None:
+    """빠진 영업일의 종목별 순매수를 수집해 티커 배열형으로 반환."""
+    days, names = load_prev_stocks()
+    need = [d for d in calendar if d not in days][-STK_BACKFILL:]
+    if need:
+        log(f"· 개별종목 수급 {len(need)}일 수집 (회당 최대 {STK_BACKFILL}일)…")
+    fails = 0
+    for d in need:
+        try:
+            r = stock_day(d)
+            if r is None:
+                raise RuntimeError("스냅샷 없음")
+            days[d] = r["vals"]
+            names.update(r["names"])
+            fails = 0
+        except Exception as e:
+            fails += 1
+            log(f"[!] 개별종목 {d} 실패: {e}")
+            if fails >= 3:
+                log("[!] 연속 3회 실패 → 개별종목 수집 중단(누적분 유지)")
+                break
+    if not days:
+        return None
+    ds = sorted(days)[-STK_KEEP:]
+    tickers = sorted({t for d in ds for t in days[d]})
+    s = {}
+    for t in tickers:
+        ia = [days[d].get(t, (0, 0))[0] for d in ds]
+        fa = [days[d].get(t, (0, 0))[1] for d in ds]
+        s[t] = [ia, fa]
+    return {"dates": ds, "names": {t: names.get(t, "") for t in tickers}, "s": s}
+
+
 # ----------------------- 조립 -----------------------
 def main():
     try:
@@ -317,6 +397,17 @@ def main():
         json.dump(out, f, ensure_ascii=False)
     log(f"\n✓ ADR {len(adr['dates']) if adr else 0}일 · 자금 {len(dates)}일"
         f"{' · 금투협 포함' if kofia else ' · 금투협 제외'} → {OUT_PATH}")
+
+    # 개별종목 일별 수급 (실패해도 market_data 에는 영향 없음)
+    try:
+        stk = stocks_update(idx["dates"][-STK_KEEP:])
+        if stk:
+            stk["updated"] = out["updated"]
+            with open(STK_PATH, "w", encoding="utf-8") as f:
+                json.dump(stk, f, ensure_ascii=False)
+            log(f"✓ 개별종목 수급 {len(stk['dates'])}일 · {len(stk['s'])}종목 → {STK_PATH}")
+    except Exception as e:
+        log(f"[!] 개별종목 수급 생성 실패: {e} → 건너뜀")
 
 
 if __name__ == "__main__":

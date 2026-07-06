@@ -191,6 +191,23 @@
   .fc-h .sw{display:inline-block;width:12px;height:3px;border-radius:2px;vertical-align:middle;margin:0 3px 0 6px}
   .sw.k3{background:var(--accent)}
   .fc-empty{padding:34px 0;text-align:center;color:var(--txt-faint);font-size:12px}
+
+  /* ---- 개별종목 탭 ---- */
+  .stk-search{position:relative;max-width:440px;margin:14px 0}
+  .stk-search input{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px;color:var(--txt);font-size:13px;font-family:var(--sans);outline:none;box-sizing:border-box}
+  .stk-search input:focus{border-color:var(--gold)}
+  #stkSug{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--panel);border:1px solid var(--line2);border-radius:8px;z-index:50;max-height:320px;overflow-y:auto;display:none;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+  #stkSug .it{padding:9px 14px;cursor:pointer;display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--txt)}
+  #stkSug .it:hover{background:var(--bg2)}
+  #stkSug .it .cd{color:var(--txt-faint);font-family:var(--mono);font-size:11px}
+  .stk-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+  .stk-nm{font-size:19px;font-weight:700;color:#fff}
+  .stk-sub{font-size:12px;color:var(--txt-faint);margin-top:3px;font-family:var(--mono)}
+  .stk-links{display:flex;gap:8px}
+  .stk-links .btn,.mlinks .btn{text-decoration:none;color:var(--txt)}
+  .mlinks{display:flex;gap:8px;padding:2px 18px 12px;flex-wrap:wrap}
+  .stk-imgwrap{background:#fff;border-radius:8px;padding:6px;overflow:hidden}
+  .stk-imgwrap img{width:100%;display:block}
   .disp-table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
   .disp-table th{background:var(--bg2);color:var(--txt-faint);font-weight:500;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;text-align:right;padding:7px 12px;border-bottom:1px solid var(--line2)}
   .disp-table th.l,.disp-table td.l{text-align:left}
@@ -432,6 +449,53 @@
   </div>
 </div>
 
+<div id="view-stock" style="display:none">
+  <div class="disp-wrap">
+    <div class="disp-head">
+      <h1>개별종목 수급 상세</h1>
+      <span class="basis">기관·외국인 일별 순매수와 누적 추이 · 주가 차트: 네이버금융 · ※ 거래원(창구)별 데이터는 공개 API 미제공이라 투자자별로 구성</span>
+    </div>
+    <div class="stk-search">
+      <input id="stkSearch" placeholder="종목명 · 코드 검색 (예: 삼성전자, 005930)" autocomplete="off">
+      <div id="stkSug"></div>
+    </div>
+    <div id="stkEmpty" class="ph">
+      <h2>종목을 검색해 선택하세요</h2>
+      <p>수급 테이블에서 종목 클릭 → "개별종목 상세 →" 버튼으로도 들어올 수 있습니다.</p>
+    </div>
+    <div id="stkBody" style="display:none">
+      <div class="disp-card stk-head">
+        <div>
+          <div class="stk-nm" id="stkName"></div>
+          <div class="stk-sub" id="stkSub"></div>
+        </div>
+        <div class="stk-links" id="stkLinks"></div>
+      </div>
+      <div class="disp-cards" id="stkChips"></div>
+      <div class="disp-chart-card">
+        <div class="disp-toolbar">
+          <div class="fc-h" style="margin:0">주가 차트 <span class="sub">네이버금융 제공</span></div>
+          <div class="seg" id="stkImgSeg">
+            <button class="on" data-p="day">일봉</button>
+            <button data-p="week">주봉</button>
+            <button data-p="month">월봉</button>
+          </div>
+        </div>
+        <div class="stk-imgwrap">
+          <img id="stkImg" alt="주가 차트" loading="lazy"
+               onerror="this.style.display='none';document.getElementById('stkImgErr').style.display=''">
+          <div id="stkImgErr" class="fc-empty" style="display:none">차트 이미지를 불러오지 못했습니다 — 네이버금융 버튼으로 직접 확인하세요</div>
+        </div>
+      </div>
+      <div class="disp-chart-card">
+        <div class="fc-h">기관·외국인 일별 순매수 <span class="sub">막대: 일별(억) · 선: 누적(억, 우측축) · <i class="sw k1"></i>기관 <i class="sw k2"></i>외국인</span></div>
+        <div class="disp-canvas"><canvas id="stkFlow"></canvas></div>
+        <div class="disp-note" id="stkFlowNote"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal -->
 <div class="ov" id="ov">
   <div class="modal" id="modal"></div>
@@ -544,11 +608,11 @@ const RAW = [
 [100,"링크제니시스","소프트웨어",1,7,2,236,2.8,-4.1,-11.4,-8.3],
 ];
 
-const KEYS=["name","sector","neti","it","id1","id2","netf","ft","fd1","fd2","istk","i30","fstk","f30","i1","i5","i20","f1","f5","f20","r1","r5","r20"];
+const KEYS=["name","sector","neti","it","id1","id2","netf","ft","fd1","fd2","istk","i30","fstk","f30","i1","i5","i20","f1","f5","f20","r1","r5","r20","code","per","pbr","div","mcap"];
 let favSet=new Set();
 function mapRows(arr){return arr.map(r=>{const o={};KEYS.forEach((k,i)=>o[k]=r[i]);o.iJump=(o.id2!=null&&o.it!=null)?o.id2-o.it:null;o.fJump=(o.fd2!=null&&o.ft!=null)?o.fd2-o.ft:null;o.fav=favSet.has(o.name);return o;});}
-// 기존 기관 시드(11필드)를 통합 구조로 변환 — 외국인/연속/IF는 라이브에서 채워짐
-let STORE=RAW.map(r=>[r[1],r[2], r[3],r[4],r[5],r[6], null,null,null,null, null,null,null,null, null,null,null,null,null,null, r[8],r[9],r[10]]);
+// 기존 기관 시드(11필드)를 통합 구조로 변환 — 외국인/연속/IF/밸류는 라이브에서 채워짐
+let STORE=RAW.map(r=>[r[1],r[2], r[3],r[4],r[5],r[6], null,null,null,null, null,null,null,null, null,null,null,null,null,null, r[8],r[9],r[10], null,null,null,null,null]);
 let DATA=mapRows(STORE);
 
 // 로이 유니버스 (반도체·IT 강조) — WICS 업종명 키워드로 매칭
@@ -661,7 +725,8 @@ function renderStats(){
 }
 
 function openModal(d){
-  const pend='<span class="pend">추후 연동</span>';
+  const vv=x=>x!=null?x.toFixed(2):"—";
+  const fmtCap=v=>v==null?"—":v>=10000?(v/10000).toFixed(2)+"조":fmt(v)+"억";
   const stkTxt=(s,c)=>(s==null)?'<span class="pend">—</span>':`${s}일 연속 · 30일 중 ${c}일`;
   const tlbig=(d2,d1,now)=> now==null?'<div style="padding:6px 0"><span class="pend">—</span></div>':`
     <div class="tl-big">
@@ -702,13 +767,21 @@ function openModal(d){
         <div class="mrow"><span class="lbl">1일 / 1주 / 1개월</span><span>${rt(d.r1)} · ${rt(d.r5)} · ${rt(d.r20)}</span></div>
       </div>
       <div class="mcard full">
-        <div class="ck">밸류에이션 (TTM)</div>
-        <div class="mrow"><span class="lbl">PER · PBR · ROE · 시가총액</span>${pend}</div>
+        <div class="ck">밸류에이션 · 시가총액</div>
+        <div class="mrow"><span class="lbl">PER / PBR / 배당수익률</span><span>${vv(d.per)} / ${vv(d.pbr)} / ${d.div!=null?d.div.toFixed(2)+"%":"—"}</span></div>
+        <div class="mrow"><span class="lbl">시가총액</span><span>${fmtCap(d.mcap)}</span></div>
       </div>
     </div>
-    <div class="note">시계열·순매수·연속일·I/F·수익률은 실측, <b>평균매수단가·밸류에이션</b>은 추후 연동됩니다.</div>`;
+    ${d.code?`<div class="mlinks">
+      <a class="btn" href="https://finance.naver.com/item/main.naver?code=${d.code}" target="_blank" rel="noopener">네이버금융 ↗</a>
+      <a class="btn" href="https://dart.fss.or.kr/dsab001/main.do?autoSearch=true&option=corp&textCrpNm=${encodeURIComponent(d.name)}" target="_blank" rel="noopener">DART 공시 ↗</a>
+      <button class="btn" id="toStock" style="color:var(--gold)">개별종목 상세 →</button>
+    </div>`:""}
+    <div class="note">수급·수익률·밸류에이션 모두 KRX 실측 데이터입니다${d.code?` · 종목코드 ${d.code}`:""}.</div>`;
   document.getElementById("ov").classList.add("open");
   document.getElementById("x").onclick=closeModal;
+  const ts=document.getElementById("toStock");
+  if(ts)ts.onclick=()=>{closeModal();openStockByCode(d.code);};
 }
 function closeModal(){document.getElementById("ov").classList.remove("open");}
 document.getElementById("ov").onclick=e=>{if(e.target.id==="ov")closeModal();};
@@ -729,8 +802,8 @@ document.getElementById("bothOnly").onchange=e=>{bothOnly=e.target.checked;rende
 // 초기 정렬 컬럼(기관 순매수) 화살표 표시
 document.querySelector('th[data-sort="neti"]')?.insertAdjacentHTML("beforeend",'<span class="arr">▼</span>');
 document.getElementById("csv").onclick=()=>{
-  const head=["종목명","업종","기관순매수당일","기관오늘","기관D-1","기관D-2","외인순매수당일","외인오늘","외인D-1","외인D-2","기관연속","기관30일","외인연속","외인30일","I1","I5","I20","F1","F5","F20","수익1일","수익1주","수익1개월"];
-  const rows=filtered().map(d=>[d.name,d.sector,d.neti,d.it,d.id1,d.id2,d.netf,d.ft,d.fd1,d.fd2,d.istk,d.i30,d.fstk,d.f30,d.i1,d.i5,d.i20,d.f1,d.f5,d.f20,d.r1,d.r5,d.r20]);
+  const head=["종목명","업종","기관순매수당일","기관오늘","기관D-1","기관D-2","외인순매수당일","외인오늘","외인D-1","외인D-2","기관연속","기관30일","외인연속","외인30일","I1","I5","I20","F1","F5","F20","수익1일","수익1주","수익1개월","종목코드","PER","PBR","배당수익률","시가총액(억)"];
+  const rows=filtered().map(d=>[d.name,d.sector,d.neti,d.it,d.id1,d.id2,d.netf,d.ft,d.fd1,d.fd2,d.istk,d.i30,d.fstk,d.f30,d.i1,d.i5,d.i20,d.f1,d.f5,d.f20,d.r1,d.r5,d.r20,d.code,d.per,d.pbr,d.div,d.mcap]);
   const csv="\uFEFF"+[head,...rows].map(r=>r.map(c=>`"${c==null?'':c}"`).join(",")).join("\n");
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
   a.download="기관외인수급.csv";a.click();
@@ -955,12 +1028,119 @@ async function loadMkt(){
 }
 loadMkt();
 
+// ---- 개별종목 상세 ----
+let STK=null, stkSel=null, stkFlowObj=null, stkImgMode="day", stkLoading=false;
+function findRow(code){return DATA.find(x=>x.code===code)||null;}
+async function loadStocks(){
+  if(stkLoading||(STK&&STK.s))return;
+  stkLoading=true;
+  try{
+    const r=await fetch("stocks_data.json",{cache:"no-store"});
+    STK=r.ok?await r.json():false;
+  }catch(e){STK=false;}
+  stkLoading=false;
+  if(tab==="stock"&&stkSel)renderStockFlow();
+}
+function openStockByCode(code){
+  document.querySelector('#nav button[data-tab="stock"]').click();
+  if(code)selectStock(code);
+}
+function selectStock(code){
+  stkSel=code;
+  const row=findRow(code);
+  const nm=row?row.name:((STK&&STK.names&&STK.names[code])||code);
+  document.getElementById("stkEmpty").style.display="none";
+  document.getElementById("stkBody").style.display="";
+  document.getElementById("stkName").textContent=nm;
+  document.getElementById("stkSub").textContent=`${row&&row.sector?row.sector+" · ":""}${code}`;
+  document.getElementById("stkLinks").innerHTML=`
+    <a class="btn" href="https://finance.naver.com/item/main.naver?code=${code}" target="_blank" rel="noopener">네이버금융 ↗</a>
+    <a class="btn" href="https://dart.fss.or.kr/dsab001/main.do?autoSearch=true&option=corp&textCrpNm=${encodeURIComponent(nm)}" target="_blank" rel="noopener">DART ↗</a>`;
+  const vv=x=>x!=null?x.toFixed(2):"—";
+  const fmtCap=v=>v==null?"—":v>=10000?(v/10000).toFixed(2)+"조":fmt(v)+"억";
+  document.getElementById("stkChips").innerHTML=row?`
+    <div class="disp-card">
+      <div class="dk"><span>당일 수급 · 백만</span><span class="basis">연속 ${stk2(row)}</span></div>
+      <div class="mrow"><span class="lbl">기관</span>${netTxt(row.neti)}</div>
+      <div class="mrow"><span class="lbl">외국인</span>${netTxt(row.netf)}</div>
+      <div class="mrow"><span class="lbl">I20 / F20 (시총대비 %)</span><span>${row.i20!=null?row.i20:"—"} / ${row.f20!=null?row.f20:"—"}</span></div>
+    </div>
+    <div class="disp-card">
+      <div class="dk"><span>밸류에이션</span></div>
+      <div class="mrow"><span class="lbl">PER / PBR</span><span>${vv(row.per)} / ${vv(row.pbr)}</span></div>
+      <div class="mrow"><span class="lbl">배당수익률</span><span>${row.div!=null?row.div.toFixed(2)+"%":"—"}</span></div>
+      <div class="mrow"><span class="lbl">시가총액</span><span>${fmtCap(row.mcap)}</span></div>
+    </div>`
+    :`<div class="disp-card"><div class="dk">오늘 수급 데이터에 없는 종목입니다 (순매수 0 또는 시총 500억 미만)</div></div>`;
+  setStkImg();
+  loadStocks();
+  renderStockFlow();
+}
+function setStkImg(){
+  if(!stkSel)return;
+  const img=document.getElementById("stkImg");
+  document.getElementById("stkImgErr").style.display="none";
+  img.style.display="";
+  img.src=`https://ssl.pstatic.net/imgfinance/chart/item/candle/${stkImgMode}/${stkSel}.png?t=${Date.now()}`;
+}
+document.querySelectorAll("#stkImgSeg button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("#stkImgSeg button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");stkImgMode=b.dataset.p;setStkImg();
+});
+function renderStockFlow(){
+  const note=document.getElementById("stkFlowNote");
+  if(!stkSel)return;
+  const clear=()=>{if(stkFlowObj){stkFlowObj.destroy();stkFlowObj=null;}};
+  if(STK===false){note.textContent="수급 이력 파일이 아직 없습니다 — 다음 데이터 갱신 후 자동 표시됩니다.";clear();return;}
+  if(!STK||!STK.s){note.textContent="수급 이력 로딩 중…";clear();return;}
+  const s=STK.s[stkSel];
+  if(!s){note.textContent="이 종목의 수급 이력이 아직 없습니다 (이력 축적 중).";clear();return;}
+  if(typeof Chart==="undefined"){note.textContent="차트 라이브러리를 불러오지 못했습니다";return;}
+  const labels=STK.dates.map(fmtD8);
+  const ia=s[0].map(v=>+(v/100).toFixed(1)), fa=s[1].map(v=>+(v/100).toFixed(1));  // 백만→억
+  let ci=0,cf=0;
+  const cia=ia.map(v=>+(ci+=v).toFixed(1)), cfa=fa.map(v=>+(cf+=v).toFixed(1));
+  clear();
+  stkFlowObj=new Chart(document.getElementById("stkFlow"),{
+    data:{labels,datasets:[
+      {type:"bar",label:"기관(일별)",data:ia,backgroundColor:"rgba(255,176,32,.5)",yAxisID:"y"},
+      {type:"bar",label:"외국인(일별)",data:fa,backgroundColor:"rgba(90,167,232,.5)",yAxisID:"y"},
+      {type:"line",label:"기관(누적)",data:cia,borderColor:"#ffb020",borderWidth:1.6,pointRadius:0,tension:.2,fill:false,yAxisID:"y2"},
+      {type:"line",label:"외국인(누적)",data:cfa,borderColor:"#5aa7e8",borderWidth:1.6,pointRadius:0,tension:.2,fill:false,yAxisID:"y2"},
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,animation:false,
+      interaction:{mode:"index",intersect:false},
+      plugins:{legend:{display:false},tooltip:{backgroundColor:"#161d27",borderColor:"#2c3744",borderWidth:1,titleColor:"#d4dbe5",bodyColor:"#d4dbe5",
+        callbacks:{label:c=>` ${c.dataset.label} ${c.parsed.y!=null?c.parsed.y.toFixed(1)+"억":"·"}`}}},
+      scales:{
+        x:{ticks:{color:"#566273",maxTicksLimit:8,font:{size:10,family:"'IBM Plex Mono',monospace"}},grid:{color:"rgba(255,255,255,.03)"}},
+        y:{position:"left",ticks:{color:"#566273",font:{size:10,family:"'IBM Plex Mono',monospace"}},grid:{color:"rgba(255,255,255,.05)"}},
+        y2:{position:"right",ticks:{color:"#8b93a7",font:{size:10,family:"'IBM Plex Mono',monospace"}},grid:{display:false}}
+      }
+    }
+  });
+  note.textContent=`${STK.dates.length}거래일 축적 (약 6개월까지 자동 확장) · 기준 ${fmtD8(STK.dates[STK.dates.length-1])}${STK.updated?` · 갱신 ${STK.updated} KST`:""}`;
+}
+// 종목 검색 자동완성
+const stkInput=document.getElementById("stkSearch"), stkSug=document.getElementById("stkSug");
+stkInput.oninput=()=>{
+  const qq=stkInput.value.trim().toLowerCase();
+  if(!qq){stkSug.style.display="none";return;}
+  const hits=DATA.filter(x=>x.code&&(x.name.toLowerCase().includes(qq)||x.code.includes(qq)||(x.sector||"").toLowerCase().includes(qq))).slice(0,12);
+  if(!hits.length){stkSug.style.display="none";return;}
+  stkSug.innerHTML=hits.map(x=>`<div class="it" data-c="${x.code}"><span>${x.name} <span style="color:var(--txt-faint);font-size:10.5px">${x.sector||""}</span></span><span class="cd">${x.code}</span></div>`).join("");
+  stkSug.style.display="";
+  stkSug.querySelectorAll(".it").forEach(el=>el.onclick=()=>{stkSug.style.display="none";stkInput.value="";selectStock(el.dataset.c);});
+};
+document.addEventListener("click",e=>{if(!e.target.closest(".stk-search"))stkSug.style.display="none";});
+
 // tabs
 document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("#nav button").forEach(x=>x.classList.remove("active"));
   b.classList.add("active");tab=b.dataset.tab;
   const V=id=>document.getElementById(id);
-  ["view-su","view-ph","view-disp","view-adr","view-fund"].forEach(id=>V(id).style.display="none");
+  ["view-su","view-ph","view-disp","view-adr","view-fund","view-stock"].forEach(id=>V(id).style.display="none");
   if(tab==="su"||tab==="fav"){
     V("view-su").style.display="";
     favOnly=(tab==="fav");buildChips();render();
@@ -970,9 +1150,11 @@ document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
     V("view-adr").style.display="";renderAdr();
   }else if(tab==="fund"){
     V("view-fund").style.display="";renderFund();
+  }else if(tab==="stock"){
+    V("view-stock").style.display="";loadStocks();if(stkSel)renderStockFlow();
   }else{
     const ph=V("view-ph");ph.style.display="";
-    const names={stock:"개별종목 차트",set:"설정"};
+    const names={set:"설정"};
     ph.innerHTML=`<div class="ph"><h2>${names[tab]}</h2><p>이 탭은 화면 구조만 잡아둔 자리입니다. 데이터 레이어 연결 후 활성화됩니다.</p></div>`;
   }
 });

@@ -212,6 +212,30 @@ def index_disparity(D: str):
     }
 
 
+# ----------------------- 밸류에이션 (스냅샷 2콜) -----------------------
+def fundamentals(D: str) -> dict:
+    """{ticker: (PER, PBR, 배당수익률%)} — 0/음수는 None(적자·무배당)."""
+    out = {}
+    for mkt in MARKETS:
+        try:
+            df = stock.get_market_fundamental_by_ticker(D, market=mkt)
+        except Exception as e:
+            log(f"[!] 밸류에이션({mkt}) 실패: {e}")
+            continue
+        time.sleep(SLEEP)
+        if df is None or df.empty:
+            continue
+        for tkr, r in df.iterrows():
+            def g(c):
+                try:
+                    v = float(r[c])
+                    return round(v, 2) if v > 0 else None
+                except Exception:
+                    return None
+            out[str(tkr)] = (g("PER"), g("PBR"), g("DIV"))
+    return out
+
+
 # ----------------------- 업종 (WICS 중분류) -----------------------
 # FnGuide WICS 중분류 — 네이버·다음 증권이 쓰는 그 분류 (반도체/IT하드웨어/자동차/은행 …)
 WICS_CODES = [
@@ -311,6 +335,8 @@ def main():
         streaks[tkr] = (continuity(tv, TV_COLS["inst"]), continuity(tv, TV_COLS["frgn"]))
 
     secmap = sector_map(D)
+    log("· 밸류에이션(PER/PBR/배당)…")
+    fnd = fundamentals(D)
 
     def merged_rows() -> list:
         tickers = set(daily["inst"][D]) | set(daily["frgn"][D])
@@ -342,6 +368,11 @@ def main():
                 ratio(win["f5"].get(tkr, 0), tkr),                    # F5
                 ratio(win["f20"].get(tkr, 0), tkr),                   # F20
                 r1m.get(tkr, 0.0), r5m.get(tkr, 0.0), r20m.get(tkr, 0.0),
+                tkr,                                          # 종목코드
+                fnd.get(tkr, (None,) * 3)[0],                 # PER
+                fnd.get(tkr, (None,) * 3)[1],                 # PBR
+                fnd.get(tkr, (None,) * 3)[2],                 # 배당수익률(%)
+                round(caps.get(tkr, 0) / 1e8),                # 시가총액(억)
             ])
         rows.sort(key=lambda r: r[2], reverse=True)   # 기관 당일순매수 desc
         return rows
