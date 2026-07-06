@@ -33,6 +33,7 @@ import requests
 OUT_PATH   = "market_data.json"
 SLEEP      = 0.4
 BACKFILL   = 150          # ADR 회당 백필 상한 (며칠에 걸쳐 5년 완성)
+ADR_BUDGET_S = 360        # ADR 백필 시간 예산(초) — 초과 시 다음 실행이 이어감
 ADR_KEEP   = 1300         # ADR 원자료 보존 한도 (~5년)
 ADR_WIN    = 20           # ADR 산정 창(거래일)
 FUND_YEARS = 3            # 증시자금 차트 기간(년)
@@ -149,9 +150,13 @@ def adr_update(raw: dict, calendar: list) -> dict:
     if not need:
         log("· ADR: 추가 집계할 날짜 없음")
         return raw
-    log(f"· ADR 집계 {len(need)}일 (최초 백필이면 수 분 소요)…")
+    log(f"· ADR 집계 {len(need)}일 (시간 예산 {ADR_BUDGET_S}s)…")
+    t0 = time.time()
     consecutive_fail = 0
     for i, d in enumerate(need, 1):
+        if time.time() - t0 > ADR_BUDGET_S:
+            log(f"[i] ADR 시간 예산 소진 ({i-1}/{len(need)}일 처리) — 나머지는 다음 실행이 이어감")
+            break
         row = {}
         try:
             for mkt, (uk, dk) in (("KOSPI", ("ku", "kd")), ("KOSDAQ", ("qu", "qd"))):
@@ -260,6 +265,7 @@ def kofia_series(D: str):
 # ----------------------- 개별종목 일별 수급 (누적) -----------------------
 STK_PATH     = "stocks_data.json"
 STK_BACKFILL = 25      # 회당 최대 수집 일수 (일당 스냅샷 6콜: 수급4+시세2)
+STK_BUDGET_S = 300     # 개별종목 수집 시간 예산(초)
 STK_KEEP     = 130     # 보존 거래일 (~6개월)
 
 def stock_day(d: str):
@@ -325,9 +331,13 @@ def stocks_update(calendar: list):
     days, names = load_prev_stocks()
     need = [d for d in calendar if d not in days or not days[d].get("c")][-STK_BACKFILL:]
     if need:
-        log(f"· 개별종목 수급·캔들 {len(need)}일 수집 (회당 최대 {STK_BACKFILL}일)…")
+        log(f"· 개별종목 수급·캔들 {len(need)}일 수집 (시간 예산 {STK_BUDGET_S}s)…")
+    t0 = time.time()
     fails = 0
-    for d in need:
+    for i, d in enumerate(need, 1):
+        if time.time() - t0 > STK_BUDGET_S:
+            log(f"[i] 개별종목 시간 예산 소진 ({i-1}/{len(need)}일 처리) — 나머지는 다음 실행이 이어감")
+            break
         try:
             r = stock_day(d)
             if r is None:
