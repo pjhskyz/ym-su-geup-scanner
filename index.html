@@ -1130,8 +1130,14 @@ stkInput.oninput=()=>{
   const hits=DATA.filter(x=>x.code&&(x.name.toLowerCase().includes(qq)||x.code.includes(qq)||(x.sector||"").toLowerCase().includes(qq))).slice(0,12);
   if(!hits.length){stkSug.style.display="none";return;}
   stkSug.innerHTML=hits.map(x=>`<div class="it" data-c="${x.code}"><span>${x.name} <span style="color:var(--txt-faint);font-size:10.5px">${x.sector||""}</span></span><span class="cd">${x.code}</span></div>`).join("");
-  stkSug.style.display="";
+  stkSug.style.display="block";
   stkSug.querySelectorAll(".it").forEach(el=>el.onclick=()=>{stkSug.style.display="none";stkInput.value="";selectStock(el.dataset.c);});
+};
+stkInput.onkeydown=e=>{
+  if(e.key==="Enter"){
+    const first=stkSug.querySelector(".it");
+    if(first&&stkSug.style.display==="block")first.click();
+  }
 };
 document.addEventListener("click",e=>{if(!e.target.closest(".stk-search"))stkSug.style.display="none";});
 
