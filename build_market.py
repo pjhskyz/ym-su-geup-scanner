@@ -36,6 +36,7 @@ BACKFILL   = 250          # ADR 최초 백필 영업일 수 (~1년)
 ADR_KEEP   = 1300         # ADR 원자료 보존 한도 (~5년)
 ADR_WIN    = 20           # ADR 산정 창(거래일)
 FUND_YEARS = 3            # 증시자금 차트 기간(년)
+CAL_YEARS  = 5            # 지수 달력·ADR 백필 범위(년) — 5Y 차트용
 
 KOFIA_BASE = "https://freesis.kofia.or.kr"
 KOFIA_URL  = KOFIA_BASE + "/meta/getMetaDataList.do"
@@ -109,8 +110,8 @@ def fetch_index(code: str, frm: str, to: str) -> pd.DataFrame | None:
 
 
 def index_series(D: str):
-    """3년치 지수시세 → 영업일 달력 + 거래대금(조) + 상장시가총액(조)."""
-    frm = shift(D, FUND_YEARS * 365 + 20)
+    """5년치 지수시세 → 영업일 달력 + 거래대금(조) + 상장시가총액(조)."""
+    frm = shift(D, CAL_YEARS * 365 + 20)
     out = {}
     for key, code in (("k", "1001"), ("q", "2001")):
         try:
@@ -142,8 +143,9 @@ def index_series(D: str):
 def adr_update(raw: dict, calendar: list) -> dict:
     """빠진 영업일의 상승/하락 종목수를 스냅샷으로 집계해 누적한다."""
     need = [d for d in calendar if d not in raw]
-    if not raw:
-        need = need[-BACKFILL:]
+    # 회당 최대 BACKFILL일만 처리 (최근분 우선) — 실행 시간 폭주 방지.
+    # 남은 과거분은 다음 실행이 이어받아 며칠에 걸쳐 5년치가 완성된다.
+    need = need[-BACKFILL:]
     if not need:
         log("· ADR: 추가 집계할 날짜 없음")
         return raw
@@ -278,14 +280,15 @@ def main():
         log("[!] 지수시세 실패 → 기존 파일 유지, 종료")
         return
 
-    adr_raw = adr_update(dict(prev.get("adr_raw", {})), idx["dates"])
+    adr_raw = adr_update(dict(prev.get("adr_raw", {})), idx["dates"])   # 5년 달력 기준
     adr = adr_series(adr_raw)
 
     log("· 금투협(예탁금·신용잔고)…")
     kofia = kofia_series(D)
 
-    dates = idx["dates"]
-    fund = {"dates": dates, "vk": idx["vk"], "vq": idx["vq"]}
+    fn = FUND_YEARS * 252                       # 자금 차트는 최근 3년만
+    dates = idx["dates"][-fn:]
+    fund = {"dates": dates, "vk": idx["vk"][-fn:], "vq": idx["vq"][-fn:]}
     if kofia:
         dep, mar = kofia["dep"], kofia["mar"]
         fund["dep"] = [dep.get(d) for d in dates]

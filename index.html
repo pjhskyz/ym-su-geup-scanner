@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="기관·외국인 수급, 이격도, ADR, 증시자금을 한 화면에서 — YM리서치 스캐너">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1420'/%3E%3Ctext x='32' y='45' font-family='Arial' font-size='36' font-weight='700' text-anchor='middle' fill='%23ffb020'%3EY%3C/text%3E%3C/svg%3E">
 <title>YM리서치 스캐너</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,6 +92,11 @@
 
   /* ---- Table ---- */
   .table-wrap{padding:4px 18px 40px;overflow-x:auto}
+  /* 가로 스크롤 시 종목명 고정 (모바일·좁은 화면) */
+  .table-wrap th:nth-child(2),.table-wrap td:nth-child(2){position:sticky;left:0;z-index:6;background:var(--bg)}
+  .table-wrap thead th:nth-child(2){z-index:12;background:var(--bg2)}
+  .table-wrap tbody tr:hover td:nth-child(2){background:var(--panel)}
+  .table-wrap tbody tr.jump td:nth-child(2){background:#221d11}
   table{width:100%;border-collapse:collapse;min-width:1200px}
   thead th{position:sticky;top:0;background:var(--bg2);color:var(--txt-faint);font-weight:500;font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;text-align:right;padding:6px 10px;border-bottom:1px solid var(--line2);white-space:nowrap;cursor:pointer;user-select:none;z-index:10}
   thead th.l{text-align:left}
@@ -258,6 +265,7 @@
     <span class="spacer"></span>
     <input class="search" id="search" placeholder="종목·업종 검색">
     <label class="toggle"><input type="checkbox" id="jumpOnly"><span class="sw"></span>급상승만</label>
+    <label class="toggle"><input type="checkbox" id="bothOnly"><span class="sw"></span>쌍끌이</label>
     <button class="btn" id="csv">⬇ CSV</button>
   </div>
 
@@ -547,7 +555,7 @@ let DATA=mapRows(STORE);
 const SEMI_KW=["반도체","디스플레이","하드웨어"];
 function isSemi(sec){return !!sec && SEMI_KW.some(k=>sec.includes(k));}
 
-let sort={key:"neti",dir:-1}, q="", sectorFilter=null, jumpOnly=false, favOnly=false, tab="su";
+let sort={key:"neti",dir:-1}, q="", sectorFilter=null, jumpOnly=false, bothOnly=false, favOnly=false, tab="su";
 
 const fmt=n=>n.toLocaleString("ko-KR");
 const sign=n=>n>0?"+":"";
@@ -575,6 +583,7 @@ function filtered(){
   if(sectorFilter==='__semi')d=d.filter(x=>isSemi(x.sector));
   else if(sectorFilter)d=d.filter(x=>x.sector===sectorFilter);
   if(jumpOnly)d=d.filter(x=>(x.iJump!=null&&x.iJump>=150)||(x.fJump!=null&&x.fJump>=150));
+  if(bothOnly)d=d.filter(x=>x.neti>0&&x.netf>0);   // 기관·외인 동시 순매수
   if(favOnly)d=d.filter(x=>x.fav);
   const {key,dir}=sort;
   d.sort((a,b)=>{
@@ -716,6 +725,9 @@ document.querySelectorAll("th[data-sort]").forEach(th=>th.onclick=()=>{
 
 document.getElementById("search").oninput=e=>{q=e.target.value.trim();render();};
 document.getElementById("jumpOnly").onchange=e=>{jumpOnly=e.target.checked;render();};
+document.getElementById("bothOnly").onchange=e=>{bothOnly=e.target.checked;render();};
+// 초기 정렬 컬럼(기관 순매수) 화살표 표시
+document.querySelector('th[data-sort="neti"]')?.insertAdjacentHTML("beforeend",'<span class="arr">▼</span>');
 document.getElementById("csv").onclick=()=>{
   const head=["종목명","업종","기관순매수당일","기관오늘","기관D-1","기관D-2","외인순매수당일","외인오늘","외인D-1","외인D-2","기관연속","기관30일","외인연속","외인30일","I1","I5","I20","F1","F5","F20","수익1일","수익1주","수익1개월"];
   const rows=filtered().map(d=>[d.name,d.sector,d.neti,d.it,d.id1,d.id2,d.netf,d.ft,d.fd1,d.fd2,d.istk,d.i30,d.fstk,d.f30,d.i1,d.i5,d.i20,d.f1,d.f5,d.f20,d.r1,d.r5,d.r20]);
@@ -982,7 +994,14 @@ async function loadLive(){
     const j=await res.json();
     if(j.rows&&j.rows.length){STORE=j.rows;DATA=mapRows(STORE);}
     if(j.disparity)adoptDisp(j.disparity);   // 전용 파일과 비교해 더 최신이면 채택
-    if(j.asof){const b=document.querySelector(".basis");if(b)b.textContent="기준일 "+fmtAsof(j.asof);}
+    if(j.asof){
+      const b=document.querySelector(".basis");
+      if(b){
+        const d=new Date(+j.asof.slice(0,4),+j.asof.slice(4,6)-1,+j.asof.slice(6));
+        const gap=(Date.now()-d.getTime())/864e5;
+        b.innerHTML="기준일 "+fmtAsof(j.asof)+(gap>4.5?' <span style="color:#ff6b5e;font-weight:600">· 갱신 지연 — 자동 업데이트 점검 필요</span>':"");
+      }
+    }
     rebuild();
   }catch(e){/* 시드 유지 */}
 }
