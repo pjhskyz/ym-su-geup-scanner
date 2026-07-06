@@ -1117,7 +1117,7 @@ async function setStkChart(){
     layout:{background:{color:"transparent"},textColor:"#8b93a7",fontSize:10,fontFamily:"'IBM Plex Mono',monospace"},
     grid:{vertLines:{color:"rgba(255,255,255,.04)"},horzLines:{color:"rgba(255,255,255,.05)"}},
     rightPriceScale:{borderColor:"#2c3744"},
-    timeScale:{borderColor:"#2c3744"},
+    timeScale:{borderColor:"#2c3744",fixLeftEdge:true,fixRightEdge:true,minBarSpacing:2},
     crosshair:{mode:0},
   });
   stkPriceObj=chart;
