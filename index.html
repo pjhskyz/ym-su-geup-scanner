@@ -205,6 +205,7 @@
   .stk-sub{font-size:12px;color:var(--txt-faint);margin-top:3px;font-family:var(--mono)}
   .stk-links{display:flex;gap:8px}
   .stk-links .btn,.mlinks .btn{text-decoration:none;color:var(--txt)}
+  #stkChips{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
   .mlinks{display:flex;gap:8px;padding:2px 18px 12px;flex-wrap:wrap}
   .stk-tvwrap{position:relative;height:480px;border-radius:8px;overflow:hidden;background:#0b0f14;border:1px solid var(--line)}
   #stkTv{height:100%}
@@ -473,7 +474,7 @@
       </div>
       <div class="disp-cards" id="stkChips"></div>
       <div class="disp-chart-card">
-        <div class="fc-h">주가 차트 <span class="sub">캔들·거래량: KRX · <i class="sw" style="background:#1fd1a3"></i>MA5 <i class="sw" style="background:#a78bfa"></i>MA20 · 휠 확대 / 드래그 이동</span></div>
+        <div class="fc-h">주가 차트 <span class="sub">캔들·거래량: KRX · <i class="sw" style="background:#1fd1a3"></i>MA5 <i class="sw" style="background:#a78bfa"></i>MA20 · <i class="sw k1"></i>기관 누적 <i class="sw k2"></i>외인 누적(좌축·억) · 휠 확대 / 드래그 이동</span></div>
         <div class="stk-tvwrap">
           <div id="stkTv"></div>
           <div id="stkTvErr" class="fc-empty" style="display:none"></div>
@@ -602,7 +603,8 @@ const RAW = [
 ];
 
 const KEYS=["name","sector","neti","it","id1","id2","netf","ft","fd1","fd2","istk","i30","fstk","f30","i1","i5","i20","f1","f5","f20","r1","r5","r20","code","per","pbr","div","mcap"];
-let favSet=new Set();
+let favSet;try{favSet=new Set(JSON.parse(localStorage.getItem("ymFavs")||"[]"));}catch(e){favSet=new Set();}
+function saveFavs(){try{localStorage.setItem("ymFavs",JSON.stringify([...favSet]));}catch(e){}}
 function mapRows(arr){return arr.map(r=>{const o={};KEYS.forEach((k,i)=>o[k]=r[i]);o.iJump=(o.id2!=null&&o.it!=null)?o.id2-o.it:null;o.fJump=(o.fd2!=null&&o.ft!=null)?o.fd2-o.ft:null;o.fav=favSet.has(o.name);return o;});}
 // 기존 기관 시드(11필드)를 통합 구조로 변환 — 외국인/연속/IF/밸류는 라이브에서 채워짐
 let STORE=RAW.map(r=>[r[1],r[2], r[3],r[4],r[5],r[6], null,null,null,null, null,null,null,null, null,null,null,null,null,null, r[8],r[9],r[10], null,null,null,null,null]);
@@ -690,7 +692,7 @@ function render(){
       <td class="ret ${retClass(x.r20)}">${sign(x.r20)}${(x.r20??0).toFixed(1)}</td>
     </tr>`;
   }).join("")+(all.length>d.length?`<tr><td colspan="16" class="empty">전체 ${all.length}개 중 상위 ${d.length} 표시 — 검색·업종 필터로 좁혀보세요</td></tr>`:"");
-  tb.querySelectorAll(".star-cell").forEach(el=>el.onclick=e=>{e.stopPropagation();const nm=DATA[+el.dataset.star].name;if(favSet.has(nm))favSet.delete(nm);else favSet.add(nm);DATA.forEach(z=>z.fav=favSet.has(z.name));buildChips();render();});
+  tb.querySelectorAll(".star-cell").forEach(el=>el.onclick=e=>{e.stopPropagation();const nm=DATA[+el.dataset.star].name;if(favSet.has(nm))favSet.delete(nm);else favSet.add(nm);saveFavs();DATA.forEach(z=>z.fav=favSet.has(z.name));buildChips();render();});
   tb.querySelectorAll("tr[data-i]").forEach(tr=>tr.onclick=()=>openModal(DATA[+tr.dataset.i]));
 }
 function stk2(x){
@@ -1032,7 +1034,7 @@ async function loadStocks(){
     STK=r.ok?await r.json():false;
   }catch(e){STK=false;}
   stkLoading=false;
-  if(tab==="stock"&&stkSel){renderStockFlow();setStkChart();}
+  if(tab==="stock"&&stkSel){renderStockFlow();renderStockSummary();setStkChart();}
 }
 function openStockByCode(code){
   document.querySelector('#nav button[data-tab="stock"]').click();
@@ -1047,11 +1049,16 @@ function selectStock(code){
   document.getElementById("stkName").textContent=nm;
   document.getElementById("stkSub").textContent=`${row&&row.sector?row.sector+" · ":""}${code}`;
   document.getElementById("stkLinks").innerHTML=`
+    <button class="btn" id="stkFav"></button>
     <a class="btn" href="https://finance.naver.com/item/main.naver?code=${code}" target="_blank" rel="noopener">네이버금융 ↗</a>
     <a class="btn" href="https://dart.fss.or.kr/dsab001/main.do?autoSearch=true&option=corp&textCrpNm=${encodeURIComponent(nm)}" target="_blank" rel="noopener">DART ↗</a>`;
+  const favBtn=document.getElementById("stkFav");
+  const favLbl=()=>{favBtn.textContent=(favSet.has(nm)?"★":"☆")+" 즐겨찾기";favBtn.style.color=favSet.has(nm)?"var(--gold)":"var(--txt-dim)";};
+  favBtn.onclick=()=>{if(favSet.has(nm))favSet.delete(nm);else favSet.add(nm);saveFavs();DATA.forEach(z=>z.fav=favSet.has(z.name));favLbl();};
+  favLbl();
   const vv=x=>x!=null?x.toFixed(2):"—";
   const fmtCap=v=>v==null?"—":v>=10000?(v/10000).toFixed(2)+"조":fmt(v)+"억";
-  document.getElementById("stkChips").innerHTML=row?`
+  document.getElementById("stkChips").innerHTML=(row?`
     <div class="disp-card">
       <div class="dk"><span>당일 수급 · 백만</span><span class="basis">연속 ${stk2(row)}</span></div>
       <div class="mrow"><span class="lbl">기관</span>${netTxt(row.neti)}</div>
@@ -1064,10 +1071,15 @@ function selectStock(code){
       <div class="mrow"><span class="lbl">배당수익률</span><span>${row.div!=null?row.div.toFixed(2)+"%":"—"}</span></div>
       <div class="mrow"><span class="lbl">시가총액</span><span>${fmtCap(row.mcap)}</span></div>
     </div>`
-    :`<div class="disp-card"><div class="dk">오늘 수급 데이터에 없는 종목입니다 (순매수 0 또는 시총 500억 미만)</div></div>`;
+    :`<div class="disp-card"><div class="dk">오늘 수급 데이터에 없는 종목입니다 (순매수 0 또는 시총 500억 미만)</div></div>`)+`
+    <div class="disp-card">
+      <div class="dk"><span>수급 요약 · 최근 20일</span></div>
+      <div id="stkSum"><div class="mrow"><span class="lbl">이력 로딩 중…</span></div></div>
+    </div>`;
   setStkChart();
   loadStocks();
   renderStockFlow();
+  renderStockSummary();
 }
 let lwcReady=null, stkPriceObj=null;
 function ensureLwc(){
@@ -1117,6 +1129,7 @@ async function setStkChart(){
     layout:{background:{color:"transparent"},textColor:"#8b93a7",fontSize:10,fontFamily:"'IBM Plex Mono',monospace"},
     grid:{vertLines:{color:"rgba(255,255,255,.04)"},horzLines:{color:"rgba(255,255,255,.05)"}},
     rightPriceScale:{borderColor:"#2c3744"},
+    leftPriceScale:{visible:true,borderColor:"#2c3744"},
     timeScale:{borderColor:"#2c3744",fixLeftEdge:true,fixRightEdge:true,minBarSpacing:2},
     crosshair:{mode:0},
   });
@@ -1129,7 +1142,45 @@ async function setStkChart(){
   const closes=candles.map(x=>({time:x.time,value:x.close}));
   if(closes.length>=5)chart.addLineSeries({color:"#1fd1a3",lineWidth:1,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false}).setData(ma(closes,5));
   if(closes.length>=20)chart.addLineSeries({color:"#a78bfa",lineWidth:1,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false}).setData(ma(closes,20));
+  // 기관·외인 누적 순매수 오버레이 (좌축, 억) — 주가·수급 병합 뷰
+  const fl=STK.s&&STK.s[code];
+  if(fl){
+    let ci=0,cf=0;const li=[],lf=[];
+    for(let i=0;i<STK.dates.length;i++){
+      ci+=(fl[0][i]||0)/100;cf+=(fl[1][i]||0)/100;
+      if(!cd[3][i])continue;                          // 캔들 있는 날만 (시간축 정렬)
+      const t=fmtD8(STK.dates[i]);
+      li.push({time:t,value:+ci.toFixed(1)});
+      lf.push({time:t,value:+cf.toFixed(1)});
+    }
+    chart.addLineSeries({priceScaleId:"left",color:"#ffb020",lineWidth:1.4,priceLineVisible:false,crosshairMarkerVisible:false}).setData(li);
+    chart.addLineSeries({priceScaleId:"left",color:"#5aa7e8",lineWidth:1.4,priceLineVisible:false,crosshairMarkerVisible:false}).setData(lf);
+    chart.priceScale("left").applyOptions({scaleMargins:{top:.08,bottom:.24}});
+  }
   chart.timeScale().fitContent();
+}
+function renderStockSummary(){
+  const el=document.getElementById("stkSum");
+  if(!el||!stkSel)return;
+  if(STK===false){el.innerHTML='<div class="mrow"><span class="lbl">이력 파일 없음 — 다음 갱신 후 표시</span></div>';return;}
+  if(!STK||!STK.s){el.innerHTML='<div class="mrow"><span class="lbl">이력 로딩 중…</span></div>';return;}
+  const s=STK.s[stkSel];
+  if(!s){el.innerHTML='<div class="mrow"><span class="lbl">이 종목의 수급 이력이 아직 없습니다</span></div>';return;}
+  const n=STK.dates.length, w=Math.min(20,n), st=n-w;
+  let iS=0,fS=0,iUp=0,fUp=0,mx=0,mxD="";
+  for(let i=st;i<n;i++){
+    const iv=s[0][i]||0, fv=s[1][i]||0;
+    iS+=iv;fS+=fv;
+    if(iv>0)iUp++;if(fv>0)fUp++;
+    if(iv>mx){mx=iv;mxD=STK.dates[i];}
+  }
+  const eokS=v=>{const a=v/100;return (a>0?"+":"")+(Math.abs(a)>=10000?(a/10000).toFixed(1)+"조":fmt(Math.round(a))+"억");};
+  const col=v=>v>0?"var(--up)":v<0?"var(--down)":"inherit";
+  el.innerHTML=`
+    <div class="mrow"><span class="lbl">기관 합계 (${w}일)</span><span style="color:${col(iS)}">${eokS(iS)}</span></div>
+    <div class="mrow"><span class="lbl">외국인 합계</span><span style="color:${col(fS)}">${eokS(fS)}</span></div>
+    <div class="mrow"><span class="lbl">순매수일 (기 / 외)</span><span>${iUp}/${w} · ${fUp}/${w}</span></div>
+    <div class="mrow"><span class="lbl">기관 최대 매수일</span><span>${mx>0?fmtD8(mxD)+" · "+eokS(mx):"—"}</span></div>`;
 }
 function renderStockFlow(){
   const note=document.getElementById("stkFlowNote");
@@ -1201,7 +1252,7 @@ document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
   }else if(tab==="fund"){
     V("view-fund").style.display="";renderFund();
   }else if(tab==="stock"){
-    V("view-stock").style.display="";loadStocks();if(stkSel){renderStockFlow();setStkChart();}
+    V("view-stock").style.display="";loadStocks();if(stkSel){renderStockFlow();renderStockSummary();setStkChart();}
   }else{
     const ph=V("view-ph");ph.style.display="";
     const names={set:"설정"};
