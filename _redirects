@@ -1,0 +1,3 @@
+# Netlify 프록시 — 브라우저의 CORS 제약 없이 시세 API를 중계한다.
+# /yf/* 요청을 Yahoo Finance 로 서버사이드 프록시 (status 200 = rewrite)
+/yf/*  https://query1.finance.yahoo.com/:splat  200

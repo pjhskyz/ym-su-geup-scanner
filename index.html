@@ -192,6 +192,15 @@
   .sw.k3{background:var(--accent)}
   .fc-empty{padding:34px 0;text-align:center;color:var(--txt-faint);font-size:12px}
 
+  /* ---- 글로벌 탭 ---- */
+  .g-cards{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .g-nm{font-size:12px;color:var(--txt-dim)}
+  .g-val{font-family:var(--mono);font-size:24px;font-weight:700;margin:4px 0 2px;color:#fff}
+  .g-chg{font-family:var(--mono);font-size:12px;font-weight:600}
+  .g-chg.up{color:var(--up)}.g-chg.down{color:var(--down)}.g-chg.flat{color:var(--txt-faint)}
+  .g-spark{height:56px;margin-top:8px;position:relative}
+  .g-err{padding:18px 0;color:var(--txt-faint);font-size:11.5px}
+
   /* ---- 개별종목 탭 ---- */
   .stk-search{position:relative;max-width:440px;margin:14px 0}
   .stk-search input{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px;color:var(--txt);font-size:13px;font-family:var(--sans);outline:none;box-sizing:border-box}
@@ -265,6 +274,7 @@
     <button data-tab="disp">이격도</button>
     <button data-tab="adr">ADR</button>
     <button data-tab="fund">증시자금</button>
+    <button data-tab="global">글로벌</button>
     <button data-tab="stock">개별종목</button>
     <button data-tab="fav">즐겨찾기</button>
     <button data-tab="set">설정</button>
@@ -446,6 +456,23 @@
       <div class="disp-guide">
         <div class="gnote">예탁금·신용잔고는 금융투자협회가 2거래일 지연 발표해 최근 이틀은 비어 보일 수 있습니다 · 신용/시총 = 신용융자잔고 ÷ 상장시가총액 · 정보 제공용이며 투자 권유가 아닙니다</div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div id="view-global" style="display:none">
+  <div class="disp-wrap">
+    <div class="disp-head">
+      <h1>글로벌 프록시</h1>
+      <span class="basis">글로벌 선물 · 매크로 — 출처: Yahoo Finance (선물 약 10분 지연) · 탭이 열려 있는 동안 60초마다 자동 갱신</span>
+      <div class="disp-meta" id="gMeta"></div>
+    </div>
+    <div class="fc-h" style="margin:16px 0 8px">글로벌 선물</div>
+    <div class="disp-cards g-cards" id="gFut"></div>
+    <div class="fc-h" style="margin:16px 0 8px">매크로</div>
+    <div class="disp-cards g-cards" id="gMac"></div>
+    <div class="disp-guide" style="margin-top:14px">
+      <div class="gnote">코스피200 야간선물은 무료 공개 시세가 없어 미국 상장 한국 ETF(EWY·MSCI Korea)로 대체했습니다 · 시세는 정보 제공용이며 매매 기준으로 삼기엔 지연이 있을 수 있습니다</div>
     </div>
   </div>
 </div>
@@ -1236,12 +1263,90 @@ stkInput.onkeydown=e=>{
 };
 document.addEventListener("click",e=>{if(!e.target.closest(".stk-search"))stkSug.style.display="none";});
 
+// ---- 글로벌 프록시 (Yahoo Finance / Netlify 프록시 경유) ----
+const GSYM=[
+  {grp:"fut",id:"es", s:"ES=F", n:"S&P500 선물",              d:2},
+  {grp:"fut",id:"nq", s:"NQ=F", n:"나스닥100 선물",            d:2},
+  {grp:"fut",id:"ewy",s:"EWY",  n:"한국 프록시 · EWY(MSCI Korea)",d:2,pre:"$"},
+  {grp:"mac",id:"tnx",s:"^TNX", n:"미국 10년물 금리",           d:3,suf:"%"},
+  {grp:"mac",id:"wti",s:"CL=F", n:"WTI 원유",                 d:2,pre:"$"},
+  {grp:"mac",id:"krw",s:"KRW=X",n:"원/달러",                  d:1,suf:"원"},
+];
+let gTimer=null, gCharts={};
+function gCardShell(){
+  const mk=x=>`<div class="disp-card" id="gc-${x.id}">
+    <div class="g-nm">${x.n}</div>
+    <div class="g-val" id="gv-${x.id}">—</div>
+    <div class="g-chg flat" id="gg-${x.id}">로딩 중…</div>
+    <div class="g-spark"><canvas id="gs-${x.id}"></canvas></div>
+  </div>`;
+  document.getElementById("gFut").innerHTML=GSYM.filter(x=>x.grp==="fut").map(mk).join("");
+  document.getElementById("gMac").innerHTML=GSYM.filter(x=>x.grp==="mac").map(mk).join("");
+}
+async function gFetchOne(x){
+  const url=`/yf/v8/finance/chart/${encodeURIComponent(x.s)}?range=1d&interval=5m&includePrePost=false`;
+  const r=await fetch(url,{cache:"no-store"});
+  if(!r.ok)throw new Error("HTTP "+r.status);
+  const j=await r.json();
+  const res=j&&j.chart&&j.chart.result&&j.chart.result[0];
+  if(!res)throw new Error("응답 형식");
+  let px=res.meta.regularMarketPrice, pv=res.meta.chartPreviousClose??res.meta.previousClose;
+  let closes=(res.indicators&&res.indicators.quote&&res.indicators.quote[0]&&res.indicators.quote[0].close||[]).filter(v=>v!=null);
+  if(px==null&&closes.length)px=closes[closes.length-1];
+  if(x.id==="tnx"){ // ^TNX가 수익률×10으로 오는 경우 정규화 (10년물이 20%를 넘을 일은 없음)
+    if(px>20){px/=10;pv=pv!=null?pv/10:pv;closes=closes.map(v=>v/10);}
+  }
+  return {px,pv,closes};
+}
+function gPaint(x,data){
+  const v=document.getElementById("gv-"+x.id), g=document.getElementById("gg-"+x.id);
+  if(!v)return;
+  const fmtV=n=>(x.pre||"")+n.toLocaleString("en-US",{minimumFractionDigits:x.d,maximumFractionDigits:x.d})+(x.suf||"");
+  v.textContent=fmtV(data.px);
+  if(data.pv){
+    const chg=(data.px/data.pv-1)*100, dif=data.px-data.pv;
+    g.className="g-chg "+(chg>0.001?"up":chg<-0.001?"down":"flat");
+    g.textContent=`${dif>0?"+":""}${dif.toFixed(x.d)} (${chg>0?"+":""}${chg.toFixed(2)}%)`;
+  }else{g.className="g-chg flat";g.textContent="전일 기준 없음";}
+  if(typeof Chart!=="undefined"&&data.closes.length>3){
+    if(gCharts[x.id])gCharts[x.id].destroy();
+    const up=data.pv?data.px>=data.pv:true;
+    gCharts[x.id]=new Chart(document.getElementById("gs-"+x.id),{
+      type:"line",
+      data:{labels:data.closes.map((_,i)=>i),datasets:[{data:data.closes,borderColor:up?"#ff5a4a":"#3d8bff",borderWidth:1.3,pointRadius:0,tension:.3,fill:false}]},
+      options:{responsive:true,maintainAspectRatio:false,animation:false,
+        plugins:{legend:{display:false},tooltip:{enabled:false}},
+        scales:{x:{display:false},y:{display:false}}}
+    });
+  }
+}
+async function renderGlobal(){
+  if(!document.getElementById("gc-es"))gCardShell();
+  const results=await Promise.allSettled(GSYM.map(gFetchOne));
+  let ok=0;
+  results.forEach((r,i)=>{
+    const x=GSYM[i];
+    if(r.status==="fulfilled"&&r.value.px!=null){gPaint(x,r.value);ok++;}
+    else{
+      const g=document.getElementById("gg-"+x.id);
+      if(g){g.className="g-chg flat";g.textContent="불러오기 실패";}
+    }
+  });
+  const kst=new Date(Date.now()+9*36e5).toISOString().slice(11,16);
+  document.getElementById("gMeta").textContent=
+    ok?`갱신 ${kst} KST · ${ok}/${GSYM.length} 종목 수신 · 60초마다 자동 갱신`
+      :"시세를 불러오지 못했습니다 — Netlify 배포 주소에서만 작동합니다 (프록시 경유)";
+}
+function gStart(){if(gTimer)return;renderGlobal();gTimer=setInterval(()=>{if(tab==="global")renderGlobal();},60000);}
+function gStop(){if(gTimer){clearInterval(gTimer);gTimer=null;}}
+
 // tabs
 document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("#nav button").forEach(x=>x.classList.remove("active"));
   b.classList.add("active");tab=b.dataset.tab;
   const V=id=>document.getElementById(id);
-  ["view-su","view-ph","view-disp","view-adr","view-fund","view-stock"].forEach(id=>V(id).style.display="none");
+  ["view-su","view-ph","view-disp","view-adr","view-fund","view-global","view-stock"].forEach(id=>V(id).style.display="none");
+  if(tab!=="global")gStop();
   if(tab==="su"||tab==="fav"){
     V("view-su").style.display="";
     favOnly=(tab==="fav");buildChips();render();
@@ -1251,6 +1356,8 @@ document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
     V("view-adr").style.display="";renderAdr();
   }else if(tab==="fund"){
     V("view-fund").style.display="";renderFund();
+  }else if(tab==="global"){
+    V("view-global").style.display="";gStart();
   }else if(tab==="stock"){
     V("view-stock").style.display="";loadStocks();if(stkSel){renderStockFlow();renderStockSummary();setStkChart();}
   }else{
