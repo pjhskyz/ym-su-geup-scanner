@@ -474,7 +474,7 @@
     <div class="fc-h" style="margin:16px 0 8px">매크로</div>
     <div class="disp-cards g-cards" id="gMac"></div>
     <div class="disp-guide" style="margin-top:14px">
-      <div class="gnote">야간선물은 본인 한투(KIS) API 직결로 공식 시세를 30초 갱신합니다(분기 만기 롤오버 시 종목코드 갱신 필요) · Hyperliquid 퍼프는 24시간(주말 포함) 보조 지표이며 펀딩 베이시스만큼 야간선물가와 미세한 차이가 있을 수 있습니다 · EWY는 미국 장중 보조 프록시 · 시세는 정보 제공용이며 매매 기준으로 삼기엔 지연·괴리가 있을 수 있습니다</div>
+      <div class="gnote">코스피200 선물은 본인 한투(KIS) API 직결 — 현재 주간 세션 확정치가 표시되며 야간 라이브 연동은 작업 중입니다(월물 자동 탐지) · Hyperliquid 퍼프는 24시간(주말 포함) 보조 지표이며 펀딩 베이시스만큼 야간선물가와 미세한 차이가 있을 수 있습니다 · EWY는 미국 장중 보조 프록시 · 시세는 정보 제공용이며 매매 기준으로 삼기엔 지연·괴리가 있을 수 있습니다</div>
     </div>
   </div>
 </div>
@@ -1268,7 +1268,7 @@ document.addEventListener("click",e=>{if(!e.target.closest(".stk-search"))stkSug
 // ---- 글로벌 프록시 (Yahoo Finance / Netlify 프록시 경유) ----
 const KIS_NIGHT_CODE="101W9000";   // 야간선물 종목코드 — 분기 만기 롤오버 시 이 한 줄만 갱신
 const GSYM=[
-  {grp:"fut",id:"k200n",s:KIS_NIGHT_CODE,n:"코스피200 야간선물 · KRX Night",d:2,src:"kis"},
+  {grp:"fut",id:"k200n",s:KIS_NIGHT_CODE,n:"코스피200 선물 · KIS 공식(주간 종가 기준)",d:2,src:"kis"},
   {grp:"fut",id:"kr200",s:"xyz:KR200",n:"코스피200 퍼프 · Hyperliquid 24h",d:2,src:"hl"},
   {grp:"fut",id:"es", s:"ES=F", n:"S&P500 선물",              d:2},
   {grp:"fut",id:"nq", s:"NQ=F", n:"나스닥100 선물",            d:2},
