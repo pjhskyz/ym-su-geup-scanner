@@ -1,4 +1,4 @@
-// netlify/functions/kis-night.mjs  (v4.1 — +야간 전광판 스캔 모드)
+// netlify/functions/kis-night.mjs  (v4.2 — +호가 진단 모드)
 // 한국투자증권(KIS) 야간선물 시세 중계 — appkey/secret 은 Netlify 환경변수에만 존재.
 //
 // 환경변수(필수): KIS_APPKEY, KIS_APPSECRET
@@ -159,6 +159,25 @@ export default async (req) => {
         } catch (e) { out.push({ cls, err: String(e.message || e) }); }
       }
       return json({ kst: new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 19), scan: out });
+    }
+
+    if (url.searchParams.get("ask") === "1") {     // 진단: REST 호가가 야간 세션을 반영하는지
+      const c = force || resolved.code || candidates()[0];
+      const qs2 = new URLSearchParams({ FID_COND_MRKT_DIV_CODE: "F", FID_INPUT_ISCD: c });
+      const r2 = await fetch(
+        BASE + "/uapi/domestic-futureoption/v1/quotations/inquire-asking-price?" + qs2,
+        {
+          headers: {
+            authorization: "Bearer " + token,
+            appkey: process.env.KIS_APPKEY,
+            appsecret: process.env.KIS_APPSECRET,
+            tr_id: "FHMIF10010000",
+            custtype: "P",
+          },
+        }
+      );
+      const j2 = await r2.json();
+      return json({ code: c, rt: j2.rt_cd, msg: j2.msg1, output1: j2.output1, output2: j2.output2 });
     }
 
     if (probe) {                                   // 진단: 정규 후보 + 전광판 코드 응답 현황
