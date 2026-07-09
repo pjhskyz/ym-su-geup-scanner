@@ -1,4 +1,4 @@
-// netlify/functions/kis-night.mjs  (v4 — 실측 코드 형식 기반 자동 탐지)
+// netlify/functions/kis-night.mjs  (v4.1 — +야간 전광판 스캔 모드)
 // 한국투자증권(KIS) 야간선물 시세 중계 — appkey/secret 은 Netlify 환경변수에만 존재.
 //
 // 환경변수(필수): KIS_APPKEY, KIS_APPSECRET
@@ -56,11 +56,11 @@ function candidates() {
 }
 
 // ---- 선물 전광판에서 실제 상장 월물 코드 추출 (추측 불필요) ----
-async function board(token) {
+async function board(token, cls = "MKI") {
   const qs = new URLSearchParams({
     FID_COND_MRKT_DIV_CODE: "F",
     FID_COND_SCR_DIV_CODE: "20503",
-    FID_COND_MRKT_CLS_CODE: "MKI",
+    FID_COND_MRKT_CLS_CODE: cls,
   });
   const r = await fetch(
     BASE + "/uapi/domestic-futureoption/v1/quotations/display-board-futures?" + qs,
@@ -142,8 +142,23 @@ export default async (req) => {
     const token = await getToken();
 
     if (url.searchParams.get("board") === "1") {   // 진단: 전광판 원본 (필드 확인용)
-      const b = await board(token);
-      return json({ rt: b.rt, msg: b.msg, codes: codesFromRows(b.rows), rows: b.rows.slice(0, 8) });
+      const cls = url.searchParams.get("cls") || "MKI";
+      const b = await board(token, cls);
+      return json({ cls, rt: b.rt, msg: b.msg, codes: codesFromRows(b.rows), rows: b.rows.slice(0, 8) });
+    }
+
+    if (url.searchParams.get("boardscan") === "1") {  // 진단: 시장구분값 후보 일괄 스캔 (야간 전광판 탐색)
+      const clsList = ["MKI","KQI","NKI","MNF","NGT","EUF","GLB","SPI","CMF","MKO","KI","K2I"];
+      const out = [];
+      for (const cls of clsList) {
+        try {
+          const b = await board(token, cls);
+          const cs = codesFromRows(b.rows);
+          out.push({ cls, rows: b.rows.length, first: cs[0] || null,
+                     px: b.rows[0] ? (b.rows[0].futs_prpr || null) : null });
+        } catch (e) { out.push({ cls, err: String(e.message || e) }); }
+      }
+      return json({ kst: new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 19), scan: out });
     }
 
     if (probe) {                                   // 진단: 정규 후보 + 전광판 코드 응답 현황
