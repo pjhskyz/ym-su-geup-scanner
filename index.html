@@ -200,6 +200,8 @@
   .g-chg.up{color:var(--up)}.g-chg.down{color:var(--down)}.g-chg.flat{color:var(--txt-faint)}
   .g-spark{height:56px;margin-top:8px;position:relative}
   .g-err{padding:18px 0;color:var(--txt-faint);font-size:11.5px}
+  .live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#1fd1a3;margin-left:6px;vertical-align:middle;animation:livepulse 1.6s ease-in-out infinite}
+  @keyframes livepulse{0%,100%{opacity:1}50%{opacity:.25}}
 
   /* ---- 개별종목 탭 ---- */
   .stk-search{position:relative;max-width:440px;margin:14px 0}
@@ -464,7 +466,7 @@
   <div class="disp-wrap">
     <div class="disp-head">
       <h1>글로벌 프록시</h1>
-      <span class="basis">글로벌 선물 · 매크로 — 출처: Yahoo Finance (선물 약 10분 지연) · 탭이 열려 있는 동안 60초마다 자동 갱신</span>
+      <span class="basis">글로벌 선물 · 매크로 — 출처: Yahoo Finance (선물 약 10분 지연) · 탭이 열려 있는 동안 30초마다 갱신 · 코스피200 퍼프는 웹소켓 실시간</span>
       <div class="disp-meta" id="gMeta"></div>
     </div>
     <div class="fc-h" style="margin:16px 0 8px">글로벌 선물</div>
@@ -472,7 +474,7 @@
     <div class="fc-h" style="margin:16px 0 8px">매크로</div>
     <div class="disp-cards g-cards" id="gMac"></div>
     <div class="disp-guide" style="margin-top:14px">
-      <div class="gnote">코스피200 야간선물은 무료 공개 시세가 없어 미국 상장 한국 ETF(EWY·MSCI Korea)로 대체했습니다 · 시세는 정보 제공용이며 매매 기준으로 삼기엔 지연이 있을 수 있습니다</div>
+      <div class="gnote">야간선물은 본인 한투(KIS) API 직결로 공식 시세를 30초 갱신합니다(분기 만기 롤오버 시 종목코드 갱신 필요) · Hyperliquid 퍼프는 24시간(주말 포함) 보조 지표이며 펀딩 베이시스만큼 야간선물가와 미세한 차이가 있을 수 있습니다 · EWY는 미국 장중 보조 프록시 · 시세는 정보 제공용이며 매매 기준으로 삼기엔 지연·괴리가 있을 수 있습니다</div>
     </div>
   </div>
 </div>
@@ -1264,10 +1266,13 @@ stkInput.onkeydown=e=>{
 document.addEventListener("click",e=>{if(!e.target.closest(".stk-search"))stkSug.style.display="none";});
 
 // ---- 글로벌 프록시 (Yahoo Finance / Netlify 프록시 경유) ----
+const KIS_NIGHT_CODE="101W9000";   // 야간선물 종목코드 — 분기 만기 롤오버 시 이 한 줄만 갱신
 const GSYM=[
+  {grp:"fut",id:"k200n",s:KIS_NIGHT_CODE,n:"코스피200 야간선물 · KRX Night",d:2,src:"kis"},
+  {grp:"fut",id:"kr200",s:"xyz:KR200",n:"코스피200 퍼프 · Hyperliquid 24h",d:2,src:"hl"},
   {grp:"fut",id:"es", s:"ES=F", n:"S&P500 선물",              d:2},
   {grp:"fut",id:"nq", s:"NQ=F", n:"나스닥100 선물",            d:2},
-  {grp:"fut",id:"ewy",s:"EWY",  n:"한국 프록시 · EWY(MSCI Korea)",d:2,pre:"$"},
+  {grp:"fut",id:"ewy",s:"EWY",  n:"미국 상장 한국 ETF · EWY",   d:2,pre:"$"},
   {grp:"mac",id:"tnx",s:"^TNX", n:"미국 10년물 금리",           d:3,suf:"%"},
   {grp:"mac",id:"wti",s:"CL=F", n:"WTI 원유",                 d:2,pre:"$"},
   {grp:"mac",id:"krw",s:"KRW=X",n:"원/달러",                  d:1,suf:"원"},
@@ -1284,6 +1289,8 @@ function gCardShell(){
   document.getElementById("gMac").innerHTML=GSYM.filter(x=>x.grp==="mac").map(mk).join("");
 }
 async function gFetchOne(x){
+  if(x.src==="hl")return gFetchHL(x);
+  if(x.src==="kis")return gFetchKis(x);
   const url=`/yf/v8/finance/chart/${encodeURIComponent(x.s)}?range=1d&interval=5m&includePrePost=false`;
   const r=await fetch(url,{cache:"no-store"});
   if(!r.ok)throw new Error("HTTP "+r.status);
@@ -1298,7 +1305,34 @@ async function gFetchOne(x){
   }
   return {px,pv,closes};
 }
-function gPaint(x,data){
+async function gFetchHL(x){
+  const post=async body=>{
+    const r=await fetch("/hl/info",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),cache:"no-store"});
+    if(!r.ok)throw new Error("HTTP "+r.status);
+    return r.json();
+  };
+  const j=await post({type:"metaAndAssetCtxs",dex:"xyz"});
+  const uni=(j&&j[0]&&j[0].universe)||[];
+  const idx=uni.findIndex(u=>u&&u.name&&(u.name==="KR200"||u.name.endsWith(":KR200")));
+  if(idx<0||!j[1]||!j[1][idx])throw new Error("KR200 미발견");
+  const ctx=j[1][idx];
+  const px=parseFloat(ctx.markPx??ctx.midPx), pv=parseFloat(ctx.prevDayPx);
+  if(isNaN(px))throw new Error("가격 없음");
+  let closes=[];
+  try{
+    const end=Date.now();
+    const c=await post({type:"candleSnapshot",req:{coin:x.s,interval:"15m",startTime:end-24*36e5,endTime:end}});
+    closes=(Array.isArray(c)?c:[]).map(k=>parseFloat(k.c)).filter(v=>!isNaN(v));
+  }catch(e){/* 캔들 실패해도 카드 값은 표시 */}
+  return {px,pv:isNaN(pv)?null:pv,closes};
+}
+async function gFetchKis(x){
+  const r=await fetch(`/.netlify/functions/kis-night?code=${encodeURIComponent(x.s)}`,{cache:"no-store"});
+  const j=await r.json();
+  if(!r.ok||j.error)throw new Error(j.error||("HTTP "+r.status));
+  return {px:j.px,pv:j.pv,closes:[]};
+}
+function gPaint(x,data,skipSpark){
   const v=document.getElementById("gv-"+x.id), g=document.getElementById("gg-"+x.id);
   if(!v)return;
   const fmtV=n=>(x.pre||"")+n.toLocaleString("en-US",{minimumFractionDigits:x.d,maximumFractionDigits:x.d})+(x.suf||"");
@@ -1308,7 +1342,7 @@ function gPaint(x,data){
     g.className="g-chg "+(chg>0.001?"up":chg<-0.001?"down":"flat");
     g.textContent=`${dif>0?"+":""}${dif.toFixed(x.d)} (${chg>0?"+":""}${chg.toFixed(2)}%)`;
   }else{g.className="g-chg flat";g.textContent="전일 기준 없음";}
-  if(typeof Chart!=="undefined"&&data.closes.length>3){
+  if(!skipSpark&&typeof Chart!=="undefined"&&data.closes.length>3){
     if(gCharts[x.id])gCharts[x.id].destroy();
     const up=data.pv?data.px>=data.pv:true;
     gCharts[x.id]=new Chart(document.getElementById("gs-"+x.id),{
@@ -1326,7 +1360,7 @@ async function renderGlobal(){
   let ok=0;
   results.forEach((r,i)=>{
     const x=GSYM[i];
-    if(r.status==="fulfilled"&&r.value.px!=null){gPaint(x,r.value);ok++;}
+    if(r.status==="fulfilled"&&r.value.px!=null){gPaint(x,r.value);ok++;if(x.id==="kr200")gLastCloses=r.value.closes||[];}
     else{
       const g=document.getElementById("gg-"+x.id);
       if(g){g.className="g-chg flat";g.textContent="불러오기 실패";}
@@ -1334,11 +1368,52 @@ async function renderGlobal(){
   });
   const kst=new Date(Date.now()+9*36e5).toISOString().slice(11,16);
   document.getElementById("gMeta").textContent=
-    ok?`갱신 ${kst} KST · ${ok}/${GSYM.length} 종목 수신 · 60초마다 자동 갱신`
+    ok?`갱신 ${kst} KST · ${ok}/${GSYM.length} 종목 수신 · 30초 갱신 · KR200은 웹소켓 실시간`
       :"시세를 불러오지 못했습니다 — Netlify 배포 주소에서만 작동합니다 (프록시 경유)";
 }
-function gStart(){if(gTimer)return;renderGlobal();gTimer=setInterval(()=>{if(tab==="global")renderGlobal();},60000);}
-function gStop(){if(gTimer){clearInterval(gTimer);gTimer=null;}}
+function gStart(){if(gTimer)return;renderGlobal();gTimer=setInterval(()=>{if(tab==="global")renderGlobal();},30000);gWsStart();}
+function gStop(){if(gTimer){clearInterval(gTimer);gTimer=null;}gWsStop();}
+
+// KR200 퍼프 실시간 — 웹소켓은 CORS 제약이 없어 브라우저가 Hyperliquid 에 직접 붙는다
+let gWs=null, gWsRe=null, gLastCloses=[];
+function gLiveDot(on){
+  const nm=document.querySelector("#gc-kr200 .g-nm");
+  if(!nm)return;
+  const d=nm.querySelector(".live-dot");
+  if(on&&!d)nm.insertAdjacentHTML("beforeend",'<span class="live-dot" title="실시간(웹소켓)"></span>');
+  if(!on&&d)d.remove();
+}
+function gWsStart(){
+  if(gWs||!("WebSocket" in window))return;
+  try{
+    gWs=new WebSocket("wss://api.hyperliquid.xyz/ws");
+    gWs.onopen=()=>{
+      gWs.send(JSON.stringify({method:"subscribe",subscription:{type:"activeAssetCtx",coin:"xyz:KR200"}}));
+      gLiveDot(true);
+    };
+    gWs.onmessage=ev=>{
+      try{
+        const m=JSON.parse(ev.data);
+        const ctx=m&&m.data&&m.data.ctx;
+        if(ctx&&String(m.channel||"").toLowerCase().includes("assetctx")){
+          const x=GSYM.find(s=>s.id==="kr200");
+          const px=parseFloat(ctx.markPx??ctx.midPx), pv=parseFloat(ctx.prevDayPx);
+          if(x&&!isNaN(px))gPaint(x,{px,pv:isNaN(pv)?null:pv,closes:gLastCloses},true);
+        }
+      }catch(e){}
+    };
+    gWs.onclose=()=>{
+      gWs=null;gLiveDot(false);
+      if(tab==="global"&&!gWsRe)gWsRe=setTimeout(()=>{gWsRe=null;gWsStart();},5000);   // 자동 재접속
+    };
+    gWs.onerror=()=>{try{gWs.close();}catch(e){}};
+  }catch(e){gWs=null;}
+}
+function gWsStop(){
+  if(gWsRe){clearTimeout(gWsRe);gWsRe=null;}
+  if(gWs){try{gWs.onclose=null;gWs.close();}catch(e){}gWs=null;}
+  gLiveDot(false);
+}
 
 // tabs
 document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
