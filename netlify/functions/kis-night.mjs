@@ -1,4 +1,4 @@
-// netlify/functions/kis-night.mjs  (v3 — 전광판 기반 월물 자동 탐지)
+// netlify/functions/kis-night.mjs  (v4 — 실측 코드 형식 기반 자동 탐지)
 // 한국투자증권(KIS) 야간선물 시세 중계 — appkey/secret 은 Netlify 환경변수에만 존재.
 //
 // 환경변수(필수): KIS_APPKEY, KIS_APPSECRET
@@ -44,33 +44,15 @@ function pick(o, keys) {
 }
 
 // ---- 후보 월물 코드 생성 ----
-function yearLetters(y) {
-  // KRX 파생 연도문자: 기점·제외문자(I,O[,U]) 관례가 자료마다 달라 두 매핑을 모두 후보로.
-  const base = 2006;
-  const maps = ["ABCDEFGHJKLMNPQRSTUVWXYZ", "ABCDEFGHJKLMNPQRSTVWXYZ"]; // I,O 제외 / I,O,U 제외
-  const out = new Set();
-  for (const m of maps) {
-    const i = y - base;
-    if (i >= 0 && i < m.length) out.add(m[i]);
-  }
-  return [...out];
-}
-const monthChar = (m) => (m < 10 ? String(m) : { 10: "A", 11: "B", 12: "C" }[m]);
-
+// 전광판 실측으로 확인된 단축코드 형식: A05607 = A05(미니K200) + 6(2026년) + 07(월)
+// → 정규 K200 선물 = "A01" + 연도 끝자리 + 월 2자리 (3·6·9·12월 분기물)
 function candidates() {
   const kst = new Date(Date.now() + 9 * 36e5);
   const y = kst.getUTCFullYear(), mo = kst.getUTCMonth() + 1;
   const exp = [];
   for (const q of [3, 6, 9, 12]) if (q >= mo) exp.push([y, q]);
   exp.push([y + 1, 3], [y + 1, 6]);
-  const list = [];
-  for (const [yy, mm] of exp.slice(0, 3)) {          // 가까운 만기 3개
-    for (const L of yearLetters(yy)) {
-      list.push("101" + L + monthChar(mm) + "000");  // 야간/표준 8자리 (우선)
-      list.push("101" + L + String(mm).padStart(2, "0")); // 주간 6자리 (폴백)
-    }
-  }
-  return [...new Set(list)];
+  return exp.slice(0, 3).map(([yy, mm]) => "A01" + String(yy % 10) + String(mm).padStart(2, "0"));
 }
 
 // ---- 선물 전광판에서 실제 상장 월물 코드 추출 (추측 불필요) ----
@@ -97,13 +79,20 @@ async function board(token) {
   return { rows: Array.isArray(rows) ? rows : [rows], rt: j.rt_cd, msg: j.msg1 };
 }
 function codesFromRows(rows) {
-  // K200 선물 코드: 101 + 연도문자 + (월2자리 | 월1자리+000) — 4번째 자리는 반드시 영문
+  // 전광판 행의 futs_shrn_iscd(단축코드) 사용 — 구조가 다를 경우 패턴 스캔 폴백
   const out = [];
-  for (const row of rows)
-    for (const v of Object.values(row || {})) {
-      const s = String(v).trim();
-      if (/^101[A-Z](\d{2}|[0-9A-C]000)$/.test(s) && !out.includes(s)) out.push(s);
+  for (const row of rows || []) {
+    let c = String((row && row.futs_shrn_iscd) || "").trim();
+    if (!/^[A-Z]\d{5}$/.test(c)) {
+      c = "";
+      for (const v of Object.values(row || {})) {
+        const s = String(v).trim();
+        if (/^[A-Z]\d{5}$/.test(s)) { c = s; break; }
+      }
     }
+    if (c && !out.some((x) => x.code === c))
+      out.push({ code: c, name: String((row && row.hts_kor_isnm) || "").trim() });
+  }
   return out;
 }
 
@@ -157,14 +146,16 @@ export default async (req) => {
       return json({ rt: b.rt, msg: b.msg, codes: codesFromRows(b.rows), rows: b.rows.slice(0, 8) });
     }
 
-    if (probe) {                                   // 진단: 전광판 코드 + 생성 후보 응답 현황
-      let pool = [];
-      try { pool = codesFromRows((await board(token)).rows); } catch (e) {}
-      for (const c of candidates()) if (!pool.includes(c)) pool.push(c);
+    if (probe) {                                   // 진단: 정규 후보 + 전광판 코드 응답 현황
+      const pool = candidates().map((c) => ({ code: c, name: "K200선물(생성)" }));
+      try {
+        for (const b of codesFromRows((await board(token)).rows))
+          if (!pool.some((x) => x.code === b.code)) pool.push(b);
+      } catch (e) {}
       const out = [];
-      for (const c of pool.slice(0, 20)) {
-        const q = await quote(token, c);
-        out.push({ code: c, px: q.px, msg: q.msg });
+      for (const p of pool.slice(0, 20)) {
+        const q = await quote(token, p.code);
+        out.push({ code: p.code, name: p.name, px: q.px, msg: q.msg });
       }
       return json({ kst: new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 19), probe: out });
     }
@@ -177,21 +168,22 @@ export default async (req) => {
       if (q.px == null) { code = null; q = null; }   // 캐시된 코드가 죽었으면 재탐지
     }
     if (!code) {
-      let pool = [];
-      try { pool = codesFromRows((await board(token)).rows); } catch (e) {}  // 1순위: 전광판 실코드
-      for (const c of candidates()) if (!pool.includes(c)) pool.push(c);     // 2순위: 생성 후보
-      for (const c of pool) {
-        const t = await quote(token, c);
-        if (t.px != null) { code = c; q = t; break; }
+      const pool = candidates().map((c) => ({ code: c, name: "K200 선물" }));  // 1순위: 정규 K200 (A01+년월)
+      try {
+        for (const b of codesFromRows((await board(token)).rows))
+          if (!pool.some((x) => x.code === b.code)) pool.push(b);              // 2순위: 전광판(미니 등)
+      } catch (e) {}
+      for (const p of pool) {
+        const t = await quote(token, p.code);
+        if (t.px != null) { code = p.code; q = t; resolved = { code, at: Date.now(), name: p.name }; break; }
       }
       if (!code) return json({ error: "유효한 월물 코드를 찾지 못했습니다 — ?board=1 로 전광판을 확인하세요" }, 502);
-      resolved = { code, at: Date.now() };
     }
 
     // 5초 마이크로캐시
     if (!debug && qCache.key === code && Date.now() - qCache.at < 5000) return json(qCache.body);
     const kstT = new Date(Date.now() + 9 * 36e5).toISOString().slice(11, 19);
-    const body = { px: q.px, pv: q.pv, ctrt: q.ctrt, code, night: code.length === 8, t: kstT };
+    const body = { px: q.px, pv: q.pv, ctrt: q.ctrt, code, name: (resolved.code === code ? resolved.name : "") || "", t: kstT };
     if (debug) body.raw = q.raw;
     qCache = { key: code, at: Date.now(), body };
     return json(body);
