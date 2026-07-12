@@ -8,7 +8,7 @@
   - 순매수(메인 금액)   : '당일(D)' 순매수 거래대금 (주체별, 백만원)
   - I1/I5/I20          : 기관 1/5/20영업일 누적 순매수 ÷ 시가총액 × 100 (%)
   - F1/F5/F20          : 외국인 1/5/20영업일 누적 순매수 ÷ 시가총액 × 100 (%)
-  - 연속 순매수일       : 상위 STREAK_TOP 종목만 (기관/외국인)
+  - 연속 순매수일       : 전종목 — stocks_data.json 축적 이력 기반, API 콜 0회 (이력 없으면 상위 STREAK_TOP 폴백)
   - 수익률             : 1/5/20영업일 (전종목 일괄)
   - 출력: 순매수≠0 전종목을 inst/frgn 두 테이블로 scanner_data.json
 
@@ -149,6 +149,57 @@ def daily_net(ticker, asof):
     df = stock.get_market_trading_value_by_date(shift(asof, 60), asof, ticker)
     time.sleep(SLEEP)
     return df
+
+
+STK_HIST_PATH = "stocks_data.json"   # build_market.py 가 축적하는 전종목 일별 수급
+
+def load_stock_history():
+    """축적 이력 로드 — {dates, s:{tkr:[기관배열, 외인배열]}}. 부족하면 None(폴백)."""
+    if not os.path.exists(STK_HIST_PATH):
+        return None
+    try:
+        with open(STK_HIST_PATH, encoding="utf-8") as f:
+            p = json.load(f)
+        dates, s = p.get("dates", []), p.get("s", {})
+        if len(dates) < STREAK_WINDOW + 5 or not s:
+            return None
+        return {"dates": dates, "s": s}
+    except Exception:
+        return None
+
+
+def _cont_arr(v):
+    """일별 순매수 배열 → (현재 연속 순매수일, 최근 STREAK_WINDOW일 중 순매수일수)."""
+    streak = 0
+    for x in reversed(v):
+        if x > 0:
+            streak += 1
+        else:
+            break
+    w = v[-STREAK_WINDOW:]
+    return (streak, int(sum(1 for x in w if x > 0)))
+
+
+def streaks_from_history(hist, net1, D):
+    """이력 + 당일 순매수(net1)로 전 종목 연속/순매수일수 계산 — 부호만 사용(단위 무관)."""
+    dates, s = hist["dates"], hist["s"]
+    has_today = bool(dates) and dates[-1] == D
+    n = len(dates)
+    out = {}
+    tickers = set(s) | set(net1["inst"]) | set(net1["frgn"])
+    for tkr in tickers:
+        arr = s.get(tkr)
+        ia = list(arr[0]) if arr else [0] * n
+        fa = list(arr[1]) if arr else [0] * n
+        ti = net1["inst"].get(tkr, 0)
+        tf = net1["frgn"].get(tkr, 0)
+        if has_today:                      # 이력에 당일이 이미 있으면 빌더 당일 집계로 교체
+            ia[-1], fa[-1] = ti, tf
+        else:                              # 보통 케이스: 이력은 전일까지 → 당일을 덧붙임
+            ia.append(ti)
+            fa.append(tf)
+        out[tkr] = (_cont_arr(ia), _cont_arr(fa))
+    return out
 
 
 # ----------------------- 지수 이격도 (50일) -----------------------
@@ -324,15 +375,21 @@ def main():
         return out
     r1m, r5m, r20m = chg(c1), chg(c5), chg(c20)
 
-    # 연속 순매수일: 주체별 상위 STREAK_TOP 합집합만
-    pool = set()
-    for k in INVESTORS:
-        pool |= {t for t, _ in sorted(net1[k].items(), key=lambda kv: abs(kv[1]), reverse=True)[:STREAK_TOP]}
-    log(f"· 연속 순매수일 ({len(pool)}종목)…")
-    streaks = {}
-    for tkr in pool:
-        tv = daily_net(tkr, D)
-        streaks[tkr] = (continuity(tv, TV_COLS["inst"]), continuity(tv, TV_COLS["frgn"]))
+    # 연속 순매수일: 축적 이력(stocks_data.json) 기반 전종목 계산 — API 콜 0회
+    hist = load_stock_history()
+    if hist:
+        log(f"· 연속 순매수일 (이력 {len(hist['dates'])}일 · 전종목)…")
+        streaks = streaks_from_history(hist, net1, D)
+    else:
+        # 폴백: 이력 파일이 없거나 짧으면 예전 방식 — 당일 상위 STREAK_TOP 합집합만
+        pool = set()
+        for k in INVESTORS:
+            pool |= {t for t, _ in sorted(net1[k].items(), key=lambda kv: abs(kv[1]), reverse=True)[:STREAK_TOP]}
+        log(f"· 연속 순매수일 (이력 없음 → 상위 {len(pool)}종목 폴백)…")
+        streaks = {}
+        for tkr in pool:
+            tv = daily_net(tkr, D)
+            streaks[tkr] = (continuity(tv, TV_COLS["inst"]), continuity(tv, TV_COLS["frgn"]))
 
     secmap = sector_map(D)
     log("· 밸류에이션(PER/PBR/배당)…")
