@@ -32,7 +32,25 @@ import time
 import datetime as dt
 
 import pandas as pd
-from pykrx import stock
+
+
+def _import_stock(retries: int = 3, wait_s: int = 40):
+    """pykrx는 import 시점에 KRX 로그인을 시도한다. 서버가 빈 응답을 주는 일시 장애는
+    재시도로 넘기되, 끝내 실패하면 시끄럽게 죽는다 — 비밀번호 만료 등은 알아채야 하므로."""
+    last = None
+    for attempt in range(1, retries + 1):
+        try:
+            from pykrx import stock as _stock
+            return _stock
+        except Exception as e:
+            last = e
+            print(f"[!] KRX 초기화 실패 (시도 {attempt}/{retries}): {e}", file=sys.stderr, flush=True)
+            if attempt < retries:
+                time.sleep(wait_s)
+    raise SystemExit(f"KRX 로그인 {retries}회 연속 실패 — KRX 점검 중이거나 비밀번호 만료(≈90일 주기)일 수 있습니다: {last}")
+
+
+stock = _import_stock()
 
 try:
     import FinanceDataReader as fdr
