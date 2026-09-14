@@ -4,7 +4,8 @@
 기관/외국인 수급 스캐너 — 데이터 빌더 (전종목)
 =========================================================
 컬럼 구성
-  - 순위 시계열         : 각 일자의 '일별' 순매수 금액 순위(오늘/D-1/D-2) → 점프 포착
+  - 실제 금액 순위      : 각 일자의 KOSPI+KOSDAQ 순매수금액 순번 → rank_details
+  - 기존 rows 순위 칸  : 호환을 위해 0.4% 백분위 구간을 유지 (실제 등수 아님)
   - 순매수(메인 금액)   : '당일(D)' 순매수 거래대금 (주체별, 백만원)
   - I1/I5/I20          : 기관 1/5/20영업일 누적 순매수 ÷ 시가총액 × 100 (%)
   - F1/F5/F20          : 외국인 1/5/20영업일 누적 순매수 ÷ 시가총액 × 100 (%)
@@ -30,6 +31,7 @@ import os
 import sys
 import time
 import datetime as dt
+from importlib.metadata import PackageNotFoundError, version
 
 import pandas as pd
 
@@ -50,7 +52,8 @@ def _import_stock(retries: int = 3, wait_s: int = 40):
     raise SystemExit(f"KRX 로그인 {retries}회 연속 실패 — KRX 점검 중이거나 비밀번호 만료(≈90일 주기)일 수 있습니다: {last}")
 
 
-stock = _import_stock()
+# 로그인은 실제 빌드 시에만 수행한다. 순위/스냅샷 검증은 네트워크 없이 가능하다.
+stock = None
 
 try:
     import FinanceDataReader as fdr
@@ -71,6 +74,13 @@ MARKETS       = ["KOSPI", "KOSDAQ"]
 INVESTORS     = {"inst": "기관합계", "frgn": "외국인"}
 TV_COLS       = {"inst": "기관합계", "frgn": "외국인합계"}
 OUT_PATH      = "scanner_data.json"
+STATUS_PATH   = "scanner_status.json"
+KST           = dt.timezone(dt.timedelta(hours=9))
+SOURCE_RANK_DEFINITION = (
+    "KOSPI·KOSDAQ의 해당 투자자 순매수금액이 0이 아닌 전종목을 금액 내림차순으로 정렬한 순번. "
+    "시가총액 500억원 및 화면 필터 적용 전이며, 금액 동률은 종목코드 오름차순. "
+    "종목 자체의 과거 수급 강도를 뜻하지 않음."
+)
 
 
 def log(*a): print(*a, file=sys.stderr, flush=True)
@@ -98,8 +108,14 @@ def ranking(asof: str, investor: str, lookback: int) -> dict:
             frames.append(df[["순매수거래대금", "종목명"]])
     if not frames:
         return {}
+    if len(frames) != len(MARKETS):
+        raise RuntimeError(f"{asof} {investor}: 일부 시장 순매수 응답 누락 — 불완전한 순위 발행 중단")
     alldf = pd.concat(frames)
-    alldf = alldf[alldf["순매수거래대금"] != 0].sort_values("순매수거래대금", ascending=False)
+    if alldf.index.has_duplicates:
+        raise RuntimeError(f"{asof} {investor}: 중복 종목코드 — 순위 발행 중단")
+    # 동률을 종목코드로 결정해 재실행 때 순위/Top30 경계가 바뀌지 않게 한다.
+    alldf = alldf[alldf["순매수거래대금"] != 0].sort_index().sort_values(
+        "순매수거래대금", ascending=False, kind="stable")
     n = len(alldf)
     out = {}
     for i, (tkr, row) in enumerate(alldf.iterrows(), start=1):
@@ -118,16 +134,79 @@ def net_window(frm: str, to: str, investor: str) -> dict:
         if df is not None and not df.empty and "순매수거래대금" in df.columns:
             for tkr, row in df.iterrows():
                 out[tkr] = int(row["순매수거래대금"])
+        else:
+            raise RuntimeError(f"{frm}~{to} {investor} {mkt}: 기간 순매수 응답 누락")
     return out
 
 
 # ----------------------- 시가총액 -----------------------
 def cap_map(asof: str) -> dict:
-    df = stock.get_market_cap(asof)        # 전종목 시가총액
+    df = stock.get_market_cap(asof, market="ALL")
     time.sleep(SLEEP)
     if df is None or df.empty or "시가총액" not in df.columns:
         return {}
     return {tkr: int(row["시가총액"]) for tkr, row in df.iterrows()}
+
+
+def raw_ratio(net: int, cap: int | None) -> float | None:
+    """필터와 정렬에는 표시용 반올림 전 값을 사용한다."""
+    return net / cap * 100 if cap and cap > 0 else None
+
+
+def make_rank_details(daily: dict, dates: list[str], caps: dict) -> dict:
+    """row 인덱스를 변경하지 않고 정확한 금액 순위/금액/비율을 제공한다."""
+    tickers = set().union(*(daily[k].get(dates[0], {}) for k in INVESTORS))
+    details = {}
+    for tkr in sorted(tickers):
+        if caps.get(tkr, 0) < MIN_CAP:
+            continue
+        item = {}
+        for k in INVESTORS:
+            item[k] = {
+                key: daily[k].get(date, {}).get(tkr, {}).get("rank") if date else None
+                for key, date in zip(("today", "previous", "two_days_ago"),
+                                     dates + [None] * (3 - len(dates)))
+            }
+        item["net_won"] = {k: daily[k][dates[0]].get(tkr, {}).get("net", 0) for k in INVESTORS}
+        item["ratio_pct"] = {k: raw_ratio(item["net_won"][k], caps.get(tkr)) for k in INVESTORS}
+        item["cap_won"] = caps[tkr]
+        details[tkr] = item
+    return details
+
+
+def comparison_snapshot(daily: dict, dates: list[str], caps: dict,
+                        sectors: dict | None = None) -> dict:
+    """직전 거래일 자체의 원 순매수/시총으로 비교 자료를 만든다. 현재 시총 역산 금지."""
+    D = dates[0]
+    result = {"asof": D, "available": False, "reason": None, "rows": [], "rank_details": {}}
+    if not caps or any(not daily[k].get(D) for k in INVESTORS):
+        result["reason"] = "직전 거래일 순매수 또는 시가총액 자료가 없어 신규 진입 비교를 보류합니다."
+        return result
+    # 과거 일자 시총이 일부만 내려오면 완전한 Top30 비교로 취급하지 않는다.
+    tickers = set(daily["inst"][D]) | set(daily["frgn"][D])
+    if tickers - set(caps):
+        result["reason"] = "직전 거래일 일부 종목의 시가총액이 누락되어 비교를 보류합니다."
+        return result
+    sectors = sectors or {}
+    details = make_rank_details(daily, dates, caps)
+    rows = []
+    for tkr, item in details.items():
+        di, df = daily["inst"][D].get(tkr), daily["frgn"][D].get(tkr)
+        row = [None] * 28
+        row[0], row[1], row[23] = (di or df)["name"], sectors.get(tkr, ""), tkr
+        for k, net_idx, rank_idx, ratio_idx in (("inst", 2, 3, 14), ("frgn", 6, 7, 17)):
+            row[net_idx] = round(item["net_won"][k] / 1_000_000)
+            row[ratio_idx] = round(item["ratio_pct"][k], 2)
+            for offset, day in enumerate(dates[:3]):
+                row[rank_idx + offset] = daily[k].get(day, {}).get(tkr, {}).get("bucket", MAX_BUCKET)
+        row[27] = round(caps[tkr] / 1e8)
+        rows.append(row)
+    rows.sort(key=lambda row: (-details[row[23]]["net_won"]["inst"], row[23]))
+    result.update(available=True, rows=rows, rank_details=details,
+                  method="previous_trading_day_net_and_market_cap",
+                  precision="unrounded_source_values",
+                  available_fields=["name", "sector", "neti", "netf", "i1", "f1", "code", "mcap"])
+    return result
 
 
 # ----------------------- 수익률(종가 기준, 전종목 일괄) -----------------------
@@ -340,12 +419,19 @@ def sector_map(asof: str) -> dict:
 
 # ----------------------------- main -----------------------------
 def main():
+    global stock
+    collection_started_at = dt.datetime.now(KST).isoformat(timespec="seconds")
     if not (os.getenv("KRX_ID") and os.getenv("KRX_PW")):
         log("[!] KRX_ID / KRX_PW 환경변수가 없습니다. (2025-12-27 KRX 회원제 전환)")
         log("    상단 docstring 안내대로 설정 후 다시 실행하세요.")
-        return
+        raise SystemExit(1)
 
-    asof = stock.get_nearest_business_day_in_a_week()
+    stock = _import_stock()
+
+    try:
+        asof = stock.get_nearest_business_day_in_a_week()
+    except Exception as e:
+        raise RuntimeError("KRX 최근 거래일 조회 실패 — 실행 로그의 로그인/비밀번호 만료 또는 원천 응답 오류를 확인하세요. 기존 데이터는 유지합니다.") from e
     bdays = business_days(asof, 22)          # [D, D-1, ... D-21] (폴백 여유분 포함)
     # 장중엔 당일 투자자별 데이터가 아직 없음 → 직전 영업일로 자동 폴백
     if not ranking(bdays[0], INVESTORS["inst"], 0):
@@ -360,12 +446,25 @@ def main():
         log(f"· {inv} 일별 랭킹…")
         daily[k] = {d: ranking(d, inv, 0) for d in (D, D1, D2)}
     if not daily["inst"][D]:
-        log("[!] 데이터가 비었습니다. 장 마감 후(18시 이후) 다시 실행하세요.")
-        return
+        raise RuntimeError("당일 기관 수급 데이터가 비었습니다. 이전 발행본을 유지합니다.")
+    if any(not daily[k][d] for k in INVESTORS for d in (D, D1, D2)):
+        raise RuntimeError("투자자/거래일별 수급 자료가 누락됐습니다. 불완전한 순위를 발행하지 않습니다.")
 
     # 시총 + 기간별 순매수(시총대비 비율용)
     log("· 시가총액 + 기간 순매수(I/F 비율용)…")
     caps = cap_map(D)
+    if not caps:
+        raise RuntimeError("기준일 시가총액을 조회하지 못했습니다. 이전 발행본을 유지합니다.")
+    missing_caps = (set(daily["inst"][D]) | set(daily["frgn"][D])) - set(caps)
+    if missing_caps:
+        raise RuntimeError(
+            f"기준일 {len(missing_caps)}개 종목의 시가총액이 누락됐습니다. "
+            "시총 기준 미달로 간주하지 않고 발행을 중단하며 이전 발행본을 유지합니다.")
+    try:
+        previous_caps = cap_map(D1)
+    except Exception as e:
+        log(f"[!] 직전 거래일 시가총액 조회 실패: {e} → 신규 진입 비교 보류")
+        previous_caps = {}
     win = {
         "i5": net_window(bdays[4], D, INVESTORS["inst"]),
         "i20": net_window(bdays[19], D, INVESTORS["inst"]),
@@ -452,7 +551,68 @@ def main():
         rows.sort(key=lambda r: r[2], reverse=True)   # 기관 당일순매수 desc
         return rows
 
-    out = {"asof": D, "rows": merged_rows()}
+    rows = merged_rows()
+    if not rows:
+        raise RuntimeError("발행할 종목이 없습니다. 이전 발행본을 유지합니다.")
+    rank_details = make_rank_details(daily, [D, D1, D2], caps)
+    # 정확한 원 단위 금액으로 정렬: 백만원 반올림 동률에 의한 비결정성 제거.
+    rows.sort(key=lambda row: (-rank_details[row[23]]["net_won"]["inst"], row[23]))
+    comparison = comparison_snapshot(daily, [D1, D2], previous_caps, secmap)
+    try:
+        pykrx_version = version("pykrx")
+    except PackageNotFoundError:
+        pykrx_version = "unknown"
+    out = {
+        "asof": D,
+        "schema_version": 2,
+        "rows": rows,
+        "rank_details": rank_details,
+        "metadata": {
+            "collection_started_at": collection_started_at,
+            "requested_asof": asof,
+            "previous_trading_day": D1,
+            "asof_fallback": D != asof,
+            "status": "collected",
+            "source_finalized": None,
+            "source_rank": SOURCE_RANK_DEFINITION,
+            "legacy_bucket": {
+                "width_pct": BUCKET_SIZE,
+                "row_indices": {"inst": [3, 4, 5], "frgn": [7, 8, 9]},
+                "definition": "ceil(당일 실제 순번 / 당일 순매수≠0 종목수 × 100 / 0.4). 실제 등수가 아닌 백분위 구간.",
+            },
+            "universe": {
+                "markets": MARKETS,
+                "minimum_cap_won": MIN_CAP,
+                "rank_before_cap_filter": True,
+                "source_nonzero_counts": {k: {d: len(daily[k][d]) for d in (D, D1, D2)} for k in INVESTORS},
+                "display_count": len(rows),
+                "top30_definition": "스캐너 수록 종목(해당일 시총 500억원 이상)의 양수 순매수만 비율 또는 금액으로 정렬한 상위 30개. 원천 전체 금액 순위와 모수가 다름.",
+            },
+            "source": {
+                "provider": "KRX via pykrx",
+                "pykrx_version": pykrx_version,
+                "api": "get_market_net_purchases_of_equities",
+                "endpoint": "dbms/MDC/STAT/standard/MDCSTAT02401",
+                "investors": {"inst": "기관합계(7050)", "frgn": "외국인(9000, 기타외국인 제외)"},
+            },
+            "coverage": {
+                "after_market": "unverified",
+                "nxt": "unverified",
+                "label": "KRX 일별 집계 · 시간외/NXT 반영 범위 미확인",
+                "reason": "현재 API 호출은 조회일·시장·투자자만 지정합니다. 20시까지의 거래 및 NXT 합산 여부·원천 확정 시각을 검증할 응답 필드가 없습니다.",
+                "audit_method": "builder and pykrx source inspection",
+            },
+            "schedule": {
+                "timezone": "Asia/Seoul",
+                "weekdays": [1, 2, 3, 4, 5],
+                "primary": "20:20",
+                "retry": "20:50",
+                "kind": "scheduled_start",
+                "note": "GitHub Actions 실행 예정 시각이며, 스케줄 지연·집계·배포에 따라 화면 반영 시각은 늦어질 수 있습니다. 20:50에 보완 조회합니다.",
+            },
+            "comparison": comparison,
+        },
+    }
 
     log("· 지수 이격도(50일)…")
     disp = index_disparity(D)
@@ -460,10 +620,45 @@ def main():
         kst = dt.datetime.now(dt.timezone(dt.timedelta(hours=9)))
         disp["updated"] = kst.strftime("%Y-%m-%d %H:%M")
         out["disparity"] = disp
-    with open(OUT_PATH, "w", encoding="utf-8") as f:
+    out["metadata"]["updated_at"] = dt.datetime.now(KST).isoformat(timespec="seconds")
+    out["updated"] = out["metadata"]["updated_at"]
+    tmp_path = OUT_PATH + ".tmp"
+    with open(tmp_path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
+    os.replace(tmp_path, OUT_PATH)
     log(f"\n✓ {len(out['rows'])}종목(전종목) → {OUT_PATH}")
 
 
+def write_build_status(attempted_at: str, status: str) -> None:
+    """수집 실패 시 마지막 정상 수급은 유지하고 별도 상태만 발행한다."""
+    last_asof = None
+    try:
+        with open(OUT_PATH, encoding="utf-8") as f:
+            last_asof = json.load(f).get("asof")
+    except (OSError, ValueError):
+        pass
+    run_id, repo = os.getenv("GITHUB_RUN_ID"), os.getenv("GITHUB_REPOSITORY")
+    payload = {
+        "attempted_at": attempted_at,
+        "finished_at": dt.datetime.now(KST).isoformat(timespec="seconds"),
+        "status": status,
+        "code": None if status == "success" else "source_fetch_failed",
+        "asof": last_asof,
+        "error": None if status == "success" else "수급 수집 실패 · KRX 인증 또는 원천 응답을 확인해야 합니다. 마지막 정상 데이터를 유지합니다.",
+        "run_url": f"https://github.com/{repo}/actions/runs/{run_id}" if repo and run_id else None,
+    }
+    tmp_path = STATUS_PATH + ".tmp"
+    with open(tmp_path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=1)
+    os.replace(tmp_path, STATUS_PATH)
+
+
 if __name__ == "__main__":
-    main()
+    attempted_at = dt.datetime.now(KST).isoformat(timespec="seconds")
+    try:
+        main()
+    except (Exception, SystemExit):
+        write_build_status(attempted_at, "failed")
+        raise
+    else:
+        write_build_status(attempted_at, "success")

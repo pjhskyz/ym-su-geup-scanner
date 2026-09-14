@@ -17,9 +17,9 @@
     --panel2:#161d27;
     --line:#222b38;
     --line2:#2c3744;
-    --txt:#d4dbe5;
-    --txt-dim:#7e8b9c;
-    --txt-faint:#566273;
+    --txt:#e2e8f0;
+    --txt-dim:#aebaca;
+    --txt-faint:#8c9bad;
     --up:#ff4d4d;      /* 한국식: 상승/매수 = 빨강 */
     --up-bg:rgba(255,77,77,.10);
     --down:#3d8bff;    /* 한국식: 하락/매도 = 파랑 */
@@ -31,7 +31,7 @@
     --sans:'IBM Plex Sans KR',sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bg);color:var(--txt);font-family:var(--sans);font-size:13px;-webkit-font-smoothing:antialiased}
+  html,body{background:var(--bg);color:var(--txt);font-family:var(--sans);font-size:14px;-webkit-font-smoothing:antialiased}
   body{background-image:radial-gradient(circle at 15% -10%,rgba(31,209,163,.05),transparent 40%),radial-gradient(circle at 90% 0%,rgba(61,139,255,.05),transparent 35%)}
   ::-webkit-scrollbar{width:10px;height:10px}
   ::-webkit-scrollbar-track{background:var(--bg)}
@@ -109,7 +109,7 @@
   tbody tr:hover{background:var(--panel)}
   tbody tr.jump{background:linear-gradient(90deg,var(--gold-dim),transparent 60%)}
   tbody tr.jump:hover{background:linear-gradient(90deg,rgba(255,176,32,.22),var(--panel) 70%)}
-  td{padding:4px 10px;text-align:right;font-family:var(--mono);font-size:12px;white-space:nowrap;vertical-align:middle}
+  td{padding:7px 10px;text-align:right;font-family:var(--mono);font-size:12.5px;white-space:nowrap;vertical-align:middle}
   td.l{text-align:left;font-family:var(--sans)}
   td.c{text-align:center}
   .rk{color:var(--txt-faint);font-size:11px}
@@ -265,6 +265,26 @@
   .note b{color:var(--txt-dim)}
   .foot{padding:14px 18px 34px;color:var(--txt-faint);font-size:10.5px;line-height:1.6;border-top:1px solid var(--line);margin-top:8px}
   .foot b{color:var(--txt-dim)}
+
+  .data-status{margin:14px 18px 0;padding:12px 14px;border:1px solid var(--line2);border-radius:9px;background:var(--panel);color:var(--txt-dim);font-size:12px;line-height:1.8;display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px}
+  .data-status b{color:var(--txt)}.data-status.error{border-color:var(--gold);color:var(--gold)}
+  .data-status .status-detail{width:100%;color:var(--txt-dim)}
+  .top-section{margin:12px 18px 20px}.top-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .top-toolbar h2,.all-heading h2{font-size:16px;color:#fff}.top-toolbar p{color:var(--txt-dim);font-size:12px;margin-top:3px}
+  .top-toolbar>div:first-child{margin-right:auto}.top-note{color:var(--txt-dim);font-size:12px;line-height:1.7;margin:10px 0}
+  .top-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.top-panel{border:1px solid var(--line2);border-radius:10px;background:var(--panel);overflow:hidden;min-width:0}
+  .top-panel h3{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:14px;padding:12px 14px;border-bottom:1px solid var(--line)}
+  .top-panel h3 small{font-weight:400;color:var(--txt-dim);font-size:11px}.top-scroll{overflow-x:auto;max-height:710px}
+  .top-table{min-width:585px}.top-table td{font-size:12px;padding:8px}.top-table th{font-size:11px;padding:8px;cursor:default}.top-table .nm{font-size:13px}
+  .top-table th:nth-child(2),.top-table td:nth-child(2){position:sticky;left:0;z-index:2;background:var(--panel)}.top-table thead th:nth-child(2){z-index:12;background:var(--bg2)}
+  .entry-tag{font-family:var(--sans);font-size:10px;padding:3px 6px;border-radius:4px;border:1px solid var(--line2);color:var(--txt-dim)}
+  .entry-tag.new{color:var(--accent);background:rgba(31,209,163,.10);border-color:rgba(31,209,163,.35)}.entry-tag.exited{color:#7db0ff;background:var(--down-bg)}
+  .all-heading{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:0 18px}.all-heading span{color:var(--txt-dim);font-size:12px}
+  .table-wrap thead th{font-size:11px}.table-wrap thead .sub{font-size:10px}.hm{font-size:12px}.sec{font-size:11px;line-height:1.35;margin-top:3px}
+  .btn:disabled{opacity:.5;cursor:not-allowed}.foot{line-height:1.85}
+  @media(max-width:1100px){.top-grid{grid-template-columns:1fr}.top-scroll{max-height:500px}}
+  @media(max-width:700px){.topbar{padding:0 10px;gap:8px;overflow-x:auto}.brand{flex-shrink:0}.brand small,.user,.clock{display:none}.nav{flex-shrink:0;margin:0}.nav button{padding:0 10px}.controls{padding:12px 10px;gap:12px}.title-block{width:100%;flex-wrap:wrap}.controls>.spacer{display:none}.search{width:100%}.top-section{margin:12px 10px 18px}.data-status{margin:12px 10px 0}.top-toolbar .seg{max-width:100%;overflow-x:auto}.seg button{white-space:nowrap;padding:7px 11px}.top-note{font-size:11px}.all-heading,.stats,.chips{padding-left:10px;padding-right:10px}.table-wrap{padding-left:10px;padding-right:10px}.stat{padding:9px 12px;min-width:105px}.stats{gap:8px}}
+
 </style>
 </head>
 <body>
@@ -290,16 +310,28 @@
   <div class="controls">
     <div class="title-block">
       <h1 id="rankTitle">기관·외국인 수급 순위</h1>
-      <span class="basis">기준일 2026-06-02</span>
+      <span class="basis" id="scannerBasis">데이터 불러오는 중</span>
     </div>
     <span class="spacer"></span>
-    <input class="search" id="search" placeholder="종목·업종 검색">
-    <label class="toggle"><input type="checkbox" id="jumpOnly"><span class="sw"></span>급상승만</label>
-    <label class="toggle"><input type="checkbox" id="bothOnly"><span class="sw"></span>쌍끌이</label>
+    <input class="search" id="search" aria-label="종목·업종·코드 검색" placeholder="종목·업종·코드 검색">
+    <label class="toggle" title="당일 순매수 금액 백분위 구간이 D-2보다 150구간 이상 개선. 1구간은 0.4%p이며 정확한 순위 변화와 다릅니다."><input type="checkbox" id="jumpOnly"><span class="sw"></span>150구간↑</label>
+    <label class="toggle" title="기관과 외국인 당일 순매수 금액이 모두 양수"><input type="checkbox" id="bothOnly"><span class="sw"></span>쌍끌이</label>
+    <label class="toggle" id="strongLabel" title="I1과 F1이 각각 0.30% 이상. 제공된 원자료의 정밀도를 따릅니다."><input type="checkbox" id="strongOnly"><span class="sw"></span>강한 쌍끌이 ≥0.30%</label>
     <button class="btn" id="csv">⬇ CSV</button>
   </div>
 
+  <div class="data-status" id="dataStatus" role="status" aria-live="polite"></div>
   <div class="chips" id="chips"></div>
+  <section class="top-section" aria-labelledby="topTitle">
+    <div class="top-toolbar">
+      <div><h2 id="topTitle">기관 · 외국인 Top 30</h2><p>수록 종목 중 각 주체의 당일 순매수 상위 30개</p></div>
+      <div class="seg" id="topMode" aria-label="Top 30 선정 기준"><button class="on" data-mode="ratio">비율 I1 / F1</button><button data-mode="amount">순매수 대금</button></div>
+      <div class="seg" id="topStatus" aria-label="Top 30 변화"><button class="on" data-status="current">현재 30</button><button data-status="new">신규 진입</button><button data-status="retained">유지</button><button data-status="exited">이탈</button></div>
+    </div>
+    <div class="top-note" id="topNote"></div>
+    <div class="top-grid" id="topGrid"></div>
+  </section>
+  <div class="all-heading"><h2>전체 수급</h2><span>헤더를 누르면 정렬 · I/F는 시총 대비 순매수 비율(%)</span></div>
 
   <div class="stats" id="stats"></div>
 
@@ -309,16 +341,16 @@
         <tr>
           <th class="c" style="cursor:default"></th>
           <th class="l" data-sort="name">종목 <span class="sub">종목명 / 업종</span></th>
-          <th data-sort="neti">기관 순매수 <span class="sub">당일·백만</span></th>
-          <th class="c" data-sort="iJump">기관 순위 <span class="sub">D-2 → 오늘</span></th>
-          <th data-sort="netf">외인 순매수 <span class="sub">당일·백만</span></th>
-          <th class="c" data-sort="fJump">외인 순위 <span class="sub">D-2 → 오늘</span></th>
-          <th class="c hm-h" data-sort="i1">I1 <span class="sub">기관1일</span></th>
-          <th class="c hm-h" data-sort="i5">I5 <span class="sub">기관5일</span></th>
-          <th class="c hm-h" data-sort="i20">I20 <span class="sub">기관20일</span></th>
-          <th class="c hm-h" data-sort="f1">F1 <span class="sub">외인1일</span></th>
-          <th class="c hm-h" data-sort="f5">F5 <span class="sub">외인5일</span></th>
-          <th class="c hm-h" data-sort="f20">F20 <span class="sub">외인20일</span></th>
+          <th data-sort="neti">기관 순매수 <span class="sub">당일·억원</span></th>
+          <th class="c" data-sort="instRank"><span id="instRankLabel">기관 금액 순위</span> <span class="sub">D-2 → D-1 → 기준일</span></th>
+          <th data-sort="netf">외인 순매수 <span class="sub">당일·억원</span></th>
+          <th class="c" data-sort="frgnRank"><span id="frgnRankLabel">외인 금액 순위</span> <span class="sub">D-2 → D-1 → 기준일</span></th>
+          <th class="c hm-h" data-sort="i1">I1 <span class="sub">기관1일 %</span></th>
+          <th class="c hm-h" data-sort="i5">I5 <span class="sub">기관5일 %</span></th>
+          <th class="c hm-h" data-sort="i20">I20 <span class="sub">기관20일 %</span></th>
+          <th class="c hm-h" data-sort="f1">F1 <span class="sub">외인1일 %</span></th>
+          <th class="c hm-h" data-sort="f5">F5 <span class="sub">외인5일 %</span></th>
+          <th class="c hm-h" data-sort="f20">F20 <span class="sub">외인20일 %</span></th>
           <th class="c" data-sort="istk">연속 <span class="sub">기/외</span></th>
           <th data-sort="r1">1일 <span class="sub">%</span></th>
           <th data-sort="r5">1주 <span class="sub">%</span></th>
@@ -328,9 +360,8 @@
       <tbody id="tbody"></tbody>
     </table>
   </div>
-  <div class="foot">
-    <b>데이터 출처</b> · 메인 테이블은 todaytoppick.com 2026-06-02 실측 시드(상위 100). 기관 누적순매수·순위 시계열·수익률은 실제값입니다.<br>
-    <b>실서비스 시</b> · pykrx <span style="font-family:var(--mono)">get_market_net_purchases_of_equities</span> 로 전종목 백필 후 매일 롤링 재계산 → 이 화면이 자동 갱신됩니다.
+  <div class="foot" id="scannerFoot">
+    <b>데이터 정의</b> · 순매수 금액은 억원, I/F는 각 기간 순매수 ÷ 기준일 시가총액 × 100입니다. CSV 원금액은 백만원 단위를 유지합니다.
   </div>
 </div>
 
@@ -525,119 +556,17 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="scanner_logic.js"></script>
 <script>
-// ===== 실측 시드 데이터 (todaytoppick 2026-06-02, 기관 매수 시계열 상위 100) =====
-// [순위, 종목명, 업종, 기관순매수(백만원), 오늘버킷, D-1, D-2, 백분위%, 1일%, 1주%, 1개월%]
-const RAW = [
-[1,"NHN","소프트웨어",7194,1,3,1,0.4,-10.6,40.1,30.0],
-[2,"코스텍시스","반도체",2627,1,23,246,0.4,3.0,-17.6,-22.8],
-[3,"한양이엔지","반도체",2307,1,115,240,0.4,0.7,-10.0,-6.7],
-[4,"티이엠씨","반도체",1967,1,68,225,0.4,8.8,-26.6,16.0],
-[5,"셀로맥스사이언스","건강관리",145,1,2,8,0.4,-0.1,-2.1,-8.9],
-[6,"티피씨글로벌","자동차",129,1,1,243,0.4,10.7,-1.0,-5.6],
-[7,"케이씨에스","소프트웨어",83,1,107,247,0.4,-6.5,-33.4,-13.5],
-[8,"에스티오","화장품,의류,완구",73,1,247,3,0.4,3.0,-9.6,-16.7],
-[9,"메디앙스","화장품,의류,완구",1,1,241,6,0.4,-4.0,-11.0,-20.0],
-[10,"한국주강","철강",1,1,214,205,0.4,-1.1,-3.3,-7.8],
-[11,"네패스","반도체",8354,2,15,29,0.8,7.8,0.5,16.6],
-[12,"아주IB투자","은행",3350,2,246,242,0.8,-9.2,-37.5,-31.2],
-[13,"SKAI","소프트웨어",1002,2,3,205,0.8,8.2,7.8,75.5],
-[14,"메카로","반도체",976,2,31,237,0.8,1.6,-0.7,2.1],
-[15,"유바이오로직스","건강관리",490,2,2,1,0.8,0.8,-8.3,-22.7],
-[16,"우리넷","IT하드웨어",345,2,4,51,0.8,-6.3,-32.7,-24.8],
-[17,"대륙제관","비철,목재등",42,2,2,200,0.8,-0.9,-2.5,-7.8],
-[18,"윈하이텍","건설,건축관련",10,2,4,239,0.8,6.8,-16.1,-22.9],
-[19,"케이엠","화장품,의류,완구",2,2,2,236,0.8,-5.8,-18.3,-23.4],
-[20,"엠투엔","자동차",2,2,239,242,0.8,-0.7,-7.0,-15.0],
-[21,"고려제약","건강관리",1,2,241,3,0.8,-0.6,-4.4,-17.2],
-[22,"엠브레인","소프트웨어",1,2,239,243,0.8,-9.2,-20.6,-29.8],
-[23,"인바이오","화학",0,2,3,235,0.8,-3.6,-8.9,-13.2],
-[24,"앱토크롬","건강관리",0,2,2,2,0.8,-5.2,-26.1,-26.1],
-[25,"성호전자","IT가전",18765,3,9,240,1.2,20.4,16.0,16.1],
-[26,"삼아알미늄","비철,목재등",16318,3,7,246,1.2,4.9,-13.0,15.1],
-[27,"SFA반도체","반도체",5218,3,231,246,1.2,-4.2,-31.0,-8.4],
-[28,"큐라클","건강관리",533,3,4,2,1.2,-0.8,0.1,-19.2],
-[29,"케이프","증권",503,3,154,90,1.2,-0.9,-18.9,-34.1],
-[30,"삼성출판사","미디어,교육",137,3,156,122,1.2,30.0,10.5,-13.1],
-[31,"본느","화장품,의류,완구",88,3,2,1,1.2,-4.5,-34.8,-34.8],
-[32,"헝셩그룹","화장품,의류,완구",50,3,13,13,1.2,30.0,-15.6,-27.4],
-[33,"제이투케이바이오","화장품,의류,완구",12,3,10,10,1.2,-0.6,-20.3,-3.4],
-[34,"STX그린로지스","운송",8,3,198,3,1.2,-4.9,-16.3,-37.2],
-[35,"케이엠제약","필수소비재",7,3,243,244,1.2,29.8,-2.0,1.9],
-[36,"디지캡","소프트웨어",4,3,2,2,1.2,-3.5,-12.3,-18.1],
-[37,"하이로닉","건강관리",2,3,7,1,1.2,8.6,-9.2,-43.2],
-[38,"벡트","미디어,교육",2,3,204,236,1.2,2.8,-10.9,-30.5],
-[39,"루멘스","디스플레이",1,3,238,237,1.2,-6.6,-29.1,-15.3],
-[40,"THE E&M","소프트웨어",1,3,6,232,1.2,-4.7,-32.7,-45.5],
-[41,"판타지오","미디어,교육",1,3,237,6,1.2,1.0,-8.1,-0.8],
-[42,"세진티에스","디스플레이",0,3,240,240,1.2,-4.3,-14.1,-18.2],
-[43,"한울소재과학","IT하드웨어",0,3,226,4,1.2,-4.6,-26.6,-34.4],
-[44,"트윔","소프트웨어",0,3,3,241,1.2,-4.7,-12.0,-21.6],
-[45,"세니젠","건강관리",0,3,4,4,1.2,-2.2,-7.0,-10.1],
-[46,"세화피앤씨","화장품,의류,완구",0,3,2,237,1.2,-5.0,-17.9,-25.2],
-[47,"뉴키즈온","화장품,의류,완구",65,3,5,1,1.4,4.3,5.1,-20.6],
-[48,"삼성전자","반도체",1103593,4,2,1,1.6,3.3,20.6,63.5],
-[49,"코오롱티슈진","건강관리",7741,4,218,241,1.6,15.3,-1.0,5.9],
-[50,"계양전기","자동차",234,4,9,9,1.6,-4.2,-17.5,-2.4],
-[51,"리메드","건강관리",83,4,23,22,1.6,0.5,-5.0,-8.4],
-[52,"HRS","화학",51,4,38,19,1.6,0.0,-5.4,-11.4],
-[53,"이퓨쳐","미디어,교육",20,4,239,246,1.6,-2.4,-6.5,-17.9],
-[54,"센서뷰","IT하드웨어",17,4,3,220,1.6,-10.2,-36.6,-16.8],
-[55,"이엘피","디스플레이",1,4,1,235,1.6,-6.5,-20.8,-16.6],
-[56,"모나미","화장품,의류,완구",1,4,174,167,1.6,-1.1,-11.5,-23.4],
-[57,"자비스","IT하드웨어",1,4,243,5,1.6,-4.2,-19.7,-29.9],
-[58,"덕우전자","IT하드웨어",1,4,234,5,1.6,-5.5,-18.3,-29.8],
-[59,"잉크테크","IT하드웨어",0,4,243,5,1.6,-2.2,-12.7,-18.7],
-[60,"YBM넷","미디어,교육",0,4,243,248,1.6,-4.2,-8.5,-25.7],
-[61,"소노스퀘어","소매(유통)",0,4,5,4,1.6,-5.4,-15.0,-26.1],
-[62,"CJ","상사,자본재",11547,5,133,86,2.0,-0.8,5.0,-19.2],
-[63,"큐리옥스바이오시스템즈","건강관리",2090,5,5,24,2.0,8.3,1.8,-9.0],
-[64,"인바디","건강관리",795,5,232,22,2.0,0.0,-7.1,44.9],
-[65,"지오엘리먼트","반도체",50,5,230,4,2.0,-4.2,-20.9,-14.1],
-[66,"코아시아씨엠","IT하드웨어",44,5,248,249,2.0,1.2,-20.5,-14.7],
-[67,"씨엔플러스","디스플레이",1,5,4,246,2.0,-6.8,-32.3,-39.0],
-[68,"휴맥스홀딩스","IT가전",1,5,237,222,2.0,-0.8,-15.8,-27.0],
-[69,"솔루스첨단소재1우","IT하드웨어",1,5,243,247,2.0,-2.4,-16.2,-30.7],
-[70,"쎄노텍","화학",1,5,233,9,2.0,-11.8,-8.5,-16.3],
-[71,"스페코","건설,건축관련",0,5,249,114,2.0,-3.6,-14.5,-34.3],
-[72,"휴엠앤씨","비철,목재등",0,5,242,244,2.0,-1.2,-10.1,-22.6],
-[73,"디젠스","자동차",0,5,6,243,2.0,-5.7,-19.8,-26.3],
-[74,"엑사이엔씨","반도체",0,5,5,232,2.0,-0.2,-16.4,-17.3],
-[75,"엘티씨","반도체",3077,6,230,242,2.4,4.5,-9.0,-9.5],
-[76,"한섬","화장품,의류,완구",1655,6,243,238,2.4,5.9,1.1,-12.1],
-[77,"뉴파워프라즈마","반도체",1225,6,3,5,2.4,-5.4,-15.7,30.3],
-[78,"아스플로","기계",669,6,8,250,2.4,-1.1,-8.6,58.8],
-[79,"DSC인베스트먼트","은행",428,6,72,230,2.4,0.0,-8.1,-24.6],
-[80,"이수앱지스","건강관리",61,6,81,152,2.4,-1.5,-12.8,-31.7],
-[81,"대교우B","미디어,교육",11,6,9,214,2.4,-1.1,-7.3,-21.7],
-[82,"동일금속","기계",7,6,1,20,2.4,1.7,-3.4,-0.9],
-[83,"네오리진","소프트웨어",1,6,3,249,2.4,-3.3,-6.9,-10.7],
-[84,"모니터랩","소프트웨어",1,6,7,11,2.4,-3.1,-19.8,-27.8],
-[85,"메이슨캐피탈","은행",0,6,3,241,2.4,-13.0,-46.3,-20.2],
-[86,"유진테크놀로지","IT가전",0,6,6,224,2.4,-5.1,-16.8,-41.3],
-[87,"더코디","건설,건축관련",0,6,235,235,2.4,-4.4,-22.5,-31.6],
-[88,"플래티어","소프트웨어",0,6,234,239,2.4,-3.0,-11.5,-20.3],
-[89,"노브랜드","화장품,의류,완구",0,6,239,7,2.4,-3.9,-16.6,-17.3],
-[90,"한탑","필수소비재",0,6,6,232,2.4,-12.3,-30.1,-46.3],
-[91,"현대백화점","소매(유통)",5806,7,72,25,2.8,8.7,13.7,11.9],
-[92,"한국정보인증","소프트웨어",435,7,22,26,2.8,1.3,-8.1,-17.3],
-[93,"셀레믹스","건강관리",234,7,11,11,2.8,-6.2,8.3,12.0],
-[94,"금강철강","철강",192,7,5,1,2.8,-1.6,4.0,-5.6],
-[95,"국일제지","비철,목재등",126,7,8,6,2.8,4.4,-11.7,-21.5],
-[96,"아남전자","IT가전",68,7,11,31,2.8,10.5,6.2,-10.9],
-[97,"서진오토모티브","자동차",2,7,10,179,2.8,-0.7,-10.7,-25.5],
-[98,"아미노로직스","건강관리",1,7,11,223,2.8,-1.4,-17.5,-22.9],
-[99,"핸디소프트","소프트웨어",1,7,13,241,2.8,-5.8,-14.3,-23.3],
-[100,"링크제니시스","소프트웨어",1,7,2,236,2.8,-4.1,-11.4,-8.3],
-];
-
+// Source data is loaded before any scanner rows are shown.
 const KEYS=["name","sector","neti","it","id1","id2","netf","ft","fd1","fd2","istk","i30","fstk","f30","i1","i5","i20","f1","f5","f20","r1","r5","r20","code","per","pbr","div","mcap"];
 let favSet;try{favSet=new Set(JSON.parse(localStorage.getItem("ymFavs")||"[]"));}catch(e){favSet=new Set();}
 function saveFavs(){try{localStorage.setItem("ymFavs",JSON.stringify([...favSet]));}catch(e){}}
-function mapRows(arr){return arr.map(r=>{const o={};KEYS.forEach((k,i)=>o[k]=r[i]);o.iJump=(o.id2!=null&&o.it!=null)?o.id2-o.it:null;o.fJump=(o.fd2!=null&&o.ft!=null)?o.fd2-o.ft:null;o.fav=favSet.has(o.name);return o;});}
-// 기존 기관 시드(11필드)를 통합 구조로 변환 — 외국인/연속/IF/밸류는 라이브에서 채워짐
-let STORE=RAW.map(r=>[r[1],r[2], r[3],r[4],r[5],r[6], null,null,null,null, null,null,null,null, null,null,null,null,null,null, r[8],r[9],r[10], null,null,null,null,null]);
-let DATA=mapRows(STORE);
+const L=ScannerLogic;
+let SCANNER=null, STORE=[], DATA=[], PREVIOUS=[], loadState="loading", loadError="";
+function mapRows(arr,details={}){return arr.map(r=>{const o={};KEYS.forEach((k,i)=>o[k]=r[i]);o.iJump=(o.id2!=null&&o.it!=null)?o.id2-o.it:null;o.fJump=(o.fd2!=null&&o.ft!=null)?o.fd2-o.ft:null;o._raw=details[o.code]||{};o.fav=favSet.has(o.name);return o;});}
+const escapeHtml=value=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let topMode="ratio", topStatus="current", strongOnly=false;
 
 // 로이 유니버스 (반도체·IT 강조) — WICS 업종명 키워드로 매칭
 const SEMI_KW=["반도체","디스플레이","하드웨어"];
@@ -665,60 +594,108 @@ function buildChips(){
   });
 }
 
-function filtered(){
-  let d=DATA.slice();
-  if(q){const lq=q.toLowerCase();d=d.filter(x=>x.name.toLowerCase().includes(lq)||x.sector.includes(q));}
+function applyFilters(rows){
+  let d=rows.slice();
+  if(q){const lq=q.toLowerCase();d=d.filter(x=>[x.name,x.sector,x.code].some(v=>String(v||"").toLowerCase().includes(lq)));}
   if(sectorFilter==='__semi')d=d.filter(x=>isSemi(x.sector));
   else if(sectorFilter)d=d.filter(x=>x.sector===sectorFilter);
   if(jumpOnly)d=d.filter(x=>(x.iJump!=null&&x.iJump>=150)||(x.fJump!=null&&x.fJump>=150));
-  if(bothOnly)d=d.filter(x=>x.neti>0&&x.netf>0);   // 기관·외인 동시 순매수
-  if(favOnly)d=d.filter(x=>x.fav);
-  const {key,dir}=sort;
-  d.sort((a,b)=>{
-    if(typeof a[key]==="string")return dir*a[key].localeCompare(b[key]);
-    const av=a[key]??-1, bv=b[key]??-1;
-    return dir*(av-bv);
-  });
+  if(bothOnly)d=d.filter(x=>L.metric(x,'inst','amount')>0&&L.metric(x,'frgn','amount')>0);
+  if(strongOnly)d=d.filter(L.strongBoth);
+  if(favOnly)d=d.filter(x=>favSet.has(x.name));
   return d;
+}
+function filtered(){
+  const {key,dir}=sort;
+  const rawMetric={neti:['inst','amount'],netf:['frgn','amount'],instRank:['inst','amount'],frgnRank:['frgn','amount'],i1:['inst','ratio'],f1:['frgn','ratio']}[key];
+  const rankInvestor={instRank:'inst',frgnRank:'frgn'}[key];
+  return applyFilters(DATA).sort((a,b)=>{
+    if(rankInvestor&&a._raw?.[rankInvestor]&&b._raw?.[rankInvestor]){
+      const ar=a._raw[rankInvestor].today,br=b._raw[rankInvestor].today;
+      if(ar==null)return br==null?0:1;
+      if(br==null)return -1;
+      return dir*(br-ar)||String(a.code).localeCompare(String(b.code));
+    }
+    if(rawMetric){
+      const av=L.metric(a,...rawMetric),bv=L.metric(b,...rawMetric);
+      if(av==null)return bv==null?0:1;
+      if(bv==null)return -1;
+      return dir*(av-bv)||String(a.code).localeCompare(String(b.code));
+    }
+    if(a[key]==null)return b[key]==null?0:1;
+    if(b[key]==null)return -1;
+    return typeof a[key]==="string"?dir*a[key].localeCompare(b[key]):dir*(a[key]-b[key]);
+  });
+}
+function comparisonReady(){
+  const c=SCANNER?.metadata?.comparison;
+  const previousDay=SCANNER?.metadata?.previous_trading_day;
+  return !!(c?.available&&Array.isArray(c.rows)&&c.rows.length>0&&/^\d{8}$/.test(c.asof||'')&&c.asof<SCANNER.asof&&(!previousDay||c.asof===previousDay));
+}
+function renderTop(){
+  const grid=document.getElementById("topGrid"), note=document.getElementById("topNote");
+  if(loadState!=="ready"){grid.innerHTML="";note.textContent=loadState==="loading"?"최신 제공자료를 불러오는 중입니다…":"데이터를 불러오면 상위 30개를 표시합니다.";return;}
+  const available=comparisonReady(), prior=SCANNER?.metadata?.comparison;
+  const precise=DATA.every(row=>L.isNumber(row._raw?.ratio_pct?.inst)&&L.isNumber(row._raw?.ratio_pct?.frgn));
+  const precision=topMode==='ratio'?(precise?'반올림 전 비율 기준. ':'비율은 각 날짜 원자료의 순매수(백만원) ÷ 시총(억원)로 근사 복원. '):(DATA.every(row=>row._raw?.net_won)?'원 단위 금액 기준. ':'원자료 백만원 단위 금액 기준. ');
+  note.textContent=precision+(topMode==="ratio"?"선정: I1 / F1 내림차순 · 당일 순매수 ÷ 해당일 시가총액 × 100.":"선정: 당일 순매수 대금 내림차순.")+" 양수 종목만 · 동률은 종목코드순 · 먼저 각 30개를 선정한 뒤 검색·업종·쌍끌이 필터 적용. "+(available?`${fmtAsof(prior.asof)} → ${fmtAsof(SCANNER.asof)} 비교. 이탈은 전일 값 표시.`:`비교 대기: ${prior?.reason||"전일 동일 기준 원자료가 제공되지 않았습니다."}`);
+  const labels={new:"신규 진입",retained:"유지",exited:"이탈",pending:"비교 대기"};
+  grid.innerHTML=[['inst','기관','i1'],['frgn','외국인','f1']].map(([investor,label,ratioKey])=>{
+    const result=L.compare(DATA,PREVIOUS,investor,topMode,available);
+    let items=topStatus==="exited"?result.exited:result.current;
+    if(!['current','exited'].includes(topStatus))items=items.filter(item=>item.status===topStatus);
+    const allowed=new Set(applyFilters(items.map(item=>item.row)).map(row=>row.code));
+    items=items.filter(item=>allowed.has(item.row.code));
+    const empty=!available&&topStatus!=="current"?"전일 원자료가 없어 비교 대기 중입니다.":"선정된 Top 30 중 현재 조건에 맞는 종목이 없습니다.";
+    return `<div class="top-panel"><h3>${label} <span>${topMode==="ratio"?'고비율':'순매수 대금'} Top 30</span><small>표시 ${items.length} / 현재 ${result.current.length}${available?` · 신규 ${result.current.filter(x=>x.status==='new').length} · 이탈 ${result.exited.length}`:' · 비교 대기'}</small></h3><div class="top-scroll"><table class="top-table"><thead><tr><th class="c">${topStatus==='exited'?'전일순위':'순위'}</th><th class="l">종목 / 업종</th><th class="c">상태</th><th>순매수(억원)</th><th>${ratioKey.toUpperCase()}(%)</th><th class="c">전일 → 기준일</th></tr></thead><tbody>${items.map(item=>{
+      const row=item.row, amount=L.metric(row,investor,'amount'), ratio=L.metric(row,investor,'ratio');
+      return `<tr data-top-code="${escapeHtml(row.code)}" data-prior="${item.status==='exited'?'1':'0'}"><td class="c rk">${item.rank??item.previousRank}</td><td class="l"><div class="nm">${favSet.has(row.name)?'★ ':''}${escapeHtml(row.name)}</div><div class="sec">${escapeHtml(row.sector)}</div></td><td class="c"><span class="entry-tag ${item.status}">${labels[item.status]}</span></td><td class="ret ${retClass(amount)}">${L.number(amount==null?null:amount/1e8,2,true)}</td><td class="ret ${retClass(ratio)}">${L.number(ratio,2,true)}</td><td class="c">${available?`${item.previousRank??'밖'} → ${item.rank??'밖'}`:'—'}</td></tr>`;
+    }).join('')||`<tr><td colspan="6" class="empty">${empty}</td></tr>`}</tbody></table></div></div>`;
+  }).join('');
+  grid.querySelectorAll('[data-top-code]').forEach(el=>el.onclick=()=>{const row=(el.dataset.prior==='1'?PREVIOUS:DATA).find(row=>row.code===el.dataset.topCode);if(row)openModal(row,el.dataset.prior==='1'?prior.asof:null);});
+}
+function rankTimeline(row,investor){
+  return tl(...L.rankSeries(row,investor));
 }
 
 function tl(d2,d1,now){
-  if(now==null)return '<span class="pt">·</span>';
-  const ar=(f,t)=>t<f?'<span class="ar u">▲</span>':t>f?'<span class="ar d">▼</span>':'<span class="pt">·</span>';
-  return `<span class="tl"><span class="pt">${d2}</span>${ar(d2,d1)}<span class="pt">${d1}</span>${ar(d1,now)}<span class="pt now">${now}</span></span>`;
+  if(now==null)return '<span class="pt">—</span>';
+  const ar=(f,t)=>f==null||t==null?'<span class="pt">·</span>':t<f?'<span class="ar u">▲</span>':t>f?'<span class="ar d">▼</span>':'<span class="pt">·</span>';
+  return `<span class="tl"><span class="pt">${d2??"—"}</span>${ar(d2,d1)}<span class="pt">${d1??"—"}</span>${ar(d1,now)}<span class="pt now">${now}</span></span>`;
 }
 function badge(j){
   if(j==null)return"";
-  if(j>=200)return `<span class="badge hot">🔥${j>0?'+':''}${j}</span>`;
-  if(j>=150)return `<span class="badge up">▲${j>0?'+':''}${j}</span>`;
+  if(j>=200)return `<span class="badge hot" title="0.4% 백분위 구간 개선">🔥${j>0?'+':''}${j}구간</span>`;
+  if(j>=150)return `<span class="badge up" title="0.4% 백분위 구간 개선">▲${j>0?'+':''}${j}구간</span>`;
   return "";
 }
 function netTxt(v){
-  if(v==null)return '<span class="pt">·</span>';
-  const c=v>0?'var(--up)':v<0?'var(--down)':'var(--txt-faint)';
-  return `<span style="color:${c}">${v>0?'+':''}${fmt(v)}</span>`;
+  const value=L.amount(v), c=value>0?'var(--up)':value<0?'var(--down)':'var(--txt-faint)';
+  return `<span style="color:${c}">${L.number(value,2,true)}</span>`;
 }
 
 const RENDER_LIMIT=400;
 function render(){
   const all=filtered();
+  renderStats(all.length);renderTop();
   const tb=document.getElementById("tbody");
+  if(loadState!=="ready"){tb.innerHTML=`<tr><td colspan="16" class="empty">${loadState==="loading"?"데이터 불러오는 중…":"데이터를 불러오지 못했습니다. 위의 다시 불러오기를 눌러 주세요."}</td></tr>`;return;}
   if(!all.length){tb.innerHTML=`<tr><td colspan="16" class="empty">조건에 맞는 종목이 없습니다</td></tr>`;return;}
   const d=all.slice(0,RENDER_LIMIT);
   tb.innerHTML=d.map((x,i)=>{
     const isJump=(x.iJump!=null&&x.iJump>=150)||(x.fJump!=null&&x.fJump>=150);
     return `<tr class="${isJump?'jump':''}" data-i="${DATA.indexOf(x)}" style="animation-delay:${Math.min(i*12,400)}ms">
       <td class="star-cell ${x.fav?'on':''}" data-star="${DATA.indexOf(x)}">${x.fav?'★':'☆'}</td>
-      <td class="l"><div class="nm">${x.name}</div><div class="sec ${isSemi(x.sector)?'semi':''}">${x.sector}</div></td>
+      <td class="l"><div class="nm">${escapeHtml(x.name)}</div><div class="sec ${isSemi(x.sector)?'semi':''}">${escapeHtml(x.sector)}</div></td>
       <td class="net-cell">${netTxt(x.neti)}</td>
-      <td class="c">${tl(x.id2,x.id1,x.it)}${badge(x.iJump)}</td>
+      <td class="c">${rankTimeline(x,"inst")}${badge(x.iJump)}</td>
       <td class="net-cell">${netTxt(x.netf)}</td>
-      <td class="c">${tl(x.fd2,x.fd1,x.ft)}${badge(x.fJump)}</td>
-      ${heat(x.i1)}${heat(x.i5)}${heat(x.i20)}${heat(x.f1)}${heat(x.f5)}${heat(x.f20)}
+      <td class="c">${rankTimeline(x,"frgn")}${badge(x.fJump)}</td>
+      ${heat(L.metric(x,"inst","ratio"))}${heat(x.i5)}${heat(x.i20)}${heat(L.metric(x,"frgn","ratio"))}${heat(x.f5)}${heat(x.f20)}
       <td class="c">${stk2(x)}</td>
-      <td class="ret ${retClass(x.r1)}">${sign(x.r1)}${(x.r1??0).toFixed(1)}</td>
-      <td class="ret ${retClass(x.r5)}">${sign(x.r5)}${(x.r5??0).toFixed(1)}</td>
-      <td class="ret ${retClass(x.r20)}">${sign(x.r20)}${(x.r20??0).toFixed(1)}</td>
+      <td class="ret ${retClass(x.r1)}">${L.number(x.r1,2,true)}</td>
+      <td class="ret ${retClass(x.r5)}">${L.number(x.r5,2,true)}</td>
+      <td class="ret ${retClass(x.r20)}">${L.number(x.r20,2,true)}</td>
     </tr>`;
   }).join("")+(all.length>d.length?`<tr><td colspan="16" class="empty">전체 ${all.length}개 중 상위 ${d.length} 표시 — 검색·업종 필터로 좁혀보세요</td></tr>`:"");
   tb.querySelectorAll(".star-cell").forEach(el=>el.onclick=e=>{e.stopPropagation();const nm=DATA[+el.dataset.star].name;if(favSet.has(nm))favSet.delete(nm);else favSet.add(nm);saveFavs();DATA.forEach(z=>z.fav=favSet.has(z.name));buildChips();render();});
@@ -731,47 +708,43 @@ function stk2(x){
   return `<span class="stk ${ic}">기${i}</span> <span class="stk ${fc}">외${f}</span>`;
 }
 function heat(v){
-  if(v==null)return '<td class="c hm"></td>';
+  if(v==null)return '<td class="c hm">—</td>';
   const a=Math.min(Math.abs(v)/3,1);
   const bg=v>0?`rgba(255,77,77,${(a*0.55).toFixed(2)})`:v<0?`rgba(61,139,255,${(a*0.55).toFixed(2)})`:'transparent';
   const tc=v>0?'var(--up)':v<0?'var(--down)':'var(--txt-faint)';
-  return `<td class="c hm" style="background:${bg};color:${tc}">${v>0?'+':''}${v.toFixed(1)}</td>`;
+  return `<td class="c hm" style="background:${bg};color:${tc}">${L.number(v,2,true)}</td>`;
 }
 
-function renderStats(){
+function renderStats(resultCount=0){
+  const ready=loadState==="ready";
   const up=DATA.filter(d=>(d.iJump!=null&&d.iJump>=150)||(d.fJump!=null&&d.fJump>=150)).length;
-  const nets=DATA.map(d=>d.neti).filter(v=>v!=null);
-  const mx=nets.length?Math.max(...nets):0;
+  const nets=DATA.map(d=>d.neti).filter(L.isNumber);
+  const mx=nets.length?Math.max(...nets):null;
   document.getElementById("stats").innerHTML=`
-    <div class="stat"><div class="k">대상 종목</div><div class="v">${DATA.length}</div></div>
-    <div class="stat"><div class="k">순위 급상승 (▲150+)</div><div class="v gold">${up}</div></div>
-    <div class="stat"><div class="k">기관 최대 순매수(당일)</div><div class="v up">${fmt(mx)}</div></div>`;
+    <div class="stat"><div class="k">전체 수록 종목</div><div class="v">${ready?DATA.length:'—'}</div></div>
+    <div class="stat"><div class="k">현재 필터 결과</div><div class="v">${ready?resultCount:'—'}</div></div>
+    <div class="stat"><div class="k">전체 150구간↑</div><div class="v gold">${ready?up:'—'}</div></div>
+    <div class="stat"><div class="k">전체 기관 최대 순매수 · 억원</div><div class="v up">${ready?L.number(L.amount(mx)):'—'}</div></div>`;
 }
 
-function openModal(d){
+function openModal(d,priorDate=null){
   const vv=x=>x!=null?x.toFixed(2):"—";
   const fmtCap=v=>v==null?"—":v>=10000?(v/10000).toFixed(2)+"조":fmt(v)+"억";
   const stkTxt=(s,c)=>(s==null)?'<span class="pend">—</span>':`${s}일 연속 · 30일 중 ${c}일`;
-  const tlbig=(d2,d1,now)=> now==null?'<div style="padding:6px 0"><span class="pend">—</span></div>':`
-    <div class="tl-big">
-      <div class="col"><div class="d">D-2</div><div class="r">${d2}</div></div><span class="sep">→</span>
-      <div class="col"><div class="d">D-1</div><div class="r">${d1}</div></div><span class="sep">→</span>
-      <div class="col"><div class="d">오늘</div><div class="r now">${now}</div></div>
-    </div>`;
-  const rt=(v)=>`<span class="ret ${retClass(v)}">${sign(v)}${(v??0).toFixed(1)}%</span>`;
-  const if3=(a,b,c)=>`${a==null?'—':a} / ${b==null?'—':b} / ${c==null?'—':c}`;
+  const rt=(v)=>`<span class="ret ${retClass(v)}">${L.number(v,2,true)}%</span>`;
+  const if3=(a,b,c)=>`${L.number(a)} / ${L.number(b)} / ${L.number(c)} (%)`;
   document.getElementById("modal").innerHTML=`
     <div class="modal-h">
-      <div><div class="nm2">${d.name}</div><div class="meta">${d.sector}</div></div>
+      <div><div class="nm2">${escapeHtml(d.name)}</div><div class="meta">${escapeHtml(d.sector)} · 기준일 ${fmtAsof(priorDate||SCANNER?.asof)}${priorDate?" · 이탈 당시 전일 값":""}</div></div>
       <button class="x" id="x">×</button>
     </div>
     <div class="mgrid">
-      <div class="mcard"><div class="ck">기관 순위 시계열 (일별)</div>${tlbig(d.id2,d.id1,d.it)}</div>
-      <div class="mcard"><div class="ck">외국인 순위 시계열 (일별)</div>${tlbig(d.fd2,d.fd1,d.ft)}</div>
+      <div class="mcard"><div class="ck">기관 ${d._raw?.inst?"금액 순위":"0.4% 구간"} (D-2 → D-1 → 기준일)</div>${rankTimeline(d,"inst")}</div>
+      <div class="mcard"><div class="ck">외국인 ${d._raw?.frgn?"금액 순위":"0.4% 구간"} (D-2 → D-1 → 기준일)</div>${rankTimeline(d,"frgn")}</div>
       <div class="mcard">
-        <div class="ck">당일 순매수 (백만)</div>
-        <div class="mrow"><span class="lbl">기관</span><span>${d.neti!=null?fmt(d.neti):'—'}</span></div>
-        <div class="mrow"><span class="lbl">외국인</span><span>${d.netf!=null?fmt(d.netf):'—'}</span></div>
+        <div class="ck">당일 순매수 (억원)</div>
+        <div class="mrow"><span class="lbl">기관</span><span>${netTxt(d.neti)}</span></div>
+        <div class="mrow"><span class="lbl">외국인</span><span>${netTxt(d.netf)}</span></div>
       </div>
       <div class="mcard">
         <div class="ck">연속 순매수</div>
@@ -780,11 +753,11 @@ function openModal(d){
       </div>
       <div class="mcard">
         <div class="ck">시총대비 순매수 · 기관</div>
-        <div class="mrow"><span class="lbl">I1 / I5 / I20</span><span>${if3(d.i1,d.i5,d.i20)}</span></div>
+        <div class="mrow"><span class="lbl">I1 / I5 / I20</span><span>${if3(L.metric(d,"inst","ratio"),d.i5,d.i20)}</span></div>
       </div>
       <div class="mcard">
         <div class="ck">시총대비 순매수 · 외인</div>
-        <div class="mrow"><span class="lbl">F1 / F5 / F20</span><span>${if3(d.f1,d.f5,d.f20)}</span></div>
+        <div class="mrow"><span class="lbl">F1 / F5 / F20</span><span>${if3(L.metric(d,"frgn","ratio"),d.f5,d.f20)}</span></div>
       </div>
       <div class="mcard full">
         <div class="ck">수익률</div>
@@ -801,7 +774,7 @@ function openModal(d){
       <a class="btn" href="https://dart.fss.or.kr/dsab001/main.do?autoSearch=true&option=corp&textCrpNm=${encodeURIComponent(d.name)}" target="_blank" rel="noopener">DART 공시 ↗</a>
       <button class="btn" id="toStock" style="color:var(--gold)">개별종목 상세 →</button>
     </div>`:""}
-    <div class="note">수급·수익률·밸류에이션 모두 KRX 실측 데이터입니다${d.code?` · 종목코드 ${d.code}`:""}.</div>`;
+    <div class="note">제공자료 기준입니다. 비어 있는 값은 미제공이며, 순위·집계 범위는 메인 화면 데이터 정의를 참고하세요${d.code?` · 종목코드 ${d.code}`:""}.</div>`;
   document.getElementById("ov").classList.add("open");
   document.getElementById("x").onclick=closeModal;
   const ts=document.getElementById("toStock");
@@ -823,14 +796,18 @@ document.querySelectorAll("th[data-sort]").forEach(th=>th.onclick=()=>{
 document.getElementById("search").oninput=e=>{q=e.target.value.trim();render();};
 document.getElementById("jumpOnly").onchange=e=>{jumpOnly=e.target.checked;render();};
 document.getElementById("bothOnly").onchange=e=>{bothOnly=e.target.checked;render();};
+document.getElementById("strongOnly").onchange=e=>{strongOnly=e.target.checked;render();};
+document.querySelectorAll("#topMode button").forEach(button=>button.onclick=()=>{topMode=button.dataset.mode;document.querySelectorAll("#topMode button").forEach(b=>b.classList.toggle('on',b===button));renderTop();});
+document.querySelectorAll("#topStatus button").forEach(button=>button.onclick=()=>{topStatus=button.dataset.status;document.querySelectorAll("#topStatus button").forEach(b=>b.classList.toggle('on',b===button));renderTop();});
 // 초기 정렬 컬럼(기관 순매수) 화살표 표시
 document.querySelector('th[data-sort="neti"]')?.insertAdjacentHTML("beforeend",'<span class="arr">▼</span>');
 document.getElementById("csv").onclick=()=>{
-  const head=["종목명","업종","기관순매수당일","기관오늘","기관D-1","기관D-2","외인순매수당일","외인오늘","외인D-1","외인D-2","기관연속","기관30일","외인연속","외인30일","I1","I5","I20","F1","F5","F20","수익1일","수익1주","수익1개월","종목코드","PER","PBR","배당수익률","시가총액(억)"];
+  if(loadState!=="ready")return;
+  const head=["종목명","업종","기관순매수당일(백만원)","기관오늘(0.4%구간)","기관D-1(0.4%구간)","기관D-2(0.4%구간)","외인순매수당일(백만원)","외인오늘(0.4%구간)","외인D-1(0.4%구간)","외인D-2(0.4%구간)","기관연속(일)","기관30일(일)","외인연속(일)","외인30일(일)","I1(%)","I5(%)","I20(%)","F1(%)","F5(%)","F20(%)","수익1일(%)","수익1주(%)","수익1개월(%)","종목코드","PER","PBR","배당수익률(%)","시가총액(억원)"];
   const rows=filtered().map(d=>[d.name,d.sector,d.neti,d.it,d.id1,d.id2,d.netf,d.ft,d.fd1,d.fd2,d.istk,d.i30,d.fstk,d.f30,d.i1,d.i5,d.i20,d.f1,d.f5,d.f20,d.r1,d.r5,d.r20,d.code,d.per,d.pbr,d.div,d.mcap]);
-  const csv="\uFEFF"+[head,...rows].map(r=>r.map(c=>`"${c==null?'':c}"`).join(",")).join("\n");
+  const csv="\uFEFF"+[head,...rows].map(r=>r.map(c=>`"${String(c??'').replace(/"/g,'""')}"`).join(",")).join("\n");
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
-  a.download="기관외인수급.csv";a.click();
+  a.download=`기관외인수급_${SCANNER?.asof||""}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 };
 
 // ---- 이격도 (코스피·코스닥 50일) ----
@@ -1089,10 +1066,10 @@ function selectStock(code){
   const fmtCap=v=>v==null?"—":v>=10000?(v/10000).toFixed(2)+"조":fmt(v)+"억";
   document.getElementById("stkChips").innerHTML=(row?`
     <div class="disp-card">
-      <div class="dk"><span>당일 수급 · 백만</span><span class="basis">연속 ${stk2(row)}</span></div>
+      <div class="dk"><span>당일 수급 · 억원</span><span class="basis">연속 ${stk2(row)}</span></div>
       <div class="mrow"><span class="lbl">기관</span>${netTxt(row.neti)}</div>
       <div class="mrow"><span class="lbl">외국인</span>${netTxt(row.netf)}</div>
-      <div class="mrow"><span class="lbl">I20 / F20 (시총대비 %)</span><span>${row.i20!=null?row.i20:"—"} / ${row.f20!=null?row.f20:"—"}</span></div>
+      <div class="mrow"><span class="lbl">I20 / F20 (시총대비 %)</span><span>${L.number(row.i20)} / ${L.number(row.f20)}</span></div>
     </div>
     <div class="disp-card">
       <div class="dk"><span>밸류에이션</span></div>
@@ -1100,7 +1077,7 @@ function selectStock(code){
       <div class="mrow"><span class="lbl">배당수익률</span><span>${row.div!=null?row.div.toFixed(2)+"%":"—"}</span></div>
       <div class="mrow"><span class="lbl">시가총액</span><span>${fmtCap(row.mcap)}</span></div>
     </div>`
-    :`<div class="disp-card"><div class="dk">오늘 수급 데이터에 없는 종목입니다 (순매수 0 또는 시총 500억 미만)</div></div>`)+`
+    :`<div class="disp-card"><div class="dk">현재 수록된 수급 자료에 없는 종목입니다</div></div>`)+`
     <div class="disp-card">
       <div class="dk"><span>수급 요약 · 최근 20일</span></div>
       <div id="stkSum"><div class="mrow"><span class="lbl">이력 로딩 중…</span></div></div>
@@ -1443,32 +1420,77 @@ document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
 });
 
 // clock
-function tick(){const d=new Date();document.getElementById("clock").textContent=d.toLocaleTimeString("ko-KR",{hour12:false});}
+function tick(){const d=new Date();document.getElementById("clock").textContent=d.toLocaleTimeString("ko-KR",{hour12:false,timeZone:"Asia/Seoul"})+" KST";}
 setInterval(tick,1000);tick();
 
-function rebuild(){buildChips();renderStats();render();}
+function rebuild(){buildChips();render();}
 rebuild();
 
-// 라이브 데이터: GitHub Actions가 매일 갱신하는 scanner_data.json 을 읽어 시드를 덮어쓴다.
-// (file:// 로컬 열람 시엔 fetch가 막혀 시드가 그대로 유지됨 — Pages(https)에선 정상 동작)
-function fmtAsof(s){return (s&&s.length===8)?`${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`:s;}
+// Scanner source state: never fall back to embedded historical rows.
+let SOURCE_STATUS=null, liveRequest=0;
+function fmtAsof(s){return (s&&s.length===8)?`${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`:(s||"미제공");}
+function fmtKst(value){
+  if(!value)return "미제공";
+  const date=new Date(value);
+  return Number.isNaN(date.getTime())?String(value):date.toLocaleString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false})+" KST";
+}
+function renderDataStatus(){
+  const panel=document.getElementById('dataStatus'), basis=document.getElementById('scannerBasis');
+  const csv=document.getElementById('csv');csv.disabled=loadState!=='ready';
+  panel.classList.toggle('error',loadState==='error'||SOURCE_STATUS?.status==='failed');
+  if(loadState==='loading'){
+    basis.textContent='데이터 불러오는 중';panel.innerHTML='<b>수급 자료를 불러오고 있습니다…</b><span>수집 예정: 평일 20:20 KST · 예정 시각은 작업 시작 기준</span>';return;
+  }
+  if(loadState==='error'){
+    basis.textContent='데이터 로딩 실패';panel.innerHTML=`<b>수급 자료를 불러오지 못했습니다.</b><span>${escapeHtml(loadError)}</span><button class="btn" id="retryScanner">다시 불러오기</button>`;
+    document.getElementById('retryScanner').onclick=loadLive;return;
+  }
+  const meta=SCANNER.metadata||{}, todayKst=new Date().toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).replace(/-/g,'');
+  const collectedAt=meta.updated_at||SCANNER.updated||SCANNER.updated_at;
+  const updated=collectedAt||meta.source_committed_at;
+  const updatedLabel=collectedAt?'데이터 갱신':meta.source_committed_at?'원자료 저장':'데이터 갱신';
+  const older=SCANNER.asof<todayKst;
+  basis.textContent='기준일 '+fmtAsof(SCANNER.asof);
+  const schedule=meta.schedule||{}, coverage=meta.coverage?.label||'KRX 일별 집계 · 시간외/NXT 반영 범위 미확인';
+  const failed=SOURCE_STATUS?.status==='failed'&&(!updated||!SOURCE_STATUS.attempted_at||new Date(SOURCE_STATUS.attempted_at)>=new Date(updated));
+  panel.classList.toggle('error',failed);
+  const lastAttempt=SOURCE_STATUS?.finished_at||SOURCE_STATUS?.attempted_at;
+  panel.innerHTML=`<b>${failed?'최근 수집 실패 · 마지막 정상 자료 표시':older?'이전 거래일 자료 표시':'기준일 자료 로딩 완료'}</b><span>기준일 <b>${fmtAsof(SCANNER.asof)}</b></span><span>${updatedLabel} ${escapeHtml(fmtKst(updated))}</span><span>예정: 평일 ${escapeHtml(schedule.primary||'20:20')} KST${schedule.retry?' · 재시도 '+escapeHtml(schedule.retry):''} (작업 시작)</span><button class="btn" id="retryScanner">다시 불러오기</button><div class="status-detail">${escapeHtml(coverage)}${failed?' · '+escapeHtml(SOURCE_STATUS.error||'수급 수집에 실패했습니다.')+' · 최근 시도 '+escapeHtml(fmtKst(lastAttempt)):''}</div>`;
+  document.getElementById('retryScanner').onclick=loadLive;
+  const exact=DATA.some(row=>row._raw?.inst&&typeof row._raw.inst==='object');
+  document.getElementById('instRankLabel').textContent=exact?'기관 금액 순위':'기관 0.4% 구간';
+  document.getElementById('frgnRankLabel').textContent=exact?'외인 금액 순위':'외인 0.4% 구간';
+  document.getElementById('strongLabel').title=DATA.every(row=>L.isNumber(row._raw?.ratio_pct?.inst)&&L.isNumber(row._raw?.ratio_pct?.frgn))?'반올림 전 실제 I1과 F1이 각각 0.30% 이상':'정밀 원값이 없는 과거 파일은 해당일 순매수(백만원) ÷ 해당일 시총(억원)으로 비율을 근사 복원합니다. 복원한 I1·F1이 각각 0.30% 이상이어야 하며, 표시 반올림과 판정은 다를 수 있습니다.';
+  const sourceRank=meta.source_rank||'원자료의 순매수 금액 순위 백분위를 0.4% 단위로 나눈 구간입니다. 같은 1은 같은 상위 0.4% 구간이며 단독 1위라는 뜻이 아닙니다.';
+  document.querySelectorAll('[data-sort="instRank"],[data-sort="frgnRank"]').forEach(el=>el.title=sourceRank+' · 클릭하면 기준일 순매수 금액으로 정렬합니다. 150구간↑ 배지는 원래 구간값 기준입니다.');
+  const minCap=meta.universe?.minimum_cap_won;
+  const scope=minCap?`KOSPI·KOSDAQ · 시총 ${L.number(minCap/1e8,0)}억원 이상 · 기관 또는 외인 순매수 금액이 0이 아닌 수록 종목`:"현재 파일에 수록된 종목 기준 · 수록 범위의 상세 메타데이터 미제공";
+  document.getElementById('scannerFoot').innerHTML=`<b>조회 범위</b> · ${escapeHtml(scope)}.<br><b>순위 정의</b> · ${escapeHtml(sourceRank)} ${exact?'전체 시장 금액 순위와 수록 종목의 Top 30 순위는 범위가 다릅니다.':'1~250은 0.4% 백분위 구간입니다. 같은 1은 동일한 상위 0.4% 구간이며 단독 1위가 아닙니다.'}<br><b>구간 변화</b> · 150구간↑는 D-2 대비 백분위 구간 개선입니다. 1구간은 0.4%p이며, 과거 250일 중 순위가 아닙니다.<br><b>단위</b> · 순매수는 억원 · I/F는 각 기간 순매수 ÷ 기준일 시가총액 × 100(%) · 정밀 원값이 없는 과거 I1/F1은 각 날짜의 순매수(백만원) ÷ 시총(억원)으로 근사 복원하여 표시·정렬·필터에 사용합니다. CSV는 기존 28개 열과 저장값을 유지합니다.<br><b>전일 비교</b> · 각 날짜의 실제 순매수와 해당일 시가총액으로 계산한 같은 조건의 Top 30을 비교합니다. 전일 원자료가 없으면 비교 대기입니다. 공개 수집 예정 시각은 완료를 보장하지 않습니다.`;
+}
+async function fetchScannerFile(path){
+  const controller=new AbortController(), timer=setTimeout(()=>controller.abort(),20000);
+  try{const response=await fetch(path,{cache:'no-store',signal:controller.signal});if(!response.ok)throw new Error(`HTTP ${response.status}`);return await response.json();}
+  finally{clearTimeout(timer);}
+}
 async function loadLive(){
+  const request=++liveRequest;loadState='loading';loadError='';renderDataStatus();rebuild();
+  // Optional pipeline status must not block the source file from rendering.
+  fetchScannerFile('scanner_status.json').then(status=>{if(request===liveRequest){SOURCE_STATUS=status;renderDataStatus();}}).catch(()=>{});
   try{
-    const res=await fetch("scanner_data.json",{cache:"no-store"});
-    if(!res.ok)return;
-    const j=await res.json();
-    if(j.rows&&j.rows.length){STORE=j.rows;DATA=mapRows(STORE);}
-    if(j.disparity)adoptDisp(j.disparity);   // 전용 파일과 비교해 더 최신이면 채택
-    if(j.asof){
-      const b=document.querySelector(".basis");
-      if(b){
-        const d=new Date(+j.asof.slice(0,4),+j.asof.slice(4,6)-1,+j.asof.slice(6));
-        const gap=(Date.now()-d.getTime())/864e5;
-        b.innerHTML="기준일 "+fmtAsof(j.asof)+(gap>4.5?' <span style="color:#ff6b5e;font-weight:600">· 갱신 지연 — 자동 업데이트 점검 필요</span>':"");
-      }
-    }
-    rebuild();
-  }catch(e){/* 시드 유지 */}
+    const j=await fetchScannerFile('scanner_data.json');
+    if(request!==liveRequest)return;
+    if(!Array.isArray(j.rows)||!j.rows.length||!/^\d{8}$/.test(j.asof||'')||j.rows.some(row=>!Array.isArray(row)||row.length<24||typeof row[0]!=='string'))throw new Error('자료 형식을 확인할 수 없습니다.');
+    SCANNER=j;STORE=j.rows;DATA=mapRows(STORE,j.rank_details||{});
+    const comparison=j.metadata?.comparison;
+    PREVIOUS=Array.isArray(comparison?.rows)?mapRows(comparison.rows,comparison.rank_details||{}):[];
+    loadState='ready';
+    if(j.disparity)adoptDisp(j.disparity);
+    renderDataStatus();rebuild();
+  }catch(error){
+    if(request!==liveRequest)return;
+    loadState='error';loadError=error.name==='AbortError'?'요청 시간이 초과되었습니다.':error.message;
+    renderDataStatus();rebuild();
+  }
 }
 loadLive();
 

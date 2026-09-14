@@ -42,6 +42,8 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          disparity_generated_dir=$(mktemp -d "$RUNNER_TEMP/disparity-data.XXXXXX")
+          cp disparity_data.json "$disparity_generated_dir/disparity_data.json"
           git add disparity_data.json
           if git diff --staged --quiet; then
             echo "변경 없음 — 커밋 건너뜀"
@@ -56,7 +58,9 @@ jobs:
             fi
             echo "push 거부됨 — 원격 최신 반영 후 재시도 ($i)"
             git fetch origin
-            git reset --soft origin/main
+            # 생성 파일만 복원해 다른 작업이 수정한 UI/수급 파일을 되돌리지 않는다.
+            git reset --hard origin/main
+            cp "$disparity_generated_dir/disparity_data.json" disparity_data.json
             git add disparity_data.json
             if git diff --staged --quiet; then
               echo "원격이 이미 동일 데이터 — 갱신 불필요"

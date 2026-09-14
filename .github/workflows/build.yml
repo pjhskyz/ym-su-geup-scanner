@@ -1,13 +1,18 @@
 name: build-scanner-data
 
-# 매일 저녁(한국 장 마감·데이터 확정 후) 기관 수급 데이터를 갱신한다.
+# 평일 20:20 KST 실행 예정. 원천의 시간외/NXT 포함 여부는 데이터 metadata로 표시한다.
 on:
   schedule:
-    # cron은 UTC 기준. GitHub 무료 스케줄러는 매시 '정각(:00)'이 가장 혼잡해
-    # 스케줄 실행이 자주 누락됨 → 비정각으로 잡고, 1차 누락에 대비해 2회 시도.
-    - cron: '17 11 * * 1-5'    # 20:17 KST (월~금)
-    - cron: '47 11 * * 1-5'    # 20:47 KST (1차 누락 시 백업)
+    # cron은 UTC 기준. 아래는 시작 예정 시각이며 스케줄러 지연 및 빌드/배포 시간이 추가된다.
+    - cron: '20 11 * * 1-5'    # 20:20 KST (월~금)
+    - cron: '50 11 * * 1-5'    # 20:50 KST (누락·지연 및 후속 반영 보완 조회)
   workflow_dispatch:        # 액션 탭에서 수동 실행 버튼
+    inputs:
+      force:
+        description: '예정 시각 전 수동 수집'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write           # scanner_data.json 을 repo에 커밋하기 위해 필요
@@ -17,7 +22,38 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  collection_window:
+    runs-on: ubuntu-latest
+    outputs:
+      allowed: ${{ steps.check_window.outputs.allowed }}
+    steps:
+      - name: Check collection window (KST)
+        id: check_window
+        env:
+          FORCE_COLLECTION: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
+        run: |
+          python - <<'PY'
+          import datetime as dt
+          import os
+          from zoneinfo import ZoneInfo
+
+          def collection_allowed(now, force):
+              return force or (now.weekday() < 5 and (now.hour, now.minute) >= (20, 20))
+
+          now = dt.datetime.now(ZoneInfo("Asia/Seoul"))
+          force = os.environ.get("FORCE_COLLECTION", "false").lower() == "true"
+          allowed = collection_allowed(now, force)
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"allowed={str(allowed).lower()}\n")
+          if allowed:
+              print(f"수집 허용: {now.isoformat(timespec='seconds')} / 수동 강제 실행={force}")
+          else:
+              print(f"수집 건너뜀: {now.isoformat(timespec='seconds')} / 평일 20:20 KST 이후만 자동 수집")
+          PY
+
   build:
+    needs: collection_window
+    if: ${{ needs.collection_window.outputs.allowed == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -33,6 +69,7 @@ jobs:
         run: pip install pykrx finance-datareader pandas
 
       - name: Build scanner_data.json
+        id: build_scanner
         env:
           KRX_ID: ${{ secrets.KRX_ID }}   # repo Settings → Secrets 에 등록
           KRX_PW: ${{ secrets.KRX_PW }}
@@ -40,23 +77,41 @@ jobs:
 
       # 수급 데이터를 먼저 커밋 — 뒤 단계(시장지표)가 실패·타임아웃돼도 수급은 배포된다
       - name: Commit scanner data
+        # 수집 실패도 상태 파일은 발행한다. scanner_data.json은 마지막 정상본을 유지한다.
+        if: ${{ always() && (steps.build_scanner.outcome == 'success' || steps.build_scanner.outcome == 'failure') }}
         run: |
+          if [ ! -f scanner_status.json ]; then
+            echo "상태 파일 없음 — 커밋 건너뜀"
+            exit 0
+          fi
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add scanner_data.json
+          scanner_generated_dir=$(mktemp -d "$RUNNER_TEMP/scanner-data.XXXXXX")
+          cp scanner_status.json "$scanner_generated_dir/scanner_status.json"
+          git add scanner_status.json
+          if [ "${{ steps.build_scanner.outcome }}" = "success" ]; then
+            cp scanner_data.json "$scanner_generated_dir/scanner_data.json"
+            git add scanner_data.json
+          fi
           if git diff --staged --quiet; then
             echo "변경 없음 — 커밋 건너뜀 (휴장일 등)"
             exit 0
           fi
-          git commit -m "data: 수급 갱신 ($(date -u +%Y-%m-%d))"
+          git commit -m "data: 수급 및 수집 상태 갱신 ($(date -u +%Y-%m-%d))"
           for i in 1 2 3 4 5; do
             if git push; then echo "push 성공"; exit 0; fi
             echo "push 거부됨 — 원격 최신 반영 후 재시도 ($i)"
             git fetch origin
-            git reset --soft origin/main
-            git add scanner_data.json
+            # 자동 생성 파일만 복원한다. soft reset은 동시 수정된 UI/코드를 되돌려 커밋할 수 있다.
+            git reset --hard origin/main
+            cp "$scanner_generated_dir/scanner_status.json" scanner_status.json
+            git add scanner_status.json
+            if [ -f "$scanner_generated_dir/scanner_data.json" ]; then
+              cp "$scanner_generated_dir/scanner_data.json" scanner_data.json
+              git add scanner_data.json
+            fi
             if git diff --staged --quiet; then echo "원격이 이미 동일 데이터"; exit 0; fi
-            git commit -m "data: 수급 갱신 ($(date -u +%Y-%m-%d))"
+            git commit -m "data: 수급 및 수집 상태 갱신 ($(date -u +%Y-%m-%d))"
           done
           echo "push 5회 실패"
           exit 1
@@ -71,6 +126,8 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          market_generated_dir=$(mktemp -d "$RUNNER_TEMP/market-data.XXXXXX")
+          cp market_data.json stocks_data.json "$market_generated_dir/"
           git add market_data.json stocks_data.json
           if git diff --staged --quiet; then
             echo "변경 없음 — 커밋 건너뜀"
@@ -85,7 +142,9 @@ jobs:
             fi
             echo "push 거부됨 — 원격 최신 반영 후 재시도 ($i)"
             git fetch origin
-            git reset --soft origin/main
+            git reset --hard origin/main
+            cp "$market_generated_dir/market_data.json" market_data.json
+            cp "$market_generated_dir/stocks_data.json" stocks_data.json
             git add market_data.json stocks_data.json
             if git diff --staged --quiet; then
               echo "원격이 이미 동일 데이터 — 갱신 불필요"
