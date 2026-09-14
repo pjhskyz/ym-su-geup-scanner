@@ -413,14 +413,95 @@ def sector_map(asof: str) -> dict:
     if out:
         log(f"· WICS 업종 매핑 {len(out)}종목 / {len(set(out.values()))}개 업종")
     else:
-        log("[i] WICS 업종 매핑 실패 → 업종 공란")
+        log("[i] WICS 업종 매핑 실패 → 마지막 저장본의 종목코드별 분류 확인")
     return out
+
+
+def load_sector_history(path: str | None = None) -> dict:
+    """직전 발행본의 코드별 분류만 읽는다. 분류가 이월됐으면 원 조회일도 유지한다."""
+    result = {"snapshot_asof": None, "sectors": {}, "source_asof_by_code": {}}
+    try:
+        with open(path or OUT_PATH, encoding="utf-8") as f:
+            previous = json.load(f)
+    except (OSError, ValueError):
+        return result
+    if not isinstance(previous, dict):
+        return result
+    result["snapshot_asof"] = previous.get("asof")
+    metadata = previous.get("metadata")
+    metadata = metadata if isinstance(metadata, dict) else {}
+    classification = metadata.get("sector_classification")
+    classification = classification if isinstance(classification, dict) else {}
+    source_dates = classification.get("source_asof_by_code")
+    for row in previous.get("rows") or []:
+        if not isinstance(row, list) or len(row) < 24:
+            continue
+        code, sector = row[23], row[1]
+        if not isinstance(code, str) or not isinstance(sector, str) or not sector.strip():
+            continue
+        result["sectors"][code] = sector.strip()
+        # 메타가 없는 기존 발행본은 해당 발행본의 조회 기준일을 사용한다.
+        # 이미 분류 메타가 있다면 미상의 원 조회일을 발행일로 바꾸지 않는다.
+        result["source_asof_by_code"][code] = (
+            source_dates.get(code) if isinstance(source_dates, dict)
+            else (None if classification else previous.get("asof"))
+        )
+    return result
+
+
+def resolve_sector_classification(asof: str, fresh: dict, previous: dict) -> tuple[dict, dict]:
+    """이번 응답에서 빠진 코드에만 과거 분류를 적용한다. 이름/유사업종 추정은 하지 않는다."""
+    fresh = {code: sector.strip() for code, sector in fresh.items()
+             if isinstance(sector, str) and sector.strip()}
+    carried = {code: sector for code, sector in previous["sectors"].items() if code not in fresh}
+    sectors = {**carried, **fresh}
+    source_dates = {code: previous["source_asof_by_code"].get(code) for code in carried}
+    source_dates.update({code: asof for code in fresh})
+    metadata = {
+        "provider": "FnGuide WICS",
+        "requested_asof": asof,
+        "fallback_snapshot_asof": previous["snapshot_asof"],
+        "source_asof_by_code": source_dates,
+        "note": "이번 WICS 조회에서 누락된 종목에만 마지막 저장본의 같은 종목코드 분류를 이월합니다. "
+                "원 조회일을 유지하며, 해당 분류가 현재도 유효한지는 미확인입니다. 신규 미분류 종목은 공란입니다. "
+                "직전 거래일 비교표에도 같은 분류를 적용하므로 그 거래일의 역사적 업종을 뜻하지 않습니다.",
+    }
+    return sectors, {"metadata": metadata, "fresh_codes": set(fresh), "carried_codes": set(carried)}
+
+
+def sector_classification_metadata(state: dict, rows: list, comparison_rows: list) -> dict:
+    """실제 수록된 종목만 집계하고, 분류 원 조회일을 다음 실행에 전달한다."""
+    def counts(codes):
+        return {
+            "fresh": len(codes & state["fresh_codes"]),
+            "carried": len(codes & state["carried_codes"]),
+            "missing": len(codes - state["fresh_codes"] - state["carried_codes"]),
+        }
+    current_codes = {row[23] for row in rows}
+    comparison_codes = {row[23] for row in comparison_rows}
+    included_codes = current_codes | comparison_codes
+    metadata = dict(state["metadata"])
+    metadata["source_asof_by_code"] = {
+        code: date for code, date in metadata["source_asof_by_code"].items() if code in included_codes
+    }
+    carried_codes = included_codes & state["carried_codes"]
+    metadata["fallback_source_asofs"] = sorted({
+        metadata["source_asof_by_code"][code] for code in carried_codes
+        if metadata["source_asof_by_code"].get(code)
+    })
+    metadata["fallback_unknown_source_count"] = sum(
+        not metadata["source_asof_by_code"].get(code) for code in carried_codes
+    )
+    metadata["counts"] = counts(current_codes)
+    metadata["comparison_counts"] = counts(comparison_codes)
+    return metadata
 
 
 # ----------------------------- main -----------------------------
 def main():
     global stock
     collection_started_at = dt.datetime.now(KST).isoformat(timespec="seconds")
+    previous_sectors = load_sector_history()
     if not (os.getenv("KRX_ID") and os.getenv("KRX_PW")):
         log("[!] KRX_ID / KRX_PW 환경변수가 없습니다. (2025-12-27 KRX 회원제 전환)")
         log("    상단 docstring 안내대로 설정 후 다시 실행하세요.")
@@ -508,7 +589,7 @@ def main():
             tv = daily_net(tkr, D)
             streaks[tkr] = (continuity(tv, TV_COLS["inst"]), continuity(tv, TV_COLS["frgn"]))
 
-    secmap = sector_map(D)
+    secmap, sector_state = resolve_sector_classification(D, sector_map(D), previous_sectors)
     log("· 밸류에이션(PER/PBR/배당)…")
     fnd = fundamentals(D)
 
@@ -558,6 +639,10 @@ def main():
     # 정확한 원 단위 금액으로 정렬: 백만원 반올림 동률에 의한 비결정성 제거.
     rows.sort(key=lambda row: (-rank_details[row[23]]["net_won"]["inst"], row[23]))
     comparison = comparison_snapshot(daily, [D1, D2], previous_caps, secmap)
+    sector_classification = sector_classification_metadata(sector_state, rows, comparison["rows"])
+    sector_counts = sector_classification["counts"]
+    log(f"· 업종: 이번 조회 {sector_counts['fresh']} / 과거 분류 이월 {sector_counts['carried']} "
+        f"/ 미분류 {sector_counts['missing']}종목")
     try:
         pykrx_version = version("pykrx")
     except PackageNotFoundError:
@@ -574,6 +659,7 @@ def main():
             "asof_fallback": D != asof,
             "status": "collected",
             "source_finalized": None,
+            "sector_classification": sector_classification,
             "source_rank": SOURCE_RANK_DEFINITION,
             "legacy_bucket": {
                 "width_pct": BUCKET_SIZE,
