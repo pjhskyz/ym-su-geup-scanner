@@ -24,6 +24,91 @@ def sector_row(code, sector):
     return row
 
 
+def fetch_sectors_without_network(responses, durations=None, codes=None):
+    """Fake response latency and sleeps against the same monotonic clock."""
+    elapsed = [0.0]
+    sequence = iter(responses)
+    delays = iter(durations or [0] * len(responses))
+
+    def advance(seconds):
+        elapsed[0] += seconds
+
+    def get(*args, **kwargs):
+        advance(next(delays))
+        value = next(sequence)
+        if isinstance(value, Exception):
+            raise value
+        response = Mock()
+        response.json.return_value = value
+        return response
+
+    request = Mock(side_effect=get)
+    with patch.dict(sys.modules, {"requests": Mock(get=request)}), \
+         patch.object(scanner.time, "monotonic", side_effect=lambda: elapsed[0]), \
+         patch.object(scanner.time, "sleep", side_effect=advance), \
+         patch.object(scanner, "WICS_CODES", codes or scanner.WICS_CODES), \
+         patch.object(scanner, "log"):
+        result = scanner.sector_map("20260915")
+    return result, request, elapsed[0]
+
+
+class SectorFetchTests(unittest.TestCase):
+    def test_outage_stops_after_three_consecutive_errors(self):
+        result, request, elapsed = fetch_sectors_without_network(
+            [TimeoutError("unavailable")] * 4, durations=[10] * 4,
+        )
+        self.assertEqual(result, {})
+        self.assertEqual(request.call_count, 3)
+        self.assertLess(elapsed, 31)
+
+    def test_partial_results_survive_and_valid_empty_response_resets_error_count(self):
+        result, request, _ = fetch_sectors_without_network([
+            TimeoutError("first"),
+            {"list": [{"CMP_CD": "000001", "SEC_NM_KOR": "IT하드웨어"}]},
+            TimeoutError("second"), TimeoutError("third"),
+            {"list": []},
+            TimeoutError("fourth"), TimeoutError("fifth"), TimeoutError("sixth"),
+            {"list": [{"CMP_CD": "000002", "SEC_NM_KOR": "must not fetch"}]},
+        ])
+        self.assertEqual(request.call_count, 8)
+        self.assertEqual(result, {"000001": "IT하드웨어"})
+        previous = {
+            "snapshot_asof": "20260914",
+            "sectors": {"000001": "반도체", "000002": "은행"},
+            "source_asof_by_code": {"000001": "20260911", "000002": "20260910"},
+        }
+        sectors, state = scanner.resolve_sector_classification("20260915", result, previous)
+        self.assertEqual(sectors, {"000001": "IT하드웨어", "000002": "은행"})
+        self.assertEqual(state["metadata"]["source_asof_by_code"]["000002"], "20260910")
+        self.assertNotIn("000003", sectors)
+
+    def test_elapsed_budget_stops_new_requests_and_caps_remaining_timeouts(self):
+        responses = [
+            {"list": [{"CMP_CD": "000001", "SEC_NM_KOR": "반도체"}]},
+            {"list": [{"CMP_CD": "000002", "SEC_NM_KOR": "은행"}]},
+            {"list": [{"CMP_CD": "000003", "SEC_NM_KOR": "must not fetch"}]},
+        ]
+        result, request, elapsed = fetch_sectors_without_network(responses, durations=[59, 1, 0])
+        self.assertEqual(request.call_count, 2)
+        self.assertGreaterEqual(elapsed, 60)
+        self.assertEqual(result, {"000001": "반도체", "000002": "은행"})
+        self.assertEqual(request.call_args_list[0].kwargs["timeout"], (5, 10))
+        connect, read = request.call_args_list[1].kwargs["timeout"]
+        self.assertGreater(connect, 0)
+        self.assertGreater(read, 0)
+        self.assertAlmostEqual(connect + read, 0.7)
+
+    def test_healthy_service_preserves_all_sector_responses(self):
+        responses = [
+            {"list": [{"CMP_CD": str(i), "SEC_NM_KOR": f"업종{i}"}]}
+            for i in range(1, len(scanner.WICS_CODES) + 1)
+        ]
+        result, request, elapsed = fetch_sectors_without_network(responses, durations=[0.2] * len(responses))
+        self.assertEqual(request.call_count, len(scanner.WICS_CODES))
+        self.assertEqual(result, {f"{i:06d}": f"업종{i}" for i in range(1, len(responses) + 1)})
+        self.assertLess(elapsed, 60)
+
+
 class ScannerDataTests(unittest.TestCase):
     def test_sector_partial_response_preserves_only_missing_codes_without_guessing(self):
         previous = {

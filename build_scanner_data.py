@@ -397,19 +397,43 @@ def sector_map(asof: str) -> dict:
     import requests
     hdr = {"User-Agent": "Mozilla/5.0"}
     out = {}
+    deadline = time.monotonic() + 60
+    consecutive_errors = 0
     for cd in WICS_CODES:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            log("[i] WICS 조회 예산(60초) 소진 → 확보한 분류와 마지막 저장본 사용")
+            break
         url = (f"https://www.wiseindex.com/Index/GetIndexComponets"
                f"?ceil_yn=0&dt={asof}&sec_cd={cd}")
         try:
-            j = requests.get(url, headers=hdr, timeout=20).json()
-            for it in j.get("list", []):
+            # Connect/read limits are not a hard wall-clock deadline. The
+            # overall budget prevents starting further requests after expiry.
+            response = requests.get(
+                url, headers=hdr,
+                timeout=(min(5, remaining / 3), min(10, remaining * 2 / 3)),
+            )
+            response.raise_for_status()
+            j = response.json()
+            items = j.get("list", [])
+            if not isinstance(items, list):
+                raise ValueError("WICS 종목 목록 형식 오류")
+            for it in items:
                 code = str(it.get("CMP_CD", "")).zfill(6)
                 nm = str(it.get("SEC_NM_KOR", "")).strip()
                 if code and nm:
                     out[code] = nm
+            # A valid empty list is a successful response, not an outage.
+            consecutive_errors = 0
         except Exception as e:
+            consecutive_errors += 1
             log(f"[!] WICS {cd} 실패: {e}")
-        time.sleep(0.3)
+            if consecutive_errors >= 3:
+                log("[i] WICS 3회 연속 실패 → 추가 조회 중단, 확보한 분류와 마지막 저장본 사용")
+                break
+        remaining = deadline - time.monotonic()
+        if remaining > 0:
+            time.sleep(min(0.3, remaining))
     if out:
         log(f"· WICS 업종 매핑 {len(out)}종목 / {len(set(out.values()))}개 업종")
     else:
