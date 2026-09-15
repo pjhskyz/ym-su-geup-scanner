@@ -7,7 +7,9 @@
 
 - GitHub Actions는 **평일 20:20 KST**(`20 11 * * 1-5`, UTC)에 수집을 시작하도록 예약합니다.
 - **20:50 KST**에 보완 조회합니다. 스케줄러 지연과 수집·배포 소요 시간이 있어 20:20 화면 반영 완료를 보장하는 설정은 아닙니다.
-- 기존 외부 cron의 예약 자체는 변경하지 않았습니다. 외부에서 들어오는 무입력 `workflow_dispatch` 요청을 포함해 **평일 20:20 KST 전이나 주말의 자동 요청은 수집을 건너뜁니다**. 건너뛴 요청은 데이터와 마지막 수집 상태를 덮어쓰지 않습니다.
+- 기존 외부 cron의 **20:05 KST 요청은 실행을 유지하며 20:20까지 기다린 뒤 수집을 시작**합니다. 외부 cron의 예약 자체는 변경하지 않았습니다. 일반 `workflow_dispatch` 요청은 평일 20:00~20:19에 들어오면 최대 20분 대기하고, 20:20 이후에는 바로 진행합니다. 18:30 등 그보다 이른 요청과 주말 요청은 수집을 건너뜁니다.
+- GitHub의 20:20·20:50 예약은 보완 경로입니다. GitHub 스케줄러가 늦게 실행해 **자정이나 주말로 넘어가도 유효한 예약 요청을 버리지 않습니다**. 두 경로 모두 실제 작업 시작이 늦어질 수 있으며, 20:20은 수집 시작 목표 시각입니다.
+- Actions의 `collection_window` 작업 요약에서 허용·대기·건너뜀 사유를 확인할 수 있습니다. 건너뛴 요청은 데이터와 마지막 수집 상태를 덮어쓰지 않습니다.
 - 기준 거래일(`asof`), 데이터 생성 시각(`metadata.updated_at`), 마지막 수집 시도(`scanner_status.json`)를 구분합니다.
 - KRX 인증·조회 실패 시 빌드는 실패로 종료하고 **마지막 정상 `scanner_data.json`을 유지**합니다. 별도 상태 파일을 발행해 최신 수집 실패를 표시합니다.
 - KRX 최근 거래일에 수급이 아직 없다면 직전 거래일로 폴백하며 `metadata.asof_fallback`에 기록합니다.
@@ -57,13 +59,15 @@ WICS 조회가 비거나 일부 종목을 누락하면 마지막 발행본에서
 | `scanner_status.json` | 최근 수집 시도 시각·성공/실패·마지막 정상 거래일 |
 | `build_market.py` | 시장 지표와 개별 종목 이력 생성 |
 | `.github/workflows/build.yml` | 수집·커밋 예약 |
+| `collection_window.py` | 외부 요청의 20:20 대기 및 지연된 GitHub 예약 허용 |
+| `test_collection_window.py` | 시간·요일 경계와 실제 대기·작업 출력 검증 |
 | `test_scanner_data.py` | 순위·직전일 비교·실패 보존 검증 |
 
 GitHub 저장소 Secrets의 `KRX_ID`, `KRX_PW`로 인증합니다. KRX가 비밀번호 변경을 요구하면 계정 비밀번호 변경과 Secret 갱신이 필요합니다. 인증정보는 JSON에 기록하지 않습니다. 수동 수집은 Actions의 `build-scanner-data` → `Run workflow`에서 실행합니다. 예정 시각 전이나 주말에 점검하려면 **‘예정 시각 전 수동 수집’(`force`)**을 켭니다. 기본값은 꺼짐이며, 명시적으로 켠 수동 실행만 시간·요일 제한을 우회합니다.
 
 ```bash
 pip install pykrx finance-datareader pandas
-python -m unittest test_scanner_data.py
+python -m unittest test_scanner_data.py test_collection_window.py
 python build_scanner_data.py
 python -m http.server 8000
 ```

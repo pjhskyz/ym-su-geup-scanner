@@ -24,32 +24,18 @@ concurrency:
 jobs:
   collection_window:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     outputs:
       allowed: ${{ steps.check_window.outputs.allowed }}
     steps:
-      - name: Check collection window (KST)
+      - name: Checkout collection window helper
+        uses: actions/checkout@v4
+
+      - name: Check or wait for collection window (KST)
         id: check_window
         env:
           FORCE_COLLECTION: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
-        run: |
-          python - <<'PY'
-          import datetime as dt
-          import os
-          from zoneinfo import ZoneInfo
-
-          def collection_allowed(now, force):
-              return force or (now.weekday() < 5 and (now.hour, now.minute) >= (20, 20))
-
-          now = dt.datetime.now(ZoneInfo("Asia/Seoul"))
-          force = os.environ.get("FORCE_COLLECTION", "false").lower() == "true"
-          allowed = collection_allowed(now, force)
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-              output.write(f"allowed={str(allowed).lower()}\n")
-          if allowed:
-              print(f"수집 허용: {now.isoformat(timespec='seconds')} / 수동 강제 실행={force}")
-          else:
-              print(f"수집 건너뜀: {now.isoformat(timespec='seconds')} / 평일 20:20 KST 이후만 자동 수집")
-          PY
+        run: python -u collection_window.py
 
   build:
     needs: collection_window
