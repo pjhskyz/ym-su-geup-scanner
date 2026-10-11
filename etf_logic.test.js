@@ -53,3 +53,70 @@ test('two unverified high candidates do not become confirmed high signals', () =
   const d = dataset([row('US', 'SOXX', common), row('KR', '091160', common)]);
   assert.equal(L.crossCountry(d).find(p => p.name === '반도체·AI 하드웨어').label, '양국 강세 후보');
 });
+test('expanded catalogue retains excluded and failed observations without inflating sector signals', () => {
+  const rep = row('US', 'SOXX', {rank_enabled: true, selection_status: 'ranking', kind: 'industry', high: {state: 'new_close_high_candidate', gap: 0}});
+  const excluded = row('US', 'EFA', {rank_enabled: false, selection_status: 'excluded', exclusion_reason: '국가·지역형 ETF', high: {state: 'new_close_high_candidate', gap: 0}});
+  const pending = row('US', 'OTHER', {rank_enabled: false, selection_status: 'unclassified', status: 'failed', classification_status: 'pending'});
+  const d = {...dataset([rep, excluded, pending]), all_rows: [rep, excluded, pending]};
+  assert.equal(L.counts(d).US, 1);
+  assert.deepEqual(L.filterCatalogue(d, {selection: 'unclassified', freshness: 'unavailable'}).map(r => r.symbol), ['OTHER']);
+  assert.deepEqual(L.filterCatalogue(d, {query: '국가·지역'}).map(r => r.symbol), ['EFA']);
+  assert.equal(L.catalogue(d).length, 3);
+});
+test('listing highs and style funds stay outside 52-week sector signal counts', () => {
+  const d = dataset([
+    row('KR', 'LISTING', {kind: 'theme', high: {state: 'new_listing_high_candidate', basis: 'since_listing', gap: 0, weak_window_complete: false}}),
+    row('KR', 'STYLE', {kind: 'style', high: {state: 'new_close_high_candidate', gap: 0, weak_window_complete: true}})
+  ]);
+  assert.equal(L.counts(d).KR, 0); assert.equal(L.counts(d).KR_high_usable, 0);
+  assert.equal(L.counts(d).weak_usable, 0); assert.equal(L.counts(d).listing, 1);
+  assert.equal(L.status(d.rows[0], d).label, '상장 이후 신고가 후보');
+});
+test('country and classification filters distinguish listing venue from global exposure', () => {
+  const d = {expected_dates: expected, all_rows: [row('US', 'GRID', {kind: 'theme', scope: 'GLOBAL'}), row('US', 'XLK', {kind: 'sector'}), row('KR', '091160', {kind: 'industry'})]};
+  assert.deepEqual(L.filterCatalogue(d, {market: 'US', scope: '미국 상장 글로벌 업종·테마'}).map(r => r.symbol), ['GRID']);
+  assert.deepEqual(L.filterCatalogue(d, {market: 'KR'}).map(r => r.symbol), ['091160']);
+  assert.equal(L.scopeLabel(row('US', 'IXG', {scope: 'GLOBAL', kind: 'sector'})), '미국 상장 글로벌 업종·테마');
+  assert.equal(L.scopeLabel(row('US', 'ECON', {scope: 'COUNTRY', kind: 'country', rank_enabled: false, selection_status: 'excluded'})), '미국 상장 국가·지역');
+});
+test('expanded cross-country pairs preserve global classification and exact sector mapping', () => {
+  const d = dataset([row('US', 'IGV', {scope: 'GLOBAL'}), row('KR', '157490'), row('US', 'SLX', {scope: 'GLOBAL'}), row('KR', '117680'), row('US', 'FDN'), row('KR', '365000')]);
+  const pairs = L.crossCountry(d);
+  assert.equal(pairs.find(p => p.name === '소프트웨어').label, '글로벌·한국 동시 확인');
+  assert.equal(pairs.find(p => p.name === '철강').scope, 'GLOBAL');
+  assert.equal(pairs.find(p => p.name === '인터넷').label, '양국 동시 확인');
+  assert.equal(pairs.find(p => p.name === '에너지·화학').sides.KR.registered.length, 0);
+});
+test('every bilateral mapping resolves to a current configured representative and exposure scope', () => {
+  const u = require('./etf_pipeline/universe.json');
+  const pairs = L.crossCountry({expected_dates: expected, rows: u.assets});
+  for (const p of pairs) {
+    assert.ok(p.sides.KR.registered.length > 0, p.name + ': Korean representative missing');
+    assert.ok(p.sides.US.registered.length > 0, p.name + ': US-listed representative missing');
+    assert.ok(p.sides.US.registered.every(r => r.scope === p.scope), p.name + ': country exposure mismatch');
+  }
+});
+test('expanded UI navigates all five tabs and exposes unavailable catalogue rows safely', async () => {
+  const fs = require('node:fs'), vm = require('node:vm');
+  const listeners = {};
+  const root = {innerHTML: '', addEventListener: (type, fn) => {listeners[type] = fn;}, querySelector: () => ({focus: () => {}})};
+  const rep = row('KR', '091160', {name: '한국 대표 테스트', kind: 'industry', rank_enabled: true, classification_sources: [{url: 'https://example.com/issuer-proof', evidence: '공식 업종 분류 확인'}], above_ma20: true, sortino_price_126: 3, ranks: {sortino20: {rank: 2, delta_1: 0}}});
+  const supplemental = row('KR', 'DUP', {name: '보조 테스트', kind: 'industry', rank_enabled: true, representative: false, above_ma20: true, sortino_price_126: 4, ranks: {sortino20: {rank: 1}}});
+  const unknown = row('US', 'PENDING', {name: '<img src=x onerror=alert(1)>', rank_enabled: false, selection_status: 'unclassified', status: 'failed', reason: 'network failure', source_url: 'javascript:alert(1)', classification_status: 'pending'});
+  const d = {...dataset([rep, supplemental]), all_rows: [rep, supplemental, unknown], catalog_summary: {KR: {listed_count: 1172, candidate_count: 236, observed_at: '2026-10-11T11:21:00Z', source_asof: null, status: 'dated_observation'}}, markets: {KR: {registered: 2, fresh: 2, rank_enabled: 2, classified: 2, representatives: 1, usable: 2}, US: {registered: 1, fresh: 0, rank_enabled: 0, classified: 0, representatives: 0, usable: 0}}, universe: {version: '2026-10-11-v3', changed_at: '2026-10-11'}};
+  const window = {ETFLogic: L}, context = {window, document: {getElementById: () => root, activeElement: null}, fetch: async () => ({ok: true, json: async () => d}), URL};
+  vm.runInNewContext(fs.readFileSync(require.resolve('./etf.js'), 'utf8'), context); window.ETFScanner.mount();
+  await new Promise(resolve => setImmediate(resolve));
+  assert.match(root.innerHTML, /대표 ETF 중심 표시/); assert.match(root.innerHTML, /2026-10-11-v3/);
+  assert.match(root.innerHTML, /class="etf-rank">2<\/td>/); assert.doesNotMatch(root.innerHTML, /보조 테스트/);
+  const clickTab = name => listeners.click({target: {closest: selector => selector === '[data-etf-tab]' ? {dataset: {etfTab: name}} : null}});
+  for (const tab of ['us-high', 'kr-high', 'cross', 'catalogue']) {clickTab(tab); assert.match(root.innerHTML, new RegExp('aria-labelledby="etf-tab-' + tab + '"'));}
+  assert.match(root.innerHTML, /등록 3개/); assert.match(root.innerHTML, /수집 실패/); assert.match(root.innerHTML, /보조 테스트/);
+  assert.match(root.innerHTML, /href="https:\/\/example.com\/issuer-proof"/); assert.match(root.innerHTML, /공식 업종 분류 확인/);
+  assert.match(root.innerHTML, /전체 상장 목록 <strong>1,172<\/strong>/); assert.match(root.innerHTML, /추가 검토 후보 <strong>236<\/strong>/); assert.match(root.innerHTML, /가격 수집 등록·분석 완료 숫자에 포함하지 않습니다/);
+  assert.match(root.innerHTML, /&lt;img src=x onerror=alert\(1\)&gt;/); assert.doesNotMatch(root.innerHTML, /href="javascript:|<img src=x/);
+  listeners.change({target: {id: 'etf-catalogue-market', value: 'US'}});
+  assert.match(root.innerHTML, /1 \/ 등록 3개/); assert.doesNotMatch(root.innerHTML, /한국 대표 테스트/);
+  listeners.change({target: {id: 'etf-catalogue-freshness', value: 'fresh'}});
+  assert.match(root.innerHTML, /해당 조건의 ETF가 없습니다/);
+});

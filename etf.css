@@ -18,6 +18,9 @@
 .etf-country-main b{color:var(--txt);font-weight:500;margin-right:8px}
 .etf-country-main strong{color:var(--etf-green);font-family:var(--mono);font-weight:500}
 .etf-country-main small{font-size:10px;display:block}
+.etf-coverage-metrics{display:flex;gap:16px;flex-wrap:wrap;margin:7px 0 4px}
+.etf-coverage-metrics>span{display:flex;gap:6px;align-items:baseline;font-size:10px;white-space:nowrap}
+.etf-coverage-metrics strong{font-size:16px}
 .etf-warning{padding:10px 14px;border:1px solid rgba(255,192,100,.25);border-left:3px solid var(--etf-amber);background:rgba(255,176,32,.04);border-radius:6px;color:var(--txt-dim);font-size:11px;line-height:1.8;margin-top:12px}
 .etf-warning strong{color:var(--etf-amber);font-weight:600;margin-right:7px}
 .etf-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0 24px}
@@ -43,6 +46,14 @@
 .etf-search::placeholder{color:var(--txt-faint)}
 .etf-check{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--txt-dim);cursor:pointer;white-space:nowrap}
 .etf-check input{accent-color:var(--etf-green)}
+.etf-filter-label{display:flex;flex-direction:column;gap:5px;font-size:10px;color:var(--txt-faint)}
+.etf-catalogue-toolbar{align-items:flex-end}
+.etf-catalogue-toolbar .etf-tool-group{gap:10px}
+.etf-universe-note{border-left:2px solid var(--line2);padding-left:10px}
+.etf-discovery{margin:14px 0;padding:15px 17px;background:var(--panel);border:1px solid var(--line2);border-radius:8px;font-size:11px;line-height:1.8;color:var(--txt-dim)}
+.etf-discovery>div{display:flex;flex-wrap:wrap;gap:7px 20px;align-items:baseline}
+.etf-discovery b{font-weight:600;color:var(--txt)}.etf-discovery strong{font-family:var(--mono);font-size:16px;color:var(--etf-green);margin:0 3px;font-weight:500}
+.etf-discovery p{font-size:10px;color:var(--txt-faint);margin-top:5px}.etf-discovery small{font-size:10px;color:var(--txt-faint)}.etf-discovery a{color:var(--etf-green);text-decoration:none}
 .etf-caption{color:var(--txt-faint);font-size:11px;line-height:1.8;margin:9px 0 14px;word-break:keep-all}
 .etf-caption b{color:var(--txt-dim);font-weight:500}
 .etf-section{margin:20px 0}
@@ -72,6 +83,9 @@ a.etf-fund-name:hover{color:var(--etf-green)}
 .etf-pill.near{color:#aebce6;background:rgba(121,140,201,.10);border:1px solid rgba(121,140,201,.25)}
 .etf-pill.weak{color:#7db1ff;background:rgba(61,139,255,.09);border:1px solid rgba(61,139,255,.24)}
 .etf-pill.muted{color:var(--txt-faint);background:var(--panel);border:1px solid var(--line)}
+.etf-pill.listing-new,.etf-pill.listing-held,.etf-pill.listing-near{color:#c8a5f8;background:rgba(166,119,226,.08);border:1px solid rgba(166,119,226,.25)}
+.etf-sources a{color:var(--etf-green);text-decoration:none}.etf-sources a:hover{text-decoration:underline}
+#view-etf .etf-catalogue-table .etf-catalogue-reason{max-width:270px;min-width:190px}
 .etf-up{color:var(--up)!important}.etf-down{color:#7eafff!important}.etf-accent{color:var(--etf-green)!important}.etf-dim{color:var(--txt-faint)!important}
 .etf-delta{font-size:11px;white-space:nowrap}
 .etf-table .etf-small{font-family:var(--sans)!important;font-size:10px!important;color:var(--txt-faint)!important;line-height:1.6;white-space:normal;min-width:130px;max-width:200px}

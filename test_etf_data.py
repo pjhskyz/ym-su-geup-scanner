@@ -103,6 +103,40 @@ class MetricTests(unittest.TestCase):
         s, ds = sample(oscillating())
         self.assertEqual(etf.metrics(s, None, ds[:-20])['close'], s['rows'][-21]['close'])
 
+    def test_verified_complete_listing_history_is_separate_from_52_week(self):
+        s, ds = sample(oscillating(100))
+        asset = {'listing_date': ds[0], 'listing_verified': True,
+                 'listing_source_url': 'https://issuer.example/first-trading-date'}
+        result = etf.high_state(s, ds, asset)
+        self.assertEqual(result['basis'], 'since_listing')
+        self.assertEqual(result['state'], 'new_listing_high_candidate')
+        self.assertEqual(result['observations'], 100)
+        self.assertEqual(result['reference_high'], s['rows'][-1]['close'])
+        self.assertFalse(result['weak_window_complete'])
+
+    def test_partial_provider_history_never_implies_listing_date(self):
+        s, ds = sample(oscillating(100))
+        for asset in ({}, {'listing_date': ds[0]},
+                      {'listing_date': ds[0], 'listing_verified': True},
+                      {'inception_date': ds[0], 'inception_verified': True,
+                       'inception_source_url': 'https://issuer.example/fund-inception'}):
+            with self.subTest(asset=asset):
+                self.assertEqual(etf.high_state(s, ds, asset)['state'], 'insufficient_253_closes')
+
+    def test_missing_day_blocks_even_verified_listing_high(self):
+        s, ds = sample(oscillating(100))
+        asset = {'listing_date': ds[0], 'listing_verified': True,
+                 'listing_source_url': 'https://issuer.example/first-trading-date'}
+        s['rows'].pop(50)
+        self.assertEqual(etf.high_state(s, ds, asset)['state'], 'insufficient_253_closes')
+
+    def test_old_listing_with_truncated_history_is_not_since_listing(self):
+        s, ds = sample(oscillating())
+        asset = {'listing_date': ds[0], 'listing_verified': True,
+                 'listing_source_url': 'https://issuer.example/first-trading-date'}
+        s['rows'] = s['rows'][-100:]
+        self.assertEqual(etf.high_state(s, ds, asset)['state'], 'insufficient_253_closes')
+
 
 class StatusTests(unittest.TestCase):
     def test_original_preserves_rank_only_observation(self):
@@ -141,6 +175,14 @@ class StatusTests(unittest.TestCase):
         self.assertEqual(a['rows'][0]['close'], 50.)
         self.assertEqual(a['rows'], b['rows'])
 
+    def test_announced_future_split_does_not_adjust_current_prices(self):
+        s, ds = sample(oscillating(), 'US:SOXX')
+        future_date = (date.fromisoformat(ds[-1]) + timedelta(days=20)).isoformat()
+        events = [{'id': 'US:SOXX', 'effective_date': future_date, 'new_shares_per_old_share': 3}]
+        result = monitor.apply_verified_splits(s, events)
+        self.assertEqual(result['rows'], s['rows'])
+        self.assertEqual(result['known_splits_applied'], [])
+
 
 class RankTests(unittest.TestCase):
     def test_current_not_removed_by_missing_twenty_day_history(self):
@@ -164,6 +206,90 @@ class RankTests(unittest.TestCase):
         prior = row | {'above_ma20': False}
         etf.assign_ranks([row], {'KR': {1: {'KR:A': prior}}}, {'KR': sample(oscillating())[1]})
         self.assertEqual(row['ranks']['sortino20']['delta_1'], 'entry')
+
+
+class ExpandedUniverseTests(unittest.TestCase):
+    def asset(self, symbol, *, ranking=True, representative=True, classification='issuer_reviewed'):
+        return dict(id='KR:' + symbol, symbol=symbol, name=symbol, market='KR', scope='KR',
+                    kind='industry', group=symbol, representative=representative,
+                    rank_enabled=ranking, classification_status=classification)
+
+    def test_classification_counts_do_not_confuse_exclusion_with_unreviewed(self):
+        assets = [self.asset('A'), self.asset('B', representative=False),
+                  self.asset('C', ranking=False, representative=False),
+                  self.asset('D', ranking=False, representative=False, classification='pending_issuer_review')]
+        result = etf.universe_counts(assets)
+        self.assertEqual(result['registered'], 4)
+        self.assertEqual(result['classified'], 3)
+        self.assertEqual(result['rank_enabled'], 2)
+        self.assertEqual(result['representatives'], 1)
+        self.assertEqual(result['supplemental'], 1)
+        self.assertEqual(result['excluded'], 1)
+        self.assertEqual(result['unclassified'], 1)
+
+    def test_all_registered_visible_but_only_eligible_ranked(self):
+        eligible = self.asset('A')
+        excluded = self.asset('B', ranking=False, representative=False)
+        excluded['ranking_exclusion_reason'] = 'country_exposure'
+        pending = self.asset('C', ranking=False, representative=False, classification='pending_issuer_review')
+        config = {'version': '2026-10-11-v3', 'changed_at': '2026-10-11',
+                  'change_reason': 'expanded_coverage', 'assets': [eligible, excluded, pending],
+                  'benchmarks': {'KR': {'id': 'KR:KOSPI', 'symbol': 'KOSPI'},
+                                 'US': {'id': 'US:SPY', 'symbol': 'SPY'}}}
+        s, ds = sample(oscillating())
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            monitor.dump(root / 'data/series/KR_A.json', s)
+            monitor.dump(root / 'data/series/KR_B.json', s | {'id': 'KR:B'})
+            monitor.dump(root / 'output/status.json', {'status': [
+                {'id': 'KR:A', 'status': 'fresh', 'asof': ds[-1]},
+                {'id': 'KR:B', 'status': 'fresh', 'asof': ds[-1]},
+                {'id': 'KR:C', 'status': 'failed', 'error': 'provider_unavailable'}]})
+            result = etf.export(config, {'KR': ds[-1], 'US': ds[-1]},
+                                {'KR': ds, 'US': ds}, {}, saved=True, data_dir=root)
+        self.assertEqual(result['schema_version'], 2)
+        self.assertEqual(len(result['all_rows']), 3)
+        self.assertEqual(len(result['rows']), 1)
+        self.assertEqual(len(result['watchlist_rows']), 2)
+        self.assertEqual(result['rows'][0]['ranks']['sortino20']['rank'], 1)
+        self.assertEqual(result['all_rows'][1]['ranks'], {})
+        self.assertEqual(result['all_rows'][1]['exclusion_reason'], 'country_exposure')
+        self.assertIsNotNone(result['all_rows'][1]['sortino_price_126'])
+        self.assertEqual(result['all_rows'][2]['status'], 'failed')
+        self.assertIsNone(result['all_rows'][2]['sortino_price_126'])
+        self.assertEqual(result['markets']['KR']['registered'], 3)
+        self.assertEqual(result['markets']['KR']['fresh'], 2)
+        self.assertEqual(result['markets']['KR']['usable'], 1)
+        self.assertEqual(result['markets']['KR']['excluded'], 1)
+        self.assertEqual(result['markets']['KR']['unclassified'], 1)
+        self.assertEqual(result['universe']['version'], '2026-10-11-v3')
+        self.assertEqual(result['universe']['changed_at'], '2026-10-11')
+
+    def test_discovery_catalog_is_separate_from_registered_price_universe(self):
+        config = {'assets': [self.asset('A')]}
+        catalog = {'listed_count': 3, 'candidate_count': 2,
+                   'observed_at': '2026-10-11T11:21:12+00:00', 'source_asof': None,
+                   'collection_mode': 'live', 'source_url': 'https://provider.example/catalog',
+                   'review_counts': {'registered_reviewed': 1, 'candidate_pending_review': 2},
+                   'rows': [{'symbol': 'A'}, {'symbol': 'B'}, {'symbol': 'C'}]}
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            monitor.dump(root / 'kr_catalog.json', catalog)
+            result = etf.catalog_summary(config, root)['KR']
+        self.assertEqual(result['status'], 'dated_observation')
+        self.assertEqual(result['listed_count'], 3)
+        self.assertEqual(result['candidate_count'], 2)
+        self.assertEqual(result['registered_in_catalog'], 1)
+        self.assertIsNone(result['source_asof'])
+        self.assertNotIn('rows', result)
+
+    def test_invalid_catalog_does_not_claim_complete_coverage(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            monitor.dump(root / 'kr_catalog.json', {'listed_count': 100, 'rows': [{'symbol': 'A'}]})
+            result = etf.catalog_summary({'assets': []}, root)['KR']
+        self.assertEqual(result['status'], 'invalid')
+        self.assertNotIn('listed_count', result)
 
 
 class CalendarTests(unittest.TestCase):

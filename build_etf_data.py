@@ -72,10 +72,56 @@ def window_values(series, dates, n):
     return values
 
 
-def high_state(series, dates):
+def listing_high_state(series, dates, asset):
+    """A short history is a listing high only with verified first-trading date.
+
+    Fund inception is not necessarily its exchange listing date. Never infer a
+    listing date from the first row returned by a limited provider history.
+    """
+    if not asset or not dates:
+        return None
+    listing_date = asset.get('listing_date')
+    verified = asset.get('listing_verified') is True and bool(asset.get('listing_source_url'))
+    if not listing_date and asset.get('inception_date_type') == 'first_trading_date':
+        listing_date = asset.get('inception_date')
+        verified = asset.get('inception_verified') is True and bool(asset.get('inception_source_url'))
+    if not verified or listing_date not in dates:
+        return None
+    listing_dates = dates[dates.index(listing_date):]
+    if len(listing_dates) >= 253:
+        return None
+    p = window_values(series, listing_dates, len(listing_dates))
+    if not p:
+        return None
+    peak = max(p)
+    previous = max(p[:-1]) if len(p) > 1 else None
+    gap = p[-1] / peak - 1
+    if previous is None:
+        state = 'listing_high_held_candidate'
+    elif p[-1] > previous and not math.isclose(p[-1], previous, rel_tol=1e-10):
+        state = 'new_listing_high_candidate'
+    elif math.isclose(p[-1], previous, rel_tol=1e-10):
+        state = 'listing_high_held_candidate'
+    elif gap >= -.03 - 1e-12:
+        state = 'near_listing_high_candidate'
+    else:
+        state = 'far_from_listing_high'
+    return {'state': state, 'basis': 'since_listing', 'gap': gap,
+            'reference_high': peak, 'peak_date': listing_dates[max(i for i, v in enumerate(p) if v == peak)],
+            'listing_date': listing_date, 'observations': len(p),
+            'prior_listing_high': previous,
+            'breakout_pct': p[-1] / previous - 1 if previous else None,
+            'weak_window_complete': False, 'recent_high_events': [],
+            'reason': 'verified_listing_history_complete;price_adjustment_not_fully_verified'}
+
+
+def high_state(series, dates, asset=None):
     p = window_values(series, dates, 253)
     if p is None:
-        return {'state': 'insufficient_253_closes', 'gap': None, 'reference_high': None,
+        listing = listing_high_state(series, dates, asset)
+        if listing:
+            return listing
+        return {'state': 'insufficient_253_closes', 'basis': 'rolling_252_close', 'gap': None, 'reference_high': None,
                 'peak_date': None, 'breakout_pct': None,
                 'reason': '253_complete_daily_closes_or_action_review_required'}
     previous = max(p[:-1])
@@ -104,13 +150,13 @@ def high_state(series, dates):
             # For weakened state, the reported distance is from the recent event.
             peak, peak_date = event['close'], event['date']
             gap = p[-1] / peak - 1
-    return {'state': state, 'gap': gap, 'reference_high': peak, 'peak_date': peak_date,
+    return {'state': state, 'basis': 'rolling_252_close', 'gap': gap, 'reference_high': peak, 'peak_date': peak_date,
             'prior_252_high': previous, 'breakout_pct': p[-1] / previous - 1,
             'weak_window_complete': window_values(series, dates, 257) is not None,
             'recent_high_events': events, 'reason': 'price_adjustment_not_fully_verified'}
 
 
-def metrics(series, benchmark, dates):
+def metrics(series, benchmark, dates, asset=None):
     """Sortino/MA/high remain useful when a fresh benchmark is unavailable."""
     result = {}
     reasons = {}
@@ -131,7 +177,7 @@ def metrics(series, benchmark, dates):
         p = window_values(series, dates, n)
         result[f'above_ma{n}'] = p[-1] >= statistics.fmean(p) if p else None
     result['close'] = next((r['close'] for r in reversed(series['rows']) if r['date'] == dates[-1]), None)
-    result['high'] = high_state(series, dates)
+    result['high'] = high_state(series, dates, asset)
     result['metric_reasons'] = reasons
     return result
 
@@ -140,7 +186,7 @@ def empty_metrics(reason):
     result = {f'rs_price_{n}': None for n in (21, 63, 126)}
     result.update({f'sortino_price_{n}': None for n in (126, 252)})
     result.update({f'above_ma{n}': None for n in (10, 20, 50)})
-    result.update(close=None, high={'state': 'unavailable', 'gap': None, 'reference_high': None,
+    result.update(close=None, high={'state': 'unavailable', 'basis': 'rolling_252_close', 'gap': None, 'reference_high': None,
                                   'peak_date': None, 'breakout_pct': None, 'reason': reason},
                   metric_reasons={key: reason for key in result})
     return result
@@ -167,6 +213,31 @@ def current_series(asset, expected, statuses, quotes, config, data_dir):
 
 def rank_scope(row):
     return 'KR:ETF' if row['market'] == 'KR' else row['scope'] + ':' + row['kind']
+
+
+def selection_status(asset):
+    """Classification and eligibility are distinct from provider availability."""
+    if asset['rank_enabled']:
+        return 'ranking'
+    status = asset.get('classification_status', '').lower()
+    if (asset.get('scope') in ('UNVERIFIED', 'PENDING', 'UNKNOWN') or
+            asset.get('kind') in ('pending', 'unclassified') or
+            not status or any(word in status for word in ('pending', 'unverified', 'unclassified'))):
+        return 'unclassified'
+    return 'excluded'
+
+
+def universe_counts(assets):
+    selections = [selection_status(a) for a in assets]
+    representatives = sum(a['rank_enabled'] and a['representative'] for a in assets)
+    return {'registered': len(assets),
+            'classified': sum(s != 'unclassified' for s in selections),
+            'rank_enabled': sum(a['rank_enabled'] for a in assets),
+            'representatives': representatives, 'representative_count': representatives,
+            'unclassified': selections.count('unclassified'),
+            'unclassified_watchlist': selections.count('unclassified'),
+            'excluded': selections.count('excluded'),
+            'supplemental': sum(a['rank_enabled'] and not a['representative'] for a in assets)}
 
 
 def assign_ranks(rows, history, dates):
@@ -236,6 +307,30 @@ def original_snapshot(config, data_dir):
             'note': '저장된 부분 관측이며 자동 갱신하지 않습니다. 자체 순위와 연결하지 않습니다.', 'rows': rows}
 
 
+def catalog_summary(config, data_dir):
+    """Discovery coverage is not price coverage or a reviewed sector universe."""
+    path = data_dir / 'kr_catalog.json'
+    try:
+        catalog = read_json(path)
+    except (ValueError, OSError):
+        return {'KR': {'status': 'invalid', 'reason': 'catalog_unreadable'}}
+    if not catalog:
+        return {'KR': {'status': 'unavailable', 'reason': 'catalog_not_collected'}}
+    records = catalog.get('rows', [])
+    if (not isinstance(records, list) or catalog.get('listed_count') != len(records) or
+            len({r.get('symbol') for r in records}) != len(records)):
+        return {'KR': {'status': 'invalid', 'reason': 'catalog_count_or_identity_mismatch'}}
+    fields = ('source_url', 'observed_at', 'source_asof', 'source_asof_note',
+              'listed_count', 'provider_category_counts', 'review_counts',
+              'candidate_count', 'rules_version', 'notes', 'collection_mode', 'filter_note')
+    result = {key: catalog.get(key) for key in fields}
+    registered = {a['symbol'] for a in config['assets'] if a['market'] == 'KR'}
+    result.update(status='dated_observation',
+                  registered_in_catalog=sum(r['symbol'] in registered for r in records),
+                  note='목록 관측 시각을 표시하며 가격 기준일·수집 성공·국내 업종 전수 검증과 구분합니다. 후보는 자동 순위 편입되지 않습니다.')
+    return {'KR': result}
+
+
 def export(config, expected, sessions, calendar, *, saved=False, data_dir=DATA):
     run = read_json(data_dir / 'output/status.json', {})
     statuses = {r['id']: r for r in run.get('status', [])}
@@ -249,58 +344,82 @@ def export(config, expected, sessions, calendar, *, saved=False, data_dir=DATA):
                     current.get('date', '') >= quote.get('date', ''))
         if quote.get('comparison', {}).get('status') == 'mismatch' and not resolved:
             quotes[quote['id']] = quote
-    rows, markets, history = [], {}, {}
+    rows, all_rows, markets, history = [], [], {}, {}
     for market in ('KR', 'US'):
         assets = [a for a in config['assets'] if a['market'] == market]
         benchmark, bs, br, bd = current_series(config['benchmarks'][market], expected[market], statuses, quotes, config, data_dir)
         history[market] = {off: {} for off in OFFSETS}
-        usable = high_usable = 0
-        for asset in [a for a in assets if a['rank_enabled']]:
+        usable = high_usable = listing_high_usable = validated = quarantined = 0
+        for asset in assets:
             series, state, reason, cached = current_series(asset, expected[market], statuses, quotes, config, data_dir)
             row = {key: asset[key] for key in ('id', 'symbol', 'name', 'market', 'scope', 'kind', 'group', 'representative', 'rank_enabled')}
+            selection = selection_status(asset)
+            row.update(selection_status=selection,
+                       classification_status=asset.get('classification_status', 'pending_review'),
+                       classification_reason=asset.get('classification_reason'),
+                       classification_source_url=asset.get('classification_source_url') or asset.get('issuer_url'),
+                       issuer_url=asset.get('issuer_url'),
+                       exclusion_reason=asset.get('ranking_exclusion_reason') or asset.get('exclusion_reason'),
+                       classification_sources=asset.get('classification_sources', []),
+                       listing_date=asset.get('listing_date'), ranks={})
             row.update(date=series['asof'] if series else None, status=state, reason=reason,
                        cached_date=cached, source=series.get('source') if series else 'NAVER',
                        basis=series.get('basis') if series else 'provider_price_adjustment_unverified',
-                       source_url=asset.get('identity_url') or ('https://finance.naver.com/item/main.naver?code=' + asset['symbol']),
+                       source_url=('https://finance.naver.com/item/main.naver?code=' + asset['symbol']) if market == 'KR' else asset.get('identity_url'),
                        source_retrieved_at=series.get('source_retrieved_at') if series else None,
                        adjustment_verified=False, total_return_verified=False,
                        issuer_status=quotes.get(asset['id'], {}).get('status', 'not_available'))
-            row.update(metrics(series, benchmark, sessions[market]) if series else empty_metrics(reason))
-            if row['sortino_price_126'] is not None:
+            row.update(metrics(series, benchmark, sessions[market], asset) if series else empty_metrics(reason))
+            validated += state == 'fresh'
+            quarantined += state == 'quarantined'
+            if asset['rank_enabled'] and row['sortino_price_126'] is not None:
                 usable += 1
-            if row['high']['state'] not in ('unavailable', 'insufficient_253_closes'):
+            if (asset['rank_enabled'] and row['high']['basis'] == 'rolling_252_close' and
+                    row['high']['state'] not in ('unavailable', 'insufficient_253_closes')):
                 high_usable += 1
-            if series:
+            if asset['rank_enabled'] and row['high']['basis'] == 'since_listing':
+                listing_high_usable += 1
+            if series and asset['rank_enabled']:
                 for offset in OFFSETS:
                     if len(sessions[market]) > offset:
                         ds = sessions[market][:-offset]
-                        value = metrics(series, benchmark, ds)
+                        value = metrics(series, benchmark, ds, asset)
                         history[market][offset][asset['id']] = value | {'id': asset['id']}
-            rows.append(row)
+            all_rows.append(row)
+            if asset['rank_enabled']:
+                rows.append(row)
         fresh = sum(statuses.get(a['id'], {}).get('status') == 'fresh' and
                     statuses.get(a['id'], {}).get('asof') == expected[market] for a in assets)
-        markets[market] = {'registered': len(assets), 'fresh': fresh,
-                           'rank_enabled': sum(a['rank_enabled'] for a in assets),
+        markets[market] = universe_counts(assets) | {'fresh': fresh,
+                           'validated': validated, 'quarantined': quarantined,
                            'usable': usable, 'high_usable': high_usable,
+                           'listing_high_usable': listing_high_usable,
                            'asof': expected[market], 'benchmark_status': bs,
                            'benchmark_reason': br, 'benchmark_cached_date': bd,
-                           'benchmark': config['benchmarks'][market]['symbol'],
-                           'unclassified_watchlist': sum(not a['rank_enabled'] for a in assets)}
+                           'benchmark': config['benchmarks'][market]['symbol']}
     assign_ranks(rows, history, sessions)
-    return {'schema_version': 1, 'generated_at': datetime.now(timezone.utc).isoformat(),
+    universe = {'version': config['version'],
+                'registered': {m: markets[m]['registered'] for m in ('KR', 'US')},
+                'rank_enabled': {m: markets[m]['rank_enabled'] for m in ('KR', 'US')},
+                'counts': {m: universe_counts([a for a in config['assets'] if a['market'] == m]) for m in ('KR', 'US')},
+                'rank_history_basis': 'All comparison dates recalculated from this same configured universe; prior universe ranks never joined'}
+    for key in ('changed_at', 'expanded_at', 'change_reason', 'coverage_note', 'catalog_note', 'catalog'):
+        if key in config:
+            universe[key] = config[key]
+    return {'schema_version': 2, 'generated_at': datetime.now(timezone.utc).isoformat(),
             'collection_mode': 'saved_data_analysis' if saved else 'live_collection',
             'last_collection_at': run.get('retrieved_at'),
             'method': {'version': VERSION, 'label': '자체 계산 · 공급자 가격 기반 · 원본 산식과 다름',
                        'sortino': 'sqrt(252)*mean(r)/sqrt(mean(min(r,0)^2)); target=0; n=126/252',
                        'rs': 'ETF minus KOSPI/SPY 21/63/126-session price return',
                        'rank_history': '현재 고정 유니버스 소급 계산; 같은 유효 비교집합에서만 변화 표시',
-                       'high': '253개 연속 거래일 종가; 조정 미검증 후보; 근접3%/최근5일약화3%',
+                       'high': '253개 연속 거래일 종가; 조정 미검증 후보; 근접3%/최근5일약화3%; 최초거래일 검증과 완전 이력이 있는 신규 상장은 별도 표시',
                        'notes': ['배당 포함 총수익률 아님', '가격 강세는 실제 자금 유입의 직접 증거가 아님',
                                  '한국 순위는 관측 ETF 순위이며 업종 순위가 아님']},
-            'universe': {'version': config['version'],
-                         'registered': {m: sum(a['market'] == m for a in config['assets']) for m in ('KR', 'US')},
-                         'rank_enabled': {m: sum(a['market'] == m and a['rank_enabled'] for a in config['assets']) for m in ('KR', 'US')}},
+            'universe': universe,
             'expected_dates': expected, 'calendar': calendar, 'markets': markets, 'rows': rows,
+            'all_rows': all_rows, 'watchlist_rows': [r for r in all_rows if not r['rank_enabled']],
+            'catalog_summary': catalog_summary(config, data_dir),
             'original': original_snapshot(config, data_dir),
             'issuer_checks': {'attempted': len(quotes),
                               'fresh': sum(q.get('status') == 'fresh' and q.get('date') == expected.get(q['id'][:2]) for q in quotes.values()),

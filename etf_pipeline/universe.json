@@ -1,1 +1,3498 @@
-{"version":"2026-10-07-v2","method_version":"etf-scanner-price-v1","dashboard_url":"https://taerinsdad-market.streamlit.app/","assets":[{"id":"KR:367760","symbol":"367760","name":"RISE 네트워크인프라","market":"KR","scope":"KR","kind":"theme","group":"네트워크","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"367760"},{"id":"KR:475300","symbol":"475300","name":"SOL 반도체전공정","market":"KR","scope":"KR","kind":"industry","group":"반도체전공정","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"475300"},{"id":"KR:091160","symbol":"091160","name":"KODEX 반도체","market":"KR","scope":"KR","kind":"industry","group":"반도체","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"091160","issuer_fund_id":"2ETF07","issuer_quote_url":"https://www.samsungfund.com/api/v1/kodex/product/2ETF07.do","issuer_identity_source":"https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=091160"},{"id":"KR:140700","symbol":"140700","name":"KODEX 보험","market":"KR","scope":"KR","kind":"industry","group":"보험","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"140700","issuer_fund_id":"2ETF31","issuer_quote_url":"https://www.samsungfund.com/api/v1/kodex/product/2ETF31.do","issuer_identity_source":"https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=140700"},{"id":"KR:475310","symbol":"475310","name":"SOL 반도체후공정","market":"KR","scope":"KR","kind":"industry","group":"반도체후공정","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"475310"},{"id":"KR:487240","symbol":"487240","name":"KODEX AI전력핵심설비","market":"KR","scope":"KR","kind":"theme","group":"AI전력","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"487240","issuer_fund_id":"2ETFN7","issuer_quote_url":"https://www.samsungfund.com/api/v1/kodex/product/2ETFN7.do","issuer_identity_source":"https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=487240"},{"id":"KR:457990","symbol":"457990","name":"PLUS 태양광&ESS","market":"KR","scope":"KR","kind":"theme","group":"태양광ESS","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"457990"},{"id":"KR:228790","symbol":"228790","name":"TIGER 화장품","market":"KR","scope":"KR","kind":"industry","group":"화장품","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"228790"},{"id":"KR:307520","symbol":"307520","name":"TIGER 지주회사","market":"KR","scope":"KR","kind":"theme","group":"지주회사","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"307520"},{"id":"KR:0008T0","symbol":"0008T0","name":"SOL 화장품TOP3플러스","market":"KR","scope":"KR","kind":"industry","group":"화장품","representative":false,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"0008T0"},{"id":"KR:445290","symbol":"445290","name":"KODEX 로봇액티브","market":"KR","scope":"KR","kind":"theme","group":"로봇","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"445290","issuer_fund_id":"2ETFH5","issuer_quote_url":"https://www.samsungfund.com/api/v1/kodex/product/2ETFH5.do","issuer_identity_source":"https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=445290"},{"id":"KR:091170","symbol":"091170","name":"KODEX 은행","market":"KR","scope":"KR","kind":"industry","group":"은행","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"091170","issuer_fund_id":"2ETF08","issuer_quote_url":"https://www.samsungfund.com/api/v1/kodex/product/2ETF08.do","issuer_identity_source":"https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=091170"},{"id":"KR:471760","symbol":"471760","name":"TIGER AI반도체핵심공정","market":"KR","scope":"KR","kind":"theme","group":"AI반도체공정","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"471760"},{"id":"KR:117460","symbol":"117460","name":"KODEX 에너지화학","market":"KR","scope":"KR","kind":"industry","group":"에너지화학","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"117460","issuer_fund_id":"2ETF21","issuer_quote_url":"https://www.samsungfund.com/api/v1/kodex/product/2ETF21.do","issuer_identity_source":"https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=117460"},{"id":"KR:381570","symbol":"381570","name":"HANARO Fn친환경에너지","market":"KR","scope":"KR","kind":"theme","group":"친환경에너지","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"381570"},{"id":"KR:305540","symbol":"305540","name":"TIGER 2차전지테마","market":"KR","scope":"KR","kind":"theme","group":"2차전지","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"305540"},{"id":"KR:117700","symbol":"117700","name":"KODEX 건설","market":"KR","scope":"KR","kind":"industry","group":"건설","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"117700","issuer_fund_id":"2ETF22","issuer_quote_url":"https://www.samsungfund.com/api/v1/kodex/product/2ETF22.do","issuer_identity_source":"https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=117700"},{"id":"KR:150460","symbol":"150460","name":"TIGER 중국소비테마","market":"KR","scope":"KR","kind":"theme","group":"중국소비수혜국내주식","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"150460"},{"id":"KR:210780","symbol":"210780","name":"TIGER 코스피고배당","market":"KR","scope":"KR","kind":"style","group":"고배당스타일","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"210780"},{"id":"KR:227560","symbol":"227560","name":"TIGER 200 생활소비재","market":"KR","scope":"KR","kind":"industry","group":"생활소비재","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"227560"},{"id":"KR:438900","symbol":"438900","name":"HANARO Fn K-푸드","market":"KR","scope":"KR","kind":"theme","group":"식품","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"438900"},{"id":"KR:157490","symbol":"157490","name":"TIGER 소프트웨어","market":"KR","scope":"KR","kind":"industry","group":"소프트웨어","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"157490"},{"id":"KR:433500","symbol":"433500","name":"ACE 원자력TOP10","market":"KR","scope":"KR","kind":"theme","group":"원자력","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"433500"},{"id":"KR:091180","symbol":"091180","name":"KODEX 자동차","market":"KR","scope":"KR","kind":"industry","group":"자동차","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"091180","issuer_fund_id":"2ETF06","issuer_quote_url":"https://www.samsungfund.com/api/v1/kodex/product/2ETF06.do","issuer_identity_source":"https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=091180"},{"id":"KR:139230","symbol":"139230","name":"TIGER 200 중공업","market":"KR","scope":"KR","kind":"industry","group":"중공업","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"139230"},{"id":"KR:364970","symbol":"364970","name":"TIGER 바이오TOP10","market":"KR","scope":"KR","kind":"industry","group":"바이오","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"364970"},{"id":"KR:228800","symbol":"228800","name":"TIGER 여행레저","market":"KR","scope":"KR","kind":"theme","group":"여행레저","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"228800"},{"id":"KR:466920","symbol":"466920","name":"SOL 조선TOP3플러스","market":"KR","scope":"KR","kind":"industry","group":"조선","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"466920"},{"id":"KR:463250","symbol":"463250","name":"TIGER K방산&우주","market":"KR","scope":"KR","kind":"theme","group":"방산","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"463250"},{"id":"KR:300950","symbol":"300950","name":"KODEX 게임산업","market":"KR","scope":"KR","kind":"industry","group":"게임","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"300950","issuer_fund_id":"2ETFA8","issuer_quote_url":"https://www.samsungfund.com/api/v1/kodex/product/2ETFA8.do","issuer_identity_source":"https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=300950"},{"id":"KR:449450","symbol":"449450","name":"PLUS K방산","market":"KR","scope":"KR","kind":"theme","group":"방산","representative":false,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"449450"},{"id":"KR:266360","symbol":"266360","name":"KODEX K콘텐츠","market":"KR","scope":"KR","kind":"theme","group":"콘텐츠","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"266360","issuer_fund_id":"2ETF81","issuer_quote_url":"https://www.samsungfund.com/api/v1/kodex/product/2ETF81.do","issuer_identity_source":"https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=266360"},{"id":"KR:421320","symbol":"421320","name":"PLUS 우주항공","market":"KR","scope":"KR","kind":"theme","group":"우주항공","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"421320"},{"id":"KR:307510","symbol":"307510","name":"TIGER 의료기기","market":"KR","scope":"KR","kind":"industry","group":"의료기기","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"307510"},{"id":"KR:102970","symbol":"102970","name":"KODEX 증권","market":"KR","scope":"KR","kind":"industry","group":"증권","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"102970","issuer_fund_id":"2ETF15","issuer_quote_url":"https://www.samsungfund.com/api/v1/kodex/product/2ETF15.do","issuer_identity_source":"https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=102970"},{"id":"KR:483020","symbol":"483020","name":"KIWOOM 의료AI","market":"KR","scope":"KR","kind":"theme","group":"의료AI","representative":true,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"483020"},{"id":"KR:244580","symbol":"244580","name":"KODEX 바이오","market":"KR","scope":"KR","kind":"industry","group":"바이오","representative":false,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"244580","issuer_fund_id":"2ETF63","issuer_quote_url":"https://www.samsungfund.com/api/v1/kodex/product/2ETF63.do","issuer_identity_source":"https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=244580"},{"id":"KR:261070","symbol":"261070","name":"TIGER 코스닥150바이오테크","market":"KR","scope":"KR","kind":"industry","group":"바이오","representative":false,"rank_enabled":true,"classification_status":"dashboard_and_naver_domestic_category","provider_code":"261070"},{"id":"US:ARKG","symbol":"ARKG","name":"ARK Genomic Revolution ETF","market":"US","scope":"GLOBAL","kind":"theme","group":"유전체","representative":true,"rank_enabled":true,"classification_status":"reviewed","provider_code":"ARKG.K","identity_url":"https://m.stock.naver.com/worldstock/etf/ARKG.K"},{"id":"US:SOXX","symbol":"SOXX","name":"iShares Semiconductor ETF","market":"US","scope":"US","kind":"industry","group":"반도체","representative":true,"rank_enabled":true,"classification_status":"reviewed","provider_code":"SOXX.O","identity_url":"https://m.stock.naver.com/worldstock/etf/SOXX.O"},{"id":"US:XSD","symbol":"XSD","name":"State Street SPDR S&P Semiconductor ETF","market":"US","scope":"US","kind":"industry","group":"반도체","representative":false,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XSD","identity_url":"https://m.stock.naver.com/worldstock/etf/XSD","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-semiconductor-etf-xsd","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-semiconductor-etf-xsd"},{"id":"US:PSI","symbol":"PSI","name":"Invesco Semiconductors ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"PSI","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"PSI","identity_url":"https://m.stock.naver.com/worldstock/etf/PSI"},{"id":"US:GNOM","symbol":"GNOM","name":"Global X Genomics And Biotechnology ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"GNOM","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"GNOM.O","identity_url":"https://m.stock.naver.com/worldstock/etf/GNOM.O"},{"id":"US:SKYY","symbol":"SKYY","name":"First Trust Cloud Computing ETF","market":"US","scope":"GLOBAL","kind":"theme","group":"클라우드","representative":true,"rank_enabled":true,"classification_status":"reviewed","provider_code":"SKYY.O","identity_url":"https://m.stock.naver.com/worldstock/etf/SKYY.O"},{"id":"US:QTEC","symbol":"QTEC","name":"First Trust NASDAQ-100-Technology Sector Index Fd","market":"US","scope":"UNVERIFIED","kind":"pending","group":"QTEC","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"QTEC.O","identity_url":"https://m.stock.naver.com/worldstock/etf/QTEC.O"},{"id":"US:XLK","symbol":"XLK","name":"State Street Technology Select Sector SPDR ETF","market":"US","scope":"US","kind":"sector","group":"기술","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XLK","identity_url":"https://m.stock.naver.com/worldstock/etf/XLK","issuer_quote_url":"https://www.ssga.com/mainfund/XLK","classification_source":"https://www.ssga.com/mainfund/XLK"},{"id":"US:IGV","symbol":"IGV","name":"iShares Expanded Tech-Software Sector ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"IGV","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"IGV","identity_url":"https://m.stock.naver.com/worldstock/etf/IGV"},{"id":"US:CARZ","symbol":"CARZ","name":"First Trust S-Network Future Vehicles & Tech ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"CARZ","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"CARZ.O","identity_url":"https://m.stock.naver.com/worldstock/etf/CARZ.O"},{"id":"US:XHS","symbol":"XHS","name":"State Street SPDR S&P Health Care Services ETF","market":"US","scope":"US","kind":"industry","group":"의료서비스","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XHS","identity_url":"https://m.stock.naver.com/worldstock/etf/XHS","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-health-care-services-etf-xhs","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-health-care-services-etf-xhs"},{"id":"US:IHF","symbol":"IHF","name":"iShares US Healthcare Providers ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"IHF","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"IHF","identity_url":"https://m.stock.naver.com/worldstock/etf/IHF"},{"id":"US:ECON","symbol":"ECON","name":"Columbia Research Enhanced Emerging Economies ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"ECON","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"ECON.K","identity_url":"https://m.stock.naver.com/worldstock/etf/ECON.K"},{"id":"US:TDIV","symbol":"TDIV","name":"First Trust NASDAQ Technology Dividend Index Fund","market":"US","scope":"UNVERIFIED","kind":"pending","group":"TDIV","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"TDIV.O","identity_url":"https://m.stock.naver.com/worldstock/etf/TDIV.O"},{"id":"US:FDN","symbol":"FDN","name":"First Trust Dow Jones Internet Index Fund","market":"US","scope":"UNVERIFIED","kind":"pending","group":"FDN","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"FDN","identity_url":"https://m.stock.naver.com/worldstock/etf/FDN"},{"id":"US:IBB","symbol":"IBB","name":"iShares Biotechnology ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"IBB","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"IBB.O","identity_url":"https://m.stock.naver.com/worldstock/etf/IBB.O"},{"id":"US:SEA","symbol":"SEA","name":"US Global Sea to Sky Cargo ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"SEA","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"SEA","identity_url":"https://m.stock.naver.com/worldstock/etf/SEA"},{"id":"US:ROBO","symbol":"ROBO","name":"ROBO Global Robotics and Automation Index ETF","market":"US","scope":"GLOBAL","kind":"theme","group":"로봇·자동화","representative":true,"rank_enabled":true,"classification_status":"issuer_or_prospectus_verified_2026-10-07","provider_code":"ROBO.K","identity_url":"https://m.stock.naver.com/worldstock/etf/ROBO.K","classification_source":"https://www.roboglobaletfs.com/robo","classification_evidence":"Invests in global robotics, automation and AI companies"},{"id":"US:PJP","symbol":"PJP","name":"Invesco Pharmaceuticals ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"PJP","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"PJP","identity_url":"https://m.stock.naver.com/worldstock/etf/PJP"},{"id":"US:XBI","symbol":"XBI","name":"State Street SPDR S&P Biotech ETF","market":"US","scope":"US","kind":"industry","group":"바이오","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XBI","identity_url":"https://m.stock.naver.com/worldstock/etf/XBI","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-biotech-etf-xbi","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-biotech-etf-xbi"},{"id":"US:IHE","symbol":"IHE","name":"iShares US Pharmaceuticals ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"IHE","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"IHE","identity_url":"https://m.stock.naver.com/worldstock/etf/IHE"},{"id":"US:XLV","symbol":"XLV","name":"State Street Health Care Select Sector SPDR ETF","market":"US","scope":"US","kind":"sector","group":"헬스케어","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XLV","identity_url":"https://m.stock.naver.com/worldstock/etf/XLV","issuer_quote_url":"https://www.ssga.com/mainfund/XLV","classification_source":"https://www.ssga.com/mainfund/XLV"},{"id":"US:PNQI","symbol":"PNQI","name":"Invesco Nasdaq Internet ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"PNQI","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"PNQI.O","identity_url":"https://m.stock.naver.com/worldstock/etf/PNQI.O"},{"id":"US:XHE","symbol":"XHE","name":"State Street SPDR S&P Health Care Equipment ETF","market":"US","scope":"US","kind":"industry","group":"의료기기","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XHE","identity_url":"https://m.stock.naver.com/worldstock/etf/XHE","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-health-care-equipment-etf-xhe","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-health-care-equipment-etf-xhe"},{"id":"US:SLX","symbol":"SLX","name":"VanEck Steel ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"SLX","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"SLX","identity_url":"https://m.stock.naver.com/worldstock/etf/SLX"},{"id":"US:COPX","symbol":"COPX","name":"Global X Copper Miners ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"COPX","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"COPX.K","identity_url":"https://m.stock.naver.com/worldstock/etf/COPX.K"},{"id":"US:IXG","symbol":"IXG","name":"iShares Global Financials ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"IXG","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"IXG","identity_url":"https://m.stock.naver.com/worldstock/etf/IXG"},{"id":"US:GRID","symbol":"GRID","name":"First Trust NASDAQ Cln Edge Smart Grid Infra Ix Fd","market":"US","scope":"GLOBAL","kind":"theme","group":"전력망","representative":true,"rank_enabled":true,"classification_status":"issuer_or_prospectus_verified_2026-10-07","provider_code":"GRID.O","identity_url":"https://m.stock.naver.com/worldstock/etf/GRID.O","classification_source":"https://www.ftportfolios.com/Retail/etf/etfsummary.aspx?Ticker=GRID","classification_evidence":"Fund Type Global Equity; smart-grid infrastructure"},{"id":"US:QCLN","symbol":"QCLN","name":"First Trust NASDAQ Clean Edge Green Energy Idx Fd","market":"US","scope":"UNVERIFIED","kind":"pending","group":"QCLN","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"QCLN.O","identity_url":"https://m.stock.naver.com/worldstock/etf/QCLN.O"},{"id":"US:IYZ","symbol":"IYZ","name":"iShares US Telecommunications ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"IYZ","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"IYZ","identity_url":"https://m.stock.naver.com/worldstock/etf/IYZ"},{"id":"US:XLF","symbol":"XLF","name":"State Street Financial Sel Sec SPDR ETF","market":"US","scope":"US","kind":"sector","group":"금융","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XLF","identity_url":"https://m.stock.naver.com/worldstock/etf/XLF","issuer_quote_url":"https://www.ssga.com/mainfund/XLF","classification_source":"https://www.ssga.com/mainfund/XLF"},{"id":"US:XTL","symbol":"XTL","name":"State Street SPDR S&P Telecom ETF","market":"US","scope":"US","kind":"industry","group":"통신장비서비스","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XTL","identity_url":"https://m.stock.naver.com/worldstock/etf/XTL","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-telecom-etf-xtl","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-telecom-etf-xtl"},{"id":"US:KIE","symbol":"KIE","name":"State Street SPDR S&P Insurance ETF","market":"US","scope":"US","kind":"industry","group":"보험","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"KIE","identity_url":"https://m.stock.naver.com/worldstock/etf/KIE","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-insurance-etf-kie","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-insurance-etf-kie"},{"id":"US:PEJ","symbol":"PEJ","name":"Invesco Leisure and Entertainment ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"PEJ","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"PEJ","identity_url":"https://m.stock.naver.com/worldstock/etf/PEJ"},{"id":"US:XLE","symbol":"XLE","name":"State Street Energy Select Sector SPDR ETF","market":"US","scope":"US","kind":"sector","group":"에너지","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XLE","identity_url":"https://m.stock.naver.com/worldstock/etf/XLE","issuer_quote_url":"https://www.ssga.com/mainfund/XLE","classification_source":"https://www.ssga.com/mainfund/XLE"},{"id":"US:PICK","symbol":"PICK","name":"iShares MSCI Global Metals & Mining Producers ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"PICK","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"PICK.K","identity_url":"https://m.stock.naver.com/worldstock/etf/PICK.K"},{"id":"US:IAI","symbol":"IAI","name":"iShares US Broker-Dealers & Securities Exch ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"IAI","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"IAI","identity_url":"https://m.stock.naver.com/worldstock/etf/IAI"},{"id":"US:KRE","symbol":"KRE","name":"State Street SPDR S&P Regional Banking ETF","market":"US","scope":"US","kind":"industry","group":"지역은행","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"KRE","identity_url":"https://m.stock.naver.com/worldstock/etf/KRE","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-regional-banking-etf-kre","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-regional-banking-etf-kre"},{"id":"US:IYT","symbol":"IYT","name":"iShares US Transportation ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"IYT","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"IYT","identity_url":"https://m.stock.naver.com/worldstock/etf/IYT"},{"id":"US:KBE","symbol":"KBE","name":"State Street SPDR S&P Bank ETF","market":"US","scope":"US","kind":"industry","group":"은행","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"KBE","identity_url":"https://m.stock.naver.com/worldstock/etf/KBE","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-bank-etf-kbe","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-bank-etf-kbe"},{"id":"US:VOX","symbol":"VOX","name":"Vanguard Communication Services ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"VOX","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"VOX","identity_url":"https://m.stock.naver.com/worldstock/etf/VOX"},{"id":"US:XOP","symbol":"XOP","name":"State Street SPDR S&P Oil & Gas Expl & Prod ETF","market":"US","scope":"US","kind":"industry","group":"석유가스탐사생산","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XOP","identity_url":"https://m.stock.naver.com/worldstock/etf/XOP","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-oil-gas-exploration-production-etf-xop","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-oil-gas-exploration-production-etf-xop"},{"id":"US:AMLP","symbol":"AMLP","name":"Alerian MLP ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"AMLP","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"AMLP.K","identity_url":"https://m.stock.naver.com/worldstock/etf/AMLP.K"},{"id":"US:XLI","symbol":"XLI","name":"State Street Industrial Select Sector SPDR ETF","market":"US","scope":"US","kind":"sector","group":"산업재","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XLI","identity_url":"https://m.stock.naver.com/worldstock/etf/XLI","issuer_quote_url":"https://www.ssga.com/mainfund/XLI","classification_source":"https://www.ssga.com/mainfund/XLI"},{"id":"US:XLY","symbol":"XLY","name":"State Street Consumer Disc Sel Sect SPDR ETF","market":"US","scope":"US","kind":"sector","group":"경기소비재","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XLY","identity_url":"https://m.stock.naver.com/worldstock/etf/XLY","issuer_quote_url":"https://www.ssga.com/mainfund/XLY","classification_source":"https://www.ssga.com/mainfund/XLY"},{"id":"US:IXP","symbol":"IXP","name":"iShares Global Comm Services ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"IXP","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"IXP","identity_url":"https://m.stock.naver.com/worldstock/etf/IXP"},{"id":"US:BIZD","symbol":"BIZD","name":"VanEck BDC Income ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"BIZD","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"BIZD.K","identity_url":"https://m.stock.naver.com/worldstock/etf/BIZD.K"},{"id":"US:INCO","symbol":"INCO","name":"Columbia India Consumer ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"INCO","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"INCO.K","identity_url":"https://m.stock.naver.com/worldstock/etf/INCO.K"},{"id":"US:XTN","symbol":"XTN","name":"State Street SPDR S&P Transportation ETF","market":"US","scope":"US","kind":"industry","group":"운송","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XTN","identity_url":"https://m.stock.naver.com/worldstock/etf/XTN","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-transportation-etf-xtn","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-transportation-etf-xtn"},{"id":"US:XRT","symbol":"XRT","name":"State Street PDR S&P Retail ETF","market":"US","scope":"US","kind":"industry","group":"소매","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XRT","identity_url":"https://m.stock.naver.com/worldstock/etf/XRT","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-retail-etf-xrt","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-retail-etf-xrt"},{"id":"US:FIW","symbol":"FIW","name":"First Trust Water ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"FIW","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"FIW","identity_url":"https://m.stock.naver.com/worldstock/etf/FIW"},{"id":"US:HAP","symbol":"HAP","name":"VanEck Natural Resources ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"HAP","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"HAP","identity_url":"https://m.stock.naver.com/worldstock/etf/HAP"},{"id":"US:XLP","symbol":"XLP","name":"State Street Consumer Staples Sel Sect SPDR ETF","market":"US","scope":"US","kind":"sector","group":"필수소비재","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XLP","identity_url":"https://m.stock.naver.com/worldstock/etf/XLP","issuer_quote_url":"https://www.ssga.com/mainfund/XLP","classification_source":"https://www.ssga.com/mainfund/XLP"},{"id":"US:PSP","symbol":"PSP","name":"Invesco Global Listed Private Equity ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"PSP","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"PSP","identity_url":"https://m.stock.naver.com/worldstock/etf/PSP"},{"id":"US:RXI","symbol":"RXI","name":"iShares Global Consumer Discretionary ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"RXI","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"RXI","identity_url":"https://m.stock.naver.com/worldstock/etf/RXI"},{"id":"US:VEGI","symbol":"VEGI","name":"iShares MSCI Agriculture Producers ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"VEGI","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"VEGI.K","identity_url":"https://m.stock.naver.com/worldstock/etf/VEGI.K"},{"id":"US:ENFR","symbol":"ENFR","name":"ALPS Alerian Energy Infrastructure ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"ENFR","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"ENFR.K","identity_url":"https://m.stock.naver.com/worldstock/etf/ENFR.K"},{"id":"US:SOCL","symbol":"SOCL","name":"Global X Social Media ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"SOCL","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"SOCL.O","identity_url":"https://m.stock.naver.com/worldstock/etf/SOCL.O"},{"id":"US:GNR","symbol":"GNR","name":"State Street SPDR S&P Global Nat Resources ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"GNR","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"GNR","identity_url":"https://m.stock.naver.com/worldstock/etf/GNR"},{"id":"US:XHB","symbol":"XHB","name":"State Street SPDR S&P Homebuilders ETF","market":"US","scope":"US","kind":"industry","group":"주택건설","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XHB","identity_url":"https://m.stock.naver.com/worldstock/etf/XHB","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-homebuilders-etf-xhb","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-homebuilders-etf-xhb"},{"id":"US:XLB","symbol":"XLB","name":"State Street Materials Select Sector SPDR ETF","market":"US","scope":"US","kind":"sector","group":"소재","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XLB","identity_url":"https://m.stock.naver.com/worldstock/etf/XLB","issuer_quote_url":"https://www.ssga.com/mainfund/XLB","classification_source":"https://www.ssga.com/mainfund/XLB"},{"id":"US:MLPX","symbol":"MLPX","name":"Global X MLP & Energy Infrastructure ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"MLPX","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"MLPX.K","identity_url":"https://m.stock.naver.com/worldstock/etf/MLPX.K"},{"id":"US:CGW","symbol":"CGW","name":"Invesco S&P Global Water Index ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"CGW","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"CGW","identity_url":"https://m.stock.naver.com/worldstock/etf/CGW"},{"id":"US:ITB","symbol":"ITB","name":"iShares US Home Construction ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"ITB","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"ITB","identity_url":"https://m.stock.naver.com/worldstock/etf/ITB"},{"id":"US:EMIF","symbol":"EMIF","name":"iShares Emerg Markets Infrastructure ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"EMIF","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"EMIF.O","identity_url":"https://m.stock.naver.com/worldstock/etf/EMIF.O"},{"id":"US:ICLN","symbol":"ICLN","name":"iShares Global Clean Energy ETF","market":"US","scope":"GLOBAL","kind":"theme","group":"클린에너지","representative":true,"rank_enabled":true,"classification_status":"issuer_or_prospectus_verified_2026-10-07","provider_code":"ICLN.O","identity_url":"https://m.stock.naver.com/worldstock/etf/ICLN.O","classification_source":"https://www.ishares.com/us/products/239738/ishares-global-clean-energy-etf","classification_evidence":"Global equities in the clean energy sector"},{"id":"US:CUT","symbol":"CUT","name":"Invesco MSCI Global Timber ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"CUT","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"CUT","identity_url":"https://m.stock.naver.com/worldstock/etf/CUT"},{"id":"US:GUNR","symbol":"GUNR","name":"Northern Trust Morningstar Glbl Upstm Ntrl Res ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"GUNR","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"GUNR.K","identity_url":"https://m.stock.naver.com/worldstock/etf/GUNR.K"},{"id":"US:EMLP","symbol":"EMLP","name":"First Trust North American Energy Infrastructure","market":"US","scope":"UNVERIFIED","kind":"pending","group":"EMLP","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"EMLP.K","identity_url":"https://m.stock.naver.com/worldstock/etf/EMLP.K"},{"id":"US:PBW","symbol":"PBW","name":"Invesco WilderHill Clean Energy ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"PBW","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"PBW","identity_url":"https://m.stock.naver.com/worldstock/etf/PBW"},{"id":"US:LIT","symbol":"LIT","name":"Global X Lithium & Battery Tech ETF","market":"US","scope":"GLOBAL","kind":"theme","group":"리튬·배터리","representative":true,"rank_enabled":true,"classification_status":"issuer_or_prospectus_verified_2026-10-07","provider_code":"LIT","identity_url":"https://m.stock.naver.com/worldstock/etf/LIT","classification_source":"https://www.globalxetfs.com/funds/lit","classification_evidence":"Solactive Global Lithium Index; mining through battery production"},{"id":"US:MOO","symbol":"MOO","name":"VanEck Agribusiness ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"MOO","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"MOO","identity_url":"https://m.stock.naver.com/worldstock/etf/MOO"},{"id":"US:PBD","symbol":"PBD","name":"Invesco Global Clean Energy ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"PBD","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"PBD","identity_url":"https://m.stock.naver.com/worldstock/etf/PBD"},{"id":"US:WOOD","symbol":"WOOD","name":"iShares Global Timber & Forestry ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"WOOD","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"WOOD.O","identity_url":"https://m.stock.naver.com/worldstock/etf/WOOD.O"},{"id":"US:IHI","symbol":"IHI","name":"iShares US Medical Devices ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"IHI","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"IHI","identity_url":"https://m.stock.naver.com/worldstock/etf/IHI"},{"id":"US:OIH","symbol":"OIH","name":"VanEck Oil Services ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"OIH","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"OIH","identity_url":"https://m.stock.naver.com/worldstock/etf/OIH"},{"id":"US:SLVP","symbol":"SLVP","name":"iShares MSCI Global Silver and Metals Miners ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"SLVP","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"SLVP.K","identity_url":"https://m.stock.naver.com/worldstock/etf/SLVP.K"},{"id":"US:AIRR","symbol":"AIRR","name":"First Trust RBA Amer Industrial Renaissance ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"AIRR","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"AIRR.O","identity_url":"https://m.stock.naver.com/worldstock/etf/AIRR.O"},{"id":"US:XES","symbol":"XES","name":"State Street SPDR S&P Oil & Gas Equip & Serv ETF","market":"US","scope":"US","kind":"industry","group":"석유가스장비서비스","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XES","identity_url":"https://m.stock.naver.com/worldstock/etf/XES","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-oil-gas-equipment-services-etf-xes","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-oil-gas-equipment-services-etf-xes"},{"id":"US:FCG","symbol":"FCG","name":"First Trust Natural Gas ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"FCG","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"FCG","identity_url":"https://m.stock.naver.com/worldstock/etf/FCG"},{"id":"US:IEZ","symbol":"IEZ","name":"iShares US Oil Equipment & Services ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"IEZ","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"IEZ","identity_url":"https://m.stock.naver.com/worldstock/etf/IEZ"},{"id":"US:SGDM","symbol":"SGDM","name":"Sprott Gold Miners ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"SGDM","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"SGDM.K","identity_url":"https://m.stock.naver.com/worldstock/etf/SGDM.K"},{"id":"US:GII","symbol":"GII","name":"State Street SPDR S&P Global Infrastructure ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"GII","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"GII","identity_url":"https://m.stock.naver.com/worldstock/etf/GII"},{"id":"US:SIL","symbol":"SIL","name":"Global X Silver Miners ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"SIL","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"SIL","identity_url":"https://m.stock.naver.com/worldstock/etf/SIL"},{"id":"US:ITA","symbol":"ITA","name":"iShares US Aerospace & Defense ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"ITA","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"ITA","identity_url":"https://m.stock.naver.com/worldstock/etf/ITA"},{"id":"US:TOLZ","symbol":"TOLZ","name":"ProShares DJ Brookfield Global Infrastructure ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"TOLZ","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"TOLZ.K","identity_url":"https://m.stock.naver.com/worldstock/etf/TOLZ.K"},{"id":"US:GDX","symbol":"GDX","name":"VanEck Gold Miners ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"GDX","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"GDX","identity_url":"https://m.stock.naver.com/worldstock/etf/GDX"},{"id":"US:GDXJ","symbol":"GDXJ","name":"VanEck Junior Gold Miners ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"GDXJ","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"GDXJ.K","identity_url":"https://m.stock.naver.com/worldstock/etf/GDXJ.K"},{"id":"US:PBJ","symbol":"PBJ","name":"Invesco Food & Beverage ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"PBJ","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"PBJ","identity_url":"https://m.stock.naver.com/worldstock/etf/PBJ"},{"id":"US:PPA","symbol":"PPA","name":"Invesco Aerospace & Defense ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"PPA","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"PPA","identity_url":"https://m.stock.naver.com/worldstock/etf/PPA"},{"id":"US:FAN","symbol":"FAN","name":"First Trust Global Wind Energy ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"FAN","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"FAN","identity_url":"https://m.stock.naver.com/worldstock/etf/FAN"},{"id":"US:XLU","symbol":"XLU","name":"State Street Utilities Select Sector SPDR ETF","market":"US","scope":"US","kind":"sector","group":"유틸리티","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XLU","identity_url":"https://m.stock.naver.com/worldstock/etf/XLU","issuer_quote_url":"https://www.ssga.com/mainfund/XLU","classification_source":"https://www.ssga.com/mainfund/XLU"},{"id":"US:XAR","symbol":"XAR","name":"State Street SPDR S&P Aerospace & Defense ETF","market":"US","scope":"US","kind":"industry","group":"방산","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XAR","identity_url":"https://m.stock.naver.com/worldstock/etf/XAR","issuer_quote_url":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-aerospace-defense-etf-xar","classification_source":"https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-aerospace-defense-etf-xar"},{"id":"US:UFO","symbol":"UFO","name":"Procure Space ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"UFO","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"UFO.O","identity_url":"https://m.stock.naver.com/worldstock/etf/UFO.O"},{"id":"US:SILJ","symbol":"SILJ","name":"Amplify Junior Silver Miners ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"SILJ","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"SILJ.K","identity_url":"https://m.stock.naver.com/worldstock/etf/SILJ.K"},{"id":"US:URA","symbol":"URA","name":"Global X Uranium ETF","market":"US","scope":"GLOBAL","kind":"theme","group":"원자력","representative":false,"rank_enabled":true,"classification_status":"issuer_or_prospectus_verified_2026-10-07","provider_code":"URA","identity_url":"https://m.stock.naver.com/worldstock/etf/URA","classification_source":"https://www.globalxetfs.com/funds/ura","classification_evidence":"Solactive Global Uranium & Nuclear Components Total Return Index"},{"id":"US:NLR","symbol":"NLR","name":"VanEck Uranium and Nuclear ETF","market":"US","scope":"GLOBAL","kind":"theme","group":"원자력","representative":true,"rank_enabled":true,"classification_status":"issuer_or_prospectus_verified_2026-10-07","provider_code":"NLR","identity_url":"https://m.stock.naver.com/worldstock/etf/NLR","classification_source":"https://www.vaneck.com/us/en/investments/uranium-nuclear-energy-etf-nlr","classification_evidence":"MVIS Global Uranium & Nuclear Energy Index"},{"id":"US:TAN","symbol":"TAN","name":"Invesco Solar ETF","market":"US","scope":"GLOBAL","kind":"theme","group":"태양광","representative":true,"rank_enabled":true,"classification_status":"issuer_or_prospectus_verified_2026-10-07","provider_code":"TAN","identity_url":"https://m.stock.naver.com/worldstock/etf/TAN","classification_source":"https://www.sec.gov/Archives/edgar/data/1378872/000110465926076363/tm2618074d1_497k.htm","classification_evidence":"MAC Global Solar Energy Index"},{"id":"US:CHIQ","symbol":"CHIQ","name":"Global X MSCI China Consumer Discretionary ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"CHIQ","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"CHIQ.K","identity_url":"https://m.stock.naver.com/worldstock/etf/CHIQ.K"},{"id":"US:REMX","symbol":"REMX","name":"VanEck Rare Earth and Strategic Metals ETF","market":"US","scope":"UNVERIFIED","kind":"pending","group":"REMX","representative":false,"rank_enabled":false,"classification_status":"pending_issuer_review","provider_code":"REMX.K","identity_url":"https://m.stock.naver.com/worldstock/etf/REMX.K"},{"id":"US:XLC","symbol":"XLC","name":"State Street Com Svc Sel Sec SPDR ETF","market":"US","scope":"US","kind":"sector","group":"통신서비스","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XLC","identity_url":"https://m.stock.naver.com/worldstock/etf/XLC","issuer_quote_url":"https://www.ssga.com/mainfund/XLC","classification_source":"https://www.ssga.com/mainfund/XLC"},{"id":"US:XLRE","symbol":"XLRE","name":"State Street Real Estate Select Sector SPDR ETF","market":"US","scope":"US","kind":"sector","group":"부동산","representative":true,"rank_enabled":true,"classification_status":"issuer_verified_2026-10-07","provider_code":"XLRE.K","identity_url":"https://m.stock.naver.com/worldstock/etf/XLRE.K","issuer_quote_url":"https://www.ssga.com/mainfund/XLRE","classification_source":"https://www.ssga.com/mainfund/XLRE"},{"id":"US:BUG","symbol":"BUG","name":"Global X Cybersecurity ETF","market":"US","scope":"GLOBAL","kind":"theme","group":"사이버보안","representative":true,"rank_enabled":true,"classification_status":"reviewed","provider_code":"BUG.O","identity_url":"https://m.stock.naver.com/worldstock/etf/BUG.O"}],"benchmarks":{"KR":{"id":"KR:KOSPI","symbol":"KOSPI","provider_code":"KOSPI"},"US":{"id":"US:SPY","symbol":"SPY","provider_code":"SPY"}},"verified_split_events":[{"id":"US:XLK","effective_date":"2025-12-05","new_shares_per_old_share":2,"source":"https://investors.statestreet.com/investor-news-events/press-releases/news-details/2025/State-Street-Investment-Management-Announces-Share-Splits-for-Five-Select-Sector-SPDR-ETFs/default.aspx","verified_at":"2026-10-07"},{"id":"US:XLY","effective_date":"2025-12-05","new_shares_per_old_share":2,"source":"https://investors.statestreet.com/investor-news-events/press-releases/news-details/2025/State-Street-Investment-Management-Announces-Share-Splits-for-Five-Select-Sector-SPDR-ETFs/default.aspx","verified_at":"2026-10-07"},{"id":"US:XLE","effective_date":"2025-12-05","new_shares_per_old_share":2,"source":"https://investors.statestreet.com/investor-news-events/press-releases/news-details/2025/State-Street-Investment-Management-Announces-Share-Splits-for-Five-Select-Sector-SPDR-ETFs/default.aspx","verified_at":"2026-10-07"},{"id":"US:XLU","effective_date":"2025-12-05","new_shares_per_old_share":2,"source":"https://investors.statestreet.com/investor-news-events/press-releases/news-details/2025/State-Street-Investment-Management-Announces-Share-Splits-for-Five-Select-Sector-SPDR-ETFs/default.aspx","verified_at":"2026-10-07"},{"id":"US:XLB","effective_date":"2025-12-05","new_shares_per_old_share":2,"source":"https://investors.statestreet.com/investor-news-events/press-releases/news-details/2025/State-Street-Investment-Management-Announces-Share-Splits-for-Five-Select-Sector-SPDR-ETFs/default.aspx","verified_at":"2026-10-07"}]}
+{
+  "version": "2026-10-11-v3",
+  "method_version": "etf-scanner-price-v1",
+  "dashboard_url": "https://taerinsdad-market.streamlit.app/",
+  "assets": [
+    {
+      "id": "KR:367760",
+      "symbol": "367760",
+      "name": "RISE 네트워크인프라",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "네트워크",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "367760",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:475300",
+      "symbol": "475300",
+      "name": "SOL 반도체전공정",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "반도체전공정",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "475300",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:091160",
+      "symbol": "091160",
+      "name": "KODEX 반도체",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "반도체",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "091160",
+      "issuer_fund_id": "2ETF07",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF07.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=091160",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:140700",
+      "symbol": "140700",
+      "name": "KODEX 보험",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "보험",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "140700",
+      "issuer_fund_id": "2ETF31",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF31.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=140700",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:475310",
+      "symbol": "475310",
+      "name": "SOL 반도체후공정",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "반도체후공정",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "475310",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:487240",
+      "symbol": "487240",
+      "name": "KODEX AI전력핵심설비",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "AI전력",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "487240",
+      "issuer_fund_id": "2ETFN7",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETFN7.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=487240",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:457990",
+      "symbol": "457990",
+      "name": "PLUS 태양광&ESS",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "태양광ESS",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "457990",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:228790",
+      "symbol": "228790",
+      "name": "TIGER 화장품",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "화장품",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "228790",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:307520",
+      "symbol": "307520",
+      "name": "TIGER 지주회사",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "지주회사",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "307520",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:0008T0",
+      "symbol": "0008T0",
+      "name": "SOL 화장품TOP3플러스",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "화장품",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "0008T0",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:445290",
+      "symbol": "445290",
+      "name": "KODEX 로봇액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "로봇",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "445290",
+      "issuer_fund_id": "2ETFH5",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETFH5.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=445290",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:091170",
+      "symbol": "091170",
+      "name": "KODEX 은행",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "은행",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "091170",
+      "issuer_fund_id": "2ETF08",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF08.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=091170",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:471760",
+      "symbol": "471760",
+      "name": "TIGER AI반도체핵심공정",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "AI반도체공정",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "471760",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:117460",
+      "symbol": "117460",
+      "name": "KODEX 에너지화학",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "에너지화학",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "117460",
+      "issuer_fund_id": "2ETF21",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF21.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=117460",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:381570",
+      "symbol": "381570",
+      "name": "HANARO Fn친환경에너지",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "친환경에너지",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "381570",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:305540",
+      "symbol": "305540",
+      "name": "TIGER 2차전지테마",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "2차전지",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "305540",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:117700",
+      "symbol": "117700",
+      "name": "KODEX 건설",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "건설",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "117700",
+      "issuer_fund_id": "2ETF22",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF22.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=117700",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:150460",
+      "symbol": "150460",
+      "name": "TIGER 중국소비테마",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "중국소비수혜국내주식",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "150460",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:210780",
+      "symbol": "210780",
+      "name": "TIGER 코스피고배당",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "style",
+      "group": "고배당스타일",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "210780",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:227560",
+      "symbol": "227560",
+      "name": "TIGER 200 생활소비재",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "생활소비재",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "227560",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:438900",
+      "symbol": "438900",
+      "name": "HANARO Fn K-푸드",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "식품",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "438900",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:157490",
+      "symbol": "157490",
+      "name": "TIGER 소프트웨어",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "소프트웨어",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "157490",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:433500",
+      "symbol": "433500",
+      "name": "ACE 원자력TOP10",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "원자력",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "433500",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:091180",
+      "symbol": "091180",
+      "name": "KODEX 자동차",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "자동차",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "091180",
+      "issuer_fund_id": "2ETF06",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF06.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=091180",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:139230",
+      "symbol": "139230",
+      "name": "TIGER 200 중공업",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "중공업",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "139230",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:364970",
+      "symbol": "364970",
+      "name": "TIGER 바이오TOP10",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "바이오",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "364970",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:228800",
+      "symbol": "228800",
+      "name": "TIGER 여행레저",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "여행레저",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "228800",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:466920",
+      "symbol": "466920",
+      "name": "SOL 조선TOP3플러스",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "조선",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "466920",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:463250",
+      "symbol": "463250",
+      "name": "TIGER K방산&우주",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "방산",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "463250",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:300950",
+      "symbol": "300950",
+      "name": "KODEX 게임산업",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "게임",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "300950",
+      "issuer_fund_id": "2ETFA8",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETFA8.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=300950",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:449450",
+      "symbol": "449450",
+      "name": "PLUS K방산",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "방산",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "449450",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:266360",
+      "symbol": "266360",
+      "name": "KODEX K콘텐츠",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "콘텐츠",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "266360",
+      "issuer_fund_id": "2ETF81",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF81.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=266360",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:421320",
+      "symbol": "421320",
+      "name": "PLUS 우주항공",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "우주항공",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "421320",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:307510",
+      "symbol": "307510",
+      "name": "TIGER 의료기기",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "의료기기",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "307510",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:102970",
+      "symbol": "102970",
+      "name": "KODEX 증권",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "증권",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "102970",
+      "issuer_fund_id": "2ETF15",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF15.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=102970",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:483020",
+      "symbol": "483020",
+      "name": "KIWOOM 의료AI",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "의료AI",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "483020",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:244580",
+      "symbol": "244580",
+      "name": "KODEX 바이오",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "바이오",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "244580",
+      "issuer_fund_id": "2ETF63",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF63.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=244580",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:261070",
+      "symbol": "261070",
+      "name": "TIGER 코스닥150바이오테크",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "바이오",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "dashboard_and_naver_domestic_category",
+      "provider_code": "261070",
+      "classification_reason": null
+    },
+    {
+      "id": "US:ARKG",
+      "symbol": "ARKG",
+      "name": "ARK Genomic Revolution ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "유전체",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "reviewed",
+      "provider_code": "ARKG.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/ARKG.K",
+      "classification_reason": null
+    },
+    {
+      "id": "US:SOXX",
+      "symbol": "SOXX",
+      "name": "iShares Semiconductor ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "반도체",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "reviewed",
+      "provider_code": "SOXX.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/SOXX.O",
+      "classification_reason": null
+    },
+    {
+      "id": "US:XSD",
+      "symbol": "XSD",
+      "name": "State Street SPDR S&P Semiconductor ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "반도체",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XSD",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XSD",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-semiconductor-etf-xsd",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-semiconductor-etf-xsd",
+      "classification_reason": null
+    },
+    {
+      "id": "US:PSI",
+      "symbol": "PSI",
+      "name": "Invesco Semiconductors ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "반도체",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "PSI",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/PSI",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1209466/000119312526372186/d177078d497k.htm",
+          "evidence": "2026-08-28 운용사 요약투자설명서: 기초지수는 미국 반도체 기업 30개 보통주이며 제조·파운드리/테스트·장비/서비스를 포함한다."
+        }
+      ],
+      "review_note": "미국 반도체 노출. 기존 SOXX 대표 유지, PSI는 다른 가중방식의 보조 ETF.",
+      "related_representative": "US:SOXX",
+      "classification_reason": "미국 반도체 노출. 기존 SOXX 대표 유지, PSI는 다른 가중방식의 보조 ETF."
+    },
+    {
+      "id": "US:GNOM",
+      "symbol": "GNOM",
+      "name": "Global X Genomics And Biotechnology ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "유전체",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "GNOM.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/GNOM.O",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.globalxetfs.com/funds/gnom",
+          "evidence": "공식 상품 페이지는 유전자편집·시퀀싱·유전자치료·계산유전체·바이오 기술을 대상으로 하며 글로벌 노출이라고 명시한다."
+        }
+      ],
+      "review_note": "글로벌 유전체 테마. 기존 ARKG 대표를 유지하고 보조로 분류.",
+      "related_representative": "US:ARKG",
+      "classification_reason": "글로벌 유전체 테마. 기존 ARKG 대표를 유지하고 보조로 분류."
+    },
+    {
+      "id": "US:SKYY",
+      "symbol": "SKYY",
+      "name": "First Trust Cloud Computing ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "클라우드",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "reviewed",
+      "provider_code": "SKYY.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/SKYY.O",
+      "classification_reason": null
+    },
+    {
+      "id": "US:QTEC",
+      "symbol": "QTEC",
+      "name": "First Trust NASDAQ-100-Technology Sector Index Fd",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "sector",
+      "group": "기술",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "QTEC.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/QTEC.O",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ftportfolios.com/retail/etf/etfsummary.aspx?ticker=qtec",
+          "evidence": "Nasdaq-100 구성기업 중 ICB 기술 업종을 동일가중한다. 공식 2026-10-07 상위 보유에 Arm Holdings와 Nebius Group 등이 표시된다."
+        },
+        {
+          "url": "https://www.ftportfolios.com/Common/ContentFileLoader.aspx?ContentGUID=ef481521-369c-43a2-8a5f-bf91c53fc214",
+          "evidence": "운용사 요약투자설명서: Nasdaq 미국 상장 조건과 별도로 비미국 증권 투자위험을 명시하며 미국 소재 기업만으로 제한하지 않는다."
+        }
+      ],
+      "review_note": "미국 상장 Nasdaq 기술주 바스켓으로 해외기업도 포함. 미국 국내 대분류 XLK를 대체하거나 새 미국 업종으로 중복 집계하지 않고 글로벌/미국상장 보조로 표시.",
+      "related_representative": "US:XLK",
+      "classification_reason": "미국 상장 Nasdaq 기술주 바스켓으로 해외기업도 포함. 미국 국내 대분류 XLK를 대체하거나 새 미국 업종으로 중복 집계하지 않고 글로벌/미국상장 보조로 표시."
+    },
+    {
+      "id": "US:XLK",
+      "symbol": "XLK",
+      "name": "State Street Technology Select Sector SPDR ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "sector",
+      "group": "기술",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XLK",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XLK",
+      "issuer_quote_url": "https://www.ssga.com/mainfund/XLK",
+      "classification_source": "https://www.ssga.com/mainfund/XLK",
+      "classification_reason": null
+    },
+    {
+      "id": "US:IGV",
+      "symbol": "IGV",
+      "name": "iShares Expanded Tech-Software Sector ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "industry",
+      "group": "소프트웨어",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "IGV",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/IGV",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239771/ishares-north-american-techsoftware-etf?qt=EEMS",
+          "evidence": "공식 투자목표는 북미 소프트웨어 기업 및 일부 인터랙티브 미디어·서비스 기업 지수 추종이다. S&P North American Expanded Technology Software Index를 벤치마크로 명시한다."
+        }
+      ],
+      "review_note": "북미는 미국 국내만이 아니므로 글로벌 세부업종에 둔다. 광범위한 소프트웨어 대표이며 기존 클라우드 SKYY·사이버보안 BUG와 동일 노출로 취급하지 않는다.",
+      "classification_reason": "북미는 미국 국내만이 아니므로 글로벌 세부업종에 둔다. 광범위한 소프트웨어 대표이며 기존 클라우드 SKYY·사이버보안 BUG와 동일 노출로 취급하지 않는다."
+    },
+    {
+      "id": "US:CARZ",
+      "symbol": "CARZ",
+      "name": "First Trust S-Network Future Vehicles & Tech ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "미래차·자율주행",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "CARZ.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/CARZ.O",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ftportfolios.com/Retail/etf/etfsummary.aspx?Ticker=CARZ",
+          "evidence": "S-Network Electric & Future Vehicle Ecosystem Index 추종. 세계 거래소 상장 기업 중 전기·자율차 제조, 관련 소재, 기반 기술을 포함한다."
+        }
+      ],
+      "review_note": "전기차 완성차만을 의미하지 않고 반도체·소프트웨어·소재까지 포함하는 글로벌 미래차 생태계. 리튬·배터리 LIT와 구분.",
+      "classification_reason": "전기차 완성차만을 의미하지 않고 반도체·소프트웨어·소재까지 포함하는 글로벌 미래차 생태계. 리튬·배터리 LIT와 구분."
+    },
+    {
+      "id": "US:XHS",
+      "symbol": "XHS",
+      "name": "State Street SPDR S&P Health Care Services ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "의료서비스",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XHS",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XHS",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-health-care-services-etf-xhs",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-health-care-services-etf-xhs",
+      "classification_reason": null
+    },
+    {
+      "id": "US:IHF",
+      "symbol": "IHF",
+      "name": "iShares US Healthcare Providers ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "의료서비스",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "IHF",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/IHF",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239510/ishares-us-healthcare-providers-etf?qt=IHF",
+          "evidence": "공식 투자목표: 미국 의료서비스 제공자 하위업종. 보험, 진단 및 전문치료 서비스 운영기업을 포함한다."
+        }
+      ],
+      "review_note": "기존 의료서비스 XHS 대표 유지. IHF는 보험/관리의료 비중이 큰 보조이며 구성 차이가 있으므로 동일 수익을 가정하지 않는다.",
+      "related_representative": "US:XHS",
+      "classification_reason": "기존 의료서비스 XHS 대표 유지. IHF는 보험/관리의료 비중이 큰 보조이며 구성 차이가 있으므로 동일 수익을 가정하지 않는다."
+    },
+    {
+      "id": "US:ECON",
+      "symbol": "ECON",
+      "name": "Columbia Research Enhanced Emerging Economies ETF",
+      "market": "US",
+      "scope": "COUNTRY",
+      "kind": "country",
+      "group": "신흥국 종합",
+      "representative": false,
+      "rank_enabled": false,
+      "classification_status": "verified_issuer",
+      "provider_code": "ECON.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/ECON.K",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.columbiathreadneedleus.com/binaries/content/assets/cti/public/columbia_research_enhanced_emerging_economies_etf_fs.pdf",
+          "evidence": "공식 팩트시트: 신흥국 전체 유니버스를 질·가치·촉매 요인으로 선별하고 국가/지역 비중을 유지하는 광역 신흥국 지수다."
+        }
+      ],
+      "review_note": "국가·지역 시장 노출이며 단일 업종/테마가 아니다. 미국 업종 및 글로벌 테마 순위에서 제외, 가격관찰만 유지.",
+      "classification_reason": "국가·지역 시장 노출이며 단일 업종/테마가 아니다. 미국 업종 및 글로벌 테마 순위에서 제외, 가격관찰만 유지."
+    },
+    {
+      "id": "US:TDIV",
+      "symbol": "TDIV",
+      "name": "First Trust NASDAQ Technology Dividend Index Fund",
+      "market": "US",
+      "scope": "STYLE",
+      "kind": "style",
+      "group": "기술·통신 배당",
+      "representative": false,
+      "rank_enabled": false,
+      "classification_status": "verified_issuer",
+      "provider_code": "TDIV.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/TDIV.O",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ftportfolios.com/retail/etf/etfsummary.aspx?Ticker=TDIV",
+          "evidence": "공식 지수 설명은 최근 배당 지급, 최소 배당수익률, 배당감액 제한을 적용하며 수정 배당가중을 사용한다. 기술 80%와 통신 20%를 결합한다."
+        }
+      ],
+      "review_note": "배당 선별·가중 전략으로 순수 업종 대표가 아니므로 업종 순위 제외. 미국 상장 해외기업도 가능.",
+      "classification_reason": "배당 선별·가중 전략으로 순수 업종 대표가 아니므로 업종 순위 제외. 미국 상장 해외기업도 가능."
+    },
+    {
+      "id": "US:FDN",
+      "symbol": "FDN",
+      "name": "First Trust Dow Jones Internet Index Fund",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "인터넷",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "FDN",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/FDN",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ftportfolios.com/Retail/etf/etfsummary.aspx?Ticker=FDN",
+          "evidence": "공식 지수 설명은 미국 인터넷 기업을 대상으로 한다. 매출 50% 이상 인터넷 사업 요건과 인터넷 상거래 15개·서비스 25개 선정 규칙을 명시한다."
+        }
+      ],
+      "review_note": "미국 인터넷 업종 신규 대표. 광범위 통신서비스 XLC와 구분하며 기존 대표를 교체하지 않는다.",
+      "classification_reason": "미국 인터넷 업종 신규 대표. 광범위 통신서비스 XLC와 구분하며 기존 대표를 교체하지 않는다."
+    },
+    {
+      "id": "US:IBB",
+      "symbol": "IBB",
+      "name": "iShares Biotechnology ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "industry",
+      "group": "바이오",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "IBB.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/IBB.O",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239699/ishares-us-biotechnology-etf",
+          "evidence": "공식 투자목표는 미국 소재가 아니라 미국 상장 바이오 주식 지수 추종으로 명시한다."
+        },
+        {
+          "url": "https://www.ishares.com/us/literature/summary-prospectus/sp-ishares-nasdaq-biotechnology-etf-3-31.pdf",
+          "evidence": "2026-07-31 요약투자설명서는 미국 상장 바이오 지수와 중국 기업 및 미국 상장 중국 주식 투자위험을 명시한다."
+        }
+      ],
+      "review_note": "해외기업이 포함되는 미국 상장 바이오 바스켓. 기존 미국 바이오 XBI 대표 유지, IBB는 글로벌 범위의 보조로 표시.",
+      "related_representative": "US:XBI",
+      "classification_reason": "해외기업이 포함되는 미국 상장 바이오 바스켓. 기존 미국 바이오 XBI 대표 유지, IBB는 글로벌 범위의 보조로 표시."
+    },
+    {
+      "id": "US:SEA",
+      "symbol": "SEA",
+      "name": "US Global Sea to Sky Cargo ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "industry",
+      "group": "해운·항공화물",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "SEA",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/SEA",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://usglobaletfs.com/fund/u-s-global-sea-to-sky-cargo-etf/",
+          "evidence": "공식 상품 페이지에서 SEA와 U.S. Global Sea to Sky Cargo Index를 확인했다."
+        },
+        {
+          "url": "https://usglobaletfs.com/insights/september-quarterly-reconstitution-jets-and-sea/",
+          "evidence": "운용사 2026-09 정기변경 설명은 글로벌 해운·항공화물 산업에 대한 다변화 노출을 명시한다."
+        }
+      ],
+      "review_note": "운용사명 U.S. Global을 미국 국내 투자로 오해하지 않도록 글로벌 화물운송으로 분류. XTN 종합 운송과 구분.",
+      "classification_reason": "운용사명 U.S. Global을 미국 국내 투자로 오해하지 않도록 글로벌 화물운송으로 분류. XTN 종합 운송과 구분."
+    },
+    {
+      "id": "US:ROBO",
+      "symbol": "ROBO",
+      "name": "ROBO Global Robotics and Automation Index ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "로봇·자동화",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_or_prospectus_verified_2026-10-07",
+      "provider_code": "ROBO.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/ROBO.K",
+      "classification_source": "https://www.roboglobaletfs.com/robo",
+      "classification_evidence": "Invests in global robotics, automation and AI companies",
+      "classification_reason": null
+    },
+    {
+      "id": "US:PJP",
+      "symbol": "PJP",
+      "name": "Invesco Pharmaceuticals ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "제약",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "PJP",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/PJP",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1209466/000119312526372152/d177078d497k.htm",
+          "evidence": "2026-08-28 운용사 요약투자설명서: 미국 제약기업 30개를 목표로 하며 대형제약·전문제약·제네릭 기업을 포함한다."
+        }
+      ],
+      "review_note": "같은 미국 제약 산업의 IHE를 신규 대표로 선택하고 PJP는 선별방법이 다른 보조로 둔다.",
+      "related_representative": "US:IHE",
+      "classification_reason": "같은 미국 제약 산업의 IHE를 신규 대표로 선택하고 PJP는 선별방법이 다른 보조로 둔다."
+    },
+    {
+      "id": "US:XBI",
+      "symbol": "XBI",
+      "name": "State Street SPDR S&P Biotech ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "바이오",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XBI",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XBI",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-biotech-etf-xbi",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-biotech-etf-xbi",
+      "classification_reason": null
+    },
+    {
+      "id": "US:IHE",
+      "symbol": "IHE",
+      "name": "iShares US Pharmaceuticals ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "제약",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "IHE",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/IHE",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239519/ishares-us-pharmaceuticals-etf?qt=IHE",
+          "evidence": "공식 투자목표는 미국 제약기업 지수 추종이며 국내 의약품·백신 제조기업에 대한 노출이라고 명시한다. 벤치마크는 Dow Jones U.S. Select Pharmaceuticals Index다."
+        }
+      ],
+      "review_note": "미국 제약 업종 신규 대표. 바이오 XBI와 별도이며 PJP와 중복 집계하지 않는다.",
+      "classification_reason": "미국 제약 업종 신규 대표. 바이오 XBI와 별도이며 PJP와 중복 집계하지 않는다."
+    },
+    {
+      "id": "US:XLV",
+      "symbol": "XLV",
+      "name": "State Street Health Care Select Sector SPDR ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "sector",
+      "group": "헬스케어",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XLV",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XLV",
+      "issuer_quote_url": "https://www.ssga.com/mainfund/XLV",
+      "classification_source": "https://www.ssga.com/mainfund/XLV",
+      "classification_reason": null
+    },
+    {
+      "id": "US:PNQI",
+      "symbol": "PNQI",
+      "name": "Invesco Nasdaq Internet ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "industry",
+      "group": "인터넷",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "PNQI.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/PNQI.O",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1209466/000119312526372148/d177078d497k.htm",
+          "evidence": "2026-08-28 운용사 요약투자설명서: Nasdaq CTA Internet Index는 인터넷 관련 서비스 기업을 대상으로 하며 보통주와 해외기업 ADR을 포함할 수 있다."
+        }
+      ],
+      "review_note": "미국 상장 해외기업 포함 인터넷 바스켓. 미국 인터넷 대표 FDN을 유지하고 글로벌 보조로 표시.",
+      "related_representative": "US:FDN",
+      "classification_reason": "미국 상장 해외기업 포함 인터넷 바스켓. 미국 인터넷 대표 FDN을 유지하고 글로벌 보조로 표시."
+    },
+    {
+      "id": "US:XHE",
+      "symbol": "XHE",
+      "name": "State Street SPDR S&P Health Care Equipment ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "의료기기",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XHE",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XHE",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-health-care-equipment-etf-xhe",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-health-care-equipment-etf-xhe",
+      "classification_reason": null
+    },
+    {
+      "id": "US:SLX",
+      "symbol": "SLX",
+      "name": "VanEck Steel ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "industry",
+      "group": "철강",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "SLX",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/SLX",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.vaneck.com/us/en/investments/steel-etf-slx",
+          "evidence": "공식 투자목표: MarketVector Global Steel Index를 추종하여 글로벌 철강 산업 성과에 노출한다. 2025-12-22 지수 변경도 공시되어 있다."
+        }
+      ],
+      "review_note": "글로벌 철강 신규 대표. 미국 국내 소재 XLB와 구분. 원자재 선물 ETF가 아닌 철강기업 주식.",
+      "classification_reason": "글로벌 철강 신규 대표. 미국 국내 소재 XLB와 구분. 원자재 선물 ETF가 아닌 철강기업 주식."
+    },
+    {
+      "id": "US:COPX",
+      "symbol": "COPX",
+      "name": "Global X Copper Miners ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "industry",
+      "group": "구리광산",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "COPX.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/COPX.K",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.globalxetfs.com/articles/why-copper-why-copx",
+          "evidence": "운용사 설명은 COPX가 세계 각국 구리 광산기업에 노출한다고 명시한다."
+        },
+        {
+          "url": "https://www.globalxetfs.com/funds/copx",
+          "evidence": "공식 ETF 설명은 광범위한 구리 광산기업에 투자하는 상품이라고 명시한다."
+        }
+      ],
+      "review_note": "글로벌 구리 광산 신규 대표. 구리 현물/선물 가격과 동일한 노출로 해석하지 않는다.",
+      "classification_reason": "글로벌 구리 광산 신규 대표. 구리 현물/선물 가격과 동일한 노출로 해석하지 않는다."
+    },
+    {
+      "id": "US:IXG",
+      "symbol": "IXG",
+      "name": "iShares Global Financials ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "sector",
+      "group": "금융",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "IXG",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/IXG",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239742/ishares-global-financials-etf",
+          "evidence": "공식 투자목표는 글로벌 금융 주식 지수 추종이며 세계 은행·보험·자산운용기업에 대한 노출을 명시한다."
+        }
+      ],
+      "review_note": "미국 국내 금융 XLF와 표를 분리한 글로벌 금융. 양국 미국 국내 업종 수에는 포함하지 않는다.",
+      "classification_reason": "미국 국내 금융 XLF와 표를 분리한 글로벌 금융. 양국 미국 국내 업종 수에는 포함하지 않는다."
+    },
+    {
+      "id": "US:GRID",
+      "symbol": "GRID",
+      "name": "First Trust NASDAQ Cln Edge Smart Grid Infra Ix Fd",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "전력망",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_or_prospectus_verified_2026-10-07",
+      "provider_code": "GRID.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/GRID.O",
+      "classification_source": "https://www.ftportfolios.com/Retail/etf/etfsummary.aspx?Ticker=GRID",
+      "classification_evidence": "Fund Type Global Equity; smart-grid infrastructure",
+      "classification_reason": null
+    },
+    {
+      "id": "US:QCLN",
+      "symbol": "QCLN",
+      "name": "First Trust NASDAQ Clean Edge Green Energy Idx Fd",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "클린에너지",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "QCLN.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/QCLN.O",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ftportfolios.com/Retail/Etf/EtfSummary.aspx?Ticker=QCLN",
+          "evidence": "공식 지수 설명은 미국 거래소 상장 보통주와 예탁증서를 대상으로 첨단소재·에너지효율·재생발전·에너지저장/변환 기업을 포함한다. 미국 소재 한정 조건이 아니다."
+        }
+      ],
+      "review_note": "해외기업 예탁증서도 포함하는 미국 상장 클린에너지 테마. ICLN 대표 유지. ESS나 태양광 단독 노출로 오표기하지 않는다.",
+      "related_representative": "US:ICLN",
+      "classification_reason": "해외기업 예탁증서도 포함하는 미국 상장 클린에너지 테마. ICLN 대표 유지. ESS나 태양광 단독 노출로 오표기하지 않는다."
+    },
+    {
+      "id": "US:IYZ",
+      "symbol": "IYZ",
+      "name": "iShares US Telecommunications ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "통신장비서비스",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "IYZ",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/IYZ",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/ch/professionals/en/products/239523/ishares-u-s-telecommunications-etf",
+          "evidence": "공식 투자목표는 미국 통신 업종 주식 지수 추종이다."
+        }
+      ],
+      "review_note": "기존 미국 통신장비서비스 XTL 대표 유지. IYZ는 구성 및 가중방식이 다른 보조로 표시.",
+      "related_representative": "US:XTL",
+      "classification_reason": "기존 미국 통신장비서비스 XTL 대표 유지. IYZ는 구성 및 가중방식이 다른 보조로 표시."
+    },
+    {
+      "id": "US:XLF",
+      "symbol": "XLF",
+      "name": "State Street Financial Sel Sec SPDR ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "sector",
+      "group": "금융",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XLF",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XLF",
+      "issuer_quote_url": "https://www.ssga.com/mainfund/XLF",
+      "classification_source": "https://www.ssga.com/mainfund/XLF",
+      "classification_reason": null
+    },
+    {
+      "id": "US:XTL",
+      "symbol": "XTL",
+      "name": "State Street SPDR S&P Telecom ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "통신장비서비스",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XTL",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XTL",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-telecom-etf-xtl",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-telecom-etf-xtl",
+      "classification_reason": null
+    },
+    {
+      "id": "US:KIE",
+      "symbol": "KIE",
+      "name": "State Street SPDR S&P Insurance ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "보험",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "KIE",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/KIE",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-insurance-etf-kie",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-insurance-etf-kie",
+      "classification_reason": null
+    },
+    {
+      "id": "US:PEJ",
+      "symbol": "PEJ",
+      "name": "Invesco Leisure and Entertainment ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "레저·엔터테인먼트",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "PEJ",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/PEJ",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1209466/000119312526372146/d177078d497k.htm",
+          "evidence": "2026-08-28 운용사 요약투자설명서: 미국 레저·엔터테인먼트 30개 기업으로 호텔·식당·크루즈·카지노·오락 및 영화·음악·방송 제작 등을 포함한다."
+        }
+      ],
+      "review_note": "미국 레저·엔터테인먼트 신규 대표. 경기소비재 전체 XLY와 별도 세부업종.",
+      "classification_reason": "미국 레저·엔터테인먼트 신규 대표. 경기소비재 전체 XLY와 별도 세부업종."
+    },
+    {
+      "id": "US:XLE",
+      "symbol": "XLE",
+      "name": "State Street Energy Select Sector SPDR ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "sector",
+      "group": "에너지",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XLE",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XLE",
+      "issuer_quote_url": "https://www.ssga.com/mainfund/XLE",
+      "classification_source": "https://www.ssga.com/mainfund/XLE",
+      "classification_reason": null
+    },
+    {
+      "id": "US:PICK",
+      "symbol": "PICK",
+      "name": "iShares MSCI Global Metals & Mining Producers ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "industry",
+      "group": "금속·광산",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "PICK.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/PICK.K",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/uk/professionals/en/products/239655/ishares-msci-global-metals-mining-producers-etf",
+          "evidence": "공식 투자목표는 세계의 다각화 금속 채굴·추출·생산 기업 주식이며 금과 은은 제외한다."
+        }
+      ],
+      "review_note": "글로벌 종합 금속·광산. 구리 COPX·철강 SLX의 특정 산업 노출과 구분하되 같은 기업 일부 중복은 가능하다.",
+      "classification_reason": "글로벌 종합 금속·광산. 구리 COPX·철강 SLX의 특정 산업 노출과 구분하되 같은 기업 일부 중복은 가능하다."
+    },
+    {
+      "id": "US:IAI",
+      "symbol": "IAI",
+      "name": "iShares US Broker-Dealers & Securities Exch ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "증권·거래소",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "IAI",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/IAI",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239504/",
+          "evidence": "공식 투자목표는 미국 투자서비스 업종이며 미국 투자은행·증권사·거래소에 대한 집중 노출을 명시한다."
+        }
+      ],
+      "review_note": "미국 증권·거래소 신규 대표. 금융 XLF 및 은행 KBE와 구분.",
+      "classification_reason": "미국 증권·거래소 신규 대표. 금융 XLF 및 은행 KBE와 구분."
+    },
+    {
+      "id": "US:KRE",
+      "symbol": "KRE",
+      "name": "State Street SPDR S&P Regional Banking ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "지역은행",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "KRE",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/KRE",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-regional-banking-etf-kre",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-regional-banking-etf-kre",
+      "classification_reason": null
+    },
+    {
+      "id": "US:IYT",
+      "symbol": "IYT",
+      "name": "iShares US Transportation ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "운송",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "IYT",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/IYT",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239501/ishares-u-s-transportation-etf",
+          "evidence": "공식 투자목표는 미국 운송업 지수로 항공·철도·트럭운송 기업을 명시한다."
+        }
+      ],
+      "review_note": "기존 XTN 운송 대표 유지. 다른 가중방식의 보조로 표시.",
+      "related_representative": "US:XTN",
+      "classification_reason": "기존 XTN 운송 대표 유지. 다른 가중방식의 보조로 표시."
+    },
+    {
+      "id": "US:KBE",
+      "symbol": "KBE",
+      "name": "State Street SPDR S&P Bank ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "은행",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "KBE",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/KBE",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-bank-etf-kbe",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-bank-etf-kbe",
+      "classification_reason": null
+    },
+    {
+      "id": "US:VOX",
+      "symbol": "VOX",
+      "name": "Vanguard Communication Services ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "sector",
+      "group": "통신서비스",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "VOX",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/VOX",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://workplace.vanguard.com/assets/corp/fund_communications/pdf_publish/us-products/fact-sheet/F0959.pdf",
+          "evidence": "운용사 공식 팩트시트: MSCI US Investable Market Communication Services 25/50 Index는 미국 통신서비스 업종 기업 주식으로 구성된다."
+        }
+      ],
+      "review_note": "미국 통신서비스 대분류 XLC 대표 유지. VOX는 시가총액 범위가 다른 보조.",
+      "related_representative": "US:XLC",
+      "classification_reason": "미국 통신서비스 대분류 XLC 대표 유지. VOX는 시가총액 범위가 다른 보조."
+    },
+    {
+      "id": "US:XOP",
+      "symbol": "XOP",
+      "name": "State Street SPDR S&P Oil & Gas Expl & Prod ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "석유가스탐사생산",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XOP",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XOP",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-oil-gas-exploration-production-etf-xop",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-oil-gas-exploration-production-etf-xop",
+      "classification_reason": null
+    },
+    {
+      "id": "US:AMLP",
+      "symbol": "AMLP",
+      "name": "Alerian MLP ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "미드스트림·MLP",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "AMLP.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/AMLP.K",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.alpsfunds.com/hubfs/alps-docs/reg/stat-pro/alerian-etfs-stat-pro.pdf",
+          "evidence": "2026-03-31 운용사 투자설명서: AMLP 기초지수는 미국 에너지 인프라 MLP이며 운송·저장·가공에서 현금흐름 대부분을 창출하는 기업이다."
+        }
+      ],
+      "review_note": "미국 에너지 미드스트림 MLP 신규 대표. 배당수익률로 종목을 고르는 스타일 ETF가 아니라 특정 에너지 사업군. 분배금 미포함 가격강도임에 유의.",
+      "classification_reason": "미국 에너지 미드스트림 MLP 신규 대표. 배당수익률로 종목을 고르는 스타일 ETF가 아니라 특정 에너지 사업군. 분배금 미포함 가격강도임에 유의."
+    },
+    {
+      "id": "US:XLI",
+      "symbol": "XLI",
+      "name": "State Street Industrial Select Sector SPDR ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "sector",
+      "group": "산업재",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XLI",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XLI",
+      "issuer_quote_url": "https://www.ssga.com/mainfund/XLI",
+      "classification_source": "https://www.ssga.com/mainfund/XLI",
+      "classification_reason": null
+    },
+    {
+      "id": "US:XLY",
+      "symbol": "XLY",
+      "name": "State Street Consumer Disc Sel Sect SPDR ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "sector",
+      "group": "경기소비재",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XLY",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XLY",
+      "issuer_quote_url": "https://www.ssga.com/mainfund/XLY",
+      "classification_source": "https://www.ssga.com/mainfund/XLY",
+      "classification_reason": null
+    },
+    {
+      "id": "US:IXP",
+      "symbol": "IXP",
+      "name": "iShares Global Comm Services ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "sector",
+      "group": "통신서비스",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "IXP",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/IXP",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239751/ishares-global-comm-services-etf",
+          "evidence": "공식 투자목표는 글로벌 통신서비스 주식 지수로 전 세계 미디어·통신·인터넷 기업을 포함한다."
+        }
+      ],
+      "review_note": "미국 국내 XLC/VOX와 분리한 글로벌 통신서비스. 미국 업종 수와 중복 집계하지 않는다.",
+      "classification_reason": "미국 국내 XLC/VOX와 분리한 글로벌 통신서비스. 미국 업종 수와 중복 집계하지 않는다."
+    },
+    {
+      "id": "US:BIZD",
+      "symbol": "BIZD",
+      "name": "VanEck BDC Income ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "기업성장투자·BDC",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "BIZD.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/BIZD.K",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.vaneck.com/us/en/investments/bdc-income-etf-bizd/fees/",
+          "evidence": "운용사 투자목표는 MVIS US Business Development Companies Index를 추종하여 상장 BDC 기업 전체 성과에 노출하는 것이다."
+        }
+      ],
+      "review_note": "명칭의 Income은 고배당 선별지수와 다르며 미국 BDC 사업군을 추종한다. 대출·사모신용 노출이 큰 금융 세부업종으로 분리; 분배금 미포함 가격 지표 한계 표시 필요.",
+      "classification_reason": "명칭의 Income은 고배당 선별지수와 다르며 미국 BDC 사업군을 추종한다. 대출·사모신용 노출이 큰 금융 세부업종으로 분리; 분배금 미포함 가격 지표 한계 표시 필요."
+    },
+    {
+      "id": "US:INCO",
+      "symbol": "INCO",
+      "name": "Columbia India Consumer ETF",
+      "market": "US",
+      "scope": "COUNTRY",
+      "kind": "country",
+      "group": "인도 소비재",
+      "representative": false,
+      "rank_enabled": false,
+      "classification_status": "verified_issuer",
+      "provider_code": "INCO.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/INCO.K",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.columbiathreadneedleus.com/binaries/content/assets/cti/public/columbia_india_consumer_etf_fs.pdf",
+          "evidence": "공식 팩트시트는 인도 주거래소 상장 소비산업 기업을 대상으로 하는 Indxx India Consumer Index를 추종한다고 명시한다."
+        }
+      ],
+      "review_note": "인도 특정 국가 소비재 노출. 미국 국내 업종이나 광역 글로벌 테마 순위에서 제외하고 국가형 가격관찰로 유지.",
+      "classification_reason": "인도 특정 국가 소비재 노출. 미국 국내 업종이나 광역 글로벌 테마 순위에서 제외하고 국가형 가격관찰로 유지."
+    },
+    {
+      "id": "US:XTN",
+      "symbol": "XTN",
+      "name": "State Street SPDR S&P Transportation ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "운송",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XTN",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XTN",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-transportation-etf-xtn",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-transportation-etf-xtn",
+      "classification_reason": null
+    },
+    {
+      "id": "US:XRT",
+      "symbol": "XRT",
+      "name": "State Street PDR S&P Retail ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "소매",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XRT",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XRT",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-retail-etf-xrt",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-retail-etf-xrt",
+      "classification_reason": null
+    },
+    {
+      "id": "US:FIW",
+      "symbol": "FIW",
+      "name": "First Trust Water ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "물·수처리",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "FIW",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/FIW",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ftportfolios.com/Retail/etf/etfsummary.aspx?Ticker=FIW",
+          "evidence": "공식 투자목표는 상수·폐수 산업 매출 비중이 큰 상장 기업을 대상으로 하는 ISE Clean Edge Water Index다."
+        },
+        {
+          "url": "https://www.ftportfolios.com/Common/ContentFileLoader.aspx?ContentGUID=1ed3ea68-73b1-43c2-a8d1-14338b26a975",
+          "evidence": "공식 요약투자설명서는 미국 거래소 상장 조건과 보통주·ordinary shares·예탁증서 허용 및 비미국 증권 위험을 명시한다."
+        }
+      ],
+      "review_note": "미국 상장 해외기업도 허용되므로 미국 국내만으로 분류하지 않고 글로벌 수처리 테마로 구분.",
+      "related_representative": "US:CGW",
+      "representative_note": "2026-10-11 최초 분류 시 유사 노출의 대표를 고정; 일간 수익률로 대표를 교체하지 않음. 세부 구성 차이는 공식 근거 참조.",
+      "classification_reason": "미국 상장 해외기업도 허용되므로 미국 국내만으로 분류하지 않고 글로벌 수처리 테마로 구분."
+    },
+    {
+      "id": "US:HAP",
+      "symbol": "HAP",
+      "name": "VanEck Natural Resources ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "천연자원",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "HAP",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/HAP",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.vaneck.com/us/en/investments/natural-resources-etf-hap/",
+          "evidence": "공식 투자목표: MarketVector Global Natural Resources Index를 추종하며 세계 금속·에너지·농산물 관련 천연자원 기업을 포함한다."
+        }
+      ],
+      "review_note": "글로벌 복합 천연자원 테마. 실물 원자재 ETF가 아니며 개별 철강·구리 업종과 같은 노출로 보지 않는다.",
+      "related_representative": "US:GNR",
+      "representative_note": "2026-10-11 최초 분류 시 유사 노출의 대표를 고정; 일간 수익률로 대표를 교체하지 않음. 세부 구성 차이는 공식 근거 참조.",
+      "classification_reason": "글로벌 복합 천연자원 테마. 실물 원자재 ETF가 아니며 개별 철강·구리 업종과 같은 노출로 보지 않는다."
+    },
+    {
+      "id": "US:XLP",
+      "symbol": "XLP",
+      "name": "State Street Consumer Staples Sel Sect SPDR ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "sector",
+      "group": "필수소비재",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XLP",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XLP",
+      "issuer_quote_url": "https://www.ssga.com/mainfund/XLP",
+      "classification_source": "https://www.ssga.com/mainfund/XLP",
+      "classification_reason": null
+    },
+    {
+      "id": "US:PSP",
+      "symbol": "PSP",
+      "name": "Invesco Global Listed Private Equity ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "industry",
+      "group": "사모투자·대체운용",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "PSP",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/PSP",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1209466/000119312526372140/d177078d497k.htm",
+          "evidence": "2026-08-28 운용사 요약투자설명서는 전 세계 거래소 상장 사모투자기업 40~75개를 대상으로 BDC·대체자산운용기업 등을 포함하고 MLP는 제외한다고 명시한다."
+        }
+      ],
+      "review_note": "글로벌 상장 사모투자·대체운용 기업군. 직접 비상장 펀드 지분이나 가치/배당 스타일이 아니다. 미국 BDC BIZD와 범위 차이 및 일부 중복 존재.",
+      "classification_reason": "글로벌 상장 사모투자·대체운용 기업군. 직접 비상장 펀드 지분이나 가치/배당 스타일이 아니다. 미국 BDC BIZD와 범위 차이 및 일부 중복 존재."
+    },
+    {
+      "id": "US:RXI",
+      "symbol": "RXI",
+      "name": "iShares Global Consumer Discretionary ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "sector",
+      "group": "경기소비재",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "RXI",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/RXI",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239739/ishares-global-consumer-discretionary-etf?qt=RXI",
+          "evidence": "공식 투자목표는 글로벌 경기소비재 업종 주식으로 비필수 상품·서비스 기업을 포함한다."
+        }
+      ],
+      "review_note": "미국 국내 XLY와 표를 분리한 글로벌 경기소비재. 미국 업종 수에는 넣지 않는다.",
+      "classification_reason": "미국 국내 XLY와 표를 분리한 글로벌 경기소비재. 미국 업종 수에는 넣지 않는다."
+    },
+    {
+      "id": "US:VEGI",
+      "symbol": "VEGI",
+      "name": "iShares MSCI Agriculture Producers ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "농업·농기계",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "VEGI.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/VEGI.K",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239652/ishares-msci-global-agriculture-producers-etf?fundSearch=true&qt=VEGI",
+          "evidence": "공식 투자목표는 전 세계 농산물·농업 장비 생산기업 지수다."
+        }
+      ],
+      "review_note": "글로벌 농업생산·농기계 기업군. 농산물 현물/선물 가격과 동일하게 해석하지 않는다.",
+      "related_representative": "US:MOO",
+      "representative_note": "2026-10-11 최초 분류 시 유사 노출의 대표를 고정; 일간 수익률로 대표를 교체하지 않음. 세부 구성 차이는 공식 근거 참조.",
+      "classification_reason": "글로벌 농업생산·농기계 기업군. 농산물 현물/선물 가격과 동일하게 해석하지 않는다."
+    },
+    {
+      "id": "US:ENFR",
+      "symbol": "ENFR",
+      "name": "ALPS Alerian Energy Infrastructure ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "industry",
+      "group": "미드스트림·에너지인프라",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "ENFR.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/ENFR.K",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_sources": [
+        {
+          "url": "https://www.alpsfunds.com/exchange-traded-funds/enfr",
+          "evidence": "공식 투자목표는 Alerian Midstream Energy Select Index이며 북미 에너지 인프라 기업으로 구성한다고 명시한다."
+        },
+        {
+          "url": "https://www.alpsfunds.com/hubfs/alps-docs/reg/stat-pro/alerian-etfs-stat-pro.pdf",
+          "evidence": "2026-03-31 투자설명서는 미국 또는 캐나다 소재 미드스트림 MLP와 일반 법인을 모두 포함한다고 명시한다."
+        }
+      ],
+      "review_note": "북미이므로 글로벌로 분리. 미국 MLP 법적 구조에 한정된 AMLP보다 넓은 사업/지역 범위이며 한 표에서 두 미국 업종으로 합산하지 않는다.",
+      "representative_note": "2026-10-11 최초 분류 시 유사 노출의 대표를 고정; 일간 수익률로 대표를 교체하지 않음. 세부 구성 차이는 공식 근거 참조.",
+      "classification_reason": "북미이므로 글로벌로 분리. 미국 MLP 법적 구조에 한정된 AMLP보다 넓은 사업/지역 범위이며 한 표에서 두 미국 업종으로 합산하지 않는다."
+    },
+    {
+      "id": "US:SOCL",
+      "symbol": "SOCL",
+      "name": "Global X Social Media ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "소셜미디어",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "SOCL.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/SOCL.O",
+      "classification_sources": [
+        {
+          "url": "https://www.globalxetfs.com/funds/socl/",
+          "evidence": "운용사는 전 세계 소셜미디어 기업과 Solactive Social Media Total Return Index 추종을 명시한다."
+        }
+      ],
+      "review_note": "미국 상장 글로벌 소셜미디어 테마. 미국 국내 업종과 분리한다.",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "미국 상장 글로벌 소셜미디어 테마. 미국 국내 업종과 분리한다."
+    },
+    {
+      "id": "US:GNR",
+      "symbol": "GNR",
+      "name": "State Street SPDR S&P Global Nat Resources ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "천연자원",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "GNR",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/GNR",
+      "classification_sources": [
+        {
+          "url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-global-natural-resources-etf-gnr",
+          "evidence": "S&P Global Natural Resources Index의 농업·에너지·금속광산 세 부문에 투자하며 각 부문 비중에 상한이 있다."
+        }
+      ],
+      "review_note": "복합 천연자원 테마 대표. GUNR은 상류 중심 구성 차이가 있는 보조 ETF로 연결한다.",
+      "classification_reviewed_at": "2026-10-11",
+      "representative_note": "2026-10-11 최초 분류 시 유사 노출의 대표를 고정; 일간 수익률로 대표를 교체하지 않음. 세부 구성 차이는 공식 근거 참조.",
+      "classification_reason": "복합 천연자원 테마 대표. GUNR은 상류 중심 구성 차이가 있는 보조 ETF로 연결한다."
+    },
+    {
+      "id": "US:XHB",
+      "symbol": "XHB",
+      "name": "State Street SPDR S&P Homebuilders ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "주택건설",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XHB",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XHB",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-homebuilders-etf-xhb",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-homebuilders-etf-xhb",
+      "classification_reason": null
+    },
+    {
+      "id": "US:XLB",
+      "symbol": "XLB",
+      "name": "State Street Materials Select Sector SPDR ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "sector",
+      "group": "소재",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XLB",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XLB",
+      "issuer_quote_url": "https://www.ssga.com/mainfund/XLB",
+      "classification_source": "https://www.ssga.com/mainfund/XLB",
+      "classification_reason": null
+    },
+    {
+      "id": "US:MLPX",
+      "symbol": "MLPX",
+      "name": "Global X MLP & Energy Infrastructure ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "industry",
+      "group": "미드스트림·에너지인프라",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "MLPX.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/MLPX.K",
+      "classification_sources": [
+        {
+          "url": "https://www.globalxetfs.com/funds/mlpx/",
+          "evidence": "미드스트림 파이프라인·저장 등 에너지 인프라 지수 추종. 2026-10-09 보유내역에 TC Energy·Enbridge·Pembina가 확인된다."
+        }
+      ],
+      "review_note": "캐나다 기업을 포함하므로 미국 국내 업종으로 분류하지 않는다. EMLP와 부분 관련이며 대표를 일간 수익률로 교체하지 않는다.",
+      "classification_reviewed_at": "2026-10-11",
+      "related_representative": "US:ENFR",
+      "representative_note": "2026-10-11 최초 분류 시 유사 노출의 대표를 고정; 일간 수익률로 대표를 교체하지 않음. 세부 구성 차이는 공식 근거 참조.",
+      "classification_reason": "캐나다 기업을 포함하므로 미국 국내 업종으로 분류하지 않는다. EMLP와 부분 관련이며 대표를 일간 수익률로 교체하지 않는다."
+    },
+    {
+      "id": "US:CGW",
+      "symbol": "CGW",
+      "name": "Invesco S&P Global Water Index ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "물·수처리",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "CGW",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/CGW",
+      "classification_sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1378872/000119312526079057/d12489d497k.htm",
+          "evidence": "운용사의 2026-02-27 요약투자설명서는 S&P Global Water Index와 선진국·신흥국 수자원 관련 기업을 명시한다."
+        }
+      ],
+      "review_note": "수자원 설비·인프라·유틸리티를 포괄하는 글로벌 테마. 공식 SEC 제출 투자설명서를 확인했다.",
+      "classification_reviewed_at": "2026-10-11",
+      "representative_note": "2026-10-11 최초 분류 시 유사 노출의 대표를 고정; 일간 수익률로 대표를 교체하지 않음. 세부 구성 차이는 공식 근거 참조.",
+      "classification_reason": "수자원 설비·인프라·유틸리티를 포괄하는 글로벌 테마. 공식 SEC 제출 투자설명서를 확인했다."
+    },
+    {
+      "id": "US:ITB",
+      "symbol": "ITB",
+      "name": "iShares US Home Construction ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "주택건설",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "ITB",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/ITB",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239512/ishares-us-home-construction-etf",
+          "evidence": "미국 주택건설 및 관련 기업의 Dow Jones U.S. Select Home Construction Index 추종을 명시한다."
+        }
+      ],
+      "review_note": "기존 XHB 대표를 유지하고 주택건설 보조로 추가한다. 편입·가중방식 차이는 있다.",
+      "related_representative": "US:XHB",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "기존 XHB 대표를 유지하고 주택건설 보조로 추가한다. 편입·가중방식 차이는 있다."
+    },
+    {
+      "id": "US:EMIF",
+      "symbol": "EMIF",
+      "name": "iShares Emerg Markets Infrastructure ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "신흥국인프라",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "EMIF.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/EMIF.O",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239735/ishares-emerging-markets-infrastructure-etf",
+          "evidence": "신흥시장 인프라 기업을 대상으로 운송·유틸리티·에너지 노출을 제공한다고 명시한다."
+        }
+      ],
+      "review_note": "미국 국내 업종이 아닌 신흥국 인프라 테마. GII와 지역 노출이 달라 별도 세부 테마로 표시하되 글로벌 인프라 전체 집계에서는 중복을 피한다.",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "미국 국내 업종이 아닌 신흥국 인프라 테마. GII와 지역 노출이 달라 별도 세부 테마로 표시하되 글로벌 인프라 전체 집계에서는 중복을 피한다."
+    },
+    {
+      "id": "US:ICLN",
+      "symbol": "ICLN",
+      "name": "iShares Global Clean Energy ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "클린에너지",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_or_prospectus_verified_2026-10-07",
+      "provider_code": "ICLN.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/ICLN.O",
+      "classification_source": "https://www.ishares.com/us/products/239738/ishares-global-clean-energy-etf",
+      "classification_evidence": "Global equities in the clean energy sector",
+      "classification_reason": null
+    },
+    {
+      "id": "US:CUT",
+      "symbol": "CUT",
+      "name": "Invesco MSCI Global Timber ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "목재·산림",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "CUT",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/CUT",
+      "classification_sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1378872/000119312526079051/d12489d497k.htm",
+          "evidence": "2026-02-27 공식 요약투자설명서의 MSCI ACWI IMI Timber Select Capped Index는 선진국·신흥국 산림·목재·종이·포장·목재 REIT 기업을 포함한다."
+        }
+      ],
+      "review_note": "WOOD와 동일 목재·산림 노출로 보조 처리한다. 공식 SEC 제출 투자설명서를 확인했다.",
+      "related_representative": "US:WOOD",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "WOOD와 동일 목재·산림 노출로 보조 처리한다. 공식 SEC 제출 투자설명서를 확인했다."
+    },
+    {
+      "id": "US:GUNR",
+      "symbol": "GUNR",
+      "name": "Northern Trust Morningstar Glbl Upstm Ntrl Res ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "천연자원",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "GUNR.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/GUNR.K",
+      "classification_sources": [
+        {
+          "url": "https://www.flexshares.com/us/en/individual/fund-focus/fund-focus-gunr",
+          "evidence": "Morningstar Global Upstream Natural Resources Index는 미국·해외 상류 천연자원 기업의 에너지·농업·금속·목재·수자원 노출을 포함한다."
+        }
+      ],
+      "review_note": "GNR의 보조. 상류 중심 및 가중방식 차이를 유지하고 별도 업종 수로 중복 집계하지 않는다.",
+      "related_representative": "US:GNR",
+      "classification_reviewed_at": "2026-10-11",
+      "representative_note": "2026-10-11 최초 분류 시 유사 노출의 대표를 고정; 일간 수익률로 대표를 교체하지 않음. 세부 구성 차이는 공식 근거 참조.",
+      "classification_reason": "GNR의 보조. 상류 중심 및 가중방식 차이를 유지하고 별도 업종 수로 중복 집계하지 않는다."
+    },
+    {
+      "id": "US:EMLP",
+      "symbol": "EMLP",
+      "name": "First Trust North American Energy Infrastructure",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "industry",
+      "group": "미드스트림·에너지인프라",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "EMLP.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/EMLP.K",
+      "classification_sources": [
+        {
+          "url": "https://www.ftportfolios.com/Retail/etf/etfsummary.aspx?Ticker=EMLP",
+          "evidence": "미국과 캐나다에 본사를 두거나 설립된 에너지 인프라 기업에 주로 투자하며 파이프라인·MLP·전력 및 가스 유틸리티 등을 포함한다."
+        }
+      ],
+      "review_note": "MLPX의 보조로 연결하되 유틸리티 비중 등 구성 차이로 부분 관련임을 표시한다. 북미는 GLOBAL로 분류한다.",
+      "related_representative": "US:ENFR",
+      "classification_reviewed_at": "2026-10-11",
+      "representative_note": "2026-10-11 최초 분류 시 유사 노출의 대표를 고정; 일간 수익률로 대표를 교체하지 않음. 세부 구성 차이는 공식 근거 참조.",
+      "classification_reason": "MLPX의 보조로 연결하되 유틸리티 비중 등 구성 차이로 부분 관련임을 표시한다. 북미는 GLOBAL로 분류한다."
+    },
+    {
+      "id": "US:PBW",
+      "symbol": "PBW",
+      "name": "Invesco WilderHill Clean Energy ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "클린에너지",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "PBW",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/PBW",
+      "classification_sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1209466/000119312525190435/d56632d497k.htm",
+          "evidence": "공식 요약투자설명서의 WilderHill Clean Energy Index는 미국 거래소 상장 기업을 선정하되 신흥국을 포함한 외국 기업도 허용한다."
+        }
+      ],
+      "review_note": "미국 상장 조건을 미국 국내 기업 조건으로 바꾸어 해석하지 않는다. 기존 글로벌 클린에너지 대표 ICLN의 보조.",
+      "related_representative": "US:ICLN",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "미국 상장 조건을 미국 국내 기업 조건으로 바꾸어 해석하지 않는다. 기존 글로벌 클린에너지 대표 ICLN의 보조."
+    },
+    {
+      "id": "US:LIT",
+      "symbol": "LIT",
+      "name": "Global X Lithium & Battery Tech ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "리튬·배터리",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_or_prospectus_verified_2026-10-07",
+      "provider_code": "LIT",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/LIT",
+      "classification_source": "https://www.globalxetfs.com/funds/lit",
+      "classification_evidence": "Solactive Global Lithium Index; mining through battery production",
+      "classification_reason": null
+    },
+    {
+      "id": "US:MOO",
+      "symbol": "MOO",
+      "name": "VanEck Agribusiness ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "농업·농기계",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "MOO",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/MOO",
+      "classification_sources": [
+        {
+          "url": "https://www.vaneck.com/us/en/investments/agribusiness-etf-moo",
+          "evidence": "MVIS Global Agribusiness Index가 농약·비료·농기계·작물 및 농산물 거래 관련 글로벌 기업을 포함한다."
+        }
+      ],
+      "review_note": "농업 가치사슬 테마. 농산물 선물 ETF와 구분한다.",
+      "classification_reviewed_at": "2026-10-11",
+      "representative_note": "2026-10-11 최초 분류 시 유사 노출의 대표를 고정; 일간 수익률로 대표를 교체하지 않음. 세부 구성 차이는 공식 근거 참조.",
+      "classification_reason": "농업 가치사슬 테마. 농산물 선물 ETF와 구분한다."
+    },
+    {
+      "id": "US:PBD",
+      "symbol": "PBD",
+      "name": "Invesco Global Clean Energy ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "클린에너지",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "PBD",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/PBD",
+      "classification_sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1378872/000110465926020368/R24.htm",
+          "evidence": "2026년 공식 투자설명서 자료는 WilderHill New Energy Global Innovation Index의 선진국·신흥국 재생에너지·효율·저장·수소 관련 기업을 명시한다."
+        }
+      ],
+      "review_note": "기존 ICLN의 글로벌 클린에너지 보조로 추가한다. 공식 SEC 제출 투자설명서 자료를 확인했다.",
+      "related_representative": "US:ICLN",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "기존 ICLN의 글로벌 클린에너지 보조로 추가한다. 공식 SEC 제출 투자설명서 자료를 확인했다."
+    },
+    {
+      "id": "US:WOOD",
+      "symbol": "WOOD",
+      "name": "iShares Global Timber & Forestry ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "목재·산림",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "WOOD.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/WOOD.O",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239752/ishares-global-timber-forestry-etf",
+          "evidence": "S&P Global Timber & Forestry Index 추종과 글로벌 산림·목재·종이·포장 기업 노출을 명시한다."
+        }
+      ],
+      "review_note": "목재·산림 테마 대표로 고정하고 CUT은 보조로 둔다. 단기 가격 성과에 따라 대표를 교체하지 않는다.",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "목재·산림 테마 대표로 고정하고 CUT은 보조로 둔다. 단기 가격 성과에 따라 대표를 교체하지 않는다."
+    },
+    {
+      "id": "US:IHI",
+      "symbol": "IHI",
+      "name": "iShares US Medical Devices ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "의료기기",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "IHI",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/IHI",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239516/ishares-us-medical-devices-etf",
+          "evidence": "미국 의료기기 제조·유통 기업의 지수를 추종한다고 명시한다."
+        }
+      ],
+      "review_note": "기존 XHE 의료기기 대표를 유지하며 IHI를 보조로 추가한다.",
+      "related_representative": "US:XHE",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "기존 XHE 의료기기 대표를 유지하며 IHI를 보조로 추가한다."
+    },
+    {
+      "id": "US:OIH",
+      "symbol": "OIH",
+      "name": "VanEck Oil Services ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "석유가스장비서비스",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "OIH",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/OIH",
+      "classification_sources": [
+        {
+          "url": "https://www.vaneck.com/us/en/investments/oil-services-etf-oih/",
+          "evidence": "MVIS US Listed Oil Services 25 Index 추종. 2026-09-30 공식 국가 비중은 미국 79.53%, 영국 6.58%, 네덜란드 5.59%, 스위스 4.68%, 버뮤다 3.59%이다."
+        }
+      ],
+      "review_note": "미국 상장 해외 기업도 포함하므로 GLOBAL로 표시한다. 기존 미국 국내 대표 XES와 부분 관련인 보조이며 같은 업종의 신규 등장으로 중복 집계하지 않는다.",
+      "related_representative": "US:XES",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "미국 상장 해외 기업도 포함하므로 GLOBAL로 표시한다. 기존 미국 국내 대표 XES와 부분 관련인 보조이며 같은 업종의 신규 등장으로 중복 집계하지 않는다."
+    },
+    {
+      "id": "US:SLVP",
+      "symbol": "SLVP",
+      "name": "iShares MSCI Global Silver and Metals Miners ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "은광산",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "SLVP.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/SLVP.K",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239656/ishares-msci-global-silver-and-metals-miners-etf",
+          "evidence": "MSCI ACWI Select Silver Miners Investable Market Index와 주로 은광산 사업을 하는 글로벌 기업에 대한 노출을 명시한다."
+        }
+      ],
+      "review_note": "SIL 대표의 은광산 보조 ETF. 다른 금속 노출이 일부 포함될 수 있다.",
+      "related_representative": "US:SIL",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "SIL 대표의 은광산 보조 ETF. 다른 금속 노출이 일부 포함될 수 있다."
+    },
+    {
+      "id": "US:AIRR",
+      "symbol": "AIRR",
+      "name": "First Trust RBA Amer Industrial Renaissance ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "theme",
+      "group": "리쇼어링·제조업",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "AIRR.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/AIRR.O",
+      "classification_sources": [
+        {
+          "url": "https://www.ftportfolios.com/Retail/etf/etfsummary.aspx?Ticker=AIRR",
+          "evidence": "Richard Bernstein Advisors American Industrial Renaissance Index는 미국 중소형 산업재와 지역은행 기업을 대상으로 하며 해외 매출 25% 이상 기업을 제외한다."
+        }
+      ],
+      "review_note": "미국 산업 회귀·제조업 테마. 산업재와 지역은행이 함께 포함되므로 단일 제조업 업종으로 설명하지 않는다.",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "미국 산업 회귀·제조업 테마. 산업재와 지역은행이 함께 포함되므로 단일 제조업 업종으로 설명하지 않는다."
+    },
+    {
+      "id": "US:XES",
+      "symbol": "XES",
+      "name": "State Street SPDR S&P Oil & Gas Equip & Serv ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "석유가스장비서비스",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XES",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XES",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-oil-gas-equipment-services-etf-xes",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-oil-gas-equipment-services-etf-xes",
+      "classification_reason": null
+    },
+    {
+      "id": "US:FCG",
+      "symbol": "FCG",
+      "name": "First Trust Natural Gas ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "천연가스생산",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "FCG",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/FCG",
+      "classification_sources": [
+        {
+          "url": "https://www.ftportfolios.com/Retail/etf/etfsummary.aspx?Ticker=FCG",
+          "evidence": "Nasdaq FactSet Natural Gas Index는 미국 상장 천연가스 관련 기업을 대상으로 하며 비미국 발행사 위험도 명시한다."
+        },
+        {
+          "url": "https://www.ftportfolios.com/Retail/Etf/EtfHoldings.aspx?Ticker=FCG",
+          "evidence": "2026-10-09 공식 보유내역에 Woodside Energy ADR, Baytex Energy, Vermilion Energy가 실제 포함되어 있다."
+        }
+      ],
+      "review_note": "미국 상장에 한정되지만 해외 기업도 포함되므로 GLOBAL로 분리한다. 가스 선물이나 순수 천연가스 가격을 추종하는 상품은 아니다.",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "미국 상장에 한정되지만 해외 기업도 포함되므로 GLOBAL로 분리한다. 가스 선물이나 순수 천연가스 가격을 추종하는 상품은 아니다."
+    },
+    {
+      "id": "US:IEZ",
+      "symbol": "IEZ",
+      "name": "iShares US Oil Equipment & Services ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "석유가스장비서비스",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "IEZ",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/IEZ",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239518/ishares-us-oil-equipment-services-etf",
+          "evidence": "미국 석유 장비·서비스 기업과 탐사·채굴 관련 사업에 노출되는 지수를 추종한다고 명시한다."
+        }
+      ],
+      "review_note": "기존 XES 대표를 유지하며 보조로 추가한다.",
+      "related_representative": "US:XES",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "기존 XES 대표를 유지하며 보조로 추가한다."
+    },
+    {
+      "id": "US:SGDM",
+      "symbol": "SGDM",
+      "name": "Sprott Gold Miners ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "금광산",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "SGDM.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/SGDM.K",
+      "classification_sources": [
+        {
+          "url": "https://sprottetfs.com/sgdm-sprott-gold-miners-etf/",
+          "evidence": "Solactive Gold Miners Custom Factors Index는 미국·캐나다 상장 주요 금광산 기업에 성장·현금흐름·부채 요인을 적용한다."
+        }
+      ],
+      "review_note": "금광산 업종 노출 안에서 요인을 적용한 상품으로 GDX 보조 처리한다. 범시장 팩터 ETF와 구분한다.",
+      "related_representative": "US:GDX",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "금광산 업종 노출 안에서 요인을 적용한 상품으로 GDX 보조 처리한다. 범시장 팩터 ETF와 구분한다."
+    },
+    {
+      "id": "US:GII",
+      "symbol": "GII",
+      "name": "State Street SPDR S&P Global Infrastructure ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "인프라",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "GII",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/GII",
+      "classification_sources": [
+        {
+          "url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-global-infrastructure-etf-gii",
+          "evidence": "S&P Global Infrastructure Index의 선진국·신흥국 운송·유틸리티·에너지 인프라 기업을 대상으로 한다."
+        }
+      ],
+      "review_note": "복합 글로벌 인프라 대표. TOLZ는 보조, EMIF는 신흥국 하위 관측으로 구분하며 총 업종 집계 시 중복을 조정한다.",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "복합 글로벌 인프라 대표. TOLZ는 보조, EMIF는 신흥국 하위 관측으로 구분하며 총 업종 집계 시 중복을 조정한다."
+    },
+    {
+      "id": "US:SIL",
+      "symbol": "SIL",
+      "name": "Global X Silver Miners ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "은광산",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "SIL",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/SIL",
+      "classification_sources": [
+        {
+          "url": "https://www.globalxetfs.com/funds/sil/",
+          "evidence": "Solactive Global Silver Miners Total Return Index를 통한 글로벌 은광산 기업 투자를 명시한다."
+        }
+      ],
+      "review_note": "은광산 대표로 고정하고 SLVP·SILJ는 구성과 규모가 다른 보조로 둔다.",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "은광산 대표로 고정하고 SLVP·SILJ는 구성과 규모가 다른 보조로 둔다."
+    },
+    {
+      "id": "US:ITA",
+      "symbol": "ITA",
+      "name": "iShares US Aerospace & Defense ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "방산",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "ITA",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/ITA",
+      "classification_sources": [
+        {
+          "url": "https://www.ishares.com/us/products/239502/ishares-us-aerospace-defense-etf",
+          "evidence": "미국 항공우주·방산 기업의 Dow Jones U.S. Select Aerospace & Defense Index 추종을 명시한다."
+        },
+        {
+          "url": "https://www.ishares.com/us/literature/sai/sai-ishares-trust-3-31.pdf",
+          "evidence": "2026-10-05 보충자료: ITA 3:1 분할, 기준일 2026-11-03, 지급일 2026-11-04 장 마감 후, 분할 반영 거래일 2026-11-05."
+        }
+      ],
+      "review_note": "기존 XAR 대표를 유지하는 보조. 공식 2026-10-05 SAI 보충자료는 2026-11-05부터 적용되는 3:1 분할을 공지하므로 해당 시점 가격 조정에 별도 반영해야 한다.",
+      "related_representative": "US:XAR",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "기존 XAR 대표를 유지하는 보조. 공식 2026-10-05 SAI 보충자료는 2026-11-05부터 적용되는 3:1 분할을 공지하므로 해당 시점 가격 조정에 별도 반영해야 한다."
+    },
+    {
+      "id": "US:TOLZ",
+      "symbol": "TOLZ",
+      "name": "ProShares DJ Brookfield Global Infrastructure ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "인프라",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "TOLZ.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/TOLZ.K",
+      "classification_sources": [
+        {
+          "url": "https://www.proshares.com/our-etfs/strategic/tolz",
+          "evidence": "글로벌 인프라 자산 소유·운영 기업에 집중하며 도로·공항·통신탑 등 실물 인프라 노출을 설명한다."
+        }
+      ],
+      "review_note": "운용사가 ProShares여도 이 상품은 레버리지/인버스가 아닌 일반 인프라 ETF이다. GII 보조이며 구성 차이는 표시한다.",
+      "related_representative": "US:GII",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "운용사가 ProShares여도 이 상품은 레버리지/인버스가 아닌 일반 인프라 ETF이다. GII 보조이며 구성 차이는 표시한다."
+    },
+    {
+      "id": "US:GDX",
+      "symbol": "GDX",
+      "name": "VanEck Gold Miners ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "금광산",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "GDX",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/GDX",
+      "classification_sources": [
+        {
+          "url": "https://www.vaneck.com/us/en/investments/gold-miners-etf-gdx/",
+          "evidence": "MarketVector Global Gold Miners Index의 글로벌 금광산 기업을 추종한다고 명시한다."
+        }
+      ],
+      "review_note": "금광산 대표로 고정하고 GDXJ·SGDM은 보조로 둔다. 금 현물 ETF와 구분한다.",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "금광산 대표로 고정하고 GDXJ·SGDM은 보조로 둔다. 금 현물 ETF와 구분한다."
+    },
+    {
+      "id": "US:GDXJ",
+      "symbol": "GDXJ",
+      "name": "VanEck Junior Gold Miners ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "금광산",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "GDXJ.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/GDXJ.K",
+      "classification_sources": [
+        {
+          "url": "https://www.vaneck.com/us/en/investments/junior-gold-miners-etf-gdxj/",
+          "evidence": "MVIS Global Junior Gold Miners Index는 소형 글로벌 금·은광산 기업에 투자한다."
+        }
+      ],
+      "review_note": "주니어 광산 특성과 은광산 일부 노출을 명시하되 GDX와 별개 업종 수로 중복 집계하지 않는다.",
+      "related_representative": "US:GDX",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "주니어 광산 특성과 은광산 일부 노출을 명시하되 GDX와 별개 업종 수로 중복 집계하지 않는다."
+    },
+    {
+      "id": "US:PBJ",
+      "symbol": "PBJ",
+      "name": "Invesco Food & Beverage ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "음식료",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "PBJ",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/PBJ",
+      "classification_sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1209466/000119312526372139/d177078d497k.htm",
+          "evidence": "2026-08-28 공식 요약투자설명서의 Dynamic Food & Beverage Intellidex는 미국 음식료 관련 30개 기업의 보통주를 대상으로 한다."
+        }
+      ],
+      "review_note": "미국 음식료 세부 업종으로 추가한다. 제조뿐 아니라 유통·식료품점·음식점까지 포함하는 범위 차이를 표시한다.",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "미국 음식료 세부 업종으로 추가한다. 제조뿐 아니라 유통·식료품점·음식점까지 포함하는 범위 차이를 표시한다."
+    },
+    {
+      "id": "US:PPA",
+      "symbol": "PPA",
+      "name": "Invesco Aerospace & Defense ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "방산",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "PPA",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/PPA",
+      "classification_sources": [
+        {
+          "url": "https://www.invesco.com/us/en/solutions/invesco-etfs/capitalize-on-emerging-investing-trends.html",
+          "evidence": "운용사는 PPA가 SPADE Defense Index를 추종하며 미국 방위·국토안보·항공우주 관련 기업을 대상으로 한다고 설명한다."
+        }
+      ],
+      "review_note": "기존 XAR 대표의 보조. ITA와 함께 별도 방산 업종으로 중복 집계하지 않는다.",
+      "related_representative": "US:XAR",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "기존 XAR 대표의 보조. ITA와 함께 별도 방산 업종으로 중복 집계하지 않는다."
+    },
+    {
+      "id": "US:FAN",
+      "symbol": "FAN",
+      "name": "First Trust Global Wind Energy ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "풍력",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "FAN",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/FAN",
+      "classification_sources": [
+        {
+          "url": "https://www.ftportfolios.com/Retail/etf/etfsummary.aspx?Ticker=FAN",
+          "evidence": "ISE Clean Edge Global Wind Energy Index는 전 세계 풍력발전 운영·설비·부품·소재 관련 기업을 대상으로 한다."
+        }
+      ],
+      "review_note": "클린에너지 아래 세부 풍력 테마로 관측한다. ICLN과 구성 중첩이 가능하므로 포괄 업종 집계에서는 계층을 구분한다.",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "클린에너지 아래 세부 풍력 테마로 관측한다. ICLN과 구성 중첩이 가능하므로 포괄 업종 집계에서는 계층을 구분한다."
+    },
+    {
+      "id": "US:XLU",
+      "symbol": "XLU",
+      "name": "State Street Utilities Select Sector SPDR ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "sector",
+      "group": "유틸리티",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XLU",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XLU",
+      "issuer_quote_url": "https://www.ssga.com/mainfund/XLU",
+      "classification_source": "https://www.ssga.com/mainfund/XLU",
+      "classification_reason": null
+    },
+    {
+      "id": "US:XAR",
+      "symbol": "XAR",
+      "name": "State Street SPDR S&P Aerospace & Defense ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "industry",
+      "group": "방산",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XAR",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XAR",
+      "issuer_quote_url": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-aerospace-defense-etf-xar",
+      "classification_source": "https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-aerospace-defense-etf-xar",
+      "classification_reason": null
+    },
+    {
+      "id": "US:UFO",
+      "symbol": "UFO",
+      "name": "Procure Space ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "우주",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "UFO.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/UFO.O",
+      "classification_sources": [
+        {
+          "url": "https://procureetfs.com/ufo/",
+          "evidence": "Procure Space ETF의 우주 산업 기업 투자목적과 관련 기초지수 추종을 확인했다."
+        },
+        {
+          "url": "https://www.procureetfs.com/insights-blogs/empowering-the-space-industry-to-protect-our-planet/",
+          "evidence": "운용사 설명은 UFO를 글로벌 우주 기업에 투자하는 ETF라고 명시한다."
+        }
+      ],
+      "review_note": "미국 국내 방산 전체와 구분되는 글로벌 우주 테마. 위성·통신 등의 비중 차이가 있어 XAR와 동일 업종으로 취급하지 않는다.",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "미국 국내 방산 전체와 구분되는 글로벌 우주 테마. 위성·통신 등의 비중 차이가 있어 XAR와 동일 업종으로 취급하지 않는다."
+    },
+    {
+      "id": "US:SILJ",
+      "symbol": "SILJ",
+      "name": "Amplify Junior Silver Miners ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "은광산",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "SILJ.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/SILJ.K",
+      "classification_sources": [
+        {
+          "url": "https://amplifyetfs.com/silj/",
+          "evidence": "운용사는 Nasdaq Junior Silver Miners Index의 은 생산·탐사·개발 기업을 통해 글로벌 은 생산에 노출된다고 설명한다."
+        }
+      ],
+      "review_note": "주니어 광산 특성을 별도로 표시하는 SIL 보조. 다른 업종으로 중복 집계하지 않는다.",
+      "related_representative": "US:SIL",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "주니어 광산 특성을 별도로 표시하는 SIL 보조. 다른 업종으로 중복 집계하지 않는다."
+    },
+    {
+      "id": "US:URA",
+      "symbol": "URA",
+      "name": "Global X Uranium ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "원자력",
+      "representative": false,
+      "rank_enabled": true,
+      "classification_status": "issuer_or_prospectus_verified_2026-10-07",
+      "provider_code": "URA",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/URA",
+      "classification_source": "https://www.globalxetfs.com/funds/ura",
+      "classification_evidence": "Solactive Global Uranium & Nuclear Components Total Return Index",
+      "classification_reason": null
+    },
+    {
+      "id": "US:NLR",
+      "symbol": "NLR",
+      "name": "VanEck Uranium and Nuclear ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "원자력",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_or_prospectus_verified_2026-10-07",
+      "provider_code": "NLR",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/NLR",
+      "classification_source": "https://www.vaneck.com/us/en/investments/uranium-nuclear-energy-etf-nlr",
+      "classification_evidence": "MVIS Global Uranium & Nuclear Energy Index",
+      "classification_reason": null
+    },
+    {
+      "id": "US:TAN",
+      "symbol": "TAN",
+      "name": "Invesco Solar ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "태양광",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_or_prospectus_verified_2026-10-07",
+      "provider_code": "TAN",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/TAN",
+      "classification_source": "https://www.sec.gov/Archives/edgar/data/1378872/000110465926076363/tm2618074d1_497k.htm",
+      "classification_evidence": "MAC Global Solar Energy Index",
+      "classification_reason": null
+    },
+    {
+      "id": "US:CHIQ",
+      "symbol": "CHIQ",
+      "name": "Global X MSCI China Consumer Discretionary ETF",
+      "market": "US",
+      "scope": "COUNTRY",
+      "kind": "country",
+      "group": "중국경기소비재",
+      "representative": false,
+      "rank_enabled": false,
+      "classification_status": "verified_issuer",
+      "provider_code": "CHIQ.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/CHIQ.K",
+      "classification_sources": [
+        {
+          "url": "https://www.globalxetfs.com/funds/chiq/",
+          "evidence": "MSCI China Consumer Discretionary 10/50 Index의 중국 경기소비재 대형·중형 기업에 투자한다."
+        }
+      ],
+      "review_note": "중국 단일 국가 업종으로 미국 국내 또는 글로벌 테마 순위에 포함하지 않는다. 가격관찰 대상은 유지한다.",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "중국 단일 국가 업종으로 미국 국내 또는 글로벌 테마 순위에 포함하지 않는다. 가격관찰 대상은 유지한다."
+    },
+    {
+      "id": "US:REMX",
+      "symbol": "REMX",
+      "name": "VanEck Rare Earth and Strategic Metals ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "희토류·전략금속",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "verified_issuer",
+      "provider_code": "REMX.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/REMX.K",
+      "classification_sources": [
+        {
+          "url": "https://www.vaneck.com/us/en/investments/rare-earth-strategic-metals-etf-remx/",
+          "evidence": "MVIS Global Rare Earth/Strategic Metals Index는 세계 희토류·전략금속 생산·정제·재활용 기업을 포함한다."
+        }
+      ],
+      "review_note": "리튬 관련 기업 등도 포함하므로 순수 희토류 ETF로 소개하지 않는다. LIT와 부분 중첩하지만 별도 금속 공급망 테마로 관측한다.",
+      "classification_reviewed_at": "2026-10-11",
+      "classification_reason": "리튬 관련 기업 등도 포함하므로 순수 희토류 ETF로 소개하지 않는다. LIT와 부분 중첩하지만 별도 금속 공급망 테마로 관측한다."
+    },
+    {
+      "id": "US:XLC",
+      "symbol": "XLC",
+      "name": "State Street Com Svc Sel Sec SPDR ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "sector",
+      "group": "통신서비스",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XLC",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XLC",
+      "issuer_quote_url": "https://www.ssga.com/mainfund/XLC",
+      "classification_source": "https://www.ssga.com/mainfund/XLC",
+      "classification_reason": null
+    },
+    {
+      "id": "US:XLRE",
+      "symbol": "XLRE",
+      "name": "State Street Real Estate Select Sector SPDR ETF",
+      "market": "US",
+      "scope": "US",
+      "kind": "sector",
+      "group": "부동산",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "issuer_verified_2026-10-07",
+      "provider_code": "XLRE.K",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/XLRE.K",
+      "issuer_quote_url": "https://www.ssga.com/mainfund/XLRE",
+      "classification_source": "https://www.ssga.com/mainfund/XLRE",
+      "classification_reason": null
+    },
+    {
+      "id": "US:BUG",
+      "symbol": "BUG",
+      "name": "Global X Cybersecurity ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "사이버보안",
+      "representative": true,
+      "rank_enabled": true,
+      "classification_status": "reviewed",
+      "provider_code": "BUG.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/BUG.O",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:117680",
+      "symbol": "117680",
+      "name": "KODEX 철강",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "철강",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "117680",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF23",
+      "classification_sources": [
+        {
+          "url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF23",
+          "evidence": "국내 철강 주식으로 구성된 KRX 철강 지수 추종"
+        },
+        {
+          "url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF23.do",
+          "evidence": "info.product의 stkTicker·typeLnm·기초지수·상장일 직접 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2009-10-30",
+      "issuer_fund_id": "2ETF23",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF23.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=117680",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:140710",
+      "symbol": "140710",
+      "name": "KODEX 운송",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "운송물류",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "140710",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF30",
+      "classification_sources": [
+        {
+          "url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF30",
+          "evidence": "국내 항공·해운·육상운송 등 KRX 운송 업종 지수 추종"
+        },
+        {
+          "url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF30.do",
+          "evidence": "info.product의 stkTicker·typeLnm·기초지수·상장일 직접 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2011-04-26",
+      "issuer_fund_id": "2ETF30",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF30.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=140710",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:102960",
+      "symbol": "102960",
+      "name": "KODEX 기계장비",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "기계장비",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "102960",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF16",
+      "classification_sources": [
+        {
+          "url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF16",
+          "evidence": "국내 기계장비·자본재 주식으로 구성된 KRX 기계장비 지수 추종"
+        },
+        {
+          "url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF16.do",
+          "evidence": "info.product의 stkTicker·typeLnm·기초지수·상장일 직접 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2008-05-29",
+      "issuer_fund_id": "2ETF16",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF16.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=102960",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:266390",
+      "symbol": "266390",
+      "name": "KODEX 경기소비재",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "경기소비재",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "266390",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF79",
+      "classification_sources": [
+        {
+          "url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF79",
+          "evidence": "국내 내구소비재·의류·소비자서비스·소매업 등을 포괄하는 KRX 경기소비재 지수 추종"
+        },
+        {
+          "url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF79.do",
+          "evidence": "info.product의 stkTicker·typeLnm·기초지수·상장일 직접 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2017-03-28",
+      "issuer_fund_id": "2ETF79",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF79.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=266390",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:266410",
+      "symbol": "266410",
+      "name": "KODEX 필수소비재",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "생활소비재",
+      "representative": false,
+      "rank_enabled": true,
+      "provider_code": "266410",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF80",
+      "classification_sources": [
+        {
+          "url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF80",
+          "evidence": "국내 KRX 필수소비재 지수 추종; 기존 TIGER 200 생활소비재의 보조 관찰"
+        },
+        {
+          "url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF80.do",
+          "evidence": "info.product의 stkTicker·typeLnm·기초지수·상장일 직접 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2017-03-28",
+      "issuer_fund_id": "2ETF80",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF80.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=266410",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:266370",
+      "symbol": "266370",
+      "name": "KODEX IT",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "IT",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "266370",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF82",
+      "classification_sources": [
+        {
+          "url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF82",
+          "evidence": "국내 전기전자·IT하드웨어·반도체를 포괄하는 KRX 정보기술 지수 추종"
+        },
+        {
+          "url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF82.do",
+          "evidence": "info.product의 stkTicker·typeLnm·기초지수·상장일 직접 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2017-03-28",
+      "issuer_fund_id": "2ETF82",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF82.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=266370",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:266420",
+      "symbol": "266420",
+      "name": "KODEX 헬스케어",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "헬스케어",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "266420",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF78",
+      "classification_sources": [
+        {
+          "url": "https://www.samsungfund.com/etf/product/view.do?id=2ETF78",
+          "evidence": "국내 제약·바이오·의료 관련 주식을 포괄하는 KRX 헬스케어 지수 추종"
+        },
+        {
+          "url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF78.do",
+          "evidence": "info.product의 stkTicker·typeLnm·기초지수·상장일 직접 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2017-03-28",
+      "issuer_fund_id": "2ETF78",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETF78.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=266420",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:395150",
+      "symbol": "395150",
+      "name": "KODEX 웹툰&드라마",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "웹툰드라마",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "395150",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.samsungfund.com/etf/product/view.do?id=2ETFF1",
+      "classification_sources": [
+        {
+          "url": "https://www.samsungfund.com/etf/product/view.do?id=2ETFF1",
+          "evidence": "국내 유가증권·코스닥 웹툰·드라마 관련 주식의 FnGuide 지수 추종"
+        },
+        {
+          "url": "https://www.samsungfund.com/api/v1/kodex/product/2ETFF1.do",
+          "evidence": "info.product의 stkTicker·typeLnm·기초지수·상장일 직접 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2021-07-30",
+      "issuer_fund_id": "2ETFF1",
+      "issuer_quote_url": "https://www.samsungfund.com/api/v1/kodex/product/2ETFF1.do",
+      "issuer_identity_source": "https://www.samsungfund.com/api/v1/kodex/product.do?ordrColm=NAV&ordrSort=DESC&pageNo=1&srchTerm=w&srchVal=395150",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:0209D0",
+      "symbol": "0209D0",
+      "name": "KODEX 전고체배터리ESS TOP2플러스",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "전고체배터리ESS",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "0209D0",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.samsungfund.com/etf/insight/newsroom/view.do?seq=76973",
+      "classification_sources": [
+        {
+          "url": "https://www.samsungfund.com/etf/insight/newsroom/view.do?seq=76973",
+          "evidence": "운용사 신규상장 공지에서 0209D0와 2026-06-23 상장 확인; 삼성SDI·LG에너지솔루션 중심 전고체배터리 및 ESS 결합 노출"
+        },
+        {
+          "url": "https://www.samsungfund.com/etf/main.do",
+          "evidence": "K-배터리 TOP2로 삼성SDI·LG에너지솔루션 집중 투자를 설명"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2026-06-23",
+      "exposure_note": "전고체배터리와 ESS 결합형; ESS 단독 강도를 뜻하지 않음",
+      "listing_date": "2026-06-23",
+      "listing_verified": true,
+      "listing_source_url": "https://www.samsungfund.com/etf/insight/newsroom/view.do?seq=76973",
+      "classification_reason": "전고체배터리와 ESS 결합형; ESS 단독 강도를 뜻하지 않음"
+    },
+    {
+      "id": "KR:471990",
+      "symbol": "471990",
+      "name": "KODEX AI반도체핵심장비",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "AI반도체공정",
+      "representative": false,
+      "rank_enabled": true,
+      "provider_code": "471990",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.samsungfund.com/upload/kodex/newsroom/20260515152133113.pdf",
+      "classification_sources": [
+        {
+          "url": "https://www.samsungfund.com/upload/kodex/newsroom/20260515152133113.pdf",
+          "evidence": "국내 AI반도체 전공정·후공정·검사 장비 기업 투자; 기존 AI반도체핵심공정 대표의 보조로 분류"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2023-11-21",
+      "exposure_note": "기판 전용 ETF 아님; 반도체 장비·공정 보조 관찰",
+      "classification_reason": "기판 전용 ETF 아님; 반도체 장비·공정 보조 관찰"
+    },
+    {
+      "id": "KR:329200",
+      "symbol": "329200",
+      "name": "TIGER 리츠부동산인프라",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "리츠부동산인프라",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "329200",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://investments.miraeasset.com/tigeretf/ko/product/search/detail/index.do?ksdFund=KR7329200000",
+      "classification_sources": [
+        {
+          "url": "https://investments.miraeasset.com/tigeretf/ko/product/search/detail/index.do?ksdFund=KR7329200000",
+          "evidence": "국내 상장 리츠·부동산 및 인프라 지분 투자; 채권혼합 상품 341850·0086C0과 구분"
+        },
+        {
+          "url": "https://kind.krx.co.kr/disclosure/etfisudetail.do?method=searchEtfIsuSummary&strIsurCd=32920",
+          "evidence": "거래소 상품명 TIGER 리츠부동산인프라, 종목코드 329200 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2019-07-19",
+      "exposure_note": "국내 리츠·인프라 지분; 일반 기업주식과 자산 성격이 다름",
+      "classification_reason": "국내 리츠·인프라 지분; 일반 기업주식과 자산 성격이 다름"
+    },
+    {
+      "id": "KR:315270",
+      "symbol": "315270",
+      "name": "TIGER 200커뮤니케이션서비스",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "커뮤니케이션서비스",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "315270",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://investments.miraeasset.com/tigeretf/ko/pension/sector-country/list.do",
+      "classification_sources": [
+        {
+          "url": "https://investments.miraeasset.com/tigeretf/ko/pension/sector-country/list.do",
+          "evidence": "운용사가 한국 섹터로 분류한 315270; 코스피200 커뮤니케이션서비스 지수 추종"
+        },
+        {
+          "url": "https://www.tigeretf.com/upload/etf/20241108075221005155.pdf",
+          "evidence": "운용사 월간 보고서의 상품 식별과 국내 커뮤니케이션서비스 기초지수 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "exposure_note": "통신사·인터넷·미디어 등이 포함되는 대분류; 순수 통신서비스 ETF 아님",
+      "classification_reason": "통신사·인터넷·미디어 등이 포함되는 대분류; 순수 통신서비스 ETF 아님"
+    },
+    {
+      "id": "KR:365000",
+      "symbol": "365000",
+      "name": "TIGER 인터넷TOP10",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "인터넷",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "365000",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.tigeretf.com/ko/insight/hot-etf-introduce/view.do?detailsKey=568&listCnt=6&pageIndex=2&q=",
+      "classification_sources": [
+        {
+          "url": "https://www.tigeretf.com/ko/insight/hot-etf-introduce/view.do?detailsKey=568&listCnt=6&pageIndex=2&q=",
+          "evidence": "운용사가 대한민국 인터넷 산업 대표 10개 기업 투자로 설명; ETF 코드 365000은 현재 공개 목록과 교차 확인"
+        },
+        {
+          "url": "https://develop.investments.miraeasset.com/tigeretf/ko/pension/innovative-growth-theme/list.do",
+          "evidence": "TIGER 인터넷TOP10 종목코드 365000 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:322400",
+      "symbol": "322400",
+      "name": "HANARO e커머스",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "e커머스",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "322400",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.hanaroetf.com/fund/5CD1DD359516432B",
+      "classification_sources": [
+        {
+          "url": "https://www.hanaroetf.com/fund/5CD1DD359516432B",
+          "evidence": "국내 e커머스 관련 주식 FnGuide E커머스 지수 추종"
+        },
+        {
+          "url": "https://kind.krx.co.kr/disclosure/etfisudetail.do?method=searchEtfIsuSummary&strIsurCd=32240",
+          "evidence": "국내 주식을 주된 투자대상으로 명시"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "exposure_note": "유통 전반을 대표하지 않는 e커머스 테마",
+      "classification_reason": "유통 전반을 대표하지 않는 e커머스 테마"
+    },
+    {
+      "id": "KR:314700",
+      "symbol": "314700",
+      "name": "HANARO 농업융복합산업",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "농업융복합",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "314700",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.hanaroetf.com/fund/07EE61EDFBEC4ECB",
+      "classification_sources": [
+        {
+          "url": "https://www.hanaroetf.com/fund/07EE61EDFBEC4ECB",
+          "evidence": "FnGuide 농업융복합산업 지수 추종; 국내 상장 농식품·비료·유관 사업 기업 보유 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2018-12-21",
+      "exposure_note": "식품·화학·지주회사 등을 포함; 농산물 가격 직접 투자와 다름",
+      "classification_reason": "식품·화학·지주회사 등을 포함; 농산물 가격 직접 투자와 다름"
+    },
+    {
+      "id": "KR:454320",
+      "symbol": "454320",
+      "name": "HANARO CAPEX설비투자iSelect",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "CAPEX설비투자",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "454320",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.hanaroetf.com/fund/045134E6E3534476",
+      "classification_sources": [
+        {
+          "url": "https://www.hanaroetf.com/fund/045134E6E3534476",
+          "evidence": "국내 전력 인프라·풍력·원자력·공장·건축 등 설비투자 관련 기업 투자"
+        },
+        {
+          "url": "https://www.hanaroetf.com/investment/insight/7gA8Me4x6uLLxh97",
+          "evidence": "전력 인프라·풍력·원자력·공장·건축 CAPEX 산업 노출 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "exposure_note": "산업재·전력 관련 복합 테마; 순수 유틸리티 ETF 아님",
+      "classification_reason": "산업재·전력 관련 복합 테마; 순수 유틸리티 ETF 아님"
+    },
+    {
+      "id": "KR:367770",
+      "symbol": "367770",
+      "name": "RISE 수소경제테마",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "수소경제",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "367770",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.riseetf.co.kr/prod/finderDetail/44A8",
+      "classification_sources": [
+        {
+          "url": "https://www.riseetf.co.kr/prod/finderDetail/44A8",
+          "evidence": "코스피·코스닥 상장 수소 밸류체인 핵심기업에 투자한다고 명시"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:446700",
+      "symbol": "446700",
+      "name": "RISE 배터리 리사이클링",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "배터리리사이클링",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "446700",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.riseetf.co.kr/prod/finderDetail/44D7",
+      "classification_sources": [
+        {
+          "url": "https://www.riseetf.co.kr/prod/finderDetail/44D7",
+          "evidence": "국내 배터리 재활용 산업 핵심기업으로 구성된 iSelect 배터리 리사이클링 지수 추종"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2022-11-01",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:0141S0",
+      "symbol": "0141S0",
+      "name": "SOL 조선기자재",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "조선기자재",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "0141S0",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.soletf.com/ko/fund/etf/211101",
+      "classification_sources": [
+        {
+          "url": "https://www.soletf.com/ko/fund/etf/211101",
+          "evidence": "국내 유가증권·코스닥 조선기자재 밸류체인 기업으로 구성된 FnGuide 조선기자재 지수 추종"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:464600",
+      "symbol": "464600",
+      "name": "SOL 자동차소부장Fn",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "industry",
+      "group": "자동차소부장",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "464600",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.soletf.com/ko/fund/etf/211016?tabIndex=1",
+      "classification_sources": [
+        {
+          "url": "https://www.soletf.com/ko/fund/etf/211016?tabIndex=1",
+          "evidence": "국내 유가증권·코스닥 자동차 소부장 연관 기업 상위 20종목 지수 추종"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "classification_reason": null
+    },
+    {
+      "id": "KR:0150K0",
+      "symbol": "0150K0",
+      "name": "KoAct 수소전력ESS인프라액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "수소전력ESS",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "0150K0",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.samsungactive.co.kr/etf/view.do?id=2ETFT9",
+      "classification_sources": [
+        {
+          "url": "https://www.samsungactive.co.kr/etf/view.do?id=2ETFT9",
+          "evidence": "국내 유가증권·코스닥 수소발전설비 및 ESS 기업을 담는 FnGuide 수소전력ESS인프라 비교지수 기반 액티브 운용"
+        },
+        {
+          "url": "https://www.samsungactive.co.kr/sheet/20260407/2ETFT9_20260331.pdf",
+          "evidence": "신탁재산 60% 이상 국내 상장 수소발전설비·ESS 기업 투자 명시"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "exposure_note": "수소발전설비와 ESS 결합형; ESS 단독 강도를 뜻하지 않음",
+      "classification_reason": "수소발전설비와 ESS 결합형; ESS 단독 강도를 뜻하지 않음"
+    },
+    {
+      "id": "KR:0219B0",
+      "symbol": "0219B0",
+      "name": "KoAct 광통신&위성네트워크액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "theme",
+      "group": "광통신위성네트워크",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "0219B0",
+      "classification_status": "issuer_verified_2026-10-11",
+      "identity_url": "https://www.samsungactive.co.kr/etf/view.do?id=2ETFV4",
+      "classification_sources": [
+        {
+          "url": "https://www.samsungactive.co.kr/etf/view.do?id=2ETFV4",
+          "evidence": "운용사가 국내주식 전략/테마로 분류; 광통신과 저궤도위성 네트워크 기업에 투자"
+        },
+        {
+          "url": "https://www.samsungactive.co.kr/insight/koactmedia/shorts-view.do?seqn=182",
+          "evidence": "2026-07-14 신규 상장 확인"
+        }
+      ],
+      "reviewed_at": "2026-10-11",
+      "inception_date": "2026-07-14",
+      "exposure_note": "광통신과 위성 복합 노출; 기판 전용 ETF 아님",
+      "listing_date": "2026-07-14",
+      "listing_verified": true,
+      "listing_source_url": "https://www.samsungactive.co.kr/insight/koactmedia/shorts-view.do?seqn=182",
+      "classification_reason": "광통신과 위성 복합 노출; 기판 전용 ETF 아님"
+    },
+    {
+      "id": "US:DTCR",
+      "symbol": "DTCR",
+      "name": "Global X Data Center & Digital Infrastructure ETF",
+      "market": "US",
+      "scope": "GLOBAL",
+      "kind": "theme",
+      "group": "데이터센터·디지털인프라",
+      "representative": true,
+      "rank_enabled": true,
+      "provider_code": "DTCR.O",
+      "identity_url": "https://m.stock.naver.com/worldstock/etf/DTCR.O",
+      "classification_status": "verified_issuer",
+      "classification_sources": [
+        {
+          "url": "https://www.globalxetfs.com/funds/dtcr",
+          "evidence": "운용사는 데이터센터 및 디지털인프라 기업에 투자하며 지리적 제한을 두지 않는다고 설명. 2026-10-09 구성에 미국 DLR/EQIX와 싱가포르 KEPPEL DC REIT, 호주 NEXTDC 포함. 미국 국내업종이 아닌 글로벌 테마로 분류."
+        }
+      ],
+      "review_note": "클라우드 소프트웨어 SKYY 및 전력망 GRID와 다른 데이터센터 운영·통신타워·디지털인프라 노출. 통신타워 포함으로 순수 데이터센터 ETF로 해석하지 않음.",
+      "classification_reviewed_at": "2026-10-11",
+      "provider_identity_verified_at": "2026-10-11",
+      "provider_identity_source": "https://api.stock.naver.com/stock/DTCR.O/basic",
+      "inception_date": "2020-10-27",
+      "classification_reason": "클라우드 소프트웨어 SKYY 및 전력망 GRID와 다른 데이터센터 운영·통신타워·디지털인프라 노출. 통신타워 포함으로 순수 데이터센터 ETF로 해석하지 않음."
+    }
+  ],
+  "benchmarks": {
+    "KR": {
+      "id": "KR:KOSPI",
+      "symbol": "KOSPI",
+      "provider_code": "KOSPI"
+    },
+    "US": {
+      "id": "US:SPY",
+      "symbol": "SPY",
+      "provider_code": "SPY"
+    }
+  },
+  "verified_split_events": [
+    {
+      "id": "US:XLK",
+      "effective_date": "2025-12-05",
+      "new_shares_per_old_share": 2,
+      "source": "https://investors.statestreet.com/investor-news-events/press-releases/news-details/2025/State-Street-Investment-Management-Announces-Share-Splits-for-Five-Select-Sector-SPDR-ETFs/default.aspx",
+      "verified_at": "2026-10-07"
+    },
+    {
+      "id": "US:XLY",
+      "effective_date": "2025-12-05",
+      "new_shares_per_old_share": 2,
+      "source": "https://investors.statestreet.com/investor-news-events/press-releases/news-details/2025/State-Street-Investment-Management-Announces-Share-Splits-for-Five-Select-Sector-SPDR-ETFs/default.aspx",
+      "verified_at": "2026-10-07"
+    },
+    {
+      "id": "US:XLE",
+      "effective_date": "2025-12-05",
+      "new_shares_per_old_share": 2,
+      "source": "https://investors.statestreet.com/investor-news-events/press-releases/news-details/2025/State-Street-Investment-Management-Announces-Share-Splits-for-Five-Select-Sector-SPDR-ETFs/default.aspx",
+      "verified_at": "2026-10-07"
+    },
+    {
+      "id": "US:XLU",
+      "effective_date": "2025-12-05",
+      "new_shares_per_old_share": 2,
+      "source": "https://investors.statestreet.com/investor-news-events/press-releases/news-details/2025/State-Street-Investment-Management-Announces-Share-Splits-for-Five-Select-Sector-SPDR-ETFs/default.aspx",
+      "verified_at": "2026-10-07"
+    },
+    {
+      "id": "US:XLB",
+      "effective_date": "2025-12-05",
+      "new_shares_per_old_share": 2,
+      "source": "https://investors.statestreet.com/investor-news-events/press-releases/news-details/2025/State-Street-Investment-Management-Announces-Share-Splits-for-Five-Select-Sector-SPDR-ETFs/default.aspx",
+      "verified_at": "2026-10-07"
+    },
+    {
+      "id": "US:SOXX",
+      "effective_date": "2026-11-05",
+      "new_shares_per_old_share": 3,
+      "source": "https://www.ishares.com/us/literature/sai/sai-ishares-trust-3-31.pdf",
+      "verified_at": "2026-10-11",
+      "note": "공식 운용사 SAI 공시의 예정 분할; 해당 거래일 이후 가격이 존재할 때만 조정 검토"
+    },
+    {
+      "id": "US:ITA",
+      "effective_date": "2026-11-05",
+      "new_shares_per_old_share": 3,
+      "source": "https://www.ishares.com/us/literature/sai/sai-ishares-trust-3-31.pdf",
+      "verified_at": "2026-10-11",
+      "note": "공식 운용사 SAI 공시의 예정 분할; 해당 거래일 이후 가격이 존재할 때만 조정 검토"
+    }
+  ],
+  "changed_at": "2026-10-11",
+  "expanded_at": "2026-10-11",
+  "change_reason": "미국 기존 관찰 67개 공식 분류 완료 및 데이터센터 ETF 추가; 한국 누락 산업·테마 22개 추가. 기존 대표 유지, v3 동일 대상집합으로 과거 순위를 재계산.",
+  "coverage_note": "한국 60개·미국 상장 104개 등록. 미국 국내·글로벌 업종/테마와 국가·스타일 제외군 분리. 대표와 보조의 구성 중첩이 있어 ETF 수를 독립 산업 수로 합산하지 않습니다.",
+  "catalog_note": "한국 전체 상장 ETF 공개 목록은 후보 발견용입니다. 상품명 필터 후보를 운용사 검증 없이 자동 순위 편입하지 않습니다.",
+  "catalog": {
+    "path": "kr_catalog.json",
+    "source_url": "https://finance.naver.com/api/sise/etfItemList.nhn"
+  }
+}

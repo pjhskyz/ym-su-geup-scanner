@@ -11,6 +11,7 @@ on:
       - 'build_etf_data.py'
       - 'test_etf_data.py'
       - 'etf_pipeline/**'
+      - '!etf_pipeline/kr_catalog.json'
       - '.github/workflows/etf.yml'
 
 permissions:
@@ -42,22 +43,27 @@ jobs:
           restore-keys: etf-prices-v1-
       - name: Validate calculation rules
         run: python -m unittest test_etf_data
+      - name: Refresh Korea ETF discovery catalog
+        continue-on-error: true
+        run: python -u etf_pipeline/collect_kr_catalog.py --output etf_pipeline/kr_catalog.json --universe etf_pipeline/universe.json
       - name: Collect completed sessions and calculate ETF signals
         run: python -u build_etf_data.py --output etf_data.json
-      - name: Publish ETF data only
+      - name: Publish ETF data and discovery catalog only
         run: |
           python -c "import json; d=json.load(open('etf_data.json')); assert d['schema_version'] and d['expected_dates'] and isinstance(d['rows'],list)"
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           etf_generated_dir=$(mktemp -d "$RUNNER_TEMP/etf-data.XXXXXX")
           cp etf_data.json "$etf_generated_dir/etf_data.json"
+          cp etf_pipeline/kr_catalog.json "$etf_generated_dir/kr_catalog.json"
           for attempt in 1 2 3 4 5; do
-            git add etf_data.json
+            git add etf_data.json etf_pipeline/kr_catalog.json
             if git diff --staged --quiet; then exit 0; fi
             git commit -m 'data: refresh ETF sector signals'
             if git push; then exit 0; fi
             git fetch origin main
             git reset --hard origin/main
             cp "$etf_generated_dir/etf_data.json" etf_data.json
+            cp "$etf_generated_dir/kr_catalog.json" etf_pipeline/kr_catalog.json
           done
           exit 1
