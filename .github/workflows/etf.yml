@@ -10,6 +10,9 @@ on:
     paths:
       - 'build_etf_data.py'
       - 'test_etf_data.py'
+      - 'build_holdings_data.py'
+      - 'test_holdings*.py'
+      - 'holdings_pipeline/**/*.py'
       - 'etf_pipeline/**'
       - '!etf_pipeline/kr_catalog.json'
       - '.github/workflows/etf.yml'
@@ -42,22 +45,27 @@ jobs:
           key: etf-prices-v1-${{ github.run_id }}
           restore-keys: etf-prices-v1-
       - name: Validate calculation rules
-        run: python -m unittest test_etf_data
+        run: python -m unittest test_etf_data test_holdings_data test_holdings_naver test_holdings_issuers test_holdings_integration
       - name: Refresh Korea ETF discovery catalog
         continue-on-error: true
         run: python -u etf_pipeline/collect_kr_catalog.py --output etf_pipeline/kr_catalog.json --universe etf_pipeline/universe.json
       - name: Collect completed sessions and calculate ETF signals
         run: python -u build_etf_data.py --output etf_data.json
-      - name: Publish ETF data and discovery catalog only
+      - name: Collect dated ETF holdings and compare constituents
+        run: python -u build_holdings_data.py --output holdings_data.json
+      - name: Publish ETF prices, holdings and dated history
         run: |
           python -c "import json; d=json.load(open('etf_data.json')); assert d['schema_version'] and d['expected_dates'] and isinstance(d['rows'],list)"
+          python -c "import json; d=json.load(open('holdings_data.json')); assert d['schema_version']=='etf-holdings-v1' and d['expected_date'] and len(d['funds'])==d['coverage']['registered']"
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           etf_generated_dir=$(mktemp -d "$RUNNER_TEMP/etf-data.XXXXXX")
           cp etf_data.json "$etf_generated_dir/etf_data.json"
           cp etf_pipeline/kr_catalog.json "$etf_generated_dir/kr_catalog.json"
+          cp holdings_data.json "$etf_generated_dir/holdings_data.json"
+          cp -R holdings_pipeline/history "$etf_generated_dir/holdings_history"
           for attempt in 1 2 3 4 5; do
-            git add etf_data.json etf_pipeline/kr_catalog.json
+            git add etf_data.json etf_pipeline/kr_catalog.json holdings_data.json holdings_pipeline/history
             if git diff --staged --quiet; then exit 0; fi
             git commit -m 'data: refresh ETF sector signals'
             if git push; then exit 0; fi
@@ -65,5 +73,7 @@ jobs:
             git reset --hard origin/main
             cp "$etf_generated_dir/etf_data.json" etf_data.json
             cp "$etf_generated_dir/kr_catalog.json" etf_pipeline/kr_catalog.json
+            cp "$etf_generated_dir/holdings_data.json" holdings_data.json
+            cp -R "$etf_generated_dir/holdings_history/." holdings_pipeline/history/
           done
           exit 1
