@@ -113,10 +113,61 @@ test('new and removed events retain separate breadth counts', () => {
   assert.equal(r.new_count, 1); assert.equal(r.removed_count, 1); assert.equal(r.net, 0);
   assert.equal(L.eventLabel('new'), '신규 편입'); assert.equal(L.eventLabel('removed'), '편출');
 });
+const aum = (value, asof = dates.previous_date, overrides = {}) => ({status: 'verified', metric: 'net_assets', currency: 'KRW', value_krw: value, asof, source: '공식 순자산', source_url: 'https://example.com/aum', ...overrides});
+function withAum(id, value, delta = 0.5, extra = {}) {
+  return fund(id, {aum: aum(value, dates.expected_date), daily: {status: 'ready', from_date: dates.previous_date, to_date: dates.expected_date, start_aum: aum(value), changes: [change({delta_weight_pp: delta, event: delta > 0 ? 'increased' : delta < 0 ? 'decreased' : 'unchanged'})]}, ...extra});
+}
+test('reference amounts scale with beginning AUM: 1조 and 300억 at +0.5pp', () => {
+  const result = L.aggregate(dataset([withAum('KR:1', 1e12), withAum('KR:2', 3e10)]));
+  assert.equal(result.rows[0].details[0].amount_delta_krw, 5e9);
+  assert.equal(result.rows[0].details[1].amount_delta_krw, 1.5e8);
+  assert.equal(result.rows[0].amount_delta_krw, 5.15e9);
+  assert.equal(result.rows[0].amount_covered_count, 2);
+  assert.equal(result.rows[0].amount_complete, true);
+});
+test('reference sums include signed decreases and unchanged exposure, use start AUM and respect issuer filter', () => {
+  const a = withAum('KR:1', 1e12, 0.5, {issuer: 'A', aum: aum(8e12, dates.expected_date)});
+  const b = withAum('KR:2', 1e12, -0.8, {issuer: 'B'});
+  const c = withAum('KR:3', 2e12, 0, {issuer: 'A'});
+  const d = dataset([a, b, c]);
+  const result = L.aggregate(d, {minimum: 1}).rows[0];
+  assert.equal(result.amount_delta_krw, -3e9); assert.equal(result.amount_covered_count, 3); assert.equal(result.observed, 3);
+  const filtered = L.aggregate(d, {minimum: 1, issuer: 'A'}).rows[0];
+  assert.equal(filtered.amount_delta_krw, 5e9); assert.equal(filtered.amount_covered_count, 2); assert.equal(filtered.observed, 2);
+});
+test('missing and partial beginning AUM remain explicit and current AUM is never substituted', () => {
+  const missing = fund('KR:1', {aum: aum(1e12, dates.expected_date)}), available = withAum('KR:2', 1e12, 0.5, {aum: null});
+  let row = L.aggregate(dataset([missing, available])).rows[0];
+  assert.equal(row.amount_delta_krw, 5e9); assert.equal(row.amount_covered_count, 1); assert.equal(row.observed, 2); assert.equal(row.amount_complete, false);
+  row = L.aggregate(dataset([missing]), {minimum: 1}).rows[0];
+  assert.equal(row.amount_delta_krw, null); assert.equal(row.details[0].amount_delta_krw, null); assert.equal(row.amount_covered_count, 0);
+});
+test('wrong dates, stale/invalid AUM, market capitalization, non-KRW and non-ready comparisons cannot create amounts', () => {
+  for (const overrides of [{asof: dates.expected_date}, {asof: '2026-02-30'}, {status: 'stale'}, {status: 'unavailable'}, {status: 'undated', asof: null}, {metric: 'market_cap'}, {currency: 'USD'}, {value_krw: 0}, {value_krw: -1}, {value_krw: Infinity}, {value_krw: '1000000000000'}]) {
+    const f = withAum('KR:1', 1e12); f.daily.start_aum = aum(1e12, dates.previous_date, overrides);
+    assert.equal(L.amountDelta(change(), f.daily), null, JSON.stringify(overrides));
+    assert.equal(L.aggregate(dataset([f]), {minimum: 1}).rows[0].amount_delta_krw, null);
+  }
+  const f = withAum('KR:1', 1e12); f.daily.status = 'waiting';
+  assert.equal(L.amountDelta(change(), f.daily), null);
+  assert.equal(L.amountDelta(change({delta_weight_pp: Infinity}), withAum('KR:1', 1e12).daily), null);
+});
+test('amount sorting uses signed sums descending with missing last and keeps average sort as default', () => {
+  const build = (id, code, amount, delta) => {
+    const f = withAum(id, amount, delta); f.daily.changes[0].code = code; return f;
+  };
+  const small = build('KR:1', '000001', 3e10, 0.9), large = build('KR:2', '000002', 1e12, 0.5), missing = fund('KR:3', {daily: {status: 'ready', from_date: dates.previous_date, to_date: dates.expected_date, changes: [change({code: '000003', delta_weight_pp: 1})]}});
+  const negative = build('KR:4', '000004', 3e10, 0.5), offset = build('KR:5', '000004', 1e12, -0.2);
+  const d = dataset([small, large, missing, negative, offset]);
+  assert.deepEqual(L.aggregate(d, {minimum: 1}).rows.map(r => r.code), ['000003', '000001', '000002', '000004']);
+  assert.deepEqual(L.aggregate(d, {minimum: 1, sort: 'amount'}).rows.map(r => r.code), ['000002', '000001', '000004', '000003']);
+});
 test('UI loads once, navigates all tabs, exposes related ETF details, and escapes untrusted source values', async () => {
   const fs = require('node:fs'), vm = require('node:vm');
-  const malicious = '<img src=x onerror=alert(1)>', a = fund('KR:1', {name: malicious, source_url: 'javascript:alert(1)', collection_mode: 'archived_official_response', kind: 'market_active'}), b = fund('KR:2');
+  const malicious = '<img src=x onerror=alert(1)>', a = withAum('KR:1', 1e12, 0.5, {name: malicious, source_url: 'javascript:alert(1)', collection_mode: 'archived_official_response', kind: 'market_active', aum: aum(1e12, dates.expected_date, {source: malicious, source_url: 'javascript:alert(1)'})}), b = fund('KR:2');
+  a.daily.start_aum.resolution_krw = 1e8; a.daily.start_aum.note = '운용사 공시 순자산총액·억원 단위 반올림값';
   const d = dataset([a, b]), handlers = {}, focused = [];
+  d.coverage.aum_current = 1; d.coverage.aum_undated = 1;
   const root = {innerHTML: '', addEventListener: (type, handler) => { handlers[type] = handler; }, querySelector: selector => ({focus: () => focused.push(selector), setSelectionRange: () => {}})};
   const document = {activeElement: null, getElementById: id => id === 'view-holdings' ? root : null};
   let fetchCount = 0, fetchOptions;
@@ -125,14 +176,17 @@ test('UI loads once, navigates all tabs, exposes related ETF details, and escape
   context.window.ETFHoldings.mount(); await new Promise(resolve => setImmediate(resolve));
   assert.equal(fetchOptions.cache, 'no-store'); assert.match(root.innerHTML, /종목별 비중 확대/); assert.match(root.innerHTML, /삼성전자/);
   assert.match(root.innerHTML, /aria-sort="descending">평균 비중 변화/); assert.match(root.innerHTML, /평균 비중 변화가 높은 순/);
+  assert.match(root.innerHTML, /순자산 규모 확인/); assert.match(root.innerHTML, /점검 대상일 AUM 1개 · 기준일 미제공 1개/);
+  assert.match(root.innerHTML, /id="hold-sort"/); assert.match(root.innerHTML, /환산 1\/2 ETF · 부분/); assert.match(root.innerHTML, /\+50억원/);
+  handlers.change({target: {id: 'hold-sort', value: 'amount'}}); assert.match(root.innerHTML, /aria-sort="descending"[^>]*>비중 변화 환산액/); assert.match(root.innerHTML, /환산액이 높은 순/);
   assert.match(root.innerHTML, /id="hold-issuer"/); assert.match(root.innerHTML, /운용사 전체/);
   const click = (selector, dataset) => handlers.click({target: {closest: s => s === selector ? {dataset} : null}});
   click('[data-hold-stock]', {holdStock: '005930'});
   assert.match(root.innerHTML, /삼성전자 · 관련 ETF/); assert.match(root.innerHTML, /&lt;img src=x onerror=alert\(1\)&gt;/); assert.doesNotMatch(root.innerHTML, /href="javascript:/); assert.doesNotMatch(root.innerHTML, /<img/); assert.match(root.innerHTML, /신규 조회 아님/);
-  assert.match(root.innerHTML, /시장 액티브<\/span>/);
+  assert.match(root.innerHTML, /시장 액티브<\/span>/); assert.match(root.innerHTML, /순자산총액 · 기준일/); assert.match(root.innerHTML, /1조원/); assert.match(root.innerHTML, /시작 AUM 1조원 · 2026-10-07/); assert.match(root.innerHTML, /title="운용사 공시 순자산총액·억원 단위 반올림값 · 원천 금액 단위: 100,000,000원"/);
   click('[data-hold-tab]', {holdTab: 'funds'});
   assert.match(root.innerHTML, /확보된 전체 구성종목/); assert.match(root.innerHTML, /구성 기준일/); assert.match(root.innerHTML, /자료 조회일/); assert.match(root.innerHTML, /10\.30%/); assert.doesNotMatch(root.innerHTML, /1030\.00%/);
-  click('[data-hold-tab]', {holdTab: 'coverage'}); assert.match(root.innerHTML, /ETF별 구성 자료 수집 현황/);
+  click('[data-hold-tab]', {holdTab: 'coverage'}); assert.match(root.innerHTML, /ETF별 구성 자료 수집 현황/); assert.match(root.innerHTML, /순자산총액 · 기준일/);
   handlers.keydown({target: {closest: () => ({})}, key: 'Home', preventDefault: () => {}}); assert.match(root.innerHTML, /여러 ETF에서 관측된 비중 확대/);
   context.window.ETFHoldings.mount(); assert.equal(fetchCount, 1);
 });
@@ -144,4 +198,15 @@ test('UI displays history accumulation and collection failure without invented s
   assert.match(root.innerHTML, /비교 이력 축적 중/); assert.doesNotMatch(root.innerHTML, /선택 조건에 맞는 종목이 없습니다/);
   handlers.click({target: {closest: s => s === '[data-hold-tab]' ? {dataset: {holdTab: 'coverage'}} : null}});
   assert.match(root.innerHTML, /수집 실패 · 저장 자료 참고/);
+});
+
+test('baseline ETFs display undated AUM only as a qualified size reference, without reference amounts', async () => {
+  const fs = require('node:fs'), vm = require('node:vm');
+  const f = fund('KR:1', {status: 'baseline_only', aum: aum(3e10, null, {status: 'undated', observed_at: '2026-10-11T13:00:00Z'}), daily: {status: 'waiting', reason: '첫 기준점'}});
+  const handlers = {}, root = {innerHTML: '', addEventListener: (type, handler) => { handlers[type] = handler; }, querySelector: () => ({focus: () => {}})};
+  const context = {window: {HoldingsLogic: L}, document: {activeElement: null, getElementById: () => root}, URL, fetch: async () => ({ok: true, json: async () => dataset([f])})};
+  vm.runInNewContext(fs.readFileSync('./holdings.js', 'utf8'), context); context.window.ETFHoldings.mount(); await new Promise(resolve => setImmediate(resolve));
+  handlers.click({target: {closest: selector => selector === '[data-hold-tab]' ? {dataset: {holdTab: 'funds'}} : null}});
+  assert.match(root.innerHTML, /300억원/); assert.match(root.innerHTML, /기준일 미제공 · 조회 2026-10-11 22:00 KST/); assert.match(root.innerHTML, /참고 규모/);
+  assert.match(root.innerHTML, /첫 기준점/); assert.doesNotMatch(root.innerHTML, /시작 AUM 300억원/);
 });

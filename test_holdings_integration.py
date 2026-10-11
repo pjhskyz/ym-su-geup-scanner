@@ -60,7 +60,53 @@ class HoldingsIntegrationTests(unittest.TestCase):
         return snapshot
 
     def export(self, statuses=None):
-        return build.export(CONFIG, EXPECTED, SESSIONS, statuses or [], history=self.history)
+        return build.export(CONFIG, EXPECTED, SESSIONS, statuses or [], history=self.history,
+                            aum_history=self.history / 'aum')
+
+    def test_aum_never_substitutes_end_date_or_nearby_date_for_start(self):
+        def aum(day, **kwargs):
+            return {'etf_id': ASSET['id'], 'asof': day, 'status': 'verified',
+                    'value_krw': 1_000_000_000_000, 'metric': 'net_assets',
+                    'currency': 'KRW', 'source': 'KODEX',
+                    'observed_at': '2026-10-11T13:00:00+00:00', **kwargs}
+        records = {ASSET['id']: {'KODEX': {
+            '2026-10-08': aum('2026-10-08'),
+            '2026-10-06': aum('2026-10-06'),
+            '2026-10-12': aum('2026-10-12', value_krw=999),
+        }}}
+        current = build.select_aum(records, ASSET['id'], EXPECTED)
+        self.assertEqual(current['asof'], EXPECTED)
+        self.assertEqual(current['status'], 'verified')
+        start = build.select_aum(records, ASSET['id'], '2026-10-07', exact=True)
+        self.assertEqual(start['status'], 'unavailable')
+        self.assertIsNone(start['value_krw'])
+        reference = build.select_aum(records, ASSET['id'], '2026-10-07')
+        self.assertEqual(reference['asof'], '2026-10-06')
+        self.assertEqual(reference['status'], 'stale')
+        for bad in [dict(metric='market_cap'), dict(currency='USD'), dict(status='unavailable'),
+                    dict(value_krw=-1), dict(value_krw=True), dict(value_krw=float('nan')),
+                    dict(etf_id='KR:999999'), dict(asof='2026-10-07')]:
+            invalid = {ASSET['id']: {'KODEX': {EXPECTED: aum(EXPECTED, **bad)}}}
+            self.assertIsNone(build.select_aum(invalid, ASSET['id'], EXPECTED, exact=True)['value_krw'])
+        undated = {ASSET['id']: {'NAVER': {'observed:2026-10-11': aum(None, status='undated')}}}
+        self.assertEqual(build.select_aum(undated, ASSET['id'], EXPECTED)['status'], 'undated')
+        self.assertIsNone(build.select_aum(undated, ASSET['id'], '2026-10-07', exact=True)['value_krw'])
+
+    def test_start_aum_coverage_requires_ready_weights_as_well_as_exact_size(self):
+        self.save(EXPECTED, weight=10.3)
+        self.save('2026-10-07', weight=10.2)
+        aum = {'etf_id': ASSET['id'], 'asof': '2026-10-07', 'status': 'verified',
+               'value_krw': 1_000_000_000_000, 'metric': 'net_assets', 'currency': 'KRW',
+               'source': 'KODEX', 'observed_at': '2026-10-11T13:00:00+00:00'}
+        records = {ASSET['id']: {'KODEX': {'2026-10-07': aum}}}
+        with patch('holdings_pipeline.aum.load_aum_history', return_value=records):
+            result = self.export()
+        fund = result['funds'][0]
+        self.assertEqual(fund['aum']['status'], 'stale')
+        self.assertEqual(fund['daily']['start_aum']['value_krw'], aum['value_krw'])
+        self.assertEqual(fund['weekly']['start_aum']['status'], 'unavailable')
+        self.assertEqual(result['coverage']['daily_amount_comparable'], 1)
+        self.assertEqual(result['coverage']['weekly_amount_comparable'], 0)
 
     def test_future_basket_is_retained_but_never_current(self):
         self.save(EXPECTED)

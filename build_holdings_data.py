@@ -20,6 +20,7 @@ from holdings_pipeline.logic import compare_snapshots
 ROOT = Path(__file__).resolve().parent
 PIPE = ROOT / 'holdings_pipeline'
 HISTORY = PIPE / 'history'
+AUM_HISTORY = PIPE / 'aum_history'
 SNAPSHOT_KEYS = ('etf_id', 'date', 'date_kind', 'basis', 'weight_basis', 'source',
                  'source_url', 'observed_at', 'collection_mode', 'complete',
                  'reported_count', 'creation_unit_shares', 'quantity_basis',
@@ -127,11 +128,49 @@ def select_snapshot(sources, expected, failed_sources=()):
     return max(options, key=lambda x: x[0])[1] if options else None
 
 
-def export(config, expected, sessions, source_status, *, history=HISTORY, saved=False):
+def select_aum(records, etf_id, date, *, exact=False):
+    """Size is date-specific; an end-date value never fills a start-date gap."""
+    valid, undated = [], []
+    for source, days in records.get(etf_id, {}).items():
+        for day, record in days.items():
+            value = record.get('value_krw')
+            if (not exact and record.get('etf_id') == etf_id and
+                    record.get('status') == 'undated' and record.get('asof') is None and
+                    record.get('metric') == 'net_assets' and record.get('currency') == 'KRW' and
+                    not isinstance(value, bool) and isinstance(value, (int, float)) and
+                    math.isfinite(value) and value > 0):
+                undated.append(record)
+                continue
+            if (record.get('etf_id') != etf_id or record.get('asof') != day or
+                    not re.fullmatch(r'\d{4}-\d{2}-\d{2}', day) or day > date or
+                    (exact and day != date) or record.get('status') != 'verified' or
+                    record.get('metric') != 'net_assets' or record.get('currency') != 'KRW' or
+                    isinstance(value, bool) or not isinstance(value, (float, int)) or
+                    not math.isfinite(value) or value <= 0):
+                continue
+            valid.append((day, source != 'NAVER', record.get('observed_at') or '', record))
+    if not valid:
+        if undated and not exact:
+            return dict(max(undated, key=lambda r: r.get('observed_at') or ''))
+        return {'status': 'unavailable', 'value_krw': None, 'asof': None,
+                'metric': 'net_assets', 'currency': 'KRW', 'source': None,
+                'source_url': None, 'observed_at': None,
+                'reason': ('비교 시작일 순자산 미확보' if exact else '기준일까지의 순자산 미확보')}
+    chosen = dict(max(valid, key=lambda r: r[:3])[3])
+    chosen['status'] = 'verified' if chosen['asof'] == date else 'stale'
+    if chosen['status'] == 'stale':
+        chosen['reason'] = '이전 기준일의 순자산 참고값'
+    return chosen
+
+
+def export(config, expected, sessions, source_status, *, history=HISTORY,
+           aum_history=AUM_HISTORY, aum_source_status=None, saved=False):
+    from holdings_pipeline.aum import load_aum_history
     assets = [a for a in config['assets'] if a['market'] == 'KR']
     dates = sessions['KR']
     previous, weekly = dates[-2], dates[-6]
     all_history = load_history(history)
+    all_aum = load_aum_history(aum_history)
     failed_current = {(r.get('etf_id'), r.get('source')) for r in source_status
                       if r.get('status') in ('failed', 'not_attempted') and
                       r.get('date', expected) == expected}
@@ -150,6 +189,7 @@ def export(config, expected, sessions, source_status, *, history=HISTORY, saved=
                 'source_url': None, 'observed_at': None, 'collection_mode': None,
                 'holding_count': 0, 'latest_holdings': [],
                 'available_sources': sorted(sources),
+                'aum': select_aum(all_aum, aid, expected),
                 'daily': no_comparison('두 날짜의 전체 구성 이력이 필요합니다.', previous, expected),
                 'weekly': no_comparison('5거래일 전의 전체 구성 이력이 필요합니다.', weekly, expected)}
         if s:
@@ -175,6 +215,8 @@ def export(config, expected, sessions, source_status, *, history=HISTORY, saved=
             if future:
                 fund['next_published_date'] = future[0]
         funds.append(fund)
+        for key, prior in [('daily', previous), ('weekly', weekly)]:
+            fund[key]['start_aum'] = select_aum(all_aum, aid, prior, exact=True)
     cohorts = {}
     for period in ('daily', 'weekly'):
         pairs = {}
@@ -194,11 +236,19 @@ def export(config, expected, sessions, source_status, *, history=HISTORY, saved=
                 'archived_reference': sum(f['collection_mode'] == 'archived_official_response' for f in funds)}
     coverage['market_active_registered'] = sum(f['kind'] == 'market_active' for f in funds)
     coverage['market_active_current'] = sum(f['kind'] == 'market_active' and f['status'] == 'current' for f in funds)
+    coverage['aum_current'] = sum(f['aum']['status'] == 'verified' for f in funds)
+    coverage['aum_stale'] = sum(f['aum']['status'] == 'stale' for f in funds)
+    coverage['aum_undated'] = sum(f['aum']['status'] == 'undated' for f in funds)
+    for period in ('daily', 'weekly'):
+        coverage[period + '_amount_comparable'] = sum(
+            f[period]['status'] == 'ready' and f[period]['start_aum']['status'] == 'verified'
+            for f in funds)
     return {'schema_version': 'etf-holdings-v1', 'generated_at': datetime.now(timezone.utc).isoformat(),
             'expected_date': expected, 'previous_date': previous, 'weekly_date': weekly,
             'universe_version': config['version'], 'threshold_pp': 0.05,
             'collection_mode': 'saved_history' if saved else 'live_and_dated_disclosures',
             'coverage': coverage, 'funds': funds, 'cohorts': cohorts, 'source_status': source_status,
+            'aum_source_status': aum_source_status or [],
             'active_registry': config.get('holdings_active_registry'),
             'method': {'version': 'holdings-weight-v1',
                        'scope': '한국 국내주식 업종·테마 ETF와 운용사별 코스피·코스닥 시장 액티브 ETF',
@@ -207,7 +257,10 @@ def export(config, expected, sessions, source_status, *, history=HISTORY, saved=
                        'selection': '완료 거래일의 전체 공식 공시 우선, 없으면 동일 날짜 NAVER 전체 구성 사용. 두 원천의 이력을 연결하지 않음.',
                        'weight': '비중 변화는 퍼센트포인트(%p); 가격 변화에 의해서도 발생하며 자금유입·매매를 뜻하지 않음',
                        'quantity': '확인된 CU 크기를 사용한 ETF 1좌당 구성수량만 비교. 전체 펀드 보유수량·매수금액 아님. 분할·합병 전수 검증 전.',
-                       'aggregation': '같은 날짜쌍·선택 ETF 집합의 증가/감소 개수와 평균 변화. 비중·수량을 금액처럼 합산하지 않음.',
+                       'aggregation': '같은 날짜쌍·선택 ETF 집합의 증가/감소 개수와 평균 변화. 환산액은 시작일 순자산이 확인된 관측 ETF의 증가·감소분을 합산하며 확보 비율을 표시.',
+                       'amount_version': 'start-net-assets-weight-proxy-v1',
+                       'amount': '비교 시작일 순자산총액(원) × 공시 비중 변화(%p) ÷ 100. 비중 분모는 원천별로 다르며 비현금 구성 비중도 포함하므로 실제 보유금액 변화나 순매수액이 아닌 규모 환산 참고값.',
+                       'amount_missing': '정확한 시작일 순자산 미확보·비중 비교 불가 ETF는 환산 제외. 현재 순자산을 과거값으로 대입하거나 미확보 값을 0원으로 처리하지 않음.',
                        'future_disclosure': '다음 거래일 공시는 보존하되 완료 거래일의 현재 비중으로 사용하지 않음.',
                        'threshold': '강조 기준 0.05%p, 최적화된 매매 기준 아님. 전체 원래 변화는 보존.',
                        'price_effect_adjustment': '미제공: 일관된 구성종목별 조정가격·권리자료 미확보',
@@ -287,6 +340,7 @@ def main():
     p.add_argument('--import-snapshots', action='append', default=[])
     p.add_argument('--no-naver', action='store_true')
     p.add_argument('--no-issuers', action='store_true')
+    p.add_argument('--no-aum', action='store_true', help='Do not refresh ETF net-asset observations')
     p.add_argument('--output', default=str(ROOT / 'holdings_data.json'))
     args = p.parse_args()
     config = holdings_config(read(ROOT / 'etf_pipeline/universe.json'), read(PIPE / 'active_universe.json'))
@@ -299,7 +353,22 @@ def main():
     statuses = [] if args.saved else collect(config, expected['KR'], sessions, etf_codes,
                                              naver_enabled=not args.no_naver,
                                              issuers_enabled=not args.no_issuers)
-    result = export(config, expected['KR'], sessions, statuses, saved=args.saved)
+    aum_statuses = []
+    if not args.saved and not args.no_aum:
+        from holdings_pipeline.aum import collect_aum
+        hosts = {'NAVER': 'stock.naver.com', 'KOACT': 'www.samsungactive.co.kr',
+                 'KODEX': 'www.samsungfund.com'}
+        blocked_hosts = {hosts[r['source']] for r in statuses if r.get('source') in hosts and
+                         (r.get('reason') == 'source_access_limit_circuit_open' or
+                          (r.get('status') == 'failed' and
+                           re.search(r'401|403|429|challenge|access restriction', r.get('reason', ''), re.I)))}
+        aum_statuses = collect_aum([a for a in config['assets'] if a['market'] == 'KR'],
+                                  [expected['KR'], sessions['KR'][-2], sessions['KR'][-6]],
+                                  history_dir=AUM_HISTORY, raw_dir=PIPE / 'aum_raw',
+                                  archive_roots=[ROOT / 'etf_pipeline/data/raw'],
+                                  blocked_hosts=blocked_hosts, kodex_archive_only=True)
+    result = export(config, expected['KR'], sessions, statuses, aum_source_status=aum_statuses,
+                    saved=args.saved)
     write(Path(args.output), result)
     print(json.dumps({'output': args.output, 'expected_date': result['expected_date'],
                       'coverage': result['coverage']}, ensure_ascii=False))

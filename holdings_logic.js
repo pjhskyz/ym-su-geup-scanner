@@ -7,11 +7,23 @@
   const number = value => typeof value === 'number' && Number.isFinite(value);
   const list = value => Array.isArray(value) ? value : [];
   const periodKey = period => period === 'weekly' ? 'weekly' : 'daily';
-  const validDate = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value);
+  const validDate = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(value + 'T00:00:00Z')) && new Date(value + 'T00:00:00Z').toISOString().slice(0, 10) === value;
   const pairKey = pair => pair && validDate(pair.from_date) && validDate(pair.to_date) ? pair.from_date + '/' + pair.to_date : '';
   const representative = fund => fund.representative !== false && fund.representative !== 'supplemental';
   const readyStatuses = ['current', 'fresh', 'ready', 'baseline_only'];
   const normalize = value => String(value || '').trim().toLocaleLowerCase();
+  function netAssets(record) {
+    return !!record && ['verified', 'stale'].includes(record.status) && record.metric === 'net_assets' && record.currency === 'KRW' && number(record.value_krw) && record.value_krw > 0 && validDate(record.asof);
+  }
+  function startAum(comparison) {
+    const record = comparison && comparison.start_aum;
+    return comparison && comparison.status === 'ready' && netAssets(record) && record.status === 'verified' && record.asof === comparison.from_date ? record : null;
+  }
+  function amountDelta(change, comparison) {
+    const aum = startAum(comparison);
+    const amount = aum && change && number(change.delta_weight_pp) ? aum.value_krw * (change.delta_weight_pp / 100) : null;
+    return number(amount) ? amount : null;
+  }
   function expectedPair(data, period) {
     return {from_date: data[periodKey(period) === 'weekly' ? 'weekly_date' : 'previous_date'], to_date: data.expected_date};
   }
@@ -60,13 +72,22 @@
         if (fund.group) row.groups.add(fund.group);
         const quantity = ['increased', 'decreased', 'unchanged'].includes(change.quantity_status) ? change.quantity_status : 'unavailable';
         row['quantity_' + quantity] += 1;
-        row.details.push({...change, etf_id: fund.id, etf_symbol: fund.symbol, etf_name: fund.name, issuer: fund.issuer, group: fund.group, kind: fund.kind, representative: representative(fund), source: fund.source, source_url: fund.source_url, observed_at: fund.observed_at, collection_mode: fund.collection_mode, from_date: fund[period].from_date, to_date: fund[period].to_date});
+        row.details.push({...change, aum: fund.aum, start_aum: startAum(fund[period]), amount_delta_krw: amountDelta(change, fund[period]), etf_id: fund.id, etf_symbol: fund.symbol, etf_name: fund.name, issuer: fund.issuer, group: fund.group, kind: fund.kind, representative: representative(fund), source: fund.source, source_url: fund.source_url, observed_at: fund.observed_at, collection_mode: fund.collection_mode, from_date: fund[period].from_date, to_date: fund[period].to_date});
       }
     }
     const query = normalize(options.query), minimum = options.minimum === 1 || options.minimum === '1' ? 1 : 2;
-    const all = [...byCode.values()].map(row => ({...row, net: row.increased - row.decreased, average_delta_pp: row.details.reduce((sum, r) => sum + r.delta_weight_pp, 0) / row.observed, issuer_count: row.issuers.size, group_count: row.groups.size, issuers: [...row.issuers], groups: [...row.groups], details: row.details.sort((a, b) => b.delta_weight_pp - a.delta_weight_pp || String(a.etf_id).localeCompare(String(b.etf_id)))}));
+    const all = [...byCode.values()].map(row => {
+      const amounts = row.details.map(detail => detail.amount_delta_krw).filter(number);
+      const sum = amounts.length ? amounts.reduce((total, value) => total + value, 0) : null;
+      return {...row, net: row.increased - row.decreased, average_delta_pp: row.details.reduce((sum, r) => sum + r.delta_weight_pp, 0) / row.observed,
+        amount_delta_krw: number(sum) ? sum : null, amount_covered_count: amounts.length, amount_complete: amounts.length === row.observed,
+        issuer_count: row.issuers.size, group_count: row.groups.size, issuers: [...row.issuers], groups: [...row.groups],
+        details: row.details.sort((a, b) => b.delta_weight_pp - a.delta_weight_pp || String(a.etf_id).localeCompare(String(b.etf_id)))};
+    });
+    const averageOrder = (a, b) => b.average_delta_pp - a.average_delta_pp || b.increased - a.increased || b.net - a.net || String(a.code).localeCompare(String(b.code));
+    const amountOrder = (a, b) => Number(number(b.amount_delta_krw)) - Number(number(a.amount_delta_krw)) || (number(a.amount_delta_krw) && number(b.amount_delta_krw) ? b.amount_delta_krw - a.amount_delta_krw : 0) || averageOrder(a, b);
     const rows = all.filter(row => row.increased >= minimum && (!query || normalize([row.name, row.code, ...row.details.flatMap(d => [d.etf_name, d.etf_symbol, d.issuer, d.group])].join(' ')).includes(query)))
-      .sort((a, b) => b.average_delta_pp - a.average_delta_pp || b.increased - a.increased || b.net - a.net || String(a.code).localeCompare(String(b.code)));
+      .sort(options.sort === 'amount' ? amountOrder : averageOrder);
     return {rows, all, selected_count: selected.length, comparable_count: comparable.length, comparable_ids: comparable.map(f => f.id), pair: chosen, pairs, history_pending: comparable.length === 0, minimum};
   }
   function matchesFund(fund, query) {
@@ -78,5 +99,5 @@
   }
   const eventLabel = value => ({new: '신규 편입', removed: '편출', increased: '비중 확대', decreased: '비중 축소', unchanged: '기준 미만 변동'})[value] || '확인 불가';
   const quantityLabel = value => ({increased: '기준 수량 증가', decreased: '기준 수량 감소', unchanged: '기준 수량 동일', unavailable: '수량 확인 불가'})[value] || '수량 확인 불가';
-  return {number, list, periodKey, pairKey, representative, expectedPair, selectedFunds, isCurrent, eligible, cohorts, aggregate, matchesFund, statusLabel, eventLabel, quantityLabel};
+  return {number, list, netAssets, startAum, amountDelta, periodKey, pairKey, representative, expectedPair, selectedFunds, isCurrent, eligible, cohorts, aggregate, matchesFund, statusLabel, eventLabel, quantityLabel};
 });

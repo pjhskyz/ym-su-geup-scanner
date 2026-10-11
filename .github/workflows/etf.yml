@@ -46,7 +46,9 @@ jobs:
           key: etf-prices-v1-${{ github.run_id }}
           restore-keys: etf-prices-v1-
       - name: Validate calculation rules
-        run: python -m unittest test_etf_data test_holdings_data test_holdings_naver test_holdings_issuers test_holdings_integration
+        run: python -m unittest test_etf_data test_holdings_data test_holdings_naver test_holdings_issuers test_holdings_integration test_holdings_aum
+      - name: Validate holdings amounts and sorting
+        run: node --test holdings_logic.test.js
       - name: Refresh Korea ETF discovery catalog
         continue-on-error: true
         run: python -u etf_pipeline/collect_kr_catalog.py --output etf_pipeline/kr_catalog.json --universe etf_pipeline/universe.json
@@ -65,8 +67,9 @@ jobs:
           cp etf_pipeline/kr_catalog.json "$etf_generated_dir/kr_catalog.json"
           cp holdings_data.json "$etf_generated_dir/holdings_data.json"
           cp -R holdings_pipeline/history "$etf_generated_dir/holdings_history"
+          cp -R holdings_pipeline/aum_history "$etf_generated_dir/aum_history"
           for attempt in 1 2 3 4 5; do
-            git add etf_data.json etf_pipeline/kr_catalog.json holdings_data.json holdings_pipeline/history
+            git add etf_data.json etf_pipeline/kr_catalog.json holdings_data.json holdings_pipeline/history holdings_pipeline/aum_history
             if git diff --staged --quiet; then exit 0; fi
             git commit -m 'data: refresh ETF sector signals'
             if git push; then exit 0; fi
@@ -76,5 +79,7 @@ jobs:
             cp "$etf_generated_dir/kr_catalog.json" etf_pipeline/kr_catalog.json
             cp "$etf_generated_dir/holdings_data.json" holdings_data.json
             cp -R "$etf_generated_dir/holdings_history/." holdings_pipeline/history/
+            mkdir -p holdings_pipeline/aum_history
+            cp -R "$etf_generated_dir/aum_history/." holdings_pipeline/aum_history/
           done
           exit 1
