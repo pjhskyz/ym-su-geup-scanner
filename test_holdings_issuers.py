@@ -1,5 +1,8 @@
 import unittest
+import json
+from unittest.mock import patch
 from holdings_pipeline.issuers import normalize_sol, normalize_koact, normalize_plus, normalize_hanaro
+from holdings_pipeline.issuers import fetch_snapshot, supports
 
 
 class IssuerHoldingsTest(unittest.TestCase):
@@ -51,6 +54,25 @@ class IssuerHoldingsTest(unittest.TestCase):
         self.assertEqual(r["holdings"][0]["code"], "035720")
         with self.assertRaises(ValueError):
             normalize_hanaro(a, "2026-10-07", doc, set())
+
+    def test_market_active_funds_route_to_verified_issuer_ids(self):
+        koact = {"pdf": {"gijunYMD": "20261008", "totalCnt": 1,
+                         "list": [{"itmNo": "005930", "secNm": "삼성전자", "ratio": "100"}]}}
+        plus = {"content": [{"wkdate": "20261008", "jmCd": "005930", "jmNm": "삼성전자", "ratio": 100}],
+                "totalElements": 1, "last": True, "number": 0}
+        cases = [("0163Y0", "KOACT", "etf-pdf/2ETFU6.do?gijunYMD=20261008", koact),
+                 ("0193G0", "KOACT", "etf-pdf/2ETFV2.do?gijunYMD=20261008", koact),
+                 ("0166N0", "PLUS", "pdf/list?n=006399&page=0&d=20261008&pageSize=100", plus)]
+        for symbol, source, expected_path, payload in cases:
+            with self.subTest(symbol=symbol), patch("holdings_pipeline.issuers._download", return_value=json.dumps(payload).encode()) as download:
+                asset = {"id": f"KR:{symbol}", "symbol": symbol, "market": "KR"}
+                self.assertTrue(supports(asset))
+                result = fetch_snapshot(asset, "2026-10-08", set())
+                self.assertTrue(download.call_args.args[0].endswith(expected_path))
+                self.assertEqual(result["etf_id"], asset["id"])
+                self.assertEqual(result["source"], source)
+                self.assertEqual(result["date"], "2026-10-08")
+                self.assertTrue(result["complete"])
 
 
 if __name__ == "__main__":

@@ -33,6 +33,20 @@ def disclosure(day, source="SOL", complete=True, weight=10.0):
 
 
 class HoldingsIntegrationTests(unittest.TestCase):
+    def test_active_registry_extends_holdings_without_mutating_sector_universe(self):
+        active = {**ASSET, 'id': 'KR:0163Y0', 'symbol': '0163Y0',
+                  'name': 'KoAct 코스닥액티브', 'kind': 'market_active',
+                  'group': '코스닥 액티브', 'classification_status': 'reviewed_market_active'}
+        registry = {'version': 'active-v1', 'assets': [active]}
+        merged = build.holdings_config(CONFIG, registry)
+        self.assertEqual(len(merged['assets']), 2)
+        self.assertEqual(len(CONFIG['assets']), 1)
+        self.assertEqual(merged['version'], 'test-v1+active-v1')
+        with self.assertRaisesRegex(ValueError, 'duplicate'):
+            build.holdings_config(merged, registry)
+        with self.assertRaisesRegex(ValueError, 'unverified'):
+            build.holdings_config(CONFIG, {**registry, 'assets': [{**active, 'classification_status': 'pending'}]})
+
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.history = Path(self.temporary.name)

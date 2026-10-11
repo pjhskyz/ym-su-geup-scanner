@@ -20,7 +20,8 @@
     return list(data.funds).filter(f => {
       if (!f || !f.id || seen.has(f.id)) return false;
       seen.add(f.id);
-      return (options.supplements || representative(f)) && (!options.group || options.group === 'all' || f.group === options.group);
+      return (options.supplements || representative(f)) && (!options.group || options.group === 'all' || f.group === options.group) &&
+        (!options.issuer || options.issuer === 'all' || f.issuer === options.issuer);
     });
   }
   function eligible(fund, comparison, data) {
@@ -59,13 +60,13 @@
         if (fund.group) row.groups.add(fund.group);
         const quantity = ['increased', 'decreased', 'unchanged'].includes(change.quantity_status) ? change.quantity_status : 'unavailable';
         row['quantity_' + quantity] += 1;
-        row.details.push({...change, etf_id: fund.id, etf_symbol: fund.symbol, etf_name: fund.name, issuer: fund.issuer, group: fund.group, representative: representative(fund), source: fund.source, source_url: fund.source_url, observed_at: fund.observed_at, collection_mode: fund.collection_mode, from_date: fund[period].from_date, to_date: fund[period].to_date});
+        row.details.push({...change, etf_id: fund.id, etf_symbol: fund.symbol, etf_name: fund.name, issuer: fund.issuer, group: fund.group, kind: fund.kind, representative: representative(fund), source: fund.source, source_url: fund.source_url, observed_at: fund.observed_at, collection_mode: fund.collection_mode, from_date: fund[period].from_date, to_date: fund[period].to_date});
       }
     }
     const query = normalize(options.query), minimum = options.minimum === 1 || options.minimum === '1' ? 1 : 2;
     const all = [...byCode.values()].map(row => ({...row, net: row.increased - row.decreased, average_delta_pp: row.details.reduce((sum, r) => sum + r.delta_weight_pp, 0) / row.observed, issuer_count: row.issuers.size, group_count: row.groups.size, issuers: [...row.issuers], groups: [...row.groups], details: row.details.sort((a, b) => b.delta_weight_pp - a.delta_weight_pp || String(a.etf_id).localeCompare(String(b.etf_id)))}));
     const rows = all.filter(row => row.increased >= minimum && (!query || normalize([row.name, row.code, ...row.details.flatMap(d => [d.etf_name, d.etf_symbol, d.issuer, d.group])].join(' ')).includes(query)))
-      .sort((a, b) => b.increased - a.increased || b.net - a.net || b.average_delta_pp - a.average_delta_pp || String(a.code).localeCompare(String(b.code)));
+      .sort((a, b) => b.average_delta_pp - a.average_delta_pp || b.increased - a.increased || b.net - a.net || String(a.code).localeCompare(String(b.code)));
     return {rows, all, selected_count: selected.length, comparable_count: comparable.length, comparable_ids: comparable.map(f => f.id), pair: chosen, pairs, history_pending: comparable.length === 0, minimum};
   }
   function matchesFund(fund, query) {

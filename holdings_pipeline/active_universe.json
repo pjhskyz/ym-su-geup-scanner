@@ -1,0 +1,464 @@
+{
+  "version": "holdings-active-2026-10-11-v1",
+  "added_at": "2026-10-11",
+  "scope": "KOSPI/KOSPI200 및 KOSDAQ/KOSDAQ150 비교지수의 시장 전반 종목선별 액티브 ETF. 업종·테마·배당·밸류업 및 특수구조 상품은 이 추가 목록에서 제외.",
+  "purpose": "구성종목 추적 전용. 시장 액티브 ETF를 업종 가격 순위에 섞지 않음.",
+  "catalog_source": "https://finance.naver.com/api/sise/etfItemList.nhn",
+  "catalog_observed_at": "2026-10-11T12:03:28.980109+00:00",
+  "catalog_listed_count": 1172,
+  "registered_count": 16,
+  "kospi_count": 10,
+  "kosdaq_count": 6,
+  "verification_note": "운용사·거래소 및 공개 상품자료 교차 검토. HK 공식 원문 미접속은 FnGuide/K-ETF/운용사 발표 인용자료로 보완; TIGER 코스닥은 KRX 상장공시와 키움 원본 상장보고서로 보완. 전 상품 공식 원문 직접검증 완료를 의미하지 않음.",
+  "excluded_reviewed": [
+    {
+      "symbol": "433250",
+      "name": "UNICORN R&D 액티브",
+      "reason": "KOSPI200 BM이나 R&D 특화테마. 전체시장종목선별핵심범위에서제외."
+    },
+    {
+      "symbol": "364690",
+      "name": "KODEX 혁신기술테마액티브",
+      "reason": "국내시장지수provider분류이나혁신기술테마한정."
+    },
+    {
+      "symbol": "441800",
+      "name": "TIME Korea플러스배당액티브",
+      "reason": "배당전략별도범위."
+    },
+    {
+      "symbol": "476850",
+      "name": "KoAct 배당성장액티브",
+      "reason": "배당전략별도범위."
+    },
+    {
+      "symbol": "495230",
+      "name": "KoAct 코리아밸류업액티브",
+      "reason": "밸류업전략별도범위."
+    },
+    {
+      "symbol": "495060",
+      "name": "TIME 코리아밸류업액티브",
+      "reason": "밸류업전략별도범위."
+    },
+    {
+      "symbol": "496130",
+      "name": "TRUSTON 코리아밸류업액티브",
+      "reason": "밸류업전략별도범위."
+    },
+    {
+      "symbol": "472720",
+      "name": "TRUSTON 주주가치액티브",
+      "reason": "주주가치전략별도범위."
+    },
+    {
+      "symbol": "438740",
+      "name": "MIDAS 중소형액티브",
+      "reason": "KOSPI중형주BM·중소형별도범위."
+    },
+    {
+      "symbol": "0060H0",
+      "name": "TIGER 토탈월드스탁액티브",
+      "reason": "NAVER국내시장분류지만글로벌해외주식상품."
+    },
+    {
+      "symbol": "391680",
+      "name": "HK 하이볼액티브",
+      "reason": "과거2021상장자료에는있으나현재1172개목록에없어편입하지않음. 현재명칭/상장폐지여부추가검토없이기존티커자동등록금지."
+    },
+    {
+      "symbol": "0198A0",
+      "name": "KIWOOM 코스닥150커버드콜액티브",
+      "reason": "covered_call"
+    },
+    {
+      "symbol": "0223A0",
+      "name": "RISE 코스닥커버드콜액티브",
+      "reason": "covered_call"
+    },
+    {
+      "symbol": "0186S0",
+      "name": "1Q 코스닥150채권혼합50액티브",
+      "reason": "mixed_bond"
+    },
+    {
+      "symbol": "0221Z0",
+      "name": "ACE K바이오코스닥액티브",
+      "reason": "biotech_sector"
+    }
+  ],
+  "assets": [
+    {
+      "id": "KR:385720",
+      "symbol": "385720",
+      "name": "TIME 코스피액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스피 액티브",
+      "representative": true,
+      "issuer": "TIME",
+      "issuer_full": "타임폴리오자산운용",
+      "benchmark_name": "KOSPI",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://www.timeetf.co.kr/m11_view.php?idx=11"
+      ],
+      "verification": "official_issuer",
+      "verification_note": "공식 페이지 종목코드385720, 코스피 대비 나은 성과를 추구하는 액티브 ETF. 산업 제한 없이 주도섹터와 종목 발굴.",
+      "issuer_product_key": "11",
+      "provider_code": "385720",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:403790",
+      "symbol": "403790",
+      "name": "MIDAS 코스피액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스피 액티브",
+      "representative": true,
+      "issuer": "MIDAS",
+      "issuer_full": "마이다스에셋자산운용",
+      "benchmark_name": "KOSPI",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://midasasset.com/fund/마이다스마이다스koreastock액티브증권상장지수투자신탁/",
+        "https://midasasset.com/wp-content/uploads/2021/10/tujaseolmyeongseo-maidaseu-MIDAS-koseupiaektibeu-jeungkwon-sangjangjisutujasintakjusik_20260423.pdf"
+      ],
+      "verification": "official_issuer",
+      "verification_note": "공식 상품전략 KOSPI비교지수 초과성과, 코스피/코스닥주식60%이상. 2026-10-08 고시기준 상품존재.",
+      "issuer_product_key": null,
+      "provider_code": "403790",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:0193G0",
+      "symbol": "0193G0",
+      "name": "KoAct 코스피액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스피 액티브",
+      "representative": true,
+      "issuer": "KoAct",
+      "issuer_full": "삼성액티브자산운용",
+      "benchmark_name": "KOSPI",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://www.samsungactive.co.kr/etf/view.do?id=2ETFV2",
+        "https://www.samsungactive.co.kr/insight/koactinsight/koactview-view.do?seqn=235"
+      ],
+      "verification": "official_issuer",
+      "verification_note": "공식2026-05-19 신규상장안내: 유망산업과 우량종목 선택과집중으로 코스피 대비 초과수익 추구.",
+      "issuer_product_key": "2ETFV2",
+      "provider_code": "0193G0",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:0208N0",
+      "symbol": "0208N0",
+      "name": "IBK 코스피액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스피 액티브",
+      "representative": true,
+      "issuer": "IBK",
+      "issuer_full": "IBK자산운용",
+      "benchmark_name": "KOSPI",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://www.ibkasset.com/etf",
+        "https://www.ibkasset.com/fund/map?themeId=3",
+        "https://www.ibkasset.com/customer-center/announcement/5748",
+        "https://pflow.keywordegg.com/etf/0208N0"
+      ],
+      "verification": "official_issuer_identity_secondary_benchmark",
+      "verification_note": "공식ETF목록 상장일2026-06-23. 공식2026-09-18 투자설명서변경공시에IBK코스피액티브명칭. BM코스피지수는공개상품자료로보완.",
+      "issuer_product_key": null,
+      "provider_code": "0208N0",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:494890",
+      "symbol": "494890",
+      "name": "KODEX 200액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스피 액티브",
+      "representative": true,
+      "issuer": "KODEX",
+      "issuer_full": "삼성자산운용",
+      "benchmark_name": "KOSPI 200 (Price Return)",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://www.samsungfund.com/etf/product/view.do?id=2ETFO7"
+      ],
+      "verification": "official_issuer",
+      "verification_note": "공식상품 검색결과 국내주식형ETF·코스피200지수PriceReturn명시. 현재구성API는요청하지않음.",
+      "issuer_product_key": "2ETFO7",
+      "provider_code": "494890",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:451060",
+      "symbol": "451060",
+      "name": "1Q 200액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스피 액티브",
+      "representative": true,
+      "issuer": "1Q",
+      "issuer_full": "하나자산운용",
+      "benchmark_name": "KOSPI 200",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://www.hanaam.com/qetf/etf/detail?id=1",
+        "https://1qetf.com/pages/board/board.view.php?board_no=70&category_no=&no=1191&page=1&searchColumn=&searchKeyword="
+      ],
+      "verification": "official_issuer",
+      "verification_note": "공식상품코드451060·코스피200초과성과·설정단위150000좌. 과거1Q K200액티브에서현재1Q200액티브로명칭변경.",
+      "issuer_product_key": "1",
+      "provider_code": "451060",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:365040",
+      "symbol": "365040",
+      "name": "TIGER AI코리아그로스액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스피 액티브",
+      "representative": true,
+      "issuer": "TIGER",
+      "issuer_full": "미래에셋자산운용",
+      "benchmark_name": "KOSPI",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://kind.krx.co.kr/disclosure/etfisudetail.do?method=searchEtfIsuSummary&strIsurCd=36504",
+        "https://www.tigeretf.com/upload/etf/20240712033223005625.pdf"
+      ],
+      "verification": "official_issuer_and_exchange",
+      "verification_note": "KIND 공식상품개요 국내주식·KOSPI지수 초과. 운용사factsheet 인공지능모델을활용한성장주분산투자—AI산업한정ETF아님.",
+      "issuer_product_key": null,
+      "provider_code": "365040",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:442260",
+      "symbol": "442260",
+      "name": "마이티 다이나믹퀀트액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스피 액티브",
+      "representative": true,
+      "issuer": "마이티",
+      "issuer_full": "DB자산운용",
+      "benchmark_name": "KOSPI 200",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://db-asset.com/front/kr/fund/41400",
+        "https://db-asset.com/mob/kr/customer/notice/9920"
+      ],
+      "verification": "official_issuer",
+      "verification_note": "공식상품 주식형·국내·KOSPI200초과성과. 공식10/2공시현재종목442260확인. 지연자산구성표에ETF17.26%·파생8.54%포함하므로ETF/파생은개별주집계에서제외.",
+      "issuer_product_key": "41400",
+      "provider_code": "442260",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:448570",
+      "symbol": "448570",
+      "name": "FOCUS AI코리아액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스피 액티브",
+      "representative": true,
+      "issuer": "FOCUS",
+      "issuer_full": "브이아이자산운용",
+      "benchmark_name": "KOSPI",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://www.viamc.kr/web/kr/fund/etf/all/view?bidx=4&pageIndex=1&pageUnit=10&searchKeyword=FOCUSAI%EC%BD%94%EB%A6%AC%EC%95%84%EC%95%A1%ED%8B%B0%EB%B8%8C",
+        "https://sandbox.fintech.or.kr/business/enterprise.do?id=447&lang=ko",
+        "https://www.k-etf.com/etf/448570",
+        "https://etf.zeroin.co.kr/etf/448570"
+      ],
+      "verification": "official_issuer_search_index_and_secondary",
+      "verification_note": "공식상품검색본문 알고리즘및AI기반옵투스투자자문·비교지수초과성과. 핀테크지원센터공식기업소개 Optus모델기반KOSPI초과. AI산업한정아님. 운용사페이지직접열기는502.",
+      "issuer_product_key": "4",
+      "provider_code": "448570",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:391670",
+      "symbol": "391670",
+      "name": "HK 베스트일레븐액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스피 액티브",
+      "representative": true,
+      "issuer": "HK",
+      "issuer_full": "흥국자산운용",
+      "benchmark_name": "KOSPI 200",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://www.hkfund.co.kr/",
+        "https://kwcomp.fnguide.com/etp/etfSnapshot?cmp_cd=391670",
+        "https://www.k-etf.com/etf/391670",
+        "https://www.yna.co.kr/view/AKR20260707059800008"
+      ],
+      "verification": "secondary_cross_checked_primary_unavailable",
+      "verification_note": "FnGuide투자목적원문KOSPI200·국내주식액티브. K-ETF시장대표11종목집중선별. 2026-07-07흥국공식발표인용연합뉴스로BM교차확인. 홈페이지502/시간초과로공식원문미확보;전수공식검증완료라고표현하지말것.",
+      "issuer_product_key": null,
+      "provider_code": "391670",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:0163Y0",
+      "symbol": "0163Y0",
+      "name": "KoAct 코스닥액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스닥 액티브",
+      "representative": true,
+      "issuer": "KoAct",
+      "issuer_full": "삼성액티브자산운용",
+      "benchmark_name": "KOSDAQ종합지수",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://www.samsungactive.co.kr/etf/view.do?id=2ETFU6",
+        "https://www.samsungactive.co.kr/sheet/20260407/2ETFU6_20260331.pdf"
+      ],
+      "verification": "official_issuer",
+      "verification_note": "issuer factsheet explicitly confirms ticker, benchmark, active strategy, issuer, listing date and CU",
+      "issuer_product_key": "2ETFU6",
+      "provider_code": "0163Y0",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:0162Y0",
+      "symbol": "0162Y0",
+      "name": "TIME 코스닥액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스닥 액티브",
+      "representative": true,
+      "issuer": "TIME",
+      "issuer_full": "타임폴리오자산운용",
+      "benchmark_name": "코스닥지수",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://timeetf.co.kr/m11_view.php?idx=24"
+      ],
+      "verification": "official_issuer",
+      "verification_note": "official product page confirms ticker, benchmark, active strategy, listing date, and CU; full holdings table is present but displayed summary date 2026-10-07 needs separate holdings date validation",
+      "issuer_product_key": "24",
+      "provider_code": "0162Y0",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:0166N0",
+      "symbol": "0166N0",
+      "name": "PLUS 코스닥150액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스닥 액티브",
+      "representative": true,
+      "issuer": "PLUS",
+      "issuer_full": "한화자산운용",
+      "benchmark_name": "코스닥 150 지수",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://www.plusetf.co.kr/product/detail?n=006399"
+      ],
+      "verification": "official_issuer",
+      "verification_note": "official product page confirms ticker, benchmark, domestic market representative classification, active strategy, listing date and CU",
+      "issuer_product_key": "006399",
+      "provider_code": "0166N0",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:0191B0",
+      "symbol": "0191B0",
+      "name": "MIDAS 코스닥액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스닥 액티브",
+      "representative": true,
+      "issuer": "MIDAS",
+      "issuer_full": "마이다스에셋자산운용",
+      "benchmark_name": "코스닥지수",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://midasasset.com/fund/%EB%A7%88%EC%9D%B4%EB%8B%A4%EC%8A%A4midas%EC%BD%94%EC%8A%A4%EB%8B%A5%EC%95%A1%ED%8B%B0%EB%B8%8Cetf/",
+        "https://midasasset.com/wp-content/uploads/2026/05/tujaseolmyeongseo-maidaseuMIDASkoseudakaektibeujeungkwonsangjangjisutujasintakjusik_20260527.pdf",
+        "https://www.funetf.co.kr/product/etf/view/KR70191B0000"
+      ],
+      "verification": "official_issuer",
+      "verification_note": "official product page and prospectus confirm active mandate, issuer, benchmark; current ticker/listing date cross-checked with KOFIA FunETF and full Naver listed catalog",
+      "issuer_product_key": null,
+      "provider_code": "0191B0",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:0204S0",
+      "symbol": "0204S0",
+      "name": "TIGER 코스닥액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스닥 액티브",
+      "representative": true,
+      "issuer": "TIGER",
+      "issuer_full": "미래에셋자산운용",
+      "benchmark_name": "코스닥지수(PR)",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://www.tigeretf.com/ko/product/search/list.do",
+        "https://bbn.kiwoom.com/rfTP756",
+        "https://www.funetf.co.kr/product/etf/view/KR70204S0006",
+        "https://kind.krx.co.kr/external/2026/06/01/001982/20260601003120/99401.htm"
+      ],
+      "verification": "exchange_identity_and_launch_report",
+      "verification_note": "issuer direct page returns403; securities company original launch report sourced to KRX/Mirae confirms ticker, issuer, KOSDAQ benchmark and physical active strategy; current listing confirmed by KOFIA FunETF and full Naver catalog",
+      "issuer_product_key": null,
+      "provider_code": "0204S0",
+      "rank_enabled": false
+    },
+    {
+      "id": "KR:0220B0",
+      "symbol": "0220B0",
+      "name": "DS 코스닥액티브",
+      "market": "KR",
+      "scope": "KR",
+      "kind": "market_active",
+      "group": "코스닥 액티브",
+      "representative": true,
+      "issuer": "DS",
+      "issuer_full": "디에스자산운용",
+      "benchmark_name": "코스닥지수",
+      "classification_status": "reviewed_market_active",
+      "classification_sources": [
+        "https://dsetf.com/etf/0220B0"
+      ],
+      "verification": "official_issuer",
+      "verification_note": "official product page confirms ticker, issuer, benchmark, active strategy, listing date and CU; has dated constituent comparison UI",
+      "issuer_product_key": "0220B0",
+      "provider_code": "0220B0",
+      "rank_enabled": false
+    }
+  ]
+}

@@ -90,7 +90,24 @@ def load_history(history=HISTORY):
 
 
 def issuer_name(asset):
-    return asset['name'].split()[0]
+    return asset.get('issuer') or asset['name'].split()[0]
+
+
+def holdings_config(sector_config, active_registry):
+    """Extend constituents coverage without changing sector-price rankings."""
+    assets = list(sector_config['assets'])
+    ids = {a['id'] for a in assets}
+    for asset in active_registry.get('assets', []):
+        if asset['id'] in ids:
+            raise ValueError('duplicate_holdings_universe_identity')
+        if (asset.get('market') != 'KR' or asset.get('kind') != 'market_active' or
+                asset.get('classification_status') != 'reviewed_market_active'):
+            raise ValueError('unverified_market_active_asset')
+        ids.add(asset['id'])
+        assets.append(asset)
+    return {**sector_config, 'assets': assets,
+            'version': sector_config['version'] + '+' + active_registry['version'],
+            'holdings_active_registry': {k: v for k, v in active_registry.items() if k != 'assets'}}
 
 
 def no_comparison(reason, old_date, date):
@@ -126,6 +143,9 @@ def export(config, expected, sessions, source_status, *, history=HISTORY, saved=
         fund = {'id': aid, 'symbol': asset['symbol'], 'name': asset['name'],
                 'issuer': issuer_name(asset), 'group': asset['group'],
                 'kind': asset['kind'], 'representative': asset['representative'],
+                'issuer_full': asset.get('issuer_full'),
+                'classification_sources': asset.get('classification_sources', []),
+                'benchmark_name': asset.get('benchmark_name'),
                 'status': 'unavailable', 'asof': None, 'source': None,
                 'source_url': None, 'observed_at': None, 'collection_mode': None,
                 'holding_count': 0, 'latest_holdings': [],
@@ -172,13 +192,16 @@ def export(config, expected, sessions, source_status, *, history=HISTORY, saved=
                 'failed': sum(f['status'] in ('unavailable', 'incomplete', 'cached_after_failure') for f in funds),
                 'stale': sum(f['status'] == 'stale' for f in funds),
                 'archived_reference': sum(f['collection_mode'] == 'archived_official_response' for f in funds)}
+    coverage['market_active_registered'] = sum(f['kind'] == 'market_active' for f in funds)
+    coverage['market_active_current'] = sum(f['kind'] == 'market_active' and f['status'] == 'current' for f in funds)
     return {'schema_version': 'etf-holdings-v1', 'generated_at': datetime.now(timezone.utc).isoformat(),
             'expected_date': expected, 'previous_date': previous, 'weekly_date': weekly,
             'universe_version': config['version'], 'threshold_pp': 0.05,
             'collection_mode': 'saved_history' if saved else 'live_and_dated_disclosures',
             'coverage': coverage, 'funds': funds, 'cohorts': cohorts, 'source_status': source_status,
+            'active_registry': config.get('holdings_active_registry'),
             'method': {'version': 'holdings-weight-v1',
-                       'scope': '한국 국내주식 ETF 고정 등록 목록',
+                       'scope': '한국 국내주식 업종·테마 ETF와 운용사별 코스피·코스닥 시장 액티브 ETF',
                        'comparison': '동일 ETF·원천·구성 기준·비중 분모의 완전한 두 날짜만 비교',
                        'daily': '직전 한국 거래일', 'weekly': '정확히 5거래일 전',
                        'selection': '완료 거래일의 전체 공식 공시 우선, 없으면 동일 날짜 NAVER 전체 구성 사용. 두 원천의 이력을 연결하지 않음.',
@@ -266,7 +289,7 @@ def main():
     p.add_argument('--no-issuers', action='store_true')
     p.add_argument('--output', default=str(ROOT / 'holdings_data.json'))
     args = p.parse_args()
-    config = read(ROOT / 'etf_pipeline/universe.json')
+    config = holdings_config(read(ROOT / 'etf_pipeline/universe.json'), read(PIPE / 'active_universe.json'))
     etf_codes = {r['symbol'] for r in read(ROOT / 'etf_pipeline/kr_catalog.json', {'rows': []})['rows']}
     expected, sessions, _ = calendar_sessions()
     for source in args.import_snapshots:
