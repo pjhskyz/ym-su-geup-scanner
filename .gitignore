@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.netlify/
+etf_pipeline/data/series/
+etf_pipeline/data/raw/
+etf_pipeline/data/snapshots/
+etf_pipeline/data/run_status/
+etf_pipeline/data/issuer_runs/
+etf_pipeline/data/issuer_quotes/
+etf_pipeline/data/issuer_history/
+etf_pipeline/data/distributions/
+etf_pipeline/output/

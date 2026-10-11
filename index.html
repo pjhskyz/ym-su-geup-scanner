@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="etf.css">
 <style>
   :root{
     --bg:#0a0d12;
@@ -293,6 +294,7 @@
   <div class="brand"><span class="dot"></span>YM리서치 스캐너 <small>YM Research</small></div>
   <nav class="nav" id="nav">
     <button data-tab="su" class="active">수급</button>
+    <button data-tab="etf">ETF 주도섹터</button>
     <button data-tab="disp">이격도</button>
     <button data-tab="adr">ADR</button>
     <button data-tab="fund">증시자금</button>
@@ -365,6 +367,7 @@
   </div>
 </div>
 
+<div id="view-etf" style="display:none"></div>
 <div id="view-ph" style="display:none"></div>
 
 <div id="view-disp" style="display:none">
@@ -557,6 +560,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="scanner_logic.js"></script>
+<script src="etf_logic.js"></script>
+<script src="etf.js"></script>
 <script>
 // Source data is loaded before any scanner rows are shown.
 const KEYS=["name","sector","neti","it","id1","id2","netf","ft","fd1","fd2","istk","i30","fstk","f30","i1","i5","i20","f1","f5","f20","r1","r5","r20","code","per","pbr","div","mcap"];
@@ -1397,11 +1402,15 @@ document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("#nav button").forEach(x=>x.classList.remove("active"));
   b.classList.add("active");tab=b.dataset.tab;
   const V=id=>document.getElementById(id);
-  ["view-su","view-ph","view-disp","view-adr","view-fund","view-global","view-stock"].forEach(id=>V(id).style.display="none");
+  ["view-su","view-etf","view-ph","view-disp","view-adr","view-fund","view-global","view-stock"].forEach(id=>V(id).style.display="none");
+  if(tab==="etf")history.replaceState(null,"",location.pathname+location.search+"#etf");
+  else if(location.hash==="#etf")history.replaceState(null,"",location.pathname+location.search);
   if(tab!=="global")gStop();
   if(tab==="su"||tab==="fav"){
     V("view-su").style.display="";
     favOnly=(tab==="fav");buildChips();render();
+  }else if(tab==="etf"){
+    V("view-etf").style.display="";window.ETFScanner.mount();
   }else if(tab==="disp"){
     V("view-disp").style.display="";renderDisp();
   }else if(tab==="adr"){
@@ -1418,6 +1427,8 @@ document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
     ph.innerHTML=`<div class="ph"><h2>${names[tab]}</h2><p>이 탭은 화면 구조만 잡아둔 자리입니다. 데이터 레이어 연결 후 활성화됩니다.</p></div>`;
   }
 });
+if(location.hash==="#etf")document.querySelector('#nav button[data-tab="etf"]').click();
+window.addEventListener('hashchange',()=>{if(location.hash==="#etf")document.querySelector('#nav button[data-tab="etf"]').click();});
 
 // clock
 function tick(){const d=new Date();document.getElementById("clock").textContent=d.toLocaleTimeString("ko-KR",{hour12:false,timeZone:"Asia/Seoul"})+" KST";}
