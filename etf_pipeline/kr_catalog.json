@@ -1,6 +1,6 @@
 {
   "source_url": "https://finance.naver.com/api/sise/etfItemList.nhn",
-  "observed_at": "2026-10-11T11:21:12.840228+00:00",
+  "observed_at": "2026-10-11T11:33:25.244240+00:00",
   "source_asof": null,
   "source_asof_note": "응답에 목록 기준일 없음; 조회 시각과 시세 기준일을 동일시하지 않음",
   "listed_count": 1172,
@@ -8235,6 +8235,5 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     }
   ],
-  "collection_mode": "live_response_parsed",
-  "filter_note": "전체 1,172개 공개 목록을 획득; 이름/네이버 분류 기반 검토 후보일 뿐 업종 전수 검증은 미완료"
+  "collection_mode": "live"
 }
