@@ -28,7 +28,7 @@
 .etf-stat-v{font-family:var(--mono);font-size:30px;line-height:1.35;font-weight:500;letter-spacing:-1px;margin-top:9px;color:var(--txt)}
 .etf-stat-v small{font-family:var(--sans);font-size:11px;color:var(--txt-faint);font-weight:400;letter-spacing:0;margin-left:6px}
 .etf-stat-note{font-size:10px;line-height:1.7;color:var(--txt-faint);margin-top:6px}
-.etf-tabs{display:flex;gap:23px;border-bottom:1px solid var(--line2);overflow-x:auto;white-space:nowrap;scrollbar-width:thin}
+.etf-tabs{display:flex;gap:23px;border-bottom:1px solid var(--line2);overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:thin;scrollbar-color:var(--line2) var(--bg2)}
 .etf-tab{border:none;background:none;color:var(--txt-faint);cursor:pointer;padding:0 0 13px;font-size:13px!important;position:relative;flex-shrink:0}
 .etf-tab[aria-selected="true"]{color:var(--txt);font-weight:600}
 .etf-tab[aria-selected="true"]:after{position:absolute;bottom:-1px;left:0;right:0;height:3px;background:var(--etf-green);content:"";border-radius:2px 2px 0 0}
@@ -49,7 +49,7 @@
 .etf-section-title{display:flex;align-items:baseline;gap:9px;margin-bottom:9px}
 .etf-section-title h2{font-size:13px;font-weight:600;color:var(--txt);letter-spacing:-.25px}
 .etf-section-title span{font-family:var(--mono);font-size:10px;color:var(--txt-faint)}
-.etf-table-scroll{border:1px solid var(--line);border-radius:8px;overflow:auto;background:var(--bg2);max-height:590px;scrollbar-width:thin}
+.etf-table-scroll{border:1px solid var(--line);border-radius:8px;overflow:auto;background:var(--bg2);max-height:590px;scrollbar-width:thin;scrollbar-color:var(--line2) var(--bg2)}
 #view-etf .etf-table{min-width:960px;width:100%;border-collapse:separate;border-spacing:0}
 #view-etf .etf-table th{font-family:var(--sans);font-size:10px;letter-spacing:0;text-transform:none;padding:11px 13px;background:var(--panel);font-weight:500;line-height:1.45;cursor:default}
 #view-etf .etf-table th:first-child{text-align:left}
