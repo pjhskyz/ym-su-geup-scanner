@@ -5,6 +5,17 @@
   const state = {tab: 'strength', basis: 'independent', ma: '20', query: '', supplements: false, highFilter: 'signals', allRows: false, sortKey: 'rank', sortDir: 'asc', catalogueMarket: 'all', catalogueScope: 'all', catalogueSelection: 'all', catalogueFreshness: 'all'};
   const tabItems = [['strength', '한국 강도'], ['us-high', '미국 신고가'], ['kr-high', '한국 신고가'], ['cross', '양국 비교'], ['catalogue', '전체 ETF 목록']];
   let data = null, loading = false, root = null;
+  const refreshInterval = 5 * 60 * 1000;
+  let lastAttemptAt = null, lastCheckedAt = null, refreshError = '';
+  function paneVisible() { return !!root && !root.hidden && root.style.display !== 'none' && document.visibilityState !== 'hidden'; }
+  function refreshIfDue() {
+    if (paneVisible() && !loading && (lastAttemptAt === null || Date.now() - lastAttemptAt >= refreshInterval)) return load();
+  }
+  function watchRefresh() {
+    window.addEventListener('focus', refreshIfDue);
+    document.addEventListener('visibilitychange', refreshIfDue);
+    window.setInterval(refreshIfDue, refreshInterval);
+  }
   const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
   const safeUrl = value => { try { const url = new URL(value); return /^https?:$/.test(url.protocol) ? url.href : ''; } catch (_) { return ''; } };
   const pct = (v, unit = '%p') => L.number(v) ? (v > 0 ? '+' : '') + (v * 100).toFixed(2) + unit : '—';
@@ -65,8 +76,9 @@
   function header() {
     const mode = data.collection_mode === 'live_collection' ? '수집 결과' : '저장 원자료 분석 · 신규 조회 아님';
     const partial = ['KR', 'US'].some(m => { const x = data.markets && data.markets[m]; return !x || x.fresh < x.registered; });
-    return '<header class="etf-head"><div><div class="etf-eyebrow">YM RESEARCH · ETF LEADERSHIP</div><h1>ETF 주도섹터</h1><p class="etf-intro">시장을 앞서는 업종과 고점의 변화를 함께 봅니다.<br><b>가격으로 확인하는 주도력</b>이며, 실제 ETF 자금 유입·유출을 뜻하지 않습니다.</p></div><div class="etf-head-links"><a class="etf-link" href="' + sourceUrl + '" target="_blank" rel="noopener noreferrer">원본 대시보드 ↗</a><a class="etf-link" href="#etf-method">지표 읽는 법 ↓</a></div></header>' +
-      '<div class="etf-freshness"><span><b>점검 대상 거래일</b> 한국 <span class="etf-date">' + esc(date(data.expected_dates && data.expected_dates.KR)) + '</span> · 미국 <span class="etf-date">' + esc(date(data.expected_dates && data.expected_dates.US)) + '</span></span><span><b>원자료 조회</b> ' + esc(kst(data.last_collection_at)) + '</span><span><b>자료 생성</b> ' + esc(kst(data.generated_at)) + '</span><span>' + mode + (partial ? ' · 부분 점검' : '') + '</span></div>' +
+    return '<header class="etf-head"><div><div class="etf-eyebrow">YM RESEARCH · ETF LEADERSHIP</div><h1>ETF 주도섹터</h1><p class="etf-intro">시장을 앞서는 업종과 고점의 변화를 함께 봅니다.<br><b>가격으로 확인하는 주도력</b>이며, 실제 ETF 자금 유입·유출을 뜻하지 않습니다.</p></div><div class="etf-head-links"><a class="etf-link" href="' + sourceUrl + '" target="_blank" rel="noopener noreferrer">원본 대시보드 ↗</a><a class="etf-link" href="https://github.com/pjhskyz/ym-su-geup-scanner/actions/workflows/etf.yml" target="_blank" rel="noopener noreferrer">수집 실행 기록 ↗</a><a class="etf-link" href="#etf-method">지표 읽는 법 ↓</a></div></header>' +
+      '<div class="etf-freshness"><span><b>점검 대상 거래일</b> 한국 <span class="etf-date">' + esc(date(data.expected_dates && data.expected_dates.KR)) + '</span> · 미국 <span class="etf-date">' + esc(date(data.expected_dates && data.expected_dates.US)) + '</span></span><span><b>원자료 조회</b> ' + esc(kst(data.last_collection_at)) + '</span><span><b>자료 생성</b> ' + esc(kst(data.generated_at)) + '</span><span>' + mode + (partial ? ' · 부분 점검' : '') + '</span><button class="btn" type="button" data-etf-retry>새로 확인 ↻</button><span><b>화면 확인</b> ' + esc(kst(lastCheckedAt)) + ' · 발행 자료를 5분마다 재확인 · 원자료 수집과 별도</span></div>' +
+      (refreshError ? '<div class="etf-warning" role="status"><strong>최신 자료 재확인 실패 · 마지막 표시 자료 유지</strong>' + esc(refreshError) + ' · 위 기준일의 자료입니다. 새로 확인을 눌러 다시 시도할 수 있습니다.</div>' : '') +
       '<div class="etf-coverage">' + country('KR') + country('US') + '</div>' +
       '<div class="etf-warning"><strong>종가 고점은 검증 전 후보</strong>분할·과거 가격 조정의 전수 검증 전입니다. 원본 지표와 자체 가격 지표는 별도로 표시하며, 미수집·미갱신 자료는 현재 순위에서 제외합니다.</div>' + summary();
   }
@@ -77,7 +89,7 @@
     if (state.tab === 'catalogue') return catalogueToolbar();
     const strength = state.tab === 'strength', original = strength && state.basis === 'original';
     let left = '';
-    if (strength) left = '<div class="etf-seg" aria-label="지표 출처"><button type="button" data-etf-basis="independent" aria-pressed="' + !original + '">자체 계산</button><button type="button" data-etf-basis="original" aria-pressed="' + original + '">원본 참고</button></div>' +
+    if (strength) left = '<div class="etf-seg" aria-label="지표 출처"><button type="button" data-etf-basis="independent" aria-pressed="' + !original + '">자체 계산</button><button type="button" data-etf-basis="original" aria-pressed="' + original + '">원본 저장 참고</button></div>' +
       '<select class="etf-select" id="etf-ma" aria-label="소르티노 이동평균선 조건">' + ['10', '20', '50'].map(n => '<option value="' + n + '" ' + (n === state.ma ? 'selected' : '') + '>' + n + '일선 이상' + (n === '20' ? ' · 기본' : '') + '</option>').join('') + '</select>';
     else if (state.tab !== 'cross') left = '<select class="etf-select" id="etf-high-filter" aria-label="고점 상태 필터">' + [['signals', '신고가·근접·약화'], ['new', '52주 신고가 후보'], ['held', '52주 고점 유지 후보'], ['near', '52주 고점 근접 후보'], ['weak', '약화 후보'], ['listing', '상장 이후 고점 · 1년 미만'], ['all', '분석 대상 전체 · 미수집 포함']].map(p => '<option value="' + p[0] + '" ' + (state.highFilter === p[0] ? 'selected' : '') + '>' + p[1] + '</option>').join('') + '</select>';
     if (state.tab === 'cross') return '<div class="etf-toolbar"><span class="etf-caption">대분류와 세부업종 연결을 함께 표시합니다. 카드 수는 고유 업종 수가 아닙니다.</span><input type="search" class="etf-search" id="etf-search" placeholder="비교 업종 · ETF 검색" aria-label="비교 업종 ETF 검색" value="' + esc(state.query) + '"></div>';
@@ -138,7 +150,7 @@
     const pending = sorted.filter(r => !ready.includes(r));
     const visible = state.allRows ? ready : ready.slice(0, 10);
     let html = '<p class="etf-caption"><b>' + (state.supplements ? '대표·보조 ETF 표시' : '대표 ETF 중심 표시') + ' · 자체 계산 · 원본 산식과 다름.</b> Sortino 126일, ' + state.ma + '일선 이상 조건. RS는 KOSPI와의 가격수익률 차이(%p)입니다. 순위는 대표·보조를 포함한 전체 순위 대상 ETF에서 계산하며, 대표만 표시하면 순위가 건너뛸 수 있습니다. 표시·검색 조건은 순위를 바꾸지 않습니다.</p>' + universeNote();
-    if (data.markets.KR && data.markets.KR.benchmark_status !== 'fresh') html += '<div class="etf-warning"><strong>자체 RS 계산 보류</strong>현재 비교 가능한 KOSPI 가격 자료가 없어 RS는 —로 표시합니다. 원본 참고에서 별도로 저장된 6개월 RS를 확인할 수 있습니다.</div>';
+    if (data.markets.KR && data.markets.KR.benchmark_status !== 'fresh') html += '<div class="etf-warning"><strong>자체 RS 계산 보류</strong>현재 비교 가능한 KOSPI 가격 자료가 없어 RS는 —로 표시합니다. 원본 저장 참고에서 별도로 저장된 6개월 RS를 확인할 수 있습니다.</div>';
     if (!ready.length) html += empty('현재 조건으로 표시할 강도 순위가 없습니다', '가격 이력·벤치마크·이동평균선 조건을 확인합니다. 자료 부족을 순위 유지로 해석하지 않습니다.');
     else html += section(state.allRows ? '조건 통과 ETF' : '조건 통과 ETF · 현재 정렬 상위 10개', visible.length + ' / ' + ready.length + '개 표시', rankTable(visible)) + '<label class="etf-check"><input id="etf-all-rows" type="checkbox" ' + (state.allRows ? 'checked' : '') + '>조건 통과 ETF 전체 보기</label>';
     html += '<p class="etf-caption">↑ 순위 개선 · ↓ 순위 하락 · 0 비교 순위 동일 · <b>조건진입/조건이탈</b>은 이동평균선 조건 변화입니다. Top10 신규 진입·이탈을 뜻하지 않습니다. 각 변화에 마우스를 올리면 비교일·관측 집합을 볼 수 있습니다.</p>';
@@ -153,10 +165,10 @@
     const sorted = L.sortRows(matching, sortKey, state.sortDir);
     const hasRanks = sorted.some(r => L.number(r[key]));
     const body = sorted.map(r => '<tr><td class="etf-rank">' + (L.number(r[key]) ? r[key] : '—') + '</td>' + nameCell(r) + '<td class="' + sign(r.rs_6m) + '">' + pct(r.rs_6m) + '</td><td class="etf-dim">—<span class="etf-fund-sub">수치 미제공</span></td><td>' + (L.number(r[key]) ? '이상 · 원본 조건' : '—') + '</td><td>' + esc(date(r.date || original.date || original.asof)) + '</td></tr>').join('');
-    return '<div class="etf-warning"><strong>원본 저장 관측값 · ' + esc(date(original.date || original.asof)) + '</strong>' + esc(original.rank_basis || '관측 ETF 내 순위') + '. 원본의 6개월 지표이며 자체 126거래일 지표와 이어 붙이지 않습니다. 전일·5일 변화는 비교 자료가 없어 미표시합니다.</div>' +
+    return '<div class="etf-warning"><strong>원본 저장 참고 · 기준일 ' + esc(date(original.date || original.asof)) + ' · 자동 갱신 안 함</strong>이 표는 별도로 저장한 관측값입니다. 화면의 새로 확인은 발행 자료를 다시 읽으며 원본 대시보드를 수집하지 않습니다.' + (original.observed_at_kst ? ' 저장 관측 시각 ' + esc(original.observed_at_kst) + ' KST.' : '') + ' ' + esc(original.rank_basis || '관측 ETF 내 순위') + '. 원본의 6개월 지표이며 자체 126거래일 지표와 이어 붙이지 않습니다. 전일·5일 변화는 비교 자료가 없어 미표시합니다.</div>' +
       '<p class="etf-caption">표 기준일과 오늘의 완료 거래일이 다르면 <b>과거 참고값</b>입니다. 소르티노 숫자는 원본에서 제공하지 않아 —로 표시합니다. 원본의 배당조정·목표수익률·연율화 세부 방식은 미확인입니다.</p>' +
       (!hasRanks ? '<div class="etf-warning"><strong>' + state.ma + '일선 조건 순위 미확보</strong>확인된 6개월 RS만 표시합니다. 20일선 조건에서 저장된 관측 순위를 볼 수 있습니다.</div>' : '') +
-      section('원본 참고 · 관측 ETF', sorted.length + '개', sorted.length ? '<div class="etf-table-scroll"><table class="etf-table" aria-label="원본 한국 ETF 관측표"><thead><tr>' + sortHeader('관측 순위', 'rank', 'etf-rank') + sortHeader('업종 · ETF', 'name', 'etf-name-cell') + sortHeader('6개월 RS<br>KOSPI 대비', 'rs_price_126') + '<th scope="col">6개월 Sortino<br>숫자</th><th scope="col">' + state.ma + '일선</th><th scope="col">표 기준일</th></tr></thead><tbody>' + body + '</tbody></table></div>' : empty('검색 결과가 없습니다', '다른 업종명이나 ETF 코드를 검색해 주세요.'));
+      section('원본 저장 참고 · 관측 ETF', sorted.length + '개', sorted.length ? '<div class="etf-table-scroll"><table class="etf-table" aria-label="원본 한국 ETF 관측표"><thead><tr>' + sortHeader('관측 순위', 'rank', 'etf-rank') + sortHeader('업종 · ETF', 'name', 'etf-name-cell') + sortHeader('6개월 RS<br>KOSPI 대비', 'rs_price_126') + '<th scope="col">6개월 Sortino<br>숫자</th><th scope="col">' + state.ma + '일선</th><th scope="col">표 기준일</th></tr></thead><tbody>' + body + '</tbody></table></div>' : empty('검색 결과가 없습니다', '다른 업종명이나 ETF 코드를 검색해 주세요.'));
   }
   function highTable(rows) {
     const sorted = L.sortRows(rows, state.sortKey, state.sortDir, (r, k) => k === 'rank' ? L.status(r, data).order : k === 'gap' ? r.high && r.high.gap : r[k]);
@@ -238,17 +250,20 @@
     });
   }
   async function load() {
-    if (loading) return; loading = true;
-    root.innerHTML = '<div class="etf-loader" role="status">ETF 가격과 업종 신호를 불러오고 있습니다.</div>';
+    if (loading || !root) return;
+    loading = true; lastAttemptAt = Date.now();
+    if (!data) root.innerHTML = '<div class="etf-loader" role="status">ETF 가격과 업종 신호를 불러오고 있습니다.</div>';
     try {
-      const response = await fetch('etf_data.json', {cache: 'no-cache'});
+      const response = await fetch('etf_data.json', {cache: 'no-store'});
       if (!response.ok) throw new Error('HTTP ' + response.status);
       const loaded = await response.json();
       if (!loaded || !Array.isArray(loaded.rows) || !loaded.expected_dates || !loaded.markets) throw new Error('자료 형식 확인 필요');
-      data = loaded; render();
+      data = loaded; lastCheckedAt = new Date().toISOString(); refreshError = ''; render();
     } catch (error) {
-      root.innerHTML = '<div class="etf-head"><div><div class="etf-eyebrow">YM RESEARCH · ETF LEADERSHIP</div><h1>ETF 주도섹터</h1></div></div>' + empty('ETF 자료를 불러오지 못했습니다', '연결 상태를 확인한 뒤 다시 불러올 수 있습니다. 과거 자료를 현재 신호로 표시하지 않습니다.') + '<p class="etf-caption">' + esc(error.message) + '</p><button class="btn" type="button" data-etf-retry>다시 불러오기</button>';
+      refreshError = error.message;
+      if (data) render();
+      else root.innerHTML = '<div class="etf-head"><div><div class="etf-eyebrow">YM RESEARCH · ETF LEADERSHIP</div><h1>ETF 주도섹터</h1></div></div>' + empty('ETF 자료를 불러오지 못했습니다', '연결 상태를 확인한 뒤 다시 불러올 수 있습니다. 과거 자료를 현재 신호로 표시하지 않습니다.') + '<p class="etf-caption">' + esc(error.message) + '</p><button class="btn" type="button" data-etf-retry>다시 불러오기</button>';
     } finally { loading = false; }
   }
-  window.ETFScanner = {mount: function () { if (!root) { root = document.getElementById('view-etf'); events(); } if (!data && !loading) load(); }, reload: load};
+  window.ETFScanner = {mount: function () { if (!root) { root = document.getElementById('view-etf'); if (!root) return; events(); watchRefresh(); } return refreshIfDue(); }, reload: load};
 })();

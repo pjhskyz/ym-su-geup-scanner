@@ -99,12 +99,12 @@ test('every bilateral mapping resolves to a current configured representative an
 test('expanded UI navigates all five tabs and exposes unavailable catalogue rows safely', async () => {
   const fs = require('node:fs'), vm = require('node:vm');
   const listeners = {};
-  const root = {innerHTML: '', addEventListener: (type, fn) => {listeners[type] = fn;}, querySelector: () => ({focus: () => {}})};
+  const root = {innerHTML: '', style: {display: ''}, addEventListener: (type, fn) => {listeners[type] = fn;}, querySelector: () => ({focus: () => {}})};
   const rep = row('KR', '091160', {name: '한국 대표 테스트', kind: 'industry', rank_enabled: true, classification_sources: [{url: 'https://example.com/issuer-proof', evidence: '공식 업종 분류 확인'}], above_ma20: true, sortino_price_126: 3, ranks: {sortino20: {rank: 2, delta_1: 0}}});
   const supplemental = row('KR', 'DUP', {name: '보조 테스트', kind: 'industry', rank_enabled: true, representative: false, above_ma20: true, sortino_price_126: 4, ranks: {sortino20: {rank: 1}}});
   const unknown = row('US', 'PENDING', {name: '<img src=x onerror=alert(1)>', rank_enabled: false, selection_status: 'unclassified', status: 'failed', reason: 'network failure', source_url: 'javascript:alert(1)', classification_status: 'pending'});
   const d = {...dataset([rep, supplemental]), all_rows: [rep, supplemental, unknown], catalog_summary: {KR: {listed_count: 1172, candidate_count: 236, observed_at: '2026-10-11T11:21:00Z', source_asof: null, status: 'dated_observation'}}, markets: {KR: {registered: 2, fresh: 2, rank_enabled: 2, classified: 2, representatives: 1, usable: 2}, US: {registered: 1, fresh: 0, rank_enabled: 0, classified: 0, representatives: 0, usable: 0}}, universe: {version: '2026-10-11-v3', changed_at: '2026-10-11'}};
-  const window = {ETFLogic: L}, context = {window, document: {getElementById: () => root, activeElement: null}, fetch: async () => ({ok: true, json: async () => d}), URL};
+  const window = {ETFLogic: L, addEventListener() {}, setInterval() {}}, context = {window, document: {visibilityState: 'visible', addEventListener() {}, getElementById: () => root, activeElement: null}, fetch: async () => ({ok: true, json: async () => d}), URL};
   vm.runInNewContext(fs.readFileSync(require.resolve('./etf.js'), 'utf8'), context); window.ETFScanner.mount();
   await new Promise(resolve => setImmediate(resolve));
   assert.match(root.innerHTML, /대표 ETF 중심 표시/); assert.match(root.innerHTML, /2026-10-11-v3/);

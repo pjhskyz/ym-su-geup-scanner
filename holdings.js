@@ -4,6 +4,17 @@
   const state = {tab: 'stocks', period: 'daily', group: 'all', issuer: 'all', supplements: false, minimum: 2, sort: 'average', query: '', cohort: '', expanded: '', fund: ''};
   const tabs = [['stocks', '종목별 비중 확대'], ['funds', 'ETF별 구성변동'], ['coverage', '수집 현황']];
   let root = null, data = null, loading = false;
+  const refreshInterval = 5 * 60 * 1000;
+  let lastAttemptAt = null, lastCheckedAt = null, refreshError = '';
+  function paneVisible() { return !!root && !root.hidden && root.style.display !== 'none' && document.visibilityState !== 'hidden'; }
+  function refreshIfDue() {
+    if (paneVisible() && !loading && (lastAttemptAt === null || Date.now() - lastAttemptAt >= refreshInterval)) return load();
+  }
+  function watchRefresh() {
+    window.addEventListener('focus', refreshIfDue);
+    document.addEventListener('visibilitychange', refreshIfDue);
+    window.setInterval(refreshIfDue, refreshInterval);
+  }
   const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
   const safeUrl = value => { try { const u = new URL(value); return /^https?:$/.test(u.protocol) ? u.href : ''; } catch (_) { return ''; } };
   const pct = value => L.number(value) ? value.toFixed(2) + '%' : '—';
@@ -51,7 +62,8 @@
     const aumCoverage = [[c.aum_current, '점검 대상일 AUM'], [c.aum_undated, '기준일 미제공'], [c.aum_stale, '미갱신']].filter(([count]) => L.number(count)).map(([count, label]) => label + ' ' + num(count) + '개').join(' · ');
     const cards = [['등록 ETF', c.registered == null ? L.list(data.funds).length : c.registered, '한국 국내주식 ETF · 선정 목록'], ['기준일 구성 확보', c.current, '가격 수집과 별도 · 저장 참고 ' + num(c.archived_reference || 0) + '개'], ['1거래일 비교 가능', c.daily_comparable, '정확히 직전 거래일과 비교'], ['5거래일 비교 가능', c.weekly_comparable, '정확히 5거래일 전과 비교']];
     return '<header class="hold-head"><div class="hold-eyebrow">YM RESEARCH · ETF HOLDINGS</div><h1>ETF 구성종목 변동</h1><p>여러 ETF에서 비중이 함께 늘어난 종목을 찾습니다.<br>가격 변동만으로도 비중이 달라질 수 있어, <b>구성 수량 변화와 함께 확인</b>합니다.</p></header>' +
-      '<div class="hold-freshness"><span><b>점검 대상 거래일</b> <code>' + esc(data.expected_date || '미확인') + '</code></span><span><b>자료 생성</b> ' + esc(kst(data.generated_at)) + '</span><span>' + (L.number(c.current) && L.number(c.registered) && c.current < c.registered ? '부분 점검 · ' : '') + '구성 기준일·조회일은 ETF별 표시</span><button type="button" class="hold-refresh" data-hold-retry>새로 확인 ↻</button></div>' +
+      '<div class="hold-freshness"><span><b>점검 대상 거래일</b> <code>' + esc(data.expected_date || '미확인') + '</code></span><span><b>자료 생성</b> ' + esc(kst(data.generated_at)) + '</span><span>' + (L.number(c.current) && L.number(c.registered) && c.current < c.registered ? '부분 점검 · ' : '') + '구성 기준일·조회일은 ETF별 표시</span><button type="button" class="hold-refresh" data-hold-retry>새로 확인 ↻</button><span><b>화면 확인</b> ' + esc(kst(lastCheckedAt)) + ' · 발행 자료를 5분마다 재확인 · 원자료 수집과 별도</span></div>' +
+      (refreshError ? '<div class="hold-notice" role="status"><b>최신 자료 재확인 실패 · 마지막 표시 자료 유지</b><span>' + esc(refreshError) + ' · 위 기준일의 자료입니다. 새로 확인을 눌러 다시 시도할 수 있습니다.</span></div>' : '') +
       '<div class="hold-stats">' + cards.map(([label, value, detail]) => '<div class="hold-stat"><span>' + label + '</span><strong>' + num(value) + '<small>개</small></strong><p>' + detail + '</p></div>').join('') + '</div>' + (aumCoverage ? '<p class="hold-caption hold-aum-coverage"><b>순자산 규모 확인</b> · ' + aumCoverage + '. 환산액은 비교 시작일 AUM이 확보된 ETF만 계산합니다.</p>' : '');
   }
   function navigation() {
@@ -162,17 +174,19 @@
   }
   async function load() {
     if (loading || !root) return;
-    loading = true; root.innerHTML = '<div class="hold-loader" role="status">ETF 구성종목과 비교 이력을 불러오고 있습니다.</div>';
+    loading = true; lastAttemptAt = Date.now();
+    if (!data) root.innerHTML = '<div class="hold-loader" role="status">ETF 구성종목과 비교 이력을 불러오고 있습니다.</div>';
     try {
       const response = await fetch('holdings_data.json', {cache: 'no-store'});
       if (!response.ok) throw new Error('HTTP ' + response.status);
       const next = await response.json();
       if (!next || next.schema_version !== 'etf-holdings-v1' || !Array.isArray(next.funds) || !next.expected_date) throw new Error('자료 형식 확인 필요');
-      data = next; render();
+      data = next; lastCheckedAt = new Date().toISOString(); refreshError = ''; render();
     } catch (error) {
-      data = null;
-      root.innerHTML = '<header class="hold-head"><div class="hold-eyebrow">YM RESEARCH · ETF HOLDINGS</div><h1>ETF 구성종목 변동</h1></header>' + empty('구성종목 자료를 불러오지 못했습니다', '비교 자료를 확인한 뒤 결과를 표시합니다. 자료 부재는 비중 변화가 없다는 뜻이 아닙니다.') + '<p class="hold-caption">' + esc(error.message) + '</p><button class="hold-refresh" type="button" data-hold-retry>다시 불러오기</button>';
+      refreshError = error.message;
+      if (data) render();
+      else root.innerHTML = '<header class="hold-head"><div class="hold-eyebrow">YM RESEARCH · ETF HOLDINGS</div><h1>ETF 구성종목 변동</h1></header>' + empty('구성종목 자료를 불러오지 못했습니다', '비교 자료를 확인한 뒤 결과를 표시합니다. 자료 부재는 비중 변화가 없다는 뜻이 아닙니다.') + '<p class="hold-caption">' + esc(error.message) + '</p><button class="hold-refresh" type="button" data-hold-retry>다시 불러오기</button>';
     } finally { loading = false; }
   }
-  window.ETFHoldings = {mount: function () { if (!root) { root = document.getElementById('view-holdings'); if (!root) return; bind(); } if (!data && !loading) load(); }, reload: load};
+  window.ETFHoldings = {mount: function () { if (!root) { root = document.getElementById('view-holdings'); if (!root) return; bind(); watchRefresh(); } return refreshIfDue(); }, reload: load};
 })();

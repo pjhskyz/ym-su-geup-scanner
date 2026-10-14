@@ -168,10 +168,10 @@ test('UI loads once, navigates all tabs, exposes related ETF details, and escape
   a.daily.start_aum.resolution_krw = 1e8; a.daily.start_aum.note = '운용사 공시 순자산총액·억원 단위 반올림값';
   const d = dataset([a, b]), handlers = {}, focused = [];
   d.coverage.aum_current = 1; d.coverage.aum_undated = 1;
-  const root = {innerHTML: '', addEventListener: (type, handler) => { handlers[type] = handler; }, querySelector: selector => ({focus: () => focused.push(selector), setSelectionRange: () => {}})};
-  const document = {activeElement: null, getElementById: id => id === 'view-holdings' ? root : null};
+  const root = {innerHTML: '', style: {display: ''}, addEventListener: (type, handler) => { handlers[type] = handler; }, querySelector: selector => ({focus: () => focused.push(selector), setSelectionRange: () => {}})};
+  const document = {activeElement: null, visibilityState: 'visible', addEventListener() {}, getElementById: id => id === 'view-holdings' ? root : null};
   let fetchCount = 0, fetchOptions;
-  const context = {window: {HoldingsLogic: L}, document, URL, fetch: async (_, options) => { fetchCount++; fetchOptions = options; return {ok: true, json: async () => d}; }};
+  const context = {window: {HoldingsLogic: L, addEventListener() {}, setInterval() {}}, document, URL, fetch: async (_, options) => { fetchCount++; fetchOptions = options; return {ok: true, json: async () => d}; }};
   vm.runInNewContext(fs.readFileSync('./holdings.js', 'utf8'), context);
   context.window.ETFHoldings.mount(); await new Promise(resolve => setImmediate(resolve));
   assert.equal(fetchOptions.cache, 'no-store'); assert.match(root.innerHTML, /종목별 비중 확대/); assert.match(root.innerHTML, /삼성전자/);
@@ -192,8 +192,8 @@ test('UI loads once, navigates all tabs, exposes related ETF details, and escape
 });
 test('UI displays history accumulation and collection failure without invented signal zeros', async () => {
   const fs = require('node:fs'), vm = require('node:vm');
-  const d = dataset([fund('KR:1', {status: 'cached_after_failure', daily: {status: 'waiting', reason: '조회 실패'}})]), handlers = {}, root = {innerHTML: '', addEventListener: (type, handler) => { handlers[type] = handler; }, querySelector: () => ({focus: () => {}})};
-  const context = {window: {HoldingsLogic: L}, document: {activeElement: null, getElementById: () => root}, URL, fetch: async () => ({ok: true, json: async () => d})};
+  const d = dataset([fund('KR:1', {status: 'cached_after_failure', daily: {status: 'waiting', reason: '조회 실패'}})]), handlers = {}, root = {innerHTML: '', style: {display: ''}, addEventListener: (type, handler) => { handlers[type] = handler; }, querySelector: () => ({focus: () => {}})};
+  const context = {window: {HoldingsLogic: L, addEventListener() {}, setInterval() {}}, document: {activeElement: null, visibilityState: 'visible', addEventListener() {}, getElementById: () => root}, URL, fetch: async () => ({ok: true, json: async () => d})};
   vm.runInNewContext(fs.readFileSync('./holdings.js', 'utf8'), context); context.window.ETFHoldings.mount(); await new Promise(resolve => setImmediate(resolve));
   assert.match(root.innerHTML, /비교 이력 축적 중/); assert.doesNotMatch(root.innerHTML, /선택 조건에 맞는 종목이 없습니다/);
   handlers.click({target: {closest: s => s === '[data-hold-tab]' ? {dataset: {holdTab: 'coverage'}} : null}});
@@ -203,8 +203,8 @@ test('UI displays history accumulation and collection failure without invented s
 test('baseline ETFs display undated AUM only as a qualified size reference, without reference amounts', async () => {
   const fs = require('node:fs'), vm = require('node:vm');
   const f = fund('KR:1', {status: 'baseline_only', aum: aum(3e10, null, {status: 'undated', observed_at: '2026-10-11T13:00:00Z'}), daily: {status: 'waiting', reason: '첫 기준점'}});
-  const handlers = {}, root = {innerHTML: '', addEventListener: (type, handler) => { handlers[type] = handler; }, querySelector: () => ({focus: () => {}})};
-  const context = {window: {HoldingsLogic: L}, document: {activeElement: null, getElementById: () => root}, URL, fetch: async () => ({ok: true, json: async () => dataset([f])})};
+  const handlers = {}, root = {innerHTML: '', style: {display: ''}, addEventListener: (type, handler) => { handlers[type] = handler; }, querySelector: () => ({focus: () => {}})};
+  const context = {window: {HoldingsLogic: L, addEventListener() {}, setInterval() {}}, document: {activeElement: null, visibilityState: 'visible', addEventListener() {}, getElementById: () => root}, URL, fetch: async () => ({ok: true, json: async () => dataset([f])})};
   vm.runInNewContext(fs.readFileSync('./holdings.js', 'utf8'), context); context.window.ETFHoldings.mount(); await new Promise(resolve => setImmediate(resolve));
   handlers.click({target: {closest: selector => selector === '[data-hold-tab]' ? {dataset: {holdTab: 'funds'}} : null}});
   assert.match(root.innerHTML, /300억원/); assert.match(root.innerHTML, /기준일 미제공 · 조회 2026-10-11 22:00 KST/); assert.match(root.innerHTML, /참고 규모/);

@@ -3,6 +3,7 @@ name: ETF sector monitor
 on:
   schedule:
     - cron: '15 22 * * *'   # 07:15 KST, completed US session + latest KR session
+    - cron: '45 22 * * *'   # 07:45 KST, retry when the first morning run is delayed/missed
     - cron: '35 11 * * 1-5' # 20:35 KST, completed KR session
   workflow_dispatch:
   push:
@@ -10,6 +11,7 @@ on:
     paths:
       - 'build_etf_data.py'
       - 'test_etf_data.py'
+      - 'etf_refresh.test.js'
       - 'build_holdings_data.py'
       - 'test_holdings*.py'
       - 'holdings_pipeline/**/*.py'
@@ -48,7 +50,7 @@ jobs:
       - name: Validate calculation rules
         run: python -m unittest test_etf_data test_holdings_data test_holdings_naver test_holdings_issuers test_holdings_integration test_holdings_aum
       - name: Validate holdings amounts and sorting
-        run: node --test holdings_logic.test.js
+        run: node --test holdings_logic.test.js etf_refresh.test.js
       - name: Refresh Korea ETF discovery catalog
         continue-on-error: true
         run: python -u etf_pipeline/collect_kr_catalog.py --output etf_pipeline/kr_catalog.json --universe etf_pipeline/universe.json
