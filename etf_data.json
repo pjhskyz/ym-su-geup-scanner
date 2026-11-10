@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-09T21:39:41.481767+00:00",
+  "generated_at": "2026-11-10T04:08:45.573118+00:00",
   "collection_mode": "live_collection",
-  "last_collection_at": "2026-11-09T21:39:31.072570+00:00",
+  "last_collection_at": "2026-11-10T04:08:35.324351+00:00",
   "method": {
     "version": "etf-scanner-price-v1",
     "label": "자체 계산 · 공급자 가격 기반 · 원본 산식과 다름",
@@ -72,7 +72,7 @@
       "KR": "XKRX",
       "US": "XNYS"
     },
-    "evaluated_at": "2026-11-09T21:36:53.633510+00:00",
+    "evaluated_at": "2026-11-10T04:06:05.529896+00:00",
     "explicit_asof": false,
     "verified_closure_overrides": [
       {
@@ -381,7 +381,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=367760",
       "source_retrieved_at": [
-        "20261109T213655328486"
+        "20261110T040607222466"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -649,7 +649,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=475300",
       "source_retrieved_at": [
-        "20261109T213656591306"
+        "20261110T040608118527"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -917,11 +917,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=091160",
       "source_retrieved_at": [
-        "20261109T213656606778"
+        "20261110T040608132706"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": -0.16247679774782786,
       "rs_price_63": -0.03221764289220441,
       "rs_price_126": -0.0567732563068164,
@@ -1185,11 +1185,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=140700",
       "source_retrieved_at": [
-        "20261109T213657316886"
+        "20261110T040608700357"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.15209054509136588,
       "rs_price_63": 0.21648743612854837,
       "rs_price_126": 0.4083373619261821,
@@ -1453,7 +1453,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=475310",
       "source_retrieved_at": [
-        "20261109T213657402136"
+        "20261110T040608904623"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -1721,11 +1721,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=487240",
       "source_retrieved_at": [
-        "20261109T213658051167"
+        "20261110T040609348071"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": -0.16818334080657016,
       "rs_price_63": -0.21033730255596894,
       "rs_price_126": -0.37983957761239967,
@@ -1989,7 +1989,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=457990",
       "source_retrieved_at": [
-        "20261109T213658128528"
+        "20261110T040609581820"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -2257,7 +2257,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=228790",
       "source_retrieved_at": [
-        "20261109T213658646533"
+        "20261110T040609914306"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -2525,7 +2525,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=307520",
       "source_retrieved_at": [
-        "20261109T213658939068"
+        "20261110T040610227987"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -2793,7 +2793,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=0008T0",
       "source_retrieved_at": [
-        "20261109T213659456339"
+        "20261110T040610554018"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -3061,11 +3061,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=445290",
       "source_retrieved_at": [
-        "20261109T213659766091"
+        "20261110T040610880927"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.0047815961475385915,
       "rs_price_63": -0.024717531108027102,
       "rs_price_126": -0.08095494000390047,
@@ -3329,11 +3329,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=091170",
       "source_retrieved_at": [
-        "20261109T213700162248"
+        "20261110T040611086461"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.16874937872976137,
       "rs_price_63": 0.14287417821861625,
       "rs_price_126": 0.19613903962199297,
@@ -3597,7 +3597,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=471760",
       "source_retrieved_at": [
-        "20261109T213700279976"
+        "20261110T040611452788"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -3865,11 +3865,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=117460",
       "source_retrieved_at": [
-        "20261109T213700445829"
+        "20261110T040611528537"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": -0.04501893680344782,
       "rs_price_63": 0.04902784188896658,
       "rs_price_126": -0.17008115171150395,
@@ -4133,7 +4133,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=381570",
       "source_retrieved_at": [
-        "20261109T213700960821"
+        "20261110T040611741057"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -4401,7 +4401,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=305540",
       "source_retrieved_at": [
-        "20261109T213700973590"
+        "20261110T040612088477"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -4669,11 +4669,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=117700",
       "source_retrieved_at": [
-        "20261109T213701256577"
+        "20261110T040612161958"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.09523307564481498,
       "rs_price_63": 0.07832470668647562,
       "rs_price_126": -0.1275006123505883,
@@ -4937,7 +4937,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=150460",
       "source_retrieved_at": [
-        "20261109T213701631991"
+        "20261110T040612371408"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -5205,7 +5205,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=210780",
       "source_retrieved_at": [
-        "20261109T213701781090"
+        "20261110T040612720195"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -5473,7 +5473,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=227560",
       "source_retrieved_at": [
-        "20261109T213701930532"
+        "20261110T040612792385"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -5741,7 +5741,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=438900",
       "source_retrieved_at": [
-        "20261109T213702305820"
+        "20261110T040612999711"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -6009,7 +6009,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=157490",
       "source_retrieved_at": [
-        "20261109T213702460822"
+        "20261110T040613371050"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -6277,7 +6277,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=433500",
       "source_retrieved_at": [
-        "20261109T213702603844"
+        "20261110T040613426506"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -6545,11 +6545,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=091180",
       "source_retrieved_at": [
-        "20261109T213702979375"
+        "20261110T040613643931"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.1088766984523486,
       "rs_price_63": -0.022467432019382838,
       "rs_price_126": -0.06155832892870294,
@@ -6813,7 +6813,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=139230",
       "source_retrieved_at": [
-        "20261109T213703145104"
+        "20261110T040614010277"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -7081,7 +7081,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=364970",
       "source_retrieved_at": [
-        "20261109T213703280831"
+        "20261110T040614074983"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -7349,7 +7349,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=228800",
       "source_retrieved_at": [
-        "20261109T213703657975"
+        "20261110T040614294267"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -7617,7 +7617,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=466920",
       "source_retrieved_at": [
-        "20261109T213703824579"
+        "20261110T040614660227"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -7885,7 +7885,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=463250",
       "source_retrieved_at": [
-        "20261109T213703954181"
+        "20261110T040614705324"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -8153,11 +8153,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=300950",
       "source_retrieved_at": [
-        "20261109T213704332573"
+        "20261110T040614937049"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.26173792347776415,
       "rs_price_63": 0.17670216162179575,
       "rs_price_126": 0.030770339431340887,
@@ -8421,7 +8421,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=449450",
       "source_retrieved_at": [
-        "20261109T213704627587"
+        "20261110T040615298445"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -8689,11 +8689,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=266360",
       "source_retrieved_at": [
-        "20261109T213704640526"
+        "20261110T040615347212"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.24695420884197117,
       "rs_price_63": 0.12383367088922737,
       "rs_price_126": 0.02384285602467373,
@@ -8957,7 +8957,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=421320",
       "source_retrieved_at": [
-        "20261109T213705005334"
+        "20261110T040615568630"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -9225,7 +9225,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=307510",
       "source_retrieved_at": [
-        "20261109T213705331184"
+        "20261110T040615943219"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -9493,11 +9493,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=102970",
       "source_retrieved_at": [
-        "20261109T213705341837"
+        "20261110T040616001590"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.014821293235085298,
       "rs_price_63": -0.09344727854380042,
       "rs_price_126": -0.28653848804694576,
@@ -9761,7 +9761,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=483020",
       "source_retrieved_at": [
-        "20261109T213705686413"
+        "20261110T040616201971"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -10029,11 +10029,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=244580",
       "source_retrieved_at": [
-        "20261109T213706022535"
+        "20261110T040616589080"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.11205550645232532,
       "rs_price_63": 0.062070986755543345,
       "rs_price_126": -0.14536602420502276,
@@ -10297,7 +10297,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=261070",
       "source_retrieved_at": [
-        "20261109T213706029716"
+        "20261110T040616638058"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -10574,11 +10574,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=117680",
       "source_retrieved_at": [
-        "20261109T213917794973"
+        "20261110T040821788189"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.060664701501208396,
       "rs_price_63": 0.08121321933878767,
       "rs_price_126": -0.17105975858357314,
@@ -10851,11 +10851,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=140710",
       "source_retrieved_at": [
-        "20261109T213917795250"
+        "20261110T040822429598"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.20227050928130996,
       "rs_price_63": 0.2230125112848358,
       "rs_price_126": 0.219327727661206,
@@ -11128,11 +11128,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=102960",
       "source_retrieved_at": [
-        "20261109T213917795499"
+        "20261110T040823070431"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": -0.10025052358769482,
       "rs_price_63": -0.1443396369869666,
       "rs_price_126": -0.32654193570025275,
@@ -11405,11 +11405,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=266390",
       "source_retrieved_at": [
-        "20261109T213918601257"
+        "20261110T040823529567"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.23058051261532475,
       "rs_price_63": 0.22568899572949364,
       "rs_price_126": 0.4404716109965505,
@@ -11682,11 +11682,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=266410",
       "source_retrieved_at": [
-        "20261109T213918622069"
+        "20261110T040823530278"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.15491028359009196,
       "rs_price_63": 0.1718922913504476,
       "rs_price_126": 0.12713138243398137,
@@ -11959,11 +11959,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=266370",
       "source_retrieved_at": [
-        "20261109T213918622578"
+        "20261110T040823702977"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": -0.110312094157336,
       "rs_price_63": -0.023720122822919243,
       "rs_price_126": 0.018714359013857984,
@@ -12236,11 +12236,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=266420",
       "source_retrieved_at": [
-        "20261109T213919415488"
+        "20261110T040824170241"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.18813090512003205,
       "rs_price_63": 0.11054223614094427,
       "rs_price_126": -0.016370134685268822,
@@ -12513,11 +12513,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=395150",
       "source_retrieved_at": [
-        "20261109T213919421596"
+        "20261110T040824177390"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.1942189694112696,
       "rs_price_63": 0.15678427402336625,
       "rs_price_126": -0.043883181067767896,
@@ -12790,7 +12790,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=0209D0",
       "source_retrieved_at": [
-        "20261109T213919429100"
+        "20261110T040824336504"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -13069,7 +13069,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=471990",
       "source_retrieved_at": [
-        "20261109T213919957949"
+        "20261110T040824718820"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -13346,7 +13346,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=329200",
       "source_retrieved_at": [
-        "20261109T213920106126"
+        "20261110T040824826075"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -13623,7 +13623,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=315270",
       "source_retrieved_at": [
-        "20261109T213920113534"
+        "20261110T040824938356"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -13900,7 +13900,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=365000",
       "source_retrieved_at": [
-        "20261109T213920772523"
+        "20261110T040825342456"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -14177,7 +14177,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=322400",
       "source_retrieved_at": [
-        "20261109T213921062539"
+        "20261110T040825464731"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -14450,7 +14450,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=314700",
       "source_retrieved_at": [
-        "20261109T213921062939"
+        "20261110T040825585499"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -14727,7 +14727,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=454320",
       "source_retrieved_at": [
-        "20261109T213921581071"
+        "20261110T040825976113"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -15000,7 +15000,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=367770",
       "source_retrieved_at": [
-        "20261109T213921743545"
+        "20261110T040826109466"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -15273,7 +15273,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=446700",
       "source_retrieved_at": [
-        "20261109T213921750610"
+        "20261110T040826224645"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -15546,7 +15546,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=0141S0",
       "source_retrieved_at": [
-        "20261109T213922392453"
+        "20261110T040826644635"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -15818,7 +15818,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=464600",
       "source_retrieved_at": [
-        "20261109T213922557915"
+        "20261110T040826753744"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -16095,7 +16095,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=0150K0",
       "source_retrieved_at": [
-        "20261109T213922565855"
+        "20261110T040826859434"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -16371,7 +16371,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=0219B0",
       "source_retrieved_at": [
-        "20261109T213922822166"
+        "20261110T040827050293"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -16645,11 +16645,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ARKG.K",
       "source_retrieved_at": [
-        "20261109T213706281534",
-        "20261109T213707185341",
-        "20261109T213707959777",
-        "20261109T213708733637",
-        "20261109T213709635468"
+        "20261110T040616880522",
+        "20261110T040617744083",
+        "20261110T040618613896",
+        "20261110T040619489023",
+        "20261110T040620235436"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -16917,11 +16917,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SOXX.O",
       "source_retrieved_at": [
-        "20261109T213706706655",
-        "20261109T213707613411",
-        "20261109T213708521789",
-        "20261109T213709292340",
-        "20261109T213710067590"
+        "20261110T040617233077",
+        "20261110T040618105607",
+        "20261110T040618959392",
+        "20261110T040619829356",
+        "20261110T040620852415"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -17189,11 +17189,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XSD",
       "source_retrieved_at": [
-        "20261109T213706714045",
-        "20261109T213707614852",
-        "20261109T213708519885",
-        "20261109T213709295797",
-        "20261109T213710199524"
+        "20261110T040617283505",
+        "20261110T040618097837",
+        "20261110T040618958478",
+        "20261110T040619831059",
+        "20261110T040620849340"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -17466,11 +17466,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PSI",
       "source_retrieved_at": [
-        "20261109T213710414042",
-        "20261109T213711189248",
-        "20261109T213711963427",
-        "20261109T213712738095",
-        "20261109T213713511277"
+        "20261110T040621111726",
+        "20261110T040621994121",
+        "20261110T040622736644",
+        "20261110T040623478104",
+        "20261110T040624221863"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -17743,11 +17743,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GNOM.O",
       "source_retrieved_at": [
-        "20261109T213710849686",
-        "20261109T213711625828",
-        "20261109T213712403113",
-        "20261109T213713172742",
-        "20261109T213713952255"
+        "20261110T040621600967",
+        "20261110T040622473981",
+        "20261110T040623230354",
+        "20261110T040623970028",
+        "20261110T040624839825"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -18015,11 +18015,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SKYY.O",
       "source_retrieved_at": [
-        "20261109T213710978654",
-        "20261109T213711882521",
-        "20261109T213712655852",
-        "20261109T213713427578",
-        "20261109T213714202384"
+        "20261110T040621601440",
+        "20261110T040622476014",
+        "20261110T040623228647",
+        "20261110T040624122199",
+        "20261110T040624863672"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -18296,11 +18296,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/QTEC.O",
       "source_retrieved_at": [
-        "20261109T213714419394",
-        "20261109T213715192510",
-        "20261109T213715967505",
-        "20261109T213716737894",
-        "20261109T213717511275"
+        "20261110T040624985417",
+        "20261110T040625733266",
+        "20261110T040626489344",
+        "20261110T040627235605",
+        "20261110T040627971619"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -18568,11 +18568,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLK",
       "source_retrieved_at": [
-        "20261109T213714732132",
-        "20261109T213715504272",
-        "20261109T213716279713",
-        "20261109T213717053842",
-        "20261109T213717829945"
+        "20261110T040625587188",
+        "20261110T040626329671",
+        "20261110T040627189549",
+        "20261110T040627938478",
+        "20261110T040628795554"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -18845,11 +18845,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IGV",
       "source_retrieved_at": [
-        "20261109T213714983422",
-        "20261109T213715759198",
-        "20261109T213716535217",
-        "20261109T213717309061",
-        "20261109T213718083816"
+        "20261110T040625615897",
+        "20261110T040626366111",
+        "20261110T040627190197",
+        "20261110T040627929933",
+        "20261110T040628794770"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -19122,11 +19122,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/CARZ.O",
       "source_retrieved_at": [
-        "20261109T213718291426",
-        "20261109T213719066600",
-        "20261109T213719972955",
-        "20261109T213720745348",
-        "20261109T213721519204"
+        "20261110T040628795272",
+        "20261110T040629541758",
+        "20261110T040630288464",
+        "20261110T040631158352",
+        "20261110T040631898840"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -19394,11 +19394,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XHS",
       "source_retrieved_at": [
-        "20261109T213718610936",
-        "20261109T213719385957",
-        "20261109T213720163865",
-        "20261109T213720944736",
-        "20261109T213721719353"
+        "20261110T040629551166",
+        "20261110T040630304140",
+        "20261110T040631154752",
+        "20261110T040631893917",
+        "20261110T040632641906"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -19676,11 +19676,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IHF",
       "source_retrieved_at": [
-        "20261109T213718864568",
-        "20261109T213719642367",
-        "20261109T213720421721",
-        "20261109T213721197282",
-        "20261109T213721970378"
+        "20261110T040629551389",
+        "20261110T040630307359",
+        "20261110T040631155802",
+        "20261110T040631901466",
+        "20261110T040632645910"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -19953,11 +19953,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/FDN",
       "source_retrieved_at": [
-        "20261109T213722296127",
-        "20261109T213723071154",
-        "20261109T213723851356",
-        "20261109T213724623415",
-        "20261109T213725399067"
+        "20261110T040632648805",
+        "20261110T040633389582",
+        "20261110T040634129540",
+        "20261110T040634873156",
+        "20261110T040635620716"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -20234,11 +20234,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IBB.O",
       "source_retrieved_at": [
-        "20261109T213722508620",
-        "20261109T213723303797",
-        "20261109T213724081156",
-        "20261109T213724856692",
-        "20261109T213725628697"
+        "20261110T040633392406",
+        "20261110T040634141363",
+        "20261110T040634876364",
+        "20261110T040635618917",
+        "20261110T040636361033"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -20520,11 +20520,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SEA",
       "source_retrieved_at": [
-        "20261109T213722749504",
-        "20261109T213723522147",
-        "20261109T213724297739",
-        "20261109T213725069641",
-        "20261109T213725845572"
+        "20261110T040633396784",
+        "20261110T040634136176",
+        "20261110T040634877487",
+        "20261110T040635621725",
+        "20261110T040636361846"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -20792,11 +20792,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ROBO.K",
       "source_retrieved_at": [
-        "20261109T213726178861",
-        "20261109T213726956232",
-        "20261109T213727724691",
-        "20261109T213728504260",
-        "20261109T213729278475"
+        "20261110T040636364302",
+        "20261110T040637109931",
+        "20261110T040637863400",
+        "20261110T040638602645",
+        "20261110T040639351158"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -21069,11 +21069,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PJP",
       "source_retrieved_at": [
-        "20261109T213726409757",
-        "20261109T213727188377",
-        "20261109T213728031655",
-        "20261109T213728823698",
-        "20261109T213729597097"
+        "20261110T040637105443",
+        "20261110T040637857834",
+        "20261110T040638601978",
+        "20261110T040639350299",
+        "20261110T040640097746"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -21341,11 +21341,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XBI",
       "source_retrieved_at": [
-        "20261109T213726626281",
-        "20261109T213727398489",
-        "20261109T213728174607",
-        "20261109T213728954574",
-        "20261109T213729726249"
+        "20261110T040637114755",
+        "20261110T040637864161",
+        "20261110T040638606761",
+        "20261110T040639353911",
+        "20261110T040640095592"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -21618,11 +21618,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IHE",
       "source_retrieved_at": [
-        "20261109T213730061801",
-        "20261109T213730839767",
-        "20261109T213731624461",
-        "20261109T213732401760",
-        "20261109T213733174589"
+        "20261110T040640104485",
+        "20261110T040640849867",
+        "20261110T040641605784",
+        "20261110T040642341797",
+        "20261110T040643202248"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -21899,11 +21899,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLV",
       "source_retrieved_at": [
-        "20261109T213730380084",
-        "20261109T213731150631",
-        "20261109T213731926420",
-        "20261109T213732701661",
-        "20261109T213733481520"
+        "20261110T040640862204",
+        "20261110T040641617793",
+        "20261110T040642355715",
+        "20261110T040643205614",
+        "20261110T040643952119"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -22181,11 +22181,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PNQI.O",
       "source_retrieved_at": [
-        "20261109T213730507266",
-        "20261109T213731286269",
-        "20261109T213732059199",
-        "20261109T213732833671",
-        "20261109T213733616671"
+        "20261110T040640862505",
+        "20261110T040641614426",
+        "20261110T040642356816",
+        "20261110T040643206783",
+        "20261110T040643954190"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -22453,11 +22453,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XHE",
       "source_retrieved_at": [
-        "20261109T213733954958",
-        "20261109T213734729978",
-        "20261109T213735507963",
-        "20261109T213736280117",
-        "20261109T213737058844"
+        "20261110T040643948360",
+        "20261110T040644695404",
+        "20261110T040645441196",
+        "20261110T040646179890",
+        "20261110T040646920363"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -22735,11 +22735,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SLX",
       "source_retrieved_at": [
-        "20261109T213734261141",
-        "20261109T213735032791",
-        "20261109T213735809382",
-        "20261109T213736589334",
-        "20261109T213737370447"
+        "20261110T040644696055",
+        "20261110T040645437316",
+        "20261110T040646183755",
+        "20261110T040646931926",
+        "20261110T040647669948"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -23016,11 +23016,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/COPX.K",
       "source_retrieved_at": [
-        "20261109T213734396116",
-        "20261109T213735179020",
-        "20261109T213735952131",
-        "20261109T213736732069",
-        "20261109T213737506353"
+        "20261110T040644706699",
+        "20261110T040645458194",
+        "20261110T040646197722",
+        "20261110T040646942242",
+        "20261110T040647691449"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -23293,11 +23293,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IXG",
       "source_retrieved_at": [
-        "20261109T213737840831",
-        "20261109T213738624006",
-        "20261109T213739400288",
-        "20261109T213740174144",
-        "20261109T213740952635"
+        "20261110T040647668817",
+        "20261110T040648417676",
+        "20261110T040649169923",
+        "20261110T040649906358",
+        "20261110T040650641896"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -23565,11 +23565,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GRID.O",
       "source_retrieved_at": [
-        "20261109T213738152451",
-        "20261109T213738928150",
-        "20261109T213739702884",
-        "20261109T213740478975",
-        "20261109T213741260261"
+        "20261110T040648420741",
+        "20261110T040649163769",
+        "20261110T040649911417",
+        "20261110T040650652169",
+        "20261110T040651393859"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -23842,11 +23842,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/QCLN.O",
       "source_retrieved_at": [
-        "20261109T213738284941",
-        "20261109T213739059051",
-        "20261109T213739828549",
-        "20261109T213740610201",
-        "20261109T213741384811"
+        "20261110T040648437029",
+        "20261110T040649185356",
+        "20261110T040649936566",
+        "20261110T040650674139",
+        "20261110T040651410700"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -24119,11 +24119,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IYZ",
       "source_retrieved_at": [
-        "20261109T213741729943",
-        "20261109T213742502968",
-        "20261109T213743274639",
-        "20261109T213744058956",
-        "20261109T213744834824"
+        "20261110T040651396654",
+        "20261110T040652141098",
+        "20261110T040652889139",
+        "20261110T040653636361",
+        "20261110T040654374019"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -24391,11 +24391,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLF",
       "source_retrieved_at": [
-        "20261109T213742044756",
-        "20261109T213742820861",
-        "20261109T213743593718",
-        "20261109T213744372370",
-        "20261109T213745143700"
+        "20261110T040652143964",
+        "20261110T040652885917",
+        "20261110T040653635297",
+        "20261110T040654380874",
+        "20261110T040655120107"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -24668,11 +24668,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XTL",
       "source_retrieved_at": [
-        "20261109T213742188918",
-        "20261109T213742968492",
-        "20261109T213743743697",
-        "20261109T213744518121",
-        "20261109T213745296046"
+        "20261110T040652206777",
+        "20261110T040652959550",
+        "20261110T040653708654",
+        "20261110T040654462419",
+        "20261110T040655210377"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -24940,11 +24940,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/KIE",
       "source_retrieved_at": [
-        "20261109T213745619134",
-        "20261109T213746389051",
-        "20261109T213747167555",
-        "20261109T213747940669",
-        "20261109T213748712593"
+        "20261110T040655126822",
+        "20261110T040655871040",
+        "20261110T040656610254",
+        "20261110T040657356835",
+        "20261110T040658090396"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -25217,11 +25217,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PEJ",
       "source_retrieved_at": [
-        "20261109T213745929352",
-        "20261109T213746703051",
-        "20261109T213747480126",
-        "20261109T213748251761",
-        "20261109T213749021391"
+        "20261110T040655876576",
+        "20261110T040656618332",
+        "20261110T040657357888",
+        "20261110T040658095337",
+        "20261110T040658860344"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -25494,11 +25494,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLE",
       "source_retrieved_at": [
-        "20261109T213746078864",
-        "20261109T213746852078",
-        "20261109T213747624866",
-        "20261109T213748402049",
-        "20261109T213749177410"
+        "20261110T040655959951",
+        "20261110T040656705065",
+        "20261110T040657448863",
+        "20261110T040658190714",
+        "20261110T040658935628"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -25771,11 +25771,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PICK.K",
       "source_retrieved_at": [
-        "20261109T213749492423",
-        "20261109T213750268116",
-        "20261109T213751047011",
-        "20261109T213751834949",
-        "20261109T213752612571"
+        "20261110T040658836112",
+        "20261110T040659578959",
+        "20261110T040700326947",
+        "20261110T040701072509",
+        "20261110T040701819626"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -26048,11 +26048,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IAI",
       "source_retrieved_at": [
-        "20261109T213749799476",
-        "20261109T213750573520",
-        "20261109T213751351109",
-        "20261109T213752119746",
-        "20261109T213752891478"
+        "20261110T040659619093",
+        "20261110T040700366023",
+        "20261110T040701116618",
+        "20261110T040701856781",
+        "20261110T040702601672"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -26320,11 +26320,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/KRE",
       "source_retrieved_at": [
-        "20261109T213749961888",
-        "20261109T213750734558",
-        "20261109T213751522320",
-        "20261109T213752297535",
-        "20261109T213753070949"
+        "20261110T040659684409",
+        "20261110T040700433802",
+        "20261110T040701179903",
+        "20261110T040701925073",
+        "20261110T040702666556"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -26597,11 +26597,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IYT",
       "source_retrieved_at": [
-        "20261109T213753396121",
-        "20261109T213754168782",
-        "20261109T213754945810",
-        "20261109T213755719152",
-        "20261109T213756751187"
+        "20261110T040702569189",
+        "20261110T040703318212",
+        "20261110T040704073070",
+        "20261110T040704821069",
+        "20261110T040705561607"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -26869,11 +26869,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/KBE",
       "source_retrieved_at": [
-        "20261109T213753671031",
-        "20261109T213754442318",
-        "20261109T213755220797",
-        "20261109T213755994345",
-        "20261109T213756764237"
+        "20261110T040703356589",
+        "20261110T040704103986",
+        "20261110T040704844020",
+        "20261110T040705586068",
+        "20261110T040706323539"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -27146,11 +27146,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/VOX",
       "source_retrieved_at": [
-        "20261109T213753858890",
-        "20261109T213754631764",
-        "20261109T213755404603",
-        "20261109T213756176006",
-        "20261109T213756949501"
+        "20261110T040703417713",
+        "20261110T040704159955",
+        "20261110T040704910959",
+        "20261110T040705644613",
+        "20261110T040706384233"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -27418,11 +27418,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XOP",
       "source_retrieved_at": [
-        "20261109T213757549687",
-        "20261109T213758324856",
-        "20261109T213759229807",
-        "20261109T213800132590",
-        "20261109T213801038765"
+        "20261110T040706305423",
+        "20261110T040707046967",
+        "20261110T040707797506",
+        "20261110T040708787115",
+        "20261110T040709522708"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -27695,11 +27695,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/AMLP.K",
       "source_retrieved_at": [
-        "20261109T213757549993",
-        "20261109T213758326205",
-        "20261109T213759231565",
-        "20261109T213800133390",
-        "20261109T213801038091"
+        "20261110T040707103955",
+        "20261110T040707855644",
+        "20261110T040708788200",
+        "20261110T040709537316",
+        "20261110T040710281799"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -27967,11 +27967,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLI",
       "source_retrieved_at": [
-        "20261109T213757734099",
-        "20261109T213758509767",
-        "20261109T213759286503",
-        "20261109T213800134445",
-        "20261109T213801042253"
+        "20261110T040707169303",
+        "20261110T040707908014",
+        "20261110T040708795837",
+        "20261110T040709634198",
+        "20261110T040710378516"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -28239,11 +28239,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLY",
       "source_retrieved_at": [
-        "20261109T213801824437",
-        "20261109T213802598807",
-        "20261109T213803500854",
-        "20261109T213804275890",
-        "20261109T213805048554"
+        "20261110T040710263973",
+        "20261110T040711013936",
+        "20261110T040711767690",
+        "20261110T040712512355",
+        "20261110T040713244943"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -28516,11 +28516,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IXP",
       "source_retrieved_at": [
-        "20261109T213801824694",
-        "20261109T213802604940",
-        "20261109T213803505085",
-        "20261109T213804283847",
-        "20261109T213805187514"
+        "20261110T040711024904",
+        "20261110T040711777488",
+        "20261110T040712527504",
+        "20261110T040713268947",
+        "20261110T040714016001"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -28793,11 +28793,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/BIZD.K",
       "source_retrieved_at": [
-        "20261109T213801954786",
-        "20261109T213802724991",
-        "20261109T213803502001",
-        "20261109T213804272399",
-        "20261109T213805047497"
+        "20261110T040711129049",
+        "20261110T040711997271",
+        "20261110T040712743194",
+        "20261110T040713616038",
+        "20261110T040714364225"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -29065,11 +29065,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XTN",
       "source_retrieved_at": [
-        "20261109T213805829915",
-        "20261109T213806608934",
-        "20261109T213807386150",
-        "20261109T213808160273",
-        "20261109T213808933618"
+        "20261110T040713989809",
+        "20261110T040714740020",
+        "20261110T040715484793",
+        "20261110T040716232176",
+        "20261110T040716971013"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -29337,11 +29337,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XRT",
       "source_retrieved_at": [
-        "20261109T213805830212",
-        "20261109T213806604113",
-        "20261109T213807375495",
-        "20261109T213808147515",
-        "20261109T213808926452"
+        "20261110T040714762036",
+        "20261110T040715507492",
+        "20261110T040716257961",
+        "20261110T040717123200",
+        "20261110T040717868275"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -29623,11 +29623,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/FIW",
       "source_retrieved_at": [
-        "20261109T213805968230",
-        "20261109T213806744964",
-        "20261109T213807520257",
-        "20261109T213808295723",
-        "20261109T213809073481"
+        "20261110T040715112874",
+        "20261110T040715863610",
+        "20261110T040716605971",
+        "20261110T040717343580",
+        "20261110T040718124110"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -29909,11 +29909,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/HAP",
       "source_retrieved_at": [
-        "20261109T213809711377",
-        "20261109T213810488979",
-        "20261109T213811266801",
-        "20261109T213812040613",
-        "20261109T213812812381"
+        "20261110T040717718618",
+        "20261110T040718459356",
+        "20261110T040719205817",
+        "20261110T040719940499",
+        "20261110T040720682946"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -30181,11 +30181,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLP",
       "source_retrieved_at": [
-        "20261109T213809843510",
-        "20261109T213810751891",
-        "20261109T213811527060",
-        "20261109T213812300392",
-        "20261109T213813074001"
+        "20261110T040718613575",
+        "20261110T040719364146",
+        "20261110T040720112444",
+        "20261110T040720996791",
+        "20261110T040721732546"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -30463,11 +30463,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PSP",
       "source_retrieved_at": [
-        "20261109T213809985117",
-        "20261109T213810756469",
-        "20261109T213811525961",
-        "20261109T213812299675",
-        "20261109T213813072540"
+        "20261110T040718873206",
+        "20261110T040719622688",
+        "20261110T040720500176",
+        "20261110T040721372334",
+        "20261110T040722118247"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -30740,11 +30740,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/RXI",
       "source_retrieved_at": [
-        "20261109T213813721118",
-        "20261109T213814494549",
-        "20261109T213815269375",
-        "20261109T213816046604",
-        "20261109T213816826809"
+        "20261110T040721551761",
+        "20261110T040722301045",
+        "20261110T040723050307",
+        "20261110T040723784457",
+        "20261110T040724526629"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -31017,11 +31017,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/VEGI.K",
       "source_retrieved_at": [
-        "20261109T213813853335",
-        "20261109T213814630509",
-        "20261109T213815403596",
-        "20261109T213816314892",
-        "20261109T213817085085"
+        "20261110T040722607224",
+        "20261110T040723363988",
+        "20261110T040724238184",
+        "20261110T040725110943",
+        "20261110T040725853266"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -31298,11 +31298,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ENFR.K",
       "source_retrieved_at": [
-        "20261109T213813857943",
-        "20261109T213814764604",
-        "20261109T213815534639",
-        "20261109T213816313365",
-        "20261109T213817091186"
+        "20261110T040722866725",
+        "20261110T040723616283",
+        "20261110T040724484963",
+        "20261110T040725229698",
+        "20261110T040725974487"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -31575,11 +31575,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SOCL.O",
       "source_retrieved_at": [
-        "20261109T213817612263",
-        "20261109T213818387641",
-        "20261109T213819170186",
-        "20261109T213819945053",
-        "20261109T213820722443"
+        "20261110T040725278900",
+        "20261110T040726155292",
+        "20261110T040726899922",
+        "20261110T040727783466",
+        "20261110T040728525957"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -31852,11 +31852,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GNR",
       "source_retrieved_at": [
-        "20261109T213817863736",
-        "20261109T213818639422",
-        "20261109T213819412632",
-        "20261109T213820186504",
-        "20261109T213820957175"
+        "20261110T040726603074",
+        "20261110T040727357879",
+        "20261110T040728103475",
+        "20261110T040728847628",
+        "20261110T040729594531"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -32124,11 +32124,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XHB",
       "source_retrieved_at": [
-        "20261109T213817871884",
-        "20261109T213818649888",
-        "20261109T213819428117",
-        "20261109T213820201794",
-        "20261109T213820972317"
+        "20261110T040726851732",
+        "20261110T040727593873",
+        "20261110T040728334048",
+        "20261110T040729113723",
+        "20261110T040729857000"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -32396,11 +32396,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLB",
       "source_retrieved_at": [
-        "20261109T213821501518",
-        "20261109T213822278514",
-        "20261109T213823052087",
-        "20261109T213823821993",
-        "20261109T213824597765"
+        "20261110T040729392339",
+        "20261110T040730127905",
+        "20261110T040730865733",
+        "20261110T040731732647",
+        "20261110T040732483410"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -32678,11 +32678,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/MLPX.K",
       "source_retrieved_at": [
-        "20261109T213821736498",
-        "20261109T213822513872",
-        "20261109T213823293984",
-        "20261109T213824065762",
-        "20261109T213824838908"
+        "20261110T040730341355",
+        "20261110T040731088863",
+        "20261110T040731838885",
+        "20261110T040732584370",
+        "20261110T040733337607"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -32955,11 +32955,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/CGW",
       "source_retrieved_at": [
-        "20261109T213821752203",
-        "20261109T213822528232",
-        "20261109T213823301405",
-        "20261109T213824079036",
-        "20261109T213824853635"
+        "20261110T040730609234",
+        "20261110T040731352849",
+        "20261110T040732090697",
+        "20261110T040732831921",
+        "20261110T040733585408"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -33232,11 +33232,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ITB",
       "source_retrieved_at": [
-        "20261109T213825372810",
-        "20261109T213826149004",
-        "20261109T213827053442",
-        "20261109T213827827935",
-        "20261109T213828601373"
+        "20261110T040733237295",
+        "20261110T040733975392",
+        "20261110T040734726775",
+        "20261110T040735474394",
+        "20261110T040736252713"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -33509,11 +33509,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/EMIF.O",
       "source_retrieved_at": [
-        "20261109T213825618789",
-        "20261109T213826389707",
-        "20261109T213827167439",
-        "20261109T213828072496",
-        "20261109T213828842154"
+        "20261110T040734086829",
+        "20261110T040734825234",
+        "20261110T040735566713",
+        "20261110T040736310500",
+        "20261110T040737051667"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -33781,11 +33781,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ICLN.O",
       "source_retrieved_at": [
-        "20261109T213825635256",
-        "20261109T213826409133",
-        "20261109T213827187585",
-        "20261109T213828071369",
-        "20261109T213828846585"
+        "20261110T040734339187",
+        "20261110T040735086418",
+        "20261110T040735832576",
+        "20261110T040736578273",
+        "20261110T040737323296"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -34058,11 +34058,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/CUT",
       "source_retrieved_at": [
-        "20261109T213829387981",
-        "20261109T213830164628",
-        "20261109T213830942679",
-        "20261109T213831720955",
-        "20261109T213832494520"
+        "20261110T040737002160",
+        "20261110T040737748812",
+        "20261110T040738498161",
+        "20261110T040739247484",
+        "20261110T040739990015"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -34335,11 +34335,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GUNR.K",
       "source_retrieved_at": [
-        "20261109T213829632733",
-        "20261109T213830404244",
-        "20261109T213831180273",
-        "20261109T213831953642",
-        "20261109T213832731311"
+        "20261110T040737798039",
+        "20261110T040738546651",
+        "20261110T040739285718",
+        "20261110T040740034801",
+        "20261110T040740776893"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -34612,11 +34612,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/EMLP.K",
       "source_retrieved_at": [
-        "20261109T213829633371",
-        "20261109T213830408106",
-        "20261109T213831179563",
-        "20261109T213831954699",
-        "20261109T213832732010"
+        "20261110T040738068790",
+        "20261110T040738815936",
+        "20261110T040739558893",
+        "20261110T040740304071",
+        "20261110T040741053840"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -34889,11 +34889,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PBW",
       "source_retrieved_at": [
-        "20261109T213833276175",
-        "20261109T213834052656",
-        "20261109T213834827236",
-        "20261109T213835604547",
-        "20261109T213836375652"
+        "20261110T040740736558",
+        "20261110T040741475646",
+        "20261110T040742217060",
+        "20261110T040742956323",
+        "20261110T040743702985"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -35161,11 +35161,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/LIT",
       "source_retrieved_at": [
-        "20261109T213833514601",
-        "20261109T213834295015",
-        "20261109T213835067421",
-        "20261109T213835842486",
-        "20261109T213836618586"
+        "20261110T040741523089",
+        "20261110T040742266531",
+        "20261110T040743005531",
+        "20261110T040743753350",
+        "20261110T040744500066"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -35438,11 +35438,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/MOO",
       "source_retrieved_at": [
-        "20261109T213833514904",
-        "20261109T213834291515",
-        "20261109T213835069863",
-        "20261109T213835843578",
-        "20261109T213836619284"
+        "20261110T040741807240",
+        "20261110T040742562838",
+        "20261110T040743305579",
+        "20261110T040744052389",
+        "20261110T040744797364"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -35715,11 +35715,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PBD",
       "source_retrieved_at": [
-        "20261109T213837170780",
-        "20261109T213837945866",
-        "20261109T213838724850",
-        "20261109T213839500071",
-        "20261109T213840276681"
+        "20261110T040744451221",
+        "20261110T040745190786",
+        "20261110T040745930452",
+        "20261110T040746680390",
+        "20261110T040747428551"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -35992,11 +35992,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/WOOD.O",
       "source_retrieved_at": [
-        "20261109T213837405741",
-        "20261109T213838179539",
-        "20261109T213838957549",
-        "20261109T213839728905",
-        "20261109T213840503151"
+        "20261110T040745247043",
+        "20261110T040745992887",
+        "20261110T040746737877",
+        "20261110T040747600552",
+        "20261110T040748355014"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -36269,11 +36269,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IHI",
       "source_retrieved_at": [
-        "20261109T213837406034",
-        "20261109T213838180703",
-        "20261109T213838953675",
-        "20261109T213839724041",
-        "20261109T213840500469"
+        "20261110T040745547084",
+        "20261110T040746289164",
+        "20261110T040747034380",
+        "20261110T040747776354",
+        "20261110T040748518309"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -36546,11 +36546,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/OIH",
       "source_retrieved_at": [
-        "20261109T213841057067",
-        "20261109T213841828940",
-        "20261109T213842603457",
-        "20261109T213843375212",
-        "20261109T213844149312"
+        "20261110T040748175473",
+        "20261110T040748918786",
+        "20261110T040749670515",
+        "20261110T040750410478",
+        "20261110T040751154981"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -36823,11 +36823,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SLVP.K",
       "source_retrieved_at": [
-        "20261109T213841276227",
-        "20261109T213842055737",
-        "20261109T213842833800",
-        "20261109T213843608102",
-        "20261109T213844378796"
+        "20261110T040749093441",
+        "20261110T040749830191",
+        "20261110T040750591400",
+        "20261110T040751462236",
+        "20261110T040752207180"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -37100,11 +37100,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/AIRR.O",
       "source_retrieved_at": [
-        "20261109T213841284417",
-        "20261109T213842054467",
-        "20261109T213842827344",
-        "20261109T213843604735",
-        "20261109T213844384384"
+        "20261110T040749270585",
+        "20261110T040750044386",
+        "20261110T040750785457",
+        "20261110T040751531527",
+        "20261110T040752280358"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -37372,11 +37372,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XES",
       "source_retrieved_at": [
-        "20261109T213844928389",
-        "20261109T213845705293",
-        "20261109T213846477548",
-        "20261109T213847250314",
-        "20261109T213848026028"
+        "20261110T040751904595",
+        "20261110T040752664323",
+        "20261110T040753398086",
+        "20261110T040754148065",
+        "20261110T040754894442"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -37653,11 +37653,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/FCG",
       "source_retrieved_at": [
-        "20261109T213845163274",
-        "20261109T213845939807",
-        "20261109T213846715428",
-        "20261109T213847488249",
-        "20261109T213848260848"
+        "20261110T040752950080",
+        "20261110T040753697154",
+        "20261110T040754445074",
+        "20261110T040755189405",
+        "20261110T040755936522"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -37930,11 +37930,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IEZ",
       "source_retrieved_at": [
-        "20261109T213845168145",
-        "20261109T213845943764",
-        "20261109T213846717360",
-        "20261109T213847487167",
-        "20261109T213848258274"
+        "20261110T040753031758",
+        "20261110T040753780851",
+        "20261110T040754517256",
+        "20261110T040755259549",
+        "20261110T040756006552"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -38207,11 +38207,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SGDM.K",
       "source_retrieved_at": [
-        "20261109T213848805448",
-        "20261109T213849581562",
-        "20261109T213850357316",
-        "20261109T213851268521",
-        "20261109T213852179124"
+        "20261110T040755644571",
+        "20261110T040756403399",
+        "20261110T040757150158",
+        "20261110T040757894400",
+        "20261110T040758642244"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -38484,11 +38484,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GII",
       "source_retrieved_at": [
-        "20261109T213849039303",
-        "20261109T213849814526",
-        "20261109T213850583160",
-        "20261109T213851487384",
-        "20261109T213852388388"
+        "20261110T040756686326",
+        "20261110T040757432028",
+        "20261110T040758177620",
+        "20261110T040758912929",
+        "20261110T040759666801"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -38761,11 +38761,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SIL",
       "source_retrieved_at": [
-        "20261109T213849042195",
-        "20261109T213849816226",
-        "20261109T213850585223",
-        "20261109T213851486630",
-        "20261109T213852394749"
+        "20261110T040756745683",
+        "20261110T040757485589",
+        "20261110T040758220118",
+        "20261110T040758968745",
+        "20261110T040759718681"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -39042,11 +39042,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ITA",
       "source_retrieved_at": [
-        "20261109T213853092028",
-        "20261109T213853880838",
-        "20261109T213854780945",
-        "20261109T213855555279",
-        "20261109T213856458652"
+        "20261110T040759390472",
+        "20261110T040800138264",
+        "20261110T040800877018",
+        "20261110T040801622032",
+        "20261110T040802367645"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -39319,11 +39319,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/TOLZ.K",
       "source_retrieved_at": [
-        "20261109T213853304905",
-        "20261109T213854080327",
-        "20261109T213854852667",
-        "20261109T213855625843",
-        "20261109T213856551196"
+        "20261110T040800418584",
+        "20261110T040801173338",
+        "20261110T040801914430",
+        "20261110T040802660978",
+        "20261110T040803529917"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -39596,11 +39596,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GDX",
       "source_retrieved_at": [
-        "20261109T213853305194",
-        "20261109T213854079049",
-        "20261109T213854851997",
-        "20261109T213855625163",
-        "20261109T213856457550"
+        "20261110T040800471978",
+        "20261110T040801214194",
+        "20261110T040801956599",
+        "20261110T040802704278",
+        "20261110T040803449931"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -39873,11 +39873,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GDXJ.K",
       "source_retrieved_at": [
-        "20261109T213857832972",
-        "20261109T213858744020",
-        "20261109T213859644039",
-        "20261109T213900424951",
-        "20261109T213901197701"
+        "20261110T040803118576",
+        "20261110T040803871083",
+        "20261110T040804609383",
+        "20261110T040805346009",
+        "20261110T040806083693"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -40150,11 +40150,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PBJ",
       "source_retrieved_at": [
-        "20261109T213857833400",
-        "20261109T213858740228",
-        "20261109T213859644692",
-        "20261109T213900423630",
-        "20261109T213901199086"
+        "20261110T040804196595",
+        "20261110T040804940013",
+        "20261110T040805681065",
+        "20261110T040806421794",
+        "20261110T040807167215"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -40427,11 +40427,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PPA",
       "source_retrieved_at": [
-        "20261109T213857834009",
-        "20261109T213858745073",
-        "20261109T213859646262",
-        "20261109T213900425739",
-        "20261109T213901200496"
+        "20261110T040804284324",
+        "20261110T040805030384",
+        "20261110T040805783266",
+        "20261110T040806523309",
+        "20261110T040807266561"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -40704,11 +40704,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/FAN",
       "source_retrieved_at": [
-        "20261109T213901981104",
-        "20261109T213902759622",
-        "20261109T213903535074",
-        "20261109T213904309462",
-        "20261109T213905082667"
+        "20261110T040806825083",
+        "20261110T040807565822",
+        "20261110T040808300476",
+        "20261110T040809049682",
+        "20261110T040809797647"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -40976,11 +40976,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLU",
       "source_retrieved_at": [
-        "20261109T213901983617",
-        "20261109T213902761376",
-        "20261109T213903533709",
-        "20261109T213904308112",
-        "20261109T213905080219"
+        "20261110T040808158497",
+        "20261110T040808906078",
+        "20261110T040809646192",
+        "20261110T040810393176",
+        "20261110T040811138823"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -41248,11 +41248,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XAR",
       "source_retrieved_at": [
-        "20261109T213901984209",
-        "20261109T213902760167",
-        "20261109T213903535970",
-        "20261109T213904310280",
-        "20261109T213905081460"
+        "20261110T040808164550",
+        "20261110T040808901023",
+        "20261110T040809650197",
+        "20261110T040810391751",
+        "20261110T040811136433"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -41529,11 +41529,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/UFO.O",
       "source_retrieved_at": [
-        "20261109T213905864209",
-        "20261109T213906640826",
-        "20261109T213907415617",
-        "20261109T213908195024",
-        "20261109T213908969961"
+        "20261110T040810547797",
+        "20261110T040811290949",
+        "20261110T040812033824",
+        "20261110T040812782363",
+        "20261110T040813520258"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -41806,11 +41806,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SILJ.K",
       "source_retrieved_at": [
-        "20261109T213905864459",
-        "20261109T213906641991",
-        "20261109T213907414665",
-        "20261109T213908186938",
-        "20261109T213908971017"
+        "20261110T040811888238",
+        "20261110T040812629715",
+        "20261110T040813366193",
+        "20261110T040814105531",
+        "20261110T040814849544"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -42078,11 +42078,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/URA",
       "source_retrieved_at": [
-        "20261109T213905864723",
-        "20261109T213906637461",
-        "20261109T213907412044",
-        "20261109T213908191692",
-        "20261109T213908972147"
+        "20261110T040811888512",
+        "20261110T040812635988",
+        "20261110T040813383640",
+        "20261110T040814121164",
+        "20261110T040814863968"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -42350,11 +42350,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/NLR",
       "source_retrieved_at": [
-        "20261109T213909755438",
-        "20261109T213910529391",
-        "20261109T213911436066",
-        "20261109T213912207620",
-        "20261109T213912980295"
+        "20261110T040814273779",
+        "20261110T040815029714",
+        "20261110T040815775912",
+        "20261110T040816514049",
+        "20261110T040817267543"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -42622,11 +42622,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/TAN",
       "source_retrieved_at": [
-        "20261109T213909755776",
-        "20261109T213910532914",
-        "20261109T213911437181",
-        "20261109T213912208690",
-        "20261109T213912979220"
+        "20261110T040815597695",
+        "20261110T040816338531",
+        "20261110T040817078543",
+        "20261110T040817949231",
+        "20261110T040818694985"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -42899,11 +42899,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/REMX.K",
       "source_retrieved_at": [
-        "20261109T213909756434",
-        "20261109T213910530122",
-        "20261109T213911440701",
-        "20261109T213912217249",
-        "20261109T213912987375"
+        "20261110T040815616001",
+        "20261110T040816353751",
+        "20261110T040817086863",
+        "20261110T040817939877",
+        "20261110T040818683531"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -43171,11 +43171,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLC",
       "source_retrieved_at": [
-        "20261109T213913889803",
-        "20261109T213914668571",
-        "20261109T213915445336",
-        "20261109T213916221584",
-        "20261109T213917007353"
+        "20261110T040818015671",
+        "20261110T040818761686",
+        "20261110T040819510503",
+        "20261110T040820250017",
+        "20261110T040821035578"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -43443,11 +43443,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLRE.K",
       "source_retrieved_at": [
-        "20261109T213913893253",
-        "20261109T213914671293",
-        "20261109T213915446579",
-        "20261109T213916216687",
-        "20261109T213917006408"
+        "20261110T040819432755",
+        "20261110T040820171477",
+        "20261110T040821039922",
+        "20261110T040821908315",
+        "20261110T040822780371"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -43715,11 +43715,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/BUG.O",
       "source_retrieved_at": [
-        "20261109T213913893828",
-        "20261109T213914667581",
-        "20261109T213915440654",
-        "20261109T213916217822",
-        "20261109T213917008118"
+        "20261110T040819438304",
+        "20261110T040820181574",
+        "20261110T040821044371",
+        "20261110T040821916314",
+        "20261110T040822773271"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -43992,11 +43992,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/DTCR.O",
       "source_retrieved_at": [
-        "20261109T213923229245",
-        "20261109T213924005502",
-        "20261109T213924778610",
-        "20261109T213925553451",
-        "20261109T213926323603"
+        "20261110T040827373459",
+        "20261110T040828249010",
+        "20261110T040829104324",
+        "20261110T040829974492",
+        "20261110T040830844576"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -44266,7 +44266,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=367760",
       "source_retrieved_at": [
-        "20261109T213655328486"
+        "20261110T040607222466"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -44534,7 +44534,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=475300",
       "source_retrieved_at": [
-        "20261109T213656591306"
+        "20261110T040608118527"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -44802,11 +44802,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=091160",
       "source_retrieved_at": [
-        "20261109T213656606778"
+        "20261110T040608132706"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": -0.16247679774782786,
       "rs_price_63": -0.03221764289220441,
       "rs_price_126": -0.0567732563068164,
@@ -45070,11 +45070,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=140700",
       "source_retrieved_at": [
-        "20261109T213657316886"
+        "20261110T040608700357"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.15209054509136588,
       "rs_price_63": 0.21648743612854837,
       "rs_price_126": 0.4083373619261821,
@@ -45338,7 +45338,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=475310",
       "source_retrieved_at": [
-        "20261109T213657402136"
+        "20261110T040608904623"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -45606,11 +45606,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=487240",
       "source_retrieved_at": [
-        "20261109T213658051167"
+        "20261110T040609348071"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": -0.16818334080657016,
       "rs_price_63": -0.21033730255596894,
       "rs_price_126": -0.37983957761239967,
@@ -45874,7 +45874,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=457990",
       "source_retrieved_at": [
-        "20261109T213658128528"
+        "20261110T040609581820"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -46142,7 +46142,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=228790",
       "source_retrieved_at": [
-        "20261109T213658646533"
+        "20261110T040609914306"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -46410,7 +46410,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=307520",
       "source_retrieved_at": [
-        "20261109T213658939068"
+        "20261110T040610227987"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -46678,7 +46678,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=0008T0",
       "source_retrieved_at": [
-        "20261109T213659456339"
+        "20261110T040610554018"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -46946,11 +46946,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=445290",
       "source_retrieved_at": [
-        "20261109T213659766091"
+        "20261110T040610880927"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.0047815961475385915,
       "rs_price_63": -0.024717531108027102,
       "rs_price_126": -0.08095494000390047,
@@ -47214,11 +47214,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=091170",
       "source_retrieved_at": [
-        "20261109T213700162248"
+        "20261110T040611086461"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.16874937872976137,
       "rs_price_63": 0.14287417821861625,
       "rs_price_126": 0.19613903962199297,
@@ -47482,7 +47482,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=471760",
       "source_retrieved_at": [
-        "20261109T213700279976"
+        "20261110T040611452788"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -47750,11 +47750,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=117460",
       "source_retrieved_at": [
-        "20261109T213700445829"
+        "20261110T040611528537"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": -0.04501893680344782,
       "rs_price_63": 0.04902784188896658,
       "rs_price_126": -0.17008115171150395,
@@ -48018,7 +48018,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=381570",
       "source_retrieved_at": [
-        "20261109T213700960821"
+        "20261110T040611741057"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -48286,7 +48286,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=305540",
       "source_retrieved_at": [
-        "20261109T213700973590"
+        "20261110T040612088477"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -48554,11 +48554,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=117700",
       "source_retrieved_at": [
-        "20261109T213701256577"
+        "20261110T040612161958"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.09523307564481498,
       "rs_price_63": 0.07832470668647562,
       "rs_price_126": -0.1275006123505883,
@@ -48822,7 +48822,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=150460",
       "source_retrieved_at": [
-        "20261109T213701631991"
+        "20261110T040612371408"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -49090,7 +49090,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=210780",
       "source_retrieved_at": [
-        "20261109T213701781090"
+        "20261110T040612720195"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -49358,7 +49358,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=227560",
       "source_retrieved_at": [
-        "20261109T213701930532"
+        "20261110T040612792385"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -49626,7 +49626,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=438900",
       "source_retrieved_at": [
-        "20261109T213702305820"
+        "20261110T040612999711"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -49894,7 +49894,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=157490",
       "source_retrieved_at": [
-        "20261109T213702460822"
+        "20261110T040613371050"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -50162,7 +50162,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=433500",
       "source_retrieved_at": [
-        "20261109T213702603844"
+        "20261110T040613426506"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -50430,11 +50430,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=091180",
       "source_retrieved_at": [
-        "20261109T213702979375"
+        "20261110T040613643931"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.1088766984523486,
       "rs_price_63": -0.022467432019382838,
       "rs_price_126": -0.06155832892870294,
@@ -50698,7 +50698,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=139230",
       "source_retrieved_at": [
-        "20261109T213703145104"
+        "20261110T040614010277"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -50966,7 +50966,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=364970",
       "source_retrieved_at": [
-        "20261109T213703280831"
+        "20261110T040614074983"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -51234,7 +51234,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=228800",
       "source_retrieved_at": [
-        "20261109T213703657975"
+        "20261110T040614294267"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -51502,7 +51502,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=466920",
       "source_retrieved_at": [
-        "20261109T213703824579"
+        "20261110T040614660227"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -51770,7 +51770,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=463250",
       "source_retrieved_at": [
-        "20261109T213703954181"
+        "20261110T040614705324"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -52038,11 +52038,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=300950",
       "source_retrieved_at": [
-        "20261109T213704332573"
+        "20261110T040614937049"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.26173792347776415,
       "rs_price_63": 0.17670216162179575,
       "rs_price_126": 0.030770339431340887,
@@ -52306,7 +52306,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=449450",
       "source_retrieved_at": [
-        "20261109T213704627587"
+        "20261110T040615298445"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -52574,11 +52574,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=266360",
       "source_retrieved_at": [
-        "20261109T213704640526"
+        "20261110T040615347212"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.24695420884197117,
       "rs_price_63": 0.12383367088922737,
       "rs_price_126": 0.02384285602467373,
@@ -52842,7 +52842,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=421320",
       "source_retrieved_at": [
-        "20261109T213705005334"
+        "20261110T040615568630"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -53110,7 +53110,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=307510",
       "source_retrieved_at": [
-        "20261109T213705331184"
+        "20261110T040615943219"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -53378,11 +53378,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=102970",
       "source_retrieved_at": [
-        "20261109T213705341837"
+        "20261110T040616001590"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.014821293235085298,
       "rs_price_63": -0.09344727854380042,
       "rs_price_126": -0.28653848804694576,
@@ -53646,7 +53646,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=483020",
       "source_retrieved_at": [
-        "20261109T213705686413"
+        "20261110T040616201971"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -53914,11 +53914,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=244580",
       "source_retrieved_at": [
-        "20261109T213706022535"
+        "20261110T040616589080"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.11205550645232532,
       "rs_price_63": 0.062070986755543345,
       "rs_price_126": -0.14536602420502276,
@@ -54182,7 +54182,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=261070",
       "source_retrieved_at": [
-        "20261109T213706029716"
+        "20261110T040616638058"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -54459,11 +54459,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=117680",
       "source_retrieved_at": [
-        "20261109T213917794973"
+        "20261110T040821788189"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.060664701501208396,
       "rs_price_63": 0.08121321933878767,
       "rs_price_126": -0.17105975858357314,
@@ -54736,11 +54736,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=140710",
       "source_retrieved_at": [
-        "20261109T213917795250"
+        "20261110T040822429598"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.20227050928130996,
       "rs_price_63": 0.2230125112848358,
       "rs_price_126": 0.219327727661206,
@@ -55013,11 +55013,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=102960",
       "source_retrieved_at": [
-        "20261109T213917795499"
+        "20261110T040823070431"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": -0.10025052358769482,
       "rs_price_63": -0.1443396369869666,
       "rs_price_126": -0.32654193570025275,
@@ -55290,11 +55290,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=266390",
       "source_retrieved_at": [
-        "20261109T213918601257"
+        "20261110T040823529567"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.23058051261532475,
       "rs_price_63": 0.22568899572949364,
       "rs_price_126": 0.4404716109965505,
@@ -55567,11 +55567,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=266410",
       "source_retrieved_at": [
-        "20261109T213918622069"
+        "20261110T040823530278"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.15491028359009196,
       "rs_price_63": 0.1718922913504476,
       "rs_price_126": 0.12713138243398137,
@@ -55844,11 +55844,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=266370",
       "source_retrieved_at": [
-        "20261109T213918622578"
+        "20261110T040823702977"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": -0.110312094157336,
       "rs_price_63": -0.023720122822919243,
       "rs_price_126": 0.018714359013857984,
@@ -56121,11 +56121,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=266420",
       "source_retrieved_at": [
-        "20261109T213919415488"
+        "20261110T040824170241"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.18813090512003205,
       "rs_price_63": 0.11054223614094427,
       "rs_price_126": -0.016370134685268822,
@@ -56398,11 +56398,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=395150",
       "source_retrieved_at": [
-        "20261109T213919421596"
+        "20261110T040824177390"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
-      "issuer_status": "stale",
+      "issuer_status": "fresh",
       "rs_price_21": 0.1942189694112696,
       "rs_price_63": 0.15678427402336625,
       "rs_price_126": -0.043883181067767896,
@@ -56675,7 +56675,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=0209D0",
       "source_retrieved_at": [
-        "20261109T213919429100"
+        "20261110T040824336504"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -56954,7 +56954,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=471990",
       "source_retrieved_at": [
-        "20261109T213919957949"
+        "20261110T040824718820"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -57231,7 +57231,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=329200",
       "source_retrieved_at": [
-        "20261109T213920106126"
+        "20261110T040824826075"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -57508,7 +57508,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=315270",
       "source_retrieved_at": [
-        "20261109T213920113534"
+        "20261110T040824938356"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -57785,7 +57785,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=365000",
       "source_retrieved_at": [
-        "20261109T213920772523"
+        "20261110T040825342456"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -58062,7 +58062,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=322400",
       "source_retrieved_at": [
-        "20261109T213921062539"
+        "20261110T040825464731"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -58335,7 +58335,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=314700",
       "source_retrieved_at": [
-        "20261109T213921062939"
+        "20261110T040825585499"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -58612,7 +58612,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=454320",
       "source_retrieved_at": [
-        "20261109T213921581071"
+        "20261110T040825976113"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -58885,7 +58885,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=367770",
       "source_retrieved_at": [
-        "20261109T213921743545"
+        "20261110T040826109466"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -59158,7 +59158,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=446700",
       "source_retrieved_at": [
-        "20261109T213921750610"
+        "20261110T040826224645"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -59431,7 +59431,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=0141S0",
       "source_retrieved_at": [
-        "20261109T213922392453"
+        "20261110T040826644635"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -59703,7 +59703,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=464600",
       "source_retrieved_at": [
-        "20261109T213922557915"
+        "20261110T040826753744"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -59980,7 +59980,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=0150K0",
       "source_retrieved_at": [
-        "20261109T213922565855"
+        "20261110T040826859434"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -60256,7 +60256,7 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://finance.naver.com/item/main.naver?code=0219B0",
       "source_retrieved_at": [
-        "20261109T213922822166"
+        "20261110T040827050293"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -60530,11 +60530,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ARKG.K",
       "source_retrieved_at": [
-        "20261109T213706281534",
-        "20261109T213707185341",
-        "20261109T213707959777",
-        "20261109T213708733637",
-        "20261109T213709635468"
+        "20261110T040616880522",
+        "20261110T040617744083",
+        "20261110T040618613896",
+        "20261110T040619489023",
+        "20261110T040620235436"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -60802,11 +60802,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SOXX.O",
       "source_retrieved_at": [
-        "20261109T213706706655",
-        "20261109T213707613411",
-        "20261109T213708521789",
-        "20261109T213709292340",
-        "20261109T213710067590"
+        "20261110T040617233077",
+        "20261110T040618105607",
+        "20261110T040618959392",
+        "20261110T040619829356",
+        "20261110T040620852415"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -61074,11 +61074,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XSD",
       "source_retrieved_at": [
-        "20261109T213706714045",
-        "20261109T213707614852",
-        "20261109T213708519885",
-        "20261109T213709295797",
-        "20261109T213710199524"
+        "20261110T040617283505",
+        "20261110T040618097837",
+        "20261110T040618958478",
+        "20261110T040619831059",
+        "20261110T040620849340"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -61351,11 +61351,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PSI",
       "source_retrieved_at": [
-        "20261109T213710414042",
-        "20261109T213711189248",
-        "20261109T213711963427",
-        "20261109T213712738095",
-        "20261109T213713511277"
+        "20261110T040621111726",
+        "20261110T040621994121",
+        "20261110T040622736644",
+        "20261110T040623478104",
+        "20261110T040624221863"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -61628,11 +61628,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GNOM.O",
       "source_retrieved_at": [
-        "20261109T213710849686",
-        "20261109T213711625828",
-        "20261109T213712403113",
-        "20261109T213713172742",
-        "20261109T213713952255"
+        "20261110T040621600967",
+        "20261110T040622473981",
+        "20261110T040623230354",
+        "20261110T040623970028",
+        "20261110T040624839825"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -61900,11 +61900,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SKYY.O",
       "source_retrieved_at": [
-        "20261109T213710978654",
-        "20261109T213711882521",
-        "20261109T213712655852",
-        "20261109T213713427578",
-        "20261109T213714202384"
+        "20261110T040621601440",
+        "20261110T040622476014",
+        "20261110T040623228647",
+        "20261110T040624122199",
+        "20261110T040624863672"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -62181,11 +62181,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/QTEC.O",
       "source_retrieved_at": [
-        "20261109T213714419394",
-        "20261109T213715192510",
-        "20261109T213715967505",
-        "20261109T213716737894",
-        "20261109T213717511275"
+        "20261110T040624985417",
+        "20261110T040625733266",
+        "20261110T040626489344",
+        "20261110T040627235605",
+        "20261110T040627971619"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -62453,11 +62453,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLK",
       "source_retrieved_at": [
-        "20261109T213714732132",
-        "20261109T213715504272",
-        "20261109T213716279713",
-        "20261109T213717053842",
-        "20261109T213717829945"
+        "20261110T040625587188",
+        "20261110T040626329671",
+        "20261110T040627189549",
+        "20261110T040627938478",
+        "20261110T040628795554"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -62730,11 +62730,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IGV",
       "source_retrieved_at": [
-        "20261109T213714983422",
-        "20261109T213715759198",
-        "20261109T213716535217",
-        "20261109T213717309061",
-        "20261109T213718083816"
+        "20261110T040625615897",
+        "20261110T040626366111",
+        "20261110T040627190197",
+        "20261110T040627929933",
+        "20261110T040628794770"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -63007,11 +63007,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/CARZ.O",
       "source_retrieved_at": [
-        "20261109T213718291426",
-        "20261109T213719066600",
-        "20261109T213719972955",
-        "20261109T213720745348",
-        "20261109T213721519204"
+        "20261110T040628795272",
+        "20261110T040629541758",
+        "20261110T040630288464",
+        "20261110T040631158352",
+        "20261110T040631898840"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -63279,11 +63279,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XHS",
       "source_retrieved_at": [
-        "20261109T213718610936",
-        "20261109T213719385957",
-        "20261109T213720163865",
-        "20261109T213720944736",
-        "20261109T213721719353"
+        "20261110T040629551166",
+        "20261110T040630304140",
+        "20261110T040631154752",
+        "20261110T040631893917",
+        "20261110T040632641906"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -63561,11 +63561,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IHF",
       "source_retrieved_at": [
-        "20261109T213718864568",
-        "20261109T213719642367",
-        "20261109T213720421721",
-        "20261109T213721197282",
-        "20261109T213721970378"
+        "20261110T040629551389",
+        "20261110T040630307359",
+        "20261110T040631155802",
+        "20261110T040631901466",
+        "20261110T040632645910"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -63625,11 +63625,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ECON.K",
       "source_retrieved_at": [
-        "20261109T213923266533",
-        "20261109T213924048913",
-        "20261109T213924821947",
-        "20261109T213925596151",
-        "20261109T213926369899"
+        "20261110T040827389944",
+        "20261110T040828266086",
+        "20261110T040829106847",
+        "20261110T040829972072",
+        "20261110T040830714771"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -63689,11 +63689,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/TDIV.O",
       "source_retrieved_at": [
-        "20261109T213923284207",
-        "20261109T213924057048",
-        "20261109T213924833184",
-        "20261109T213925612353",
-        "20261109T213926389290"
+        "20261110T040827432586",
+        "20261110T040828240714",
+        "20261110T040829105076",
+        "20261110T040829970388",
+        "20261110T040830717731"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -63966,11 +63966,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/FDN",
       "source_retrieved_at": [
-        "20261109T213722296127",
-        "20261109T213723071154",
-        "20261109T213723851356",
-        "20261109T213724623415",
-        "20261109T213725399067"
+        "20261110T040632648805",
+        "20261110T040633389582",
+        "20261110T040634129540",
+        "20261110T040634873156",
+        "20261110T040635620716"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -64247,11 +64247,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IBB.O",
       "source_retrieved_at": [
-        "20261109T213722508620",
-        "20261109T213723303797",
-        "20261109T213724081156",
-        "20261109T213724856692",
-        "20261109T213725628697"
+        "20261110T040633392406",
+        "20261110T040634141363",
+        "20261110T040634876364",
+        "20261110T040635618917",
+        "20261110T040636361033"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -64533,11 +64533,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SEA",
       "source_retrieved_at": [
-        "20261109T213722749504",
-        "20261109T213723522147",
-        "20261109T213724297739",
-        "20261109T213725069641",
-        "20261109T213725845572"
+        "20261110T040633396784",
+        "20261110T040634136176",
+        "20261110T040634877487",
+        "20261110T040635621725",
+        "20261110T040636361846"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -64805,11 +64805,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ROBO.K",
       "source_retrieved_at": [
-        "20261109T213726178861",
-        "20261109T213726956232",
-        "20261109T213727724691",
-        "20261109T213728504260",
-        "20261109T213729278475"
+        "20261110T040636364302",
+        "20261110T040637109931",
+        "20261110T040637863400",
+        "20261110T040638602645",
+        "20261110T040639351158"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -65082,11 +65082,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PJP",
       "source_retrieved_at": [
-        "20261109T213726409757",
-        "20261109T213727188377",
-        "20261109T213728031655",
-        "20261109T213728823698",
-        "20261109T213729597097"
+        "20261110T040637105443",
+        "20261110T040637857834",
+        "20261110T040638601978",
+        "20261110T040639350299",
+        "20261110T040640097746"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -65354,11 +65354,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XBI",
       "source_retrieved_at": [
-        "20261109T213726626281",
-        "20261109T213727398489",
-        "20261109T213728174607",
-        "20261109T213728954574",
-        "20261109T213729726249"
+        "20261110T040637114755",
+        "20261110T040637864161",
+        "20261110T040638606761",
+        "20261110T040639353911",
+        "20261110T040640095592"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -65631,11 +65631,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IHE",
       "source_retrieved_at": [
-        "20261109T213730061801",
-        "20261109T213730839767",
-        "20261109T213731624461",
-        "20261109T213732401760",
-        "20261109T213733174589"
+        "20261110T040640104485",
+        "20261110T040640849867",
+        "20261110T040641605784",
+        "20261110T040642341797",
+        "20261110T040643202248"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -65912,11 +65912,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLV",
       "source_retrieved_at": [
-        "20261109T213730380084",
-        "20261109T213731150631",
-        "20261109T213731926420",
-        "20261109T213732701661",
-        "20261109T213733481520"
+        "20261110T040640862204",
+        "20261110T040641617793",
+        "20261110T040642355715",
+        "20261110T040643205614",
+        "20261110T040643952119"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -66194,11 +66194,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PNQI.O",
       "source_retrieved_at": [
-        "20261109T213730507266",
-        "20261109T213731286269",
-        "20261109T213732059199",
-        "20261109T213732833671",
-        "20261109T213733616671"
+        "20261110T040640862505",
+        "20261110T040641614426",
+        "20261110T040642356816",
+        "20261110T040643206783",
+        "20261110T040643954190"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -66466,11 +66466,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XHE",
       "source_retrieved_at": [
-        "20261109T213733954958",
-        "20261109T213734729978",
-        "20261109T213735507963",
-        "20261109T213736280117",
-        "20261109T213737058844"
+        "20261110T040643948360",
+        "20261110T040644695404",
+        "20261110T040645441196",
+        "20261110T040646179890",
+        "20261110T040646920363"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -66748,11 +66748,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SLX",
       "source_retrieved_at": [
-        "20261109T213734261141",
-        "20261109T213735032791",
-        "20261109T213735809382",
-        "20261109T213736589334",
-        "20261109T213737370447"
+        "20261110T040644696055",
+        "20261110T040645437316",
+        "20261110T040646183755",
+        "20261110T040646931926",
+        "20261110T040647669948"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -67029,11 +67029,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/COPX.K",
       "source_retrieved_at": [
-        "20261109T213734396116",
-        "20261109T213735179020",
-        "20261109T213735952131",
-        "20261109T213736732069",
-        "20261109T213737506353"
+        "20261110T040644706699",
+        "20261110T040645458194",
+        "20261110T040646197722",
+        "20261110T040646942242",
+        "20261110T040647691449"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -67306,11 +67306,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IXG",
       "source_retrieved_at": [
-        "20261109T213737840831",
-        "20261109T213738624006",
-        "20261109T213739400288",
-        "20261109T213740174144",
-        "20261109T213740952635"
+        "20261110T040647668817",
+        "20261110T040648417676",
+        "20261110T040649169923",
+        "20261110T040649906358",
+        "20261110T040650641896"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -67578,11 +67578,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GRID.O",
       "source_retrieved_at": [
-        "20261109T213738152451",
-        "20261109T213738928150",
-        "20261109T213739702884",
-        "20261109T213740478975",
-        "20261109T213741260261"
+        "20261110T040648420741",
+        "20261110T040649163769",
+        "20261110T040649911417",
+        "20261110T040650652169",
+        "20261110T040651393859"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -67855,11 +67855,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/QCLN.O",
       "source_retrieved_at": [
-        "20261109T213738284941",
-        "20261109T213739059051",
-        "20261109T213739828549",
-        "20261109T213740610201",
-        "20261109T213741384811"
+        "20261110T040648437029",
+        "20261110T040649185356",
+        "20261110T040649936566",
+        "20261110T040650674139",
+        "20261110T040651410700"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -68132,11 +68132,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IYZ",
       "source_retrieved_at": [
-        "20261109T213741729943",
-        "20261109T213742502968",
-        "20261109T213743274639",
-        "20261109T213744058956",
-        "20261109T213744834824"
+        "20261110T040651396654",
+        "20261110T040652141098",
+        "20261110T040652889139",
+        "20261110T040653636361",
+        "20261110T040654374019"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -68404,11 +68404,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLF",
       "source_retrieved_at": [
-        "20261109T213742044756",
-        "20261109T213742820861",
-        "20261109T213743593718",
-        "20261109T213744372370",
-        "20261109T213745143700"
+        "20261110T040652143964",
+        "20261110T040652885917",
+        "20261110T040653635297",
+        "20261110T040654380874",
+        "20261110T040655120107"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -68681,11 +68681,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XTL",
       "source_retrieved_at": [
-        "20261109T213742188918",
-        "20261109T213742968492",
-        "20261109T213743743697",
-        "20261109T213744518121",
-        "20261109T213745296046"
+        "20261110T040652206777",
+        "20261110T040652959550",
+        "20261110T040653708654",
+        "20261110T040654462419",
+        "20261110T040655210377"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -68953,11 +68953,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/KIE",
       "source_retrieved_at": [
-        "20261109T213745619134",
-        "20261109T213746389051",
-        "20261109T213747167555",
-        "20261109T213747940669",
-        "20261109T213748712593"
+        "20261110T040655126822",
+        "20261110T040655871040",
+        "20261110T040656610254",
+        "20261110T040657356835",
+        "20261110T040658090396"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -69230,11 +69230,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PEJ",
       "source_retrieved_at": [
-        "20261109T213745929352",
-        "20261109T213746703051",
-        "20261109T213747480126",
-        "20261109T213748251761",
-        "20261109T213749021391"
+        "20261110T040655876576",
+        "20261110T040656618332",
+        "20261110T040657357888",
+        "20261110T040658095337",
+        "20261110T040658860344"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -69507,11 +69507,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLE",
       "source_retrieved_at": [
-        "20261109T213746078864",
-        "20261109T213746852078",
-        "20261109T213747624866",
-        "20261109T213748402049",
-        "20261109T213749177410"
+        "20261110T040655959951",
+        "20261110T040656705065",
+        "20261110T040657448863",
+        "20261110T040658190714",
+        "20261110T040658935628"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -69784,11 +69784,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PICK.K",
       "source_retrieved_at": [
-        "20261109T213749492423",
-        "20261109T213750268116",
-        "20261109T213751047011",
-        "20261109T213751834949",
-        "20261109T213752612571"
+        "20261110T040658836112",
+        "20261110T040659578959",
+        "20261110T040700326947",
+        "20261110T040701072509",
+        "20261110T040701819626"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -70061,11 +70061,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IAI",
       "source_retrieved_at": [
-        "20261109T213749799476",
-        "20261109T213750573520",
-        "20261109T213751351109",
-        "20261109T213752119746",
-        "20261109T213752891478"
+        "20261110T040659619093",
+        "20261110T040700366023",
+        "20261110T040701116618",
+        "20261110T040701856781",
+        "20261110T040702601672"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -70333,11 +70333,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/KRE",
       "source_retrieved_at": [
-        "20261109T213749961888",
-        "20261109T213750734558",
-        "20261109T213751522320",
-        "20261109T213752297535",
-        "20261109T213753070949"
+        "20261110T040659684409",
+        "20261110T040700433802",
+        "20261110T040701179903",
+        "20261110T040701925073",
+        "20261110T040702666556"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -70610,11 +70610,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IYT",
       "source_retrieved_at": [
-        "20261109T213753396121",
-        "20261109T213754168782",
-        "20261109T213754945810",
-        "20261109T213755719152",
-        "20261109T213756751187"
+        "20261110T040702569189",
+        "20261110T040703318212",
+        "20261110T040704073070",
+        "20261110T040704821069",
+        "20261110T040705561607"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -70882,11 +70882,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/KBE",
       "source_retrieved_at": [
-        "20261109T213753671031",
-        "20261109T213754442318",
-        "20261109T213755220797",
-        "20261109T213755994345",
-        "20261109T213756764237"
+        "20261110T040703356589",
+        "20261110T040704103986",
+        "20261110T040704844020",
+        "20261110T040705586068",
+        "20261110T040706323539"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -71159,11 +71159,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/VOX",
       "source_retrieved_at": [
-        "20261109T213753858890",
-        "20261109T213754631764",
-        "20261109T213755404603",
-        "20261109T213756176006",
-        "20261109T213756949501"
+        "20261110T040703417713",
+        "20261110T040704159955",
+        "20261110T040704910959",
+        "20261110T040705644613",
+        "20261110T040706384233"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -71431,11 +71431,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XOP",
       "source_retrieved_at": [
-        "20261109T213757549687",
-        "20261109T213758324856",
-        "20261109T213759229807",
-        "20261109T213800132590",
-        "20261109T213801038765"
+        "20261110T040706305423",
+        "20261110T040707046967",
+        "20261110T040707797506",
+        "20261110T040708787115",
+        "20261110T040709522708"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -71708,11 +71708,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/AMLP.K",
       "source_retrieved_at": [
-        "20261109T213757549993",
-        "20261109T213758326205",
-        "20261109T213759231565",
-        "20261109T213800133390",
-        "20261109T213801038091"
+        "20261110T040707103955",
+        "20261110T040707855644",
+        "20261110T040708788200",
+        "20261110T040709537316",
+        "20261110T040710281799"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -71980,11 +71980,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLI",
       "source_retrieved_at": [
-        "20261109T213757734099",
-        "20261109T213758509767",
-        "20261109T213759286503",
-        "20261109T213800134445",
-        "20261109T213801042253"
+        "20261110T040707169303",
+        "20261110T040707908014",
+        "20261110T040708795837",
+        "20261110T040709634198",
+        "20261110T040710378516"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -72252,11 +72252,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLY",
       "source_retrieved_at": [
-        "20261109T213801824437",
-        "20261109T213802598807",
-        "20261109T213803500854",
-        "20261109T213804275890",
-        "20261109T213805048554"
+        "20261110T040710263973",
+        "20261110T040711013936",
+        "20261110T040711767690",
+        "20261110T040712512355",
+        "20261110T040713244943"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -72529,11 +72529,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IXP",
       "source_retrieved_at": [
-        "20261109T213801824694",
-        "20261109T213802604940",
-        "20261109T213803505085",
-        "20261109T213804283847",
-        "20261109T213805187514"
+        "20261110T040711024904",
+        "20261110T040711777488",
+        "20261110T040712527504",
+        "20261110T040713268947",
+        "20261110T040714016001"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -72806,11 +72806,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/BIZD.K",
       "source_retrieved_at": [
-        "20261109T213801954786",
-        "20261109T213802724991",
-        "20261109T213803502001",
-        "20261109T213804272399",
-        "20261109T213805047497"
+        "20261110T040711129049",
+        "20261110T040711997271",
+        "20261110T040712743194",
+        "20261110T040713616038",
+        "20261110T040714364225"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -72870,11 +72870,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/INCO.K",
       "source_retrieved_at": [
-        "20261109T213927102233",
-        "20261109T213927880771",
-        "20261109T213928659178",
-        "20261109T213929436804",
-        "20261109T213930219906"
+        "20261110T040831465927",
+        "20261110T040832213263",
+        "20261110T040832960778",
+        "20261110T040833699910",
+        "20261110T040834452294"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -73142,11 +73142,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XTN",
       "source_retrieved_at": [
-        "20261109T213805829915",
-        "20261109T213806608934",
-        "20261109T213807386150",
-        "20261109T213808160273",
-        "20261109T213808933618"
+        "20261110T040713989809",
+        "20261110T040714740020",
+        "20261110T040715484793",
+        "20261110T040716232176",
+        "20261110T040716971013"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -73414,11 +73414,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XRT",
       "source_retrieved_at": [
-        "20261109T213805830212",
-        "20261109T213806604113",
-        "20261109T213807375495",
-        "20261109T213808147515",
-        "20261109T213808926452"
+        "20261110T040714762036",
+        "20261110T040715507492",
+        "20261110T040716257961",
+        "20261110T040717123200",
+        "20261110T040717868275"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -73700,11 +73700,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/FIW",
       "source_retrieved_at": [
-        "20261109T213805968230",
-        "20261109T213806744964",
-        "20261109T213807520257",
-        "20261109T213808295723",
-        "20261109T213809073481"
+        "20261110T040715112874",
+        "20261110T040715863610",
+        "20261110T040716605971",
+        "20261110T040717343580",
+        "20261110T040718124110"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -73986,11 +73986,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/HAP",
       "source_retrieved_at": [
-        "20261109T213809711377",
-        "20261109T213810488979",
-        "20261109T213811266801",
-        "20261109T213812040613",
-        "20261109T213812812381"
+        "20261110T040717718618",
+        "20261110T040718459356",
+        "20261110T040719205817",
+        "20261110T040719940499",
+        "20261110T040720682946"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -74258,11 +74258,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLP",
       "source_retrieved_at": [
-        "20261109T213809843510",
-        "20261109T213810751891",
-        "20261109T213811527060",
-        "20261109T213812300392",
-        "20261109T213813074001"
+        "20261110T040718613575",
+        "20261110T040719364146",
+        "20261110T040720112444",
+        "20261110T040720996791",
+        "20261110T040721732546"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -74540,11 +74540,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PSP",
       "source_retrieved_at": [
-        "20261109T213809985117",
-        "20261109T213810756469",
-        "20261109T213811525961",
-        "20261109T213812299675",
-        "20261109T213813072540"
+        "20261110T040718873206",
+        "20261110T040719622688",
+        "20261110T040720500176",
+        "20261110T040721372334",
+        "20261110T040722118247"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -74817,11 +74817,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/RXI",
       "source_retrieved_at": [
-        "20261109T213813721118",
-        "20261109T213814494549",
-        "20261109T213815269375",
-        "20261109T213816046604",
-        "20261109T213816826809"
+        "20261110T040721551761",
+        "20261110T040722301045",
+        "20261110T040723050307",
+        "20261110T040723784457",
+        "20261110T040724526629"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -75094,11 +75094,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/VEGI.K",
       "source_retrieved_at": [
-        "20261109T213813853335",
-        "20261109T213814630509",
-        "20261109T213815403596",
-        "20261109T213816314892",
-        "20261109T213817085085"
+        "20261110T040722607224",
+        "20261110T040723363988",
+        "20261110T040724238184",
+        "20261110T040725110943",
+        "20261110T040725853266"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -75375,11 +75375,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ENFR.K",
       "source_retrieved_at": [
-        "20261109T213813857943",
-        "20261109T213814764604",
-        "20261109T213815534639",
-        "20261109T213816313365",
-        "20261109T213817091186"
+        "20261110T040722866725",
+        "20261110T040723616283",
+        "20261110T040724484963",
+        "20261110T040725229698",
+        "20261110T040725974487"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -75652,11 +75652,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SOCL.O",
       "source_retrieved_at": [
-        "20261109T213817612263",
-        "20261109T213818387641",
-        "20261109T213819170186",
-        "20261109T213819945053",
-        "20261109T213820722443"
+        "20261110T040725278900",
+        "20261110T040726155292",
+        "20261110T040726899922",
+        "20261110T040727783466",
+        "20261110T040728525957"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -75929,11 +75929,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GNR",
       "source_retrieved_at": [
-        "20261109T213817863736",
-        "20261109T213818639422",
-        "20261109T213819412632",
-        "20261109T213820186504",
-        "20261109T213820957175"
+        "20261110T040726603074",
+        "20261110T040727357879",
+        "20261110T040728103475",
+        "20261110T040728847628",
+        "20261110T040729594531"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -76201,11 +76201,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XHB",
       "source_retrieved_at": [
-        "20261109T213817871884",
-        "20261109T213818649888",
-        "20261109T213819428117",
-        "20261109T213820201794",
-        "20261109T213820972317"
+        "20261110T040726851732",
+        "20261110T040727593873",
+        "20261110T040728334048",
+        "20261110T040729113723",
+        "20261110T040729857000"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -76473,11 +76473,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLB",
       "source_retrieved_at": [
-        "20261109T213821501518",
-        "20261109T213822278514",
-        "20261109T213823052087",
-        "20261109T213823821993",
-        "20261109T213824597765"
+        "20261110T040729392339",
+        "20261110T040730127905",
+        "20261110T040730865733",
+        "20261110T040731732647",
+        "20261110T040732483410"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -76755,11 +76755,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/MLPX.K",
       "source_retrieved_at": [
-        "20261109T213821736498",
-        "20261109T213822513872",
-        "20261109T213823293984",
-        "20261109T213824065762",
-        "20261109T213824838908"
+        "20261110T040730341355",
+        "20261110T040731088863",
+        "20261110T040731838885",
+        "20261110T040732584370",
+        "20261110T040733337607"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -77032,11 +77032,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/CGW",
       "source_retrieved_at": [
-        "20261109T213821752203",
-        "20261109T213822528232",
-        "20261109T213823301405",
-        "20261109T213824079036",
-        "20261109T213824853635"
+        "20261110T040730609234",
+        "20261110T040731352849",
+        "20261110T040732090697",
+        "20261110T040732831921",
+        "20261110T040733585408"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -77309,11 +77309,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ITB",
       "source_retrieved_at": [
-        "20261109T213825372810",
-        "20261109T213826149004",
-        "20261109T213827053442",
-        "20261109T213827827935",
-        "20261109T213828601373"
+        "20261110T040733237295",
+        "20261110T040733975392",
+        "20261110T040734726775",
+        "20261110T040735474394",
+        "20261110T040736252713"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -77586,11 +77586,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/EMIF.O",
       "source_retrieved_at": [
-        "20261109T213825618789",
-        "20261109T213826389707",
-        "20261109T213827167439",
-        "20261109T213828072496",
-        "20261109T213828842154"
+        "20261110T040734086829",
+        "20261110T040734825234",
+        "20261110T040735566713",
+        "20261110T040736310500",
+        "20261110T040737051667"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -77858,11 +77858,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ICLN.O",
       "source_retrieved_at": [
-        "20261109T213825635256",
-        "20261109T213826409133",
-        "20261109T213827187585",
-        "20261109T213828071369",
-        "20261109T213828846585"
+        "20261110T040734339187",
+        "20261110T040735086418",
+        "20261110T040735832576",
+        "20261110T040736578273",
+        "20261110T040737323296"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -78135,11 +78135,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/CUT",
       "source_retrieved_at": [
-        "20261109T213829387981",
-        "20261109T213830164628",
-        "20261109T213830942679",
-        "20261109T213831720955",
-        "20261109T213832494520"
+        "20261110T040737002160",
+        "20261110T040737748812",
+        "20261110T040738498161",
+        "20261110T040739247484",
+        "20261110T040739990015"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -78412,11 +78412,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GUNR.K",
       "source_retrieved_at": [
-        "20261109T213829632733",
-        "20261109T213830404244",
-        "20261109T213831180273",
-        "20261109T213831953642",
-        "20261109T213832731311"
+        "20261110T040737798039",
+        "20261110T040738546651",
+        "20261110T040739285718",
+        "20261110T040740034801",
+        "20261110T040740776893"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -78689,11 +78689,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/EMLP.K",
       "source_retrieved_at": [
-        "20261109T213829633371",
-        "20261109T213830408106",
-        "20261109T213831179563",
-        "20261109T213831954699",
-        "20261109T213832732010"
+        "20261110T040738068790",
+        "20261110T040738815936",
+        "20261110T040739558893",
+        "20261110T040740304071",
+        "20261110T040741053840"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -78966,11 +78966,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PBW",
       "source_retrieved_at": [
-        "20261109T213833276175",
-        "20261109T213834052656",
-        "20261109T213834827236",
-        "20261109T213835604547",
-        "20261109T213836375652"
+        "20261110T040740736558",
+        "20261110T040741475646",
+        "20261110T040742217060",
+        "20261110T040742956323",
+        "20261110T040743702985"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -79238,11 +79238,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/LIT",
       "source_retrieved_at": [
-        "20261109T213833514601",
-        "20261109T213834295015",
-        "20261109T213835067421",
-        "20261109T213835842486",
-        "20261109T213836618586"
+        "20261110T040741523089",
+        "20261110T040742266531",
+        "20261110T040743005531",
+        "20261110T040743753350",
+        "20261110T040744500066"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -79515,11 +79515,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/MOO",
       "source_retrieved_at": [
-        "20261109T213833514904",
-        "20261109T213834291515",
-        "20261109T213835069863",
-        "20261109T213835843578",
-        "20261109T213836619284"
+        "20261110T040741807240",
+        "20261110T040742562838",
+        "20261110T040743305579",
+        "20261110T040744052389",
+        "20261110T040744797364"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -79792,11 +79792,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PBD",
       "source_retrieved_at": [
-        "20261109T213837170780",
-        "20261109T213837945866",
-        "20261109T213838724850",
-        "20261109T213839500071",
-        "20261109T213840276681"
+        "20261110T040744451221",
+        "20261110T040745190786",
+        "20261110T040745930452",
+        "20261110T040746680390",
+        "20261110T040747428551"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -80069,11 +80069,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/WOOD.O",
       "source_retrieved_at": [
-        "20261109T213837405741",
-        "20261109T213838179539",
-        "20261109T213838957549",
-        "20261109T213839728905",
-        "20261109T213840503151"
+        "20261110T040745247043",
+        "20261110T040745992887",
+        "20261110T040746737877",
+        "20261110T040747600552",
+        "20261110T040748355014"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -80346,11 +80346,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IHI",
       "source_retrieved_at": [
-        "20261109T213837406034",
-        "20261109T213838180703",
-        "20261109T213838953675",
-        "20261109T213839724041",
-        "20261109T213840500469"
+        "20261110T040745547084",
+        "20261110T040746289164",
+        "20261110T040747034380",
+        "20261110T040747776354",
+        "20261110T040748518309"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -80623,11 +80623,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/OIH",
       "source_retrieved_at": [
-        "20261109T213841057067",
-        "20261109T213841828940",
-        "20261109T213842603457",
-        "20261109T213843375212",
-        "20261109T213844149312"
+        "20261110T040748175473",
+        "20261110T040748918786",
+        "20261110T040749670515",
+        "20261110T040750410478",
+        "20261110T040751154981"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -80900,11 +80900,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SLVP.K",
       "source_retrieved_at": [
-        "20261109T213841276227",
-        "20261109T213842055737",
-        "20261109T213842833800",
-        "20261109T213843608102",
-        "20261109T213844378796"
+        "20261110T040749093441",
+        "20261110T040749830191",
+        "20261110T040750591400",
+        "20261110T040751462236",
+        "20261110T040752207180"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -81177,11 +81177,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/AIRR.O",
       "source_retrieved_at": [
-        "20261109T213841284417",
-        "20261109T213842054467",
-        "20261109T213842827344",
-        "20261109T213843604735",
-        "20261109T213844384384"
+        "20261110T040749270585",
+        "20261110T040750044386",
+        "20261110T040750785457",
+        "20261110T040751531527",
+        "20261110T040752280358"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -81449,11 +81449,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XES",
       "source_retrieved_at": [
-        "20261109T213844928389",
-        "20261109T213845705293",
-        "20261109T213846477548",
-        "20261109T213847250314",
-        "20261109T213848026028"
+        "20261110T040751904595",
+        "20261110T040752664323",
+        "20261110T040753398086",
+        "20261110T040754148065",
+        "20261110T040754894442"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -81730,11 +81730,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/FCG",
       "source_retrieved_at": [
-        "20261109T213845163274",
-        "20261109T213845939807",
-        "20261109T213846715428",
-        "20261109T213847488249",
-        "20261109T213848260848"
+        "20261110T040752950080",
+        "20261110T040753697154",
+        "20261110T040754445074",
+        "20261110T040755189405",
+        "20261110T040755936522"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -82007,11 +82007,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/IEZ",
       "source_retrieved_at": [
-        "20261109T213845168145",
-        "20261109T213845943764",
-        "20261109T213846717360",
-        "20261109T213847487167",
-        "20261109T213848258274"
+        "20261110T040753031758",
+        "20261110T040753780851",
+        "20261110T040754517256",
+        "20261110T040755259549",
+        "20261110T040756006552"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -82284,11 +82284,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SGDM.K",
       "source_retrieved_at": [
-        "20261109T213848805448",
-        "20261109T213849581562",
-        "20261109T213850357316",
-        "20261109T213851268521",
-        "20261109T213852179124"
+        "20261110T040755644571",
+        "20261110T040756403399",
+        "20261110T040757150158",
+        "20261110T040757894400",
+        "20261110T040758642244"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -82561,11 +82561,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GII",
       "source_retrieved_at": [
-        "20261109T213849039303",
-        "20261109T213849814526",
-        "20261109T213850583160",
-        "20261109T213851487384",
-        "20261109T213852388388"
+        "20261110T040756686326",
+        "20261110T040757432028",
+        "20261110T040758177620",
+        "20261110T040758912929",
+        "20261110T040759666801"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -82838,11 +82838,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SIL",
       "source_retrieved_at": [
-        "20261109T213849042195",
-        "20261109T213849816226",
-        "20261109T213850585223",
-        "20261109T213851486630",
-        "20261109T213852394749"
+        "20261110T040756745683",
+        "20261110T040757485589",
+        "20261110T040758220118",
+        "20261110T040758968745",
+        "20261110T040759718681"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -83119,11 +83119,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ITA",
       "source_retrieved_at": [
-        "20261109T213853092028",
-        "20261109T213853880838",
-        "20261109T213854780945",
-        "20261109T213855555279",
-        "20261109T213856458652"
+        "20261110T040759390472",
+        "20261110T040800138264",
+        "20261110T040800877018",
+        "20261110T040801622032",
+        "20261110T040802367645"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -83396,11 +83396,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/TOLZ.K",
       "source_retrieved_at": [
-        "20261109T213853304905",
-        "20261109T213854080327",
-        "20261109T213854852667",
-        "20261109T213855625843",
-        "20261109T213856551196"
+        "20261110T040800418584",
+        "20261110T040801173338",
+        "20261110T040801914430",
+        "20261110T040802660978",
+        "20261110T040803529917"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -83673,11 +83673,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GDX",
       "source_retrieved_at": [
-        "20261109T213853305194",
-        "20261109T213854079049",
-        "20261109T213854851997",
-        "20261109T213855625163",
-        "20261109T213856457550"
+        "20261110T040800471978",
+        "20261110T040801214194",
+        "20261110T040801956599",
+        "20261110T040802704278",
+        "20261110T040803449931"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -83950,11 +83950,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/GDXJ.K",
       "source_retrieved_at": [
-        "20261109T213857832972",
-        "20261109T213858744020",
-        "20261109T213859644039",
-        "20261109T213900424951",
-        "20261109T213901197701"
+        "20261110T040803118576",
+        "20261110T040803871083",
+        "20261110T040804609383",
+        "20261110T040805346009",
+        "20261110T040806083693"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -84227,11 +84227,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PBJ",
       "source_retrieved_at": [
-        "20261109T213857833400",
-        "20261109T213858740228",
-        "20261109T213859644692",
-        "20261109T213900423630",
-        "20261109T213901199086"
+        "20261110T040804196595",
+        "20261110T040804940013",
+        "20261110T040805681065",
+        "20261110T040806421794",
+        "20261110T040807167215"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -84504,11 +84504,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/PPA",
       "source_retrieved_at": [
-        "20261109T213857834009",
-        "20261109T213858745073",
-        "20261109T213859646262",
-        "20261109T213900425739",
-        "20261109T213901200496"
+        "20261110T040804284324",
+        "20261110T040805030384",
+        "20261110T040805783266",
+        "20261110T040806523309",
+        "20261110T040807266561"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -84781,11 +84781,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/FAN",
       "source_retrieved_at": [
-        "20261109T213901981104",
-        "20261109T213902759622",
-        "20261109T213903535074",
-        "20261109T213904309462",
-        "20261109T213905082667"
+        "20261110T040806825083",
+        "20261110T040807565822",
+        "20261110T040808300476",
+        "20261110T040809049682",
+        "20261110T040809797647"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -85053,11 +85053,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLU",
       "source_retrieved_at": [
-        "20261109T213901983617",
-        "20261109T213902761376",
-        "20261109T213903533709",
-        "20261109T213904308112",
-        "20261109T213905080219"
+        "20261110T040808158497",
+        "20261110T040808906078",
+        "20261110T040809646192",
+        "20261110T040810393176",
+        "20261110T040811138823"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -85325,11 +85325,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XAR",
       "source_retrieved_at": [
-        "20261109T213901984209",
-        "20261109T213902760167",
-        "20261109T213903535970",
-        "20261109T213904310280",
-        "20261109T213905081460"
+        "20261110T040808164550",
+        "20261110T040808901023",
+        "20261110T040809650197",
+        "20261110T040810391751",
+        "20261110T040811136433"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -85606,11 +85606,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/UFO.O",
       "source_retrieved_at": [
-        "20261109T213905864209",
-        "20261109T213906640826",
-        "20261109T213907415617",
-        "20261109T213908195024",
-        "20261109T213908969961"
+        "20261110T040810547797",
+        "20261110T040811290949",
+        "20261110T040812033824",
+        "20261110T040812782363",
+        "20261110T040813520258"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -85883,11 +85883,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/SILJ.K",
       "source_retrieved_at": [
-        "20261109T213905864459",
-        "20261109T213906641991",
-        "20261109T213907414665",
-        "20261109T213908186938",
-        "20261109T213908971017"
+        "20261110T040811888238",
+        "20261110T040812629715",
+        "20261110T040813366193",
+        "20261110T040814105531",
+        "20261110T040814849544"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -86155,11 +86155,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/URA",
       "source_retrieved_at": [
-        "20261109T213905864723",
-        "20261109T213906637461",
-        "20261109T213907412044",
-        "20261109T213908191692",
-        "20261109T213908972147"
+        "20261110T040811888512",
+        "20261110T040812635988",
+        "20261110T040813383640",
+        "20261110T040814121164",
+        "20261110T040814863968"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -86427,11 +86427,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/NLR",
       "source_retrieved_at": [
-        "20261109T213909755438",
-        "20261109T213910529391",
-        "20261109T213911436066",
-        "20261109T213912207620",
-        "20261109T213912980295"
+        "20261110T040814273779",
+        "20261110T040815029714",
+        "20261110T040815775912",
+        "20261110T040816514049",
+        "20261110T040817267543"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -86699,11 +86699,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/TAN",
       "source_retrieved_at": [
-        "20261109T213909755776",
-        "20261109T213910532914",
-        "20261109T213911437181",
-        "20261109T213912208690",
-        "20261109T213912979220"
+        "20261110T040815597695",
+        "20261110T040816338531",
+        "20261110T040817078543",
+        "20261110T040817949231",
+        "20261110T040818694985"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -86763,11 +86763,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/CHIQ.K",
       "source_retrieved_at": [
-        "20261109T213927153359",
-        "20261109T213927928333",
-        "20261109T213928733166",
-        "20261109T213929507654",
-        "20261109T213930291028"
+        "20261110T040831466190",
+        "20261110T040832217826",
+        "20261110T040832962705",
+        "20261110T040833710275",
+        "20261110T040834459014"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -87040,11 +87040,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/REMX.K",
       "source_retrieved_at": [
-        "20261109T213909756434",
-        "20261109T213910530122",
-        "20261109T213911440701",
-        "20261109T213912217249",
-        "20261109T213912987375"
+        "20261110T040815616001",
+        "20261110T040816353751",
+        "20261110T040817086863",
+        "20261110T040817939877",
+        "20261110T040818683531"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -87312,11 +87312,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLC",
       "source_retrieved_at": [
-        "20261109T213913889803",
-        "20261109T213914668571",
-        "20261109T213915445336",
-        "20261109T213916221584",
-        "20261109T213917007353"
+        "20261110T040818015671",
+        "20261110T040818761686",
+        "20261110T040819510503",
+        "20261110T040820250017",
+        "20261110T040821035578"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -87584,11 +87584,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/XLRE.K",
       "source_retrieved_at": [
-        "20261109T213913893253",
-        "20261109T213914671293",
-        "20261109T213915446579",
-        "20261109T213916216687",
-        "20261109T213917006408"
+        "20261110T040819432755",
+        "20261110T040820171477",
+        "20261110T040821039922",
+        "20261110T040821908315",
+        "20261110T040822780371"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -87856,11 +87856,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/BUG.O",
       "source_retrieved_at": [
-        "20261109T213913893828",
-        "20261109T213914667581",
-        "20261109T213915440654",
-        "20261109T213916217822",
-        "20261109T213917008118"
+        "20261110T040819438304",
+        "20261110T040820181574",
+        "20261110T040821044371",
+        "20261110T040821916314",
+        "20261110T040822773271"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -88133,11 +88133,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/DTCR.O",
       "source_retrieved_at": [
-        "20261109T213923229245",
-        "20261109T213924005502",
-        "20261109T213924778610",
-        "20261109T213925553451",
-        "20261109T213926323603"
+        "20261110T040827373459",
+        "20261110T040828249010",
+        "20261110T040829104324",
+        "20261110T040829974492",
+        "20261110T040830844576"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -88199,11 +88199,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/ECON.K",
       "source_retrieved_at": [
-        "20261109T213923266533",
-        "20261109T213924048913",
-        "20261109T213924821947",
-        "20261109T213925596151",
-        "20261109T213926369899"
+        "20261110T040827389944",
+        "20261110T040828266086",
+        "20261110T040829106847",
+        "20261110T040829972072",
+        "20261110T040830714771"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -88263,11 +88263,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/TDIV.O",
       "source_retrieved_at": [
-        "20261109T213923284207",
-        "20261109T213924057048",
-        "20261109T213924833184",
-        "20261109T213925612353",
-        "20261109T213926389290"
+        "20261110T040827432586",
+        "20261110T040828240714",
+        "20261110T040829105076",
+        "20261110T040829970388",
+        "20261110T040830717731"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -88327,11 +88327,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/INCO.K",
       "source_retrieved_at": [
-        "20261109T213927102233",
-        "20261109T213927880771",
-        "20261109T213928659178",
-        "20261109T213929436804",
-        "20261109T213930219906"
+        "20261110T040831465927",
+        "20261110T040832213263",
+        "20261110T040832960778",
+        "20261110T040833699910",
+        "20261110T040834452294"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -88391,11 +88391,11 @@
       "basis": "provider_price_adjustment_unverified",
       "source_url": "https://m.stock.naver.com/worldstock/etf/CHIQ.K",
       "source_retrieved_at": [
-        "20261109T213927153359",
-        "20261109T213927928333",
-        "20261109T213928733166",
-        "20261109T213929507654",
-        "20261109T213930291028"
+        "20261110T040831466190",
+        "20261110T040832217826",
+        "20261110T040832962705",
+        "20261110T040833710275",
+        "20261110T040834459014"
       ],
       "adjustment_verified": false,
       "total_return_verified": false,
@@ -88427,7 +88427,7 @@
   "catalog_summary": {
     "KR": {
       "source_url": "https://finance.naver.com/api/sise/etfItemList.nhn",
-      "observed_at": "2026-11-09T21:36:53.279296+00:00",
+      "observed_at": "2026-11-10T04:06:05.191245+00:00",
       "source_asof": null,
       "source_asof_note": "응답에 목록 기준일 없음; 조회 시각과 시세 기준일을 동일시하지 않음",
       "listed_count": 1184,
@@ -88435,18 +88435,18 @@
         "4": 383,
         "1": 99,
         "7": 126,
-        "6": 172,
         "2": 344,
-        "5": 23,
-        "3": 37
+        "6": 172,
+        "3": 37,
+        "5": 23
       },
       "review_counts": {
         "excluded_overseas_name": 344,
         "excluded_broad_market": 95,
         "excluded_structure": 395,
         "candidate_pending_review": 239,
-        "outside_domestic_sector_candidate": 51,
-        "registered_reviewed": 60
+        "registered_reviewed": 60,
+        "outside_domestic_sector_candidate": 51
       },
       "candidate_count": 239,
       "rules_version": "kr-discovery-v1",
@@ -88700,7 +88700,7 @@
   },
   "issuer_checks": {
     "attempted": 45,
-    "fresh": 0,
+    "fresh": 20,
     "quarantined_ids": []
   }
 }
