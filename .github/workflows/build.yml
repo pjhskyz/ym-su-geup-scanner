@@ -6,6 +6,8 @@ on:
     # cron은 UTC 기준. 아래는 시작 예정 시각이며 스케줄러 지연 및 빌드/배포 시간이 추가된다.
     - cron: '0 7 * * 1-5'      # 16:00 KST (월~금)
     - cron: '20 7 * * 1-5'     # 16:20 KST (당일 정상본이 있으면 건너뜀)
+    # 2026-11-19 수능일만 1시간 순연. cron에는 연도가 없어 helper의 정확한 날짜 창으로 제한한다.
+    - cron: '0,20 8 19 11 *'   # 17:00·17:20 KST (다른 연도에는 일반 시간창 밖이므로 건너뜀)
   workflow_dispatch:        # 액션 탭에서 수동 실행 버튼
     inputs:
       force:
@@ -58,7 +60,7 @@ jobs:
       - name: Install dependencies
         run: pip install pykrx finance-datareader pandas
 
-      # runner 대기/의존성 설치 중 16:30이 지났다면 늦은 집계로 조기 보고본을 대체하지 않는다.
+      # 날짜별 컷오프(일반 16:30, 2026-11-19는 17:30)를 재확인한다.
       - name: Recheck collection window before source requests
         id: check_build_window
         env:
@@ -71,7 +73,7 @@ jobs:
         env:
           KRX_ID: ${{ secrets.KRX_ID }}   # repo Settings → Secrets 에 등록
           KRX_PW: ${{ secrets.KRX_PW }}
-          SCANNER_REPORT_SESSION: krx_close_1600
+          SCANNER_REPORT_SESSION: scheduled_close
           SCANNER_SCHEDULE: ${{ github.event.schedule }}
           FORCE_COLLECTION: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
         run: python build_scanner_data.py

@@ -69,6 +69,25 @@ class ReportSessionTests(unittest.TestCase):
         self.assertEqual(scanner.report_session(start, asof="20261119", forced=True),
                          "manual_or_other_time")
 
+    def test_late_close_day_uses_1700_session_with_1730_cutoff(self):
+        self.assertEqual(scanner.report_session(
+            self.moment("2026-11-19T08:00:00+00:00"),
+            self.moment("2026-11-19T17:29:59+09:00"), "20261119", True),
+            "krx_close_1700")
+        with self.assertRaises(scanner.CollectionContractError) as caught:
+            scanner.report_session(self.moment("2026-11-19T17:20:00+09:00"),
+                                   self.moment("2026-11-19T17:30:00+09:00"), "20261119", True)
+        self.assertEqual(caught.exception.code, "collection_window_missed")
+        self.assertEqual(scanner.report_session(self.moment("2026-11-19T17:05:00+09:00"),
+                                                asof="20261119", forced=True), "manual_or_other_time")
+
+    def test_clock_rollback_cannot_publish_normal_or_exam_snapshot(self):
+        for date, hour, asof in [("2026-11-17", "16", "20261117"), ("2026-11-19", "17", "20261119")]:
+            with self.subTest(date=date):
+                with self.assertRaises(scanner.CollectionContractError):
+                    scanner.report_session(self.moment(f"{date}T{hour}:20:00+09:00"),
+                                           self.moment(f"{date}T{hour}:10:00+09:00"), asof, True)
+
 
 def ranked(net, rank=1, name="테스트"):
     return {"net": net, "rank": rank, "bucket": 1, "name": name}

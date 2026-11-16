@@ -1448,6 +1448,12 @@ rebuild();
 
 // Scanner source state: never fall back to embedded historical rows.
 let SOURCE_STATUS=null, liveRequest=0;
+function collectionScheduleFor(day){
+  return day==='20261119'?{primary:'17:00',retry:'17:20',report:'17:30',cutoffMinutes:17*60+30,label:'수능일 11/19'}:{primary:'16:00',retry:'16:20',report:'16:30',cutoffMinutes:16*60+30,label:'평일'};
+}
+function collectionScheduleText(schedule){
+  return `${schedule.label} ${schedule.primary} KST · 미갱신 시 ${schedule.retry} 예비 · 보고 시작 ${schedule.report}`;
+}
 function fmtAsof(s){return (s&&s.length===8)?`${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`:(s||"미제공");}
 function fmtKst(value){
   if(!value)return "미제공";
@@ -1456,16 +1462,18 @@ function fmtKst(value){
 }
 function renderDataStatus(){
   const panel=document.getElementById('dataStatus'), basis=document.getElementById('scannerBasis');
+  const nowKst=new Date(Date.now()+9*60*60*1000), todayKst=nowKst.toISOString().slice(0,10).replace(/-/g,'');
+  const schedule=collectionScheduleFor(todayKst), scheduleText=collectionScheduleText(schedule);
   const csv=document.getElementById('csv');csv.disabled=loadState!=='ready';
   panel.classList.toggle('error',loadState==='error'||SOURCE_STATUS?.status==='failed');
   if(loadState==='loading'){
-    basis.textContent='데이터 불러오는 중';panel.innerHTML='<b>수급 자료를 불러오고 있습니다…</b><span>수집 예정: 평일 16:00 KST · 미갱신 시 16:20 예비 · 보고 시작 16:30</span>';return;
+    basis.textContent='데이터 불러오는 중';panel.innerHTML=`<b>수급 자료를 불러오고 있습니다…</b><span>수집 예정: ${escapeHtml(scheduleText)}</span>`;return;
   }
   if(loadState==='error'){
     basis.textContent='데이터 로딩 실패';panel.innerHTML=`<b>수급 자료를 불러오지 못했습니다.</b><span>${escapeHtml(loadError)}</span><button class="btn" id="retryScanner">다시 불러오기</button>`;
     document.getElementById('retryScanner').onclick=loadLive;return;
   }
-  const meta=SCANNER.metadata||{}, nowKst=new Date(Date.now()+9*60*60*1000), todayKst=nowKst.toISOString().slice(0,10).replace(/-/g,'');
+  const meta=SCANNER.metadata||{};
   const collectedAt=meta.updated_at||SCANNER.updated||SCANNER.updated_at;
   const updated=collectedAt||meta.source_committed_at;
   const updatedLabel=collectedAt?'데이터 갱신':meta.source_committed_at?'원자료 저장':'데이터 갱신';
@@ -1478,14 +1486,14 @@ function renderDataStatus(){
     const date=new Date(value);
     return !Number.isNaN(date.getTime())&&date.toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).replace(/-/g,'')===todayKst;
   });
-  const weekday=nowKst.getUTCDay(), afterRetry=nowKst.getUTCHours()*60+nowKst.getUTCMinutes()>=16*60+30;
+  const weekday=nowKst.getUTCDay(), afterRetry=nowKst.getUTCHours()*60+nowKst.getUTCMinutes()>=schedule.cutoffMinutes;
   const overdue=older&&weekday>=1&&weekday<=5&&afterRetry&&!checkedToday;
   panel.classList.toggle('error',failed||overdue);
   const lastAttempt=SOURCE_STATUS?.attempted_at||SOURCE_STATUS?.finished_at;
   const sectors=meta.sector_classification, sectorCounts=sectors?.counts;
   const sectorDates=(sectors?.fallback_source_asofs||[]).map(fmtAsof).join(', ');
   const sectorNote=sectorCounts?.carried?` · 업종: ${sectorDates||'이전 확인'} 분류 ${L.number(sectorCounts.carried,0)}종목 유지${sectorCounts.missing?' · 미분류 '+L.number(sectorCounts.missing,0)+'종목':''}`:sectorCounts?.missing?` · 업종 미분류 ${L.number(sectorCounts.missing,0)}종목`:'';
-  panel.innerHTML=`<b>${failed?'최근 수집 실패 · 마지막 정상 자료 표시':overdue?'수집 예정 시각 경과 · 오늘 실행 결과 미확인':older?'이전 거래일 자료 표시':'기준일 자료 로딩 완료'}</b><span>기준일 <b>${fmtAsof(SCANNER.asof)}</b></span><span>${updatedLabel} ${escapeHtml(fmtKst(updated))}</span><span>예정: 평일 16:00 KST · 미갱신 시 16:20 예비 · 보고 시작 16:30 (완료 시각 아님)</span><button class="btn" id="retryScanner">다시 불러오기</button><a class="btn" href="https://github.com/pjhskyz/ym-su-geup-scanner/actions/workflows/build.yml" target="_blank" rel="noopener noreferrer">수집 실행 기록</a><div class="status-detail">${escapeHtml(coverage)}${escapeHtml(sectorNote)}${failed?' · '+escapeHtml(SOURCE_STATUS.error||'수급 수집에 실패했습니다.'):''}${lastAttempt?' · 최근 수집 시도 '+escapeHtml(fmtKst(lastAttempt)):''}${meta.comparison?.collection_time_note?' · '+escapeHtml(meta.comparison.collection_time_note):''}</div>`;
+  panel.innerHTML=`<b>${failed?'최근 수집 실패 · 마지막 정상 자료 표시':overdue?'수집 예정 시각 경과 · 오늘 실행 결과 미확인':older?'이전 거래일 자료 표시':'기준일 자료 로딩 완료'}</b><span>기준일 <b>${fmtAsof(SCANNER.asof)}</b></span><span>${updatedLabel} ${escapeHtml(fmtKst(updated))}</span><span>예정: ${escapeHtml(scheduleText)} (완료 시각 아님)</span><button class="btn" id="retryScanner">다시 불러오기</button><a class="btn" href="https://github.com/pjhskyz/ym-su-geup-scanner/actions/workflows/build.yml" target="_blank" rel="noopener noreferrer">수집 실행 기록</a><div class="status-detail">${escapeHtml(coverage)}${escapeHtml(sectorNote)}${failed?' · '+escapeHtml(SOURCE_STATUS.error||'수급 수집에 실패했습니다.'):''}${lastAttempt?' · 최근 수집 시도 '+escapeHtml(fmtKst(lastAttempt)):''}${meta.comparison?.collection_time_note?' · '+escapeHtml(meta.comparison.collection_time_note):''}</div>`;
   document.getElementById('retryScanner').onclick=loadLive;
   const exact=DATA.some(row=>row._raw?.inst&&typeof row._raw.inst==='object');
   document.getElementById('instRankLabel').textContent=exact?'기관 금액 순위':'기관 0.4% 구간';

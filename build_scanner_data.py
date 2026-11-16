@@ -34,7 +34,7 @@ import datetime as dt
 from importlib.metadata import PackageNotFoundError, version
 
 import pandas as pd
-from collection_window import LATE_CLOSE_SESSIONS
+from collection_window import session_schedule, time_pair
 
 
 def _import_stock(retries: int = 3, wait_s: int = 40):
@@ -530,23 +530,24 @@ class CollectionContractError(RuntimeError):
 
 
 def report_session(started_at, finished_at=None, asof=None, enforce=False, *, forced=False):
-    """16시 수집본의 날짜·시각 경계를 검증한다. 강제 점검본은 별도 세션이다."""
+    """거래일별 수집본의 날짜·시각 경계를 검증한다. 강제 점검본은 별도 세션이다."""
     start = started_at.astimezone(KST)
     end = (finished_at or started_at).astimezone(KST)
+    schedule = session_schedule(start.strftime("%Y%m%d"))
+    collect_from, collect_until = time_pair(schedule["primary"]), time_pair(schedule["cutoff"])
     valid = (
-        start.weekday() < 5 and start.date() == end.date()
-        and start.strftime("%Y%m%d") not in LATE_CLOSE_SESSIONS
-        and (16, 0) <= (start.hour, start.minute) < (16, 30)
-        and (16, 0) <= (end.hour, end.minute) < (16, 30)
+        start.weekday() < 5 and start.date() == end.date() and start <= end
+        and collect_from <= (start.hour, start.minute) < collect_until
+        and collect_from <= (end.hour, end.minute) < collect_until
         and (asof is None or asof == start.strftime("%Y%m%d"))
     )
     if enforce and not valid:
-        if start.strftime("%Y%m%d") in LATE_CLOSE_SESSIONS:
-            raise CollectionContractError("regular_session_not_closed", "정규장 종료 지연일 — 16시 장중 자료를 장마감 보고본으로 발행하지 않습니다.")
+        if (start.hour, start.minute) < time_pair(schedule["close_kst"]):
+            raise CollectionContractError("regular_session_not_closed", "정규장 종료 전 — 장중 자료를 장마감 보고본으로 발행하지 않습니다.")
         if asof is not None and asof != start.strftime("%Y%m%d"):
             raise CollectionContractError("source_not_ready", "당일 거래일 자료 미반영 또는 휴장일 — 마지막 정상 자료를 유지합니다.")
-        raise CollectionContractError("collection_window_missed", "16시 수집 창 경과 또는 비운영일 — 마지막 정상 자료를 유지합니다.")
-    return "krx_close_1600" if valid and not forced else "manual_or_other_time"
+        raise CollectionContractError("collection_window_missed", f"{schedule['primary']}~{schedule['cutoff']} 수집 창 미충족 또는 비운영일 — 마지막 정상 자료를 유지합니다.")
+    return schedule["report_session"] if valid and not forced else "manual_or_other_time"
 
 
 def main():
@@ -554,7 +555,7 @@ def main():
     started_at = dt.datetime.now(KST)
     collection_started_at = started_at.isoformat(timespec="seconds")
     forced = os.getenv("FORCE_COLLECTION", "").lower() == "true"
-    enforce_window = os.getenv("SCANNER_REPORT_SESSION") == "krx_close_1600" and not forced
+    enforce_window = os.getenv("SCANNER_REPORT_SESSION") in ("scheduled_close", "krx_close_1600", "krx_close_1700") and not forced
     report_session(started_at, enforce=enforce_window)
     previous_sectors = load_sector_history()
     if not (os.getenv("KRX_ID") and os.getenv("KRX_PW")):
@@ -574,6 +575,7 @@ def main():
         log(f"· {bdays[0]} 투자자 데이터 미확정(장중 추정) → 직전 영업일로 폴백")
         bdays = bdays[1:]
     D, D1, D2 = bdays[0], bdays[1], bdays[2]
+    schedule = session_schedule(D)
     report_session(started_at, asof=D, enforce=enforce_window)
     log("기준일:", [D, D1, D2])
 
@@ -696,7 +698,7 @@ def main():
     rows.sort(key=lambda row: (-rank_details[row[23]]["net_won"]["inst"], row[23]))
     comparison = comparison_snapshot(daily, [D1, D2], previous_caps, secmap)
     comparison["same_collection_time_verified"] = False
-    comparison["collection_time_note"] = "과거 거래일 재조회 집계입니다. 직전 16시 보관본과 동일 시점임을 검증하지 않았으므로 동시간대 변화로 단정하지 않습니다."
+    comparison["collection_time_note"] = "과거 거래일 재조회 집계입니다. 직전 보고용 보관본과 동일 수집시점임을 검증하지 않았으므로 동시간대 변화로 단정하지 않습니다."
     sector_classification = sector_classification_metadata(sector_state, rows, comparison["rows"])
     sector_counts = sector_classification["counts"]
     log(f"· 업종: 이번 조회 {sector_counts['fresh']} / 과거 분류 이월 {sector_counts['carried']} "
@@ -724,7 +726,7 @@ def main():
                 "provider": "KRX via pykrx",
                 "date": D,
                 "session": "regular_close",
-                "scheduled_close_kst": LATE_CLOSE_SESSIONS.get(D, {}).get("close_kst", "15:30"),
+                "scheduled_close_kst": schedule["close_kst"],
                 "note": "해당 거래일 KRX 일별 종가·시가총액 사용. 수급 조회시각/거래 세션 범위와 구분합니다.",
             },
             "sector_classification": sector_classification,
@@ -753,19 +755,16 @@ def main():
                 "after_market": "unverified",
                 "nxt": "unverified",
                 "label": "장마감 후 집계·최종 확정 전 · 시간외/NXT 반영 범위 미확인",
-                "reason": "조회일·시장·투자자만 지정하는 API입니다. 수집시각은 실제 거래 집계 마감시각이 아니며 15:30 정규장 전용 수급 또는 NXT 제외를 보장하지 않습니다.",
+                "reason": "조회일·시장·투자자만 지정하는 API입니다. 수집시각은 실제 거래 집계 마감시각이 아니며 정규장 전용 수급 또는 NXT 제외를 보장하지 않습니다.",
                 "audit_method": "builder and pykrx source inspection",
             },
             "schedule": {
                 "timezone": "Asia/Seoul",
                 "weekdays": [1, 2, 3, 4, 5],
-                "primary": "16:00",
-                "retry": "16:20",
-                "report": "16:30",
-                "cutoff": "16:30",
-                "retry_condition": "no_valid_current_day_1600_snapshot",
+                **schedule,
+                "retry_condition": "no_valid_current_day_scheduled_snapshot",
                 "kind": "scheduled_start",
-                "note": "16:00 주 수집, 정상본이 없을 때만 16:20 예비 수집, 16:30 보고 시작. 예약/배포 지연으로 완료를 보장하지 않습니다. 일반 16:30 이후 요청과 기존 20:05 외부 요청은 건너뜁니다.",
+                "note": f"{schedule['primary']} 주 수집, 정상본이 없을 때만 {schedule['retry']} 예비 수집, {schedule['report']} 보고 시작. 예약/배포 지연으로 완료를 보장하지 않습니다. 일반 {schedule['cutoff']} 이후 요청과 기존 20:05 외부 요청은 건너뜁니다.",
             },
             "comparison": comparison,
         },

@@ -4,7 +4,7 @@ import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from collection_window import KST, collection_decision, has_current_snapshot, run_collection_window
+from collection_window import KST, collection_decision, has_current_snapshot, run_collection_window, session_schedule
 
 
 def at(value):
@@ -39,14 +39,41 @@ class FakeClock:
 
 
 class CollectionDecisionTests(unittest.TestCase):
-    def test_known_late_close_day_skips_early_collection(self):
+    def test_known_late_close_day_shifts_all_boundaries_one_hour(self):
         for event in ["schedule", "workflow_dispatch"]:
-            for time in ["16:00:00", "16:20:00"]:
+            for time in ["16:00:00", "16:20:00", "16:39:59", "17:30:00", "20:05:00"]:
                 result = collection_decision(at(f"2026-11-19T{time}"), event)
                 self.assertFalse(result.allowed)
-                self.assertIn("정규장 종료 16:30", result.reason)
+            for time, wait in [("16:40:00", 1200), ("16:59:59", 1), ("17:00:00", 0), ("17:20:00", 0), ("17:29:59", 0)]:
+                result = collection_decision(at(f"2026-11-19T{time}"), event)
+                self.assertTrue(result.allowed)
+                self.assertEqual(result.wait_seconds, wait)
         self.assertTrue(collection_decision(at("2026-11-19T16:05:00"),
                                             "workflow_dispatch", force=True).allowed)
+
+    def test_exam_snapshot_is_distinct_and_duplicate_retry_skips(self):
+        entry = snapshot()
+        entry["asof"] = "20261119"
+        entry["metadata"].update({"report_session": "krx_close_1700",
+                                  "collection_started_at": "2026-11-19T17:00:10+09:00",
+                                  "updated_at": "2026-11-19T17:03:00+09:00"})
+        now = at("2026-11-19T17:20:00")
+        self.assertTrue(has_current_snapshot(now, entry))
+        self.assertFalse(collection_decision(now, "schedule", snapshot=entry).allowed)
+        entry["metadata"]["report_session"] = "krx_close_1600"
+        self.assertFalse(has_current_snapshot(now, entry))
+        entry["metadata"]["report_session"] = "krx_close_1700"
+        entry["metadata"]["updated_at"] = "2026-11-19T17:30:00+09:00"
+        self.assertFalse(has_current_snapshot(at("2026-11-19T17:35:00"), entry))
+
+    def test_one_day_exception_does_not_shift_other_days_or_years(self):
+        for day in ["20261118", "20261120", "20271119"]:
+            schedule = session_schedule(day)
+            self.assertEqual(schedule["primary"], "16:00")
+            self.assertEqual(schedule["report_session"], "krx_close_1600")
+            iso = f"{day[:4]}-{day[4:6]}-{day[6:]}"
+            self.assertFalse(collection_decision(at(f"{iso}T17:00:00"), "schedule").allowed)
+        self.assertEqual(session_schedule("20261119")["report"], "17:30")
 
     def test_before_wait_window_skips_both_events(self):
         for event in ["schedule", "workflow_dispatch"]:
@@ -154,6 +181,22 @@ class CollectionDecisionTests(unittest.TestCase):
 
 
 class CollectionRunnerTests(unittest.TestCase):
+    def test_exam_wait_targets_1700_and_overshoot_rechecks_1730(self):
+        clock = FakeClock(at("2026-11-19T16:59:59"))
+        result = run_collection_window("schedule", clock=clock, sleep=clock.sleep,
+                                       snapshot_path=None, log=lambda _: None)
+        self.assertTrue(result.allowed)
+        self.assertEqual(clock.now, at("2026-11-19T17:00:00"))
+        clock = FakeClock(at("2026-11-19T16:59:59"))
+
+        def oversleep(_):
+            clock.now = at("2026-11-19T17:30:00")
+
+        result = run_collection_window("schedule", clock=clock, sleep=oversleep,
+                                       snapshot_path=None, log=lambda _: None)
+        self.assertFalse(result.allowed)
+        self.assertIn("17:30", result.reason)
+
     def test_waits_until_1600_before_emitting_allowed(self):
         clock = FakeClock(at("2026-11-17T15:45:00"))
         logs = []
