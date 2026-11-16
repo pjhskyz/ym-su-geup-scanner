@@ -1,15 +1,15 @@
 name: build-scanner-data
 
-# 평일 20:20 KST 실행 예정. 원천의 시간외/NXT 포함 여부는 데이터 metadata로 표시한다.
+# 평일 16:00 KST 수집, 실패·미갱신 시 16:20 예비 실행. 보고 시작은 16:30 KST.
 on:
   schedule:
     # cron은 UTC 기준. 아래는 시작 예정 시각이며 스케줄러 지연 및 빌드/배포 시간이 추가된다.
-    - cron: '20 11 * * 1-5'    # 20:20 KST (월~금)
-    - cron: '50 11 * * 1-5'    # 20:50 KST (누락·지연 및 후속 반영 보완 조회)
+    - cron: '0 7 * * 1-5'      # 16:00 KST (월~금)
+    - cron: '20 7 * * 1-5'     # 16:20 KST (당일 정상본이 있으면 건너뜀)
   workflow_dispatch:        # 액션 탭에서 수동 실행 버튼
     inputs:
       force:
-        description: '예정 시각 전 수동 수집'
+        description: '시간·중복 제한을 해제하는 명시적 수동 점검 (16시 보고본과 구분)'
         type: boolean
         required: false
         default: false
@@ -30,6 +30,8 @@ jobs:
     steps:
       - name: Checkout collection window helper
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Check or wait for collection window (KST)
         id: check_window
@@ -45,6 +47,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -54,11 +58,22 @@ jobs:
       - name: Install dependencies
         run: pip install pykrx finance-datareader pandas
 
+      # runner 대기/의존성 설치 중 16:30이 지났다면 늦은 집계로 조기 보고본을 대체하지 않는다.
+      - name: Recheck collection window before source requests
+        id: check_build_window
+        env:
+          FORCE_COLLECTION: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
+        run: python -u collection_window.py
+
       - name: Build scanner_data.json
         id: build_scanner
+        if: ${{ steps.check_build_window.outputs.allowed == 'true' }}
         env:
           KRX_ID: ${{ secrets.KRX_ID }}   # repo Settings → Secrets 에 등록
           KRX_PW: ${{ secrets.KRX_PW }}
+          SCANNER_REPORT_SESSION: krx_close_1600
+          SCANNER_SCHEDULE: ${{ github.event.schedule }}
+          FORCE_COLLECTION: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
         run: python build_scanner_data.py
 
       # 수급 데이터를 먼저 커밋 — 뒤 단계(시장지표)가 실패·타임아웃돼도 수급은 배포된다
@@ -103,12 +118,14 @@ jobs:
           exit 1
 
       - name: Build market_data.json (ADR·증시자금·개별종목)
+        if: ${{ steps.build_scanner.outcome == 'success' }}
         env:
           KRX_ID: ${{ secrets.KRX_ID }}
           KRX_PW: ${{ secrets.KRX_PW }}
         run: python build_market.py
 
       - name: Commit market data
+        if: ${{ steps.build_scanner.outcome == 'success' }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -140,3 +157,4 @@ jobs:
           done
           echo "push 5회 실패"
           exit 1
+

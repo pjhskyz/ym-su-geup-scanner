@@ -1,6 +1,7 @@
 """수급의 순위 정의·비교 경계·실패 시 데이터 보존을 검증한다. 네트워크/인증 불필요."""
 
 import json
+import datetime as dt
 import os
 from pathlib import Path
 import subprocess
@@ -12,6 +13,61 @@ from unittest.mock import Mock, patch
 import pandas as pd
 
 import build_scanner_data as scanner
+
+
+class ReportSessionTests(unittest.TestCase):
+    def moment(self, value):
+        return dt.datetime.fromisoformat(value)
+
+    def test_early_session_and_utc_conversion(self):
+        self.assertEqual(scanner.report_session(
+            self.moment("2026-11-17T07:00:00+00:00"),
+            self.moment("2026-11-17T16:29:59+09:00"), "20261117", True),
+            "krx_close_1600")
+
+    def test_late_completion_wrong_date_and_weekend_reject(self):
+        for start, end, asof in [
+            ("2026-11-17T16:00:00+09:00", "2026-11-17T16:30:00+09:00", "20261117"),
+            ("2026-11-17T16:00:00+09:00", "2026-11-17T16:01:00+09:00", "20261116"),
+            ("2026-11-21T16:00:00+09:00", "2026-11-21T16:01:00+09:00", "20261121"),
+        ]:
+            with self.subTest(start=start, end=end, asof=asof):
+                with self.assertRaises(RuntimeError):
+                    scanner.report_session(self.moment(start), self.moment(end), asof, True)
+
+    def test_manual_evening_is_not_early_snapshot(self):
+        self.assertEqual(scanner.report_session(
+            self.moment("2026-11-17T20:05:00+09:00"), asof="20261117"),
+            "manual_or_other_time")
+
+    def test_explicit_force_in_early_window_is_not_automatic_snapshot(self):
+        self.assertEqual(scanner.report_session(
+            self.moment("2026-11-17T16:05:00+09:00"), asof="20261117", forced=True),
+            "manual_or_other_time")
+
+    def test_contract_failures_have_distinct_status_reasons(self):
+        for end, asof, code in [
+            ("2026-11-17T16:31:00+09:00", "20261117", "collection_window_missed"),
+            ("2026-11-17T16:01:00+09:00", "20261116", "source_not_ready"),
+        ]:
+            with self.subTest(code=code):
+                with self.assertRaises(scanner.CollectionContractError) as caught:
+                    scanner.report_session(self.moment("2026-11-17T16:00:00+09:00"),
+                                           self.moment(end), asof, True)
+                with tempfile.TemporaryDirectory() as folder:
+                    path = Path(folder) / "status.json"
+                    with patch.object(scanner, "STATUS_PATH", str(path)), \
+                         patch.object(scanner, "OUT_PATH", str(Path(folder) / "absent.json")):
+                        scanner.write_build_status("2026-11-17T16:00:00+09:00", "failed", caught.exception)
+                    self.assertEqual(json.loads(path.read_text())["code"], code)
+
+    def test_late_close_day_cannot_be_regular_early_snapshot(self):
+        start = self.moment("2026-11-19T16:05:00+09:00")
+        with self.assertRaises(scanner.CollectionContractError) as caught:
+            scanner.report_session(start, asof="20261119", enforce=True)
+        self.assertEqual(caught.exception.code, "regular_session_not_closed")
+        self.assertEqual(scanner.report_session(start, asof="20261119", forced=True),
+                         "manual_or_other_time")
 
 
 def ranked(net, rank=1, name="테스트"):
@@ -303,3 +359,4 @@ class ScannerDataTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

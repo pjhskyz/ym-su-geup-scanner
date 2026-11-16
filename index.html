@@ -1459,7 +1459,7 @@ function renderDataStatus(){
   const csv=document.getElementById('csv');csv.disabled=loadState!=='ready';
   panel.classList.toggle('error',loadState==='error'||SOURCE_STATUS?.status==='failed');
   if(loadState==='loading'){
-    basis.textContent='데이터 불러오는 중';panel.innerHTML='<b>수급 자료를 불러오고 있습니다…</b><span>수집 예정: 평일 20:20 KST · 예정 시각은 작업 시작 기준</span>';return;
+    basis.textContent='데이터 불러오는 중';panel.innerHTML='<b>수급 자료를 불러오고 있습니다…</b><span>수집 예정: 평일 16:00 KST · 미갱신 시 16:20 예비 · 보고 시작 16:30</span>';return;
   }
   if(loadState==='error'){
     basis.textContent='데이터 로딩 실패';panel.innerHTML=`<b>수급 자료를 불러오지 못했습니다.</b><span>${escapeHtml(loadError)}</span><button class="btn" id="retryScanner">다시 불러오기</button>`;
@@ -1471,21 +1471,21 @@ function renderDataStatus(){
   const updatedLabel=collectedAt?'데이터 갱신':meta.source_committed_at?'원자료 저장':'데이터 갱신';
   const older=SCANNER.asof<todayKst;
   basis.textContent='기준일 '+fmtAsof(SCANNER.asof);
-  const schedule=meta.schedule||{}, coverage=meta.coverage?.label||'KRX 일별 집계 · 시간외/NXT 반영 범위 미확인';
+  const coverage=meta.coverage?.label||'KRX 일별 집계 · 시간외/NXT 반영 범위 미확인';
   const failed=SOURCE_STATUS?.status==='failed'&&(!updated||!SOURCE_STATUS.attempted_at||new Date(SOURCE_STATUS.attempted_at)>=new Date(updated));
   const checkedToday=[SOURCE_STATUS?.attempted_at,SOURCE_STATUS?.finished_at,collectedAt].some(value=>{
     if(!value)return false;
     const date=new Date(value);
     return !Number.isNaN(date.getTime())&&date.toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).replace(/-/g,'')===todayKst;
   });
-  const weekday=nowKst.getUTCDay(), afterRetry=nowKst.getUTCHours()*60+nowKst.getUTCMinutes()>=20*60+50;
+  const weekday=nowKst.getUTCDay(), afterRetry=nowKst.getUTCHours()*60+nowKst.getUTCMinutes()>=16*60+30;
   const overdue=older&&weekday>=1&&weekday<=5&&afterRetry&&!checkedToday;
   panel.classList.toggle('error',failed||overdue);
   const lastAttempt=SOURCE_STATUS?.attempted_at||SOURCE_STATUS?.finished_at;
   const sectors=meta.sector_classification, sectorCounts=sectors?.counts;
   const sectorDates=(sectors?.fallback_source_asofs||[]).map(fmtAsof).join(', ');
   const sectorNote=sectorCounts?.carried?` · 업종: ${sectorDates||'이전 확인'} 분류 ${L.number(sectorCounts.carried,0)}종목 유지${sectorCounts.missing?' · 미분류 '+L.number(sectorCounts.missing,0)+'종목':''}`:sectorCounts?.missing?` · 업종 미분류 ${L.number(sectorCounts.missing,0)}종목`:'';
-  panel.innerHTML=`<b>${failed?'최근 수집 실패 · 마지막 정상 자료 표시':overdue?'수집 예정 시각 경과 · 오늘 실행 결과 미확인':older?'이전 거래일 자료 표시':'기준일 자료 로딩 완료'}</b><span>기준일 <b>${fmtAsof(SCANNER.asof)}</b></span><span>${updatedLabel} ${escapeHtml(fmtKst(updated))}</span><span>예정: 평일 ${escapeHtml(schedule.primary||'20:20')} KST${schedule.retry?' · 재시도 '+escapeHtml(schedule.retry):''} (작업 시작)</span><button class="btn" id="retryScanner">다시 불러오기</button><a class="btn" href="https://github.com/pjhskyz/ym-su-geup-scanner/actions/workflows/build.yml" target="_blank" rel="noopener noreferrer">수집 실행 기록</a><div class="status-detail">${escapeHtml(coverage)}${escapeHtml(sectorNote)}${failed?' · '+escapeHtml(SOURCE_STATUS.error||'수급 수집에 실패했습니다.'):''}${lastAttempt?' · 최근 수집 시도 '+escapeHtml(fmtKst(lastAttempt)):''}</div>`;
+  panel.innerHTML=`<b>${failed?'최근 수집 실패 · 마지막 정상 자료 표시':overdue?'수집 예정 시각 경과 · 오늘 실행 결과 미확인':older?'이전 거래일 자료 표시':'기준일 자료 로딩 완료'}</b><span>기준일 <b>${fmtAsof(SCANNER.asof)}</b></span><span>${updatedLabel} ${escapeHtml(fmtKst(updated))}</span><span>예정: 평일 16:00 KST · 미갱신 시 16:20 예비 · 보고 시작 16:30 (완료 시각 아님)</span><button class="btn" id="retryScanner">다시 불러오기</button><a class="btn" href="https://github.com/pjhskyz/ym-su-geup-scanner/actions/workflows/build.yml" target="_blank" rel="noopener noreferrer">수집 실행 기록</a><div class="status-detail">${escapeHtml(coverage)}${escapeHtml(sectorNote)}${failed?' · '+escapeHtml(SOURCE_STATUS.error||'수급 수집에 실패했습니다.'):''}${lastAttempt?' · 최근 수집 시도 '+escapeHtml(fmtKst(lastAttempt)):''}${meta.comparison?.collection_time_note?' · '+escapeHtml(meta.comparison.collection_time_note):''}</div>`;
   document.getElementById('retryScanner').onclick=loadLive;
   const exact=DATA.some(row=>row._raw?.inst&&typeof row._raw.inst==='object');
   document.getElementById('instRankLabel').textContent=exact?'기관 금액 순위':'기관 0.4% 구간';
@@ -1546,3 +1546,4 @@ loadDisp();
 </script>
 </body>
 </html>
+

@@ -34,6 +34,7 @@ import datetime as dt
 from importlib.metadata import PackageNotFoundError, version
 
 import pandas as pd
+from collection_window import LATE_CLOSE_SESSIONS
 
 
 def _import_stock(retries: int = 3, wait_s: int = 40):
@@ -522,9 +523,39 @@ def sector_classification_metadata(state: dict, rows: list, comparison_rows: lis
 
 
 # ----------------------------- main -----------------------------
+class CollectionContractError(RuntimeError):
+    def __init__(self, code, message):
+        super().__init__(message)
+        self.code = code
+
+
+def report_session(started_at, finished_at=None, asof=None, enforce=False, *, forced=False):
+    """16시 수집본의 날짜·시각 경계를 검증한다. 강제 점검본은 별도 세션이다."""
+    start = started_at.astimezone(KST)
+    end = (finished_at or started_at).astimezone(KST)
+    valid = (
+        start.weekday() < 5 and start.date() == end.date()
+        and start.strftime("%Y%m%d") not in LATE_CLOSE_SESSIONS
+        and (16, 0) <= (start.hour, start.minute) < (16, 30)
+        and (16, 0) <= (end.hour, end.minute) < (16, 30)
+        and (asof is None or asof == start.strftime("%Y%m%d"))
+    )
+    if enforce and not valid:
+        if start.strftime("%Y%m%d") in LATE_CLOSE_SESSIONS:
+            raise CollectionContractError("regular_session_not_closed", "정규장 종료 지연일 — 16시 장중 자료를 장마감 보고본으로 발행하지 않습니다.")
+        if asof is not None and asof != start.strftime("%Y%m%d"):
+            raise CollectionContractError("source_not_ready", "당일 거래일 자료 미반영 또는 휴장일 — 마지막 정상 자료를 유지합니다.")
+        raise CollectionContractError("collection_window_missed", "16시 수집 창 경과 또는 비운영일 — 마지막 정상 자료를 유지합니다.")
+    return "krx_close_1600" if valid and not forced else "manual_or_other_time"
+
+
 def main():
     global stock
-    collection_started_at = dt.datetime.now(KST).isoformat(timespec="seconds")
+    started_at = dt.datetime.now(KST)
+    collection_started_at = started_at.isoformat(timespec="seconds")
+    forced = os.getenv("FORCE_COLLECTION", "").lower() == "true"
+    enforce_window = os.getenv("SCANNER_REPORT_SESSION") == "krx_close_1600" and not forced
+    report_session(started_at, enforce=enforce_window)
     previous_sectors = load_sector_history()
     if not (os.getenv("KRX_ID") and os.getenv("KRX_PW")):
         log("[!] KRX_ID / KRX_PW 환경변수가 없습니다. (2025-12-27 KRX 회원제 전환)")
@@ -543,6 +574,7 @@ def main():
         log(f"· {bdays[0]} 투자자 데이터 미확정(장중 추정) → 직전 영업일로 폴백")
         bdays = bdays[1:]
     D, D1, D2 = bdays[0], bdays[1], bdays[2]
+    report_session(started_at, asof=D, enforce=enforce_window)
     log("기준일:", [D, D1, D2])
 
     # 일별 랭킹(시계열·당일금액)
@@ -663,6 +695,8 @@ def main():
     # 정확한 원 단위 금액으로 정렬: 백만원 반올림 동률에 의한 비결정성 제거.
     rows.sort(key=lambda row: (-rank_details[row[23]]["net_won"]["inst"], row[23]))
     comparison = comparison_snapshot(daily, [D1, D2], previous_caps, secmap)
+    comparison["same_collection_time_verified"] = False
+    comparison["collection_time_note"] = "과거 거래일 재조회 집계입니다. 직전 16시 보관본과 동일 시점임을 검증하지 않았으므로 동시간대 변화로 단정하지 않습니다."
     sector_classification = sector_classification_metadata(sector_state, rows, comparison["rows"])
     sector_counts = sector_classification["counts"]
     log(f"· 업종: 이번 조회 {sector_counts['fresh']} / 과거 분류 이월 {sector_counts['carried']} "
@@ -683,6 +717,16 @@ def main():
             "asof_fallback": D != asof,
             "status": "collected",
             "source_finalized": None,
+            "finalization_status": "not_confirmed",
+            "collection_event": os.getenv("GITHUB_EVENT_NAME", "local"),
+            "collection_trigger": os.getenv("SCANNER_SCHEDULE", "manual_or_unknown"),
+            "price_basis": {
+                "provider": "KRX via pykrx",
+                "date": D,
+                "session": "regular_close",
+                "scheduled_close_kst": LATE_CLOSE_SESSIONS.get(D, {}).get("close_kst", "15:30"),
+                "note": "해당 거래일 KRX 일별 종가·시가총액 사용. 수급 조회시각/거래 세션 범위와 구분합니다.",
+            },
             "sector_classification": sector_classification,
             "source_rank": SOURCE_RANK_DEFINITION,
             "legacy_bucket": {
@@ -708,17 +752,20 @@ def main():
             "coverage": {
                 "after_market": "unverified",
                 "nxt": "unverified",
-                "label": "KRX 일별 집계 · 시간외/NXT 반영 범위 미확인",
-                "reason": "현재 API 호출은 조회일·시장·투자자만 지정합니다. 20시까지의 거래 및 NXT 합산 여부·원천 확정 시각을 검증할 응답 필드가 없습니다.",
+                "label": "장마감 후 집계·최종 확정 전 · 시간외/NXT 반영 범위 미확인",
+                "reason": "조회일·시장·투자자만 지정하는 API입니다. 수집시각은 실제 거래 집계 마감시각이 아니며 15:30 정규장 전용 수급 또는 NXT 제외를 보장하지 않습니다.",
                 "audit_method": "builder and pykrx source inspection",
             },
             "schedule": {
                 "timezone": "Asia/Seoul",
                 "weekdays": [1, 2, 3, 4, 5],
-                "primary": "20:20",
-                "retry": "20:50",
+                "primary": "16:00",
+                "retry": "16:20",
+                "report": "16:30",
+                "cutoff": "16:30",
+                "retry_condition": "no_valid_current_day_1600_snapshot",
                 "kind": "scheduled_start",
-                "note": "평일 20:05 외부 예약 요청은 20:20까지 대기한 뒤 수집합니다. GitHub 예약은 20:20·20:50 보완 실행이며, 지연된 예약도 처리합니다. 수집·배포에 따라 화면 반영은 늦어질 수 있습니다.",
+                "note": "16:00 주 수집, 정상본이 없을 때만 16:20 예비 수집, 16:30 보고 시작. 예약/배포 지연으로 완료를 보장하지 않습니다. 일반 16:30 이후 요청과 기존 20:05 외부 요청은 건너뜁니다.",
             },
             "comparison": comparison,
         },
@@ -730,7 +777,10 @@ def main():
         kst = dt.datetime.now(dt.timezone(dt.timedelta(hours=9)))
         disp["updated"] = kst.strftime("%Y-%m-%d %H:%M")
         out["disparity"] = disp
-    out["metadata"]["updated_at"] = dt.datetime.now(KST).isoformat(timespec="seconds")
+    finished_at = dt.datetime.now(KST)
+    out["metadata"]["report_session"] = report_session(
+        started_at, finished_at, D, enforce=enforce_window, forced=forced)
+    out["metadata"]["updated_at"] = finished_at.isoformat(timespec="seconds")
     out["updated"] = out["metadata"]["updated_at"]
     tmp_path = OUT_PATH + ".tmp"
     with open(tmp_path, "w", encoding="utf-8") as f:
@@ -739,7 +789,7 @@ def main():
     log(f"\n✓ {len(out['rows'])}종목(전종목) → {OUT_PATH}")
 
 
-def write_build_status(attempted_at: str, status: str) -> None:
+def write_build_status(attempted_at: str, status: str, error=None) -> None:
     """수집 실패 시 마지막 정상 수급은 유지하고 별도 상태만 발행한다."""
     last_asof = None
     try:
@@ -752,9 +802,9 @@ def write_build_status(attempted_at: str, status: str) -> None:
         "attempted_at": attempted_at,
         "finished_at": dt.datetime.now(KST).isoformat(timespec="seconds"),
         "status": status,
-        "code": None if status == "success" else "source_fetch_failed",
+        "code": None if status == "success" else error.code if isinstance(error, CollectionContractError) else "source_fetch_failed",
         "asof": last_asof,
-        "error": None if status == "success" else "수급 수집 실패 · KRX 인증 또는 원천 응답을 확인해야 합니다. 마지막 정상 데이터를 유지합니다.",
+        "error": None if status == "success" else str(error) if isinstance(error, CollectionContractError) else "수급 수집 실패 · KRX 인증 또는 원천 응답을 확인해야 합니다. 마지막 정상 데이터를 유지합니다.",
         "run_url": f"https://github.com/{repo}/actions/runs/{run_id}" if repo and run_id else None,
     }
     tmp_path = STATUS_PATH + ".tmp"
@@ -767,8 +817,9 @@ if __name__ == "__main__":
     attempted_at = dt.datetime.now(KST).isoformat(timespec="seconds")
     try:
         main()
-    except (Exception, SystemExit):
-        write_build_status(attempted_at, "failed")
+    except (Exception, SystemExit) as error:
+        write_build_status(attempted_at, "failed", error)
         raise
     else:
         write_build_status(attempted_at, "success")
+
