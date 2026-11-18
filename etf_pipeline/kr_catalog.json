@@ -1,6 +1,6 @@
 {
   "source_url": "https://finance.naver.com/api/sise/etfItemList.nhn",
-  "observed_at": "2026-11-18T03:42:04.622168+00:00",
+  "observed_at": "2026-11-18T03:55:24.600142+00:00",
   "source_asof": null,
   "source_asof_note": "응답에 목록 기준일 없음; 조회 시각과 시세 기준일을 동일시하지 않음",
   "listed_count": 1190,
@@ -136,18 +136,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "360200",
-      "name": "ACE 미국S&P500",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "091160",
       "name": "KODEX 반도체",
       "provider_category_code": 2,
       "review_status": "registered_reviewed",
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
+      "symbol": "360200",
+      "name": "ACE 미국S&P500",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "0167A0",
@@ -164,16 +164,16 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "455890",
-      "name": "RISE 머니마켓액티브",
-      "provider_category_code": 6,
+      "symbol": "122630",
+      "name": "KODEX 레버리지",
+      "provider_category_code": 3,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "122630",
-      "name": "KODEX 레버리지",
-      "provider_category_code": 3,
+      "symbol": "455890",
+      "name": "RISE 머니마켓액티브",
+      "provider_category_code": 6,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -255,18 +255,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "486290",
-      "name": "TIGER 미국나스닥100타겟데일리커버드콜",
-      "provider_category_code": 4,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "102780",
       "name": "KODEX 삼성그룹",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "486290",
+      "name": "TIGER 미국나스닥100타겟데일리커버드콜",
+      "provider_category_code": 4,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "449170",
@@ -346,18 +346,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "477080",
-      "name": "RISE CD금리액티브(합성)",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "139260",
       "name": "TIGER 200 IT",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "477080",
+      "name": "RISE CD금리액티브(합성)",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "305720",
@@ -542,18 +542,18 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "451540",
-      "name": "TIGER 종합채권(AA-이상)액티브",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "226490",
       "name": "KODEX 코스피",
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
+      "symbol": "451540",
+      "name": "TIGER 종합채권(AA-이상)액티브",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "0048J0",
@@ -612,16 +612,16 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "252670",
-      "name": "KODEX 200선물인버스2X",
-      "provider_category_code": 3,
+      "symbol": "494300",
+      "name": "KODEX 미국나스닥100데일리커버드콜OTM",
+      "provider_category_code": 4,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "494300",
-      "name": "KODEX 미국나스닥100데일리커버드콜OTM",
-      "provider_category_code": 4,
+      "symbol": "252670",
+      "name": "KODEX 200선물인버스2X",
+      "provider_category_code": 3,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -682,18 +682,18 @@
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
-      "symbol": "479080",
-      "name": "1Q 머니마켓액티브",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "445290",
       "name": "KODEX 로봇액티브",
       "provider_category_code": 2,
       "review_status": "registered_reviewed",
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
+      "symbol": "479080",
+      "name": "1Q 머니마켓액티브",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "114800",
@@ -836,16 +836,16 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "482730",
-      "name": "TIGER 미국S&P500타겟데일리커버드콜",
-      "provider_category_code": 4,
+      "symbol": "475720",
+      "name": "RISE 200위클리커버드콜",
+      "provider_category_code": 3,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "475720",
-      "name": "RISE 200위클리커버드콜",
-      "provider_category_code": 3,
+      "symbol": "482730",
+      "name": "TIGER 미국S&P500타겟데일리커버드콜",
+      "provider_category_code": 4,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -864,13 +864,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "489250",
-      "name": "KODEX 미국배당다우존스",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "0061Z0",
       "name": "RISE 단기특수은행채액티브",
       "provider_category_code": 6,
@@ -878,11 +871,11 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "490590",
-      "name": "RISE 미국AI밸류체인데일리고정커버드콜",
+      "symbol": "489250",
+      "name": "KODEX 미국배당다우존스",
       "provider_category_code": 4,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "441800",
@@ -890,6 +883,13 @@
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
+      "symbol": "490590",
+      "name": "RISE 미국AI밸류체인데일리고정커버드콜",
+      "provider_category_code": 4,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "449450",
@@ -906,18 +906,18 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "477050",
-      "name": "PLUS 머니마켓액티브",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "0117V0",
       "name": "TIGER 코리아AI전력기기TOP3플러스",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "477050",
+      "name": "PLUS 머니마켓액티브",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "314250",
@@ -962,6 +962,13 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "0177R0",
+      "name": "TIGER 반도체TOP10커버드콜액티브",
+      "provider_category_code": 2,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "0127P0",
       "name": "ACE 미국대형성장주액티브",
       "provider_category_code": 4,
@@ -976,18 +983,18 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0177R0",
-      "name": "TIGER 반도체TOP10커버드콜액티브",
-      "provider_category_code": 2,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "069660",
       "name": "KIWOOM 200",
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
+      "symbol": "494310",
+      "name": "KODEX 반도체레버리지",
+      "provider_category_code": 2,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "0232A0",
@@ -1000,13 +1007,6 @@
       "symbol": "251600",
       "name": "PLUS 고배당주채권혼합",
       "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "494310",
-      "name": "KODEX 반도체레버리지",
-      "provider_category_code": 2,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -1039,6 +1039,13 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "0148J0",
+      "name": "TIGER 코리아휴머노이드로봇산업",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
       "symbol": "449190",
       "name": "KODEX 미국나스닥100(H)",
       "provider_category_code": 4,
@@ -1067,13 +1074,6 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0148J0",
-      "name": "TIGER 코리아휴머노이드로봇산업",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "435420",
       "name": "TIGER 미국나스닥100채권혼합50",
       "provider_category_code": 7,
@@ -1095,13 +1095,6 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "438330",
-      "name": "TIGER 우량회사채액티브",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "0094M0",
       "name": "RISE 코리아밸류업위클리고정커버드콜",
       "provider_category_code": 2,
@@ -1116,11 +1109,11 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0105E0",
-      "name": "SOL 코리아고배당",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+      "symbol": "438330",
+      "name": "TIGER 우량회사채액티브",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "0119H0",
@@ -1128,6 +1121,13 @@
       "provider_category_code": 6,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0105E0",
+      "name": "SOL 코리아고배당",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0015B0",
@@ -1172,18 +1172,18 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "251350",
-      "name": "KODEX MSCI선진국",
-      "provider_category_code": 4,
-      "review_status": "outside_domestic_sector_candidate",
-      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
-    },
-    {
       "symbol": "0091P0",
       "name": "TIGER 코리아원자력",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "251350",
+      "name": "KODEX MSCI선진국",
+      "provider_category_code": 4,
+      "review_status": "outside_domestic_sector_candidate",
+      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
     },
     {
       "symbol": "476800",
@@ -1221,18 +1221,18 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "447770",
-      "name": "TIGER 테슬라채권혼합Fn",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "471990",
       "name": "KODEX AI반도체핵심장비",
       "provider_category_code": 2,
       "review_status": "registered_reviewed",
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
+      "symbol": "447770",
+      "name": "TIGER 테슬라채권혼합Fn",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "466950",
@@ -1270,16 +1270,16 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "439860",
-      "name": "KODEX ESG종합채권(A-이상)액티브",
-      "provider_category_code": 6,
+      "symbol": "0195R0",
+      "name": "TIGER 삼성전자단일종목레버리지",
+      "provider_category_code": 2,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0195R0",
-      "name": "TIGER 삼성전자단일종목레버리지",
-      "provider_category_code": 2,
+      "symbol": "439860",
+      "name": "KODEX ESG종합채권(A-이상)액티브",
+      "provider_category_code": 6,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -1305,6 +1305,13 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
+      "symbol": "488080",
+      "name": "TIGER 반도체TOP10레버리지",
+      "provider_category_code": 3,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "371160",
       "name": "TIGER 차이나항셍테크",
       "provider_category_code": 4,
@@ -1315,13 +1322,6 @@
       "symbol": "148070",
       "name": "KIWOOM 국고채10년",
       "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "488080",
-      "name": "TIGER 반도체TOP10레버리지",
-      "provider_category_code": 3,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -1338,6 +1338,13 @@
       "provider_category_code": 4,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "434730",
+      "name": "HANARO 원자력iSelect",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0016X0",
@@ -1361,20 +1368,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "434730",
-      "name": "HANARO 원자력iSelect",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
-      "symbol": "279530",
-      "name": "KODEX 고배당주",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "315960",
       "name": "RISE 대형고배당10TR",
       "provider_category_code": 2,
@@ -1389,16 +1382,16 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "279530",
+      "name": "KODEX 고배당주",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
       "symbol": "0254C0",
       "name": "KODEX 27-12 금융채(AA-이상)액티브",
       "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "474220",
-      "name": "TIGER 미국테크TOP10타겟커버드콜",
-      "provider_category_code": 4,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -1408,6 +1401,13 @@
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
+      "symbol": "474220",
+      "name": "TIGER 미국테크TOP10타겟커버드콜",
+      "provider_category_code": 4,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "426020",
@@ -1438,11 +1438,11 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0040Y0",
-      "name": "SOL 팔란티어커버드콜OTM채권혼합",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "0190C0",
+      "name": "RISE 현대차고정피지컬AI",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "444200",
@@ -1452,11 +1452,11 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "0190C0",
-      "name": "RISE 현대차고정피지컬AI",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+      "symbol": "0040Y0",
+      "name": "SOL 팔란티어커버드콜OTM채권혼합",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "453810",
@@ -1480,18 +1480,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "245710",
-      "name": "ACE 베트남VN30(합성)",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "494670",
       "name": "TIGER 조선TOP10",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "245710",
+      "name": "ACE 베트남VN30(합성)",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "442570",
@@ -1522,18 +1522,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "456880",
-      "name": "ACE 미국달러SOFR금리(합성)",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "451060",
       "name": "1Q 200액티브",
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
+      "symbol": "456880",
+      "name": "ACE 미국달러SOFR금리(합성)",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "293180",
@@ -1543,18 +1543,18 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "136340",
-      "name": "RISE 중기우량회사채",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "463250",
       "name": "TIGER K방산&우주",
       "provider_category_code": 2,
       "review_status": "registered_reviewed",
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
+      "symbol": "136340",
+      "name": "RISE 중기우량회사채",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "497880",
@@ -1627,25 +1627,11 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "0111P0",
-      "name": "1Q 미국나스닥100미국채혼합50액티브",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "091180",
-      "name": "KODEX 자동차",
+      "symbol": "469070",
+      "name": "RISE AI&로봇",
       "provider_category_code": 2,
-      "review_status": "registered_reviewed",
-      "reason": "고정 유니버스에 등록; 자동 편입 아님"
-    },
-    {
-      "symbol": "453870",
-      "name": "TIGER 인도니프티50",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0210A0",
@@ -1655,18 +1641,32 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "0131V0",
-      "name": "1Q 미국우주항공테크",
+      "symbol": "0111P0",
+      "name": "1Q 미국나스닥100미국채혼합50액티브",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "453870",
+      "name": "TIGER 인도니프티50",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "469070",
-      "name": "RISE AI&로봇",
+      "symbol": "091180",
+      "name": "KODEX 자동차",
       "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+      "review_status": "registered_reviewed",
+      "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
+      "symbol": "0131V0",
+      "name": "1Q 미국우주항공테크",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "0023A0",
@@ -1711,6 +1711,13 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "0209D0",
+      "name": "KODEX 전고체배터리ESS TOP2플러스",
+      "provider_category_code": 2,
+      "review_status": "registered_reviewed",
+      "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
       "symbol": "473330",
       "name": "SOL 미국30년국채커버드콜(합성)",
       "provider_category_code": 6,
@@ -1723,13 +1730,6 @@
       "provider_category_code": 2,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "0209D0",
-      "name": "KODEX 전고체배터리ESS TOP2플러스",
-      "provider_category_code": 2,
-      "review_status": "registered_reviewed",
-      "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
       "symbol": "0173Y0",
@@ -1809,13 +1809,6 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "305080",
-      "name": "TIGER 미국채10년선물",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "270810",
       "name": "RISE 코스닥150",
       "provider_category_code": 1,
@@ -1830,8 +1823,22 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
+      "symbol": "305080",
+      "name": "TIGER 미국채10년선물",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "0182R0",
       "name": "1Q K반도체TOP2+",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "474590",
+      "name": "WON 반도체밸류체인액티브",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -1842,13 +1849,6 @@
       "provider_category_code": 7,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "474590",
-      "name": "WON 반도체밸류체인액티브",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "472920",
@@ -1886,13 +1886,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0153K0",
-      "name": "KODEX 주주환원고배당주",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "475300",
       "name": "SOL 반도체전공정",
       "provider_category_code": 2,
@@ -1900,11 +1893,25 @@
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
+      "symbol": "0153K0",
+      "name": "KODEX 주주환원고배당주",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
       "symbol": "452360",
       "name": "SOL 미국배당다우존스(H)",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "0080G0",
+      "name": "KODEX 방산TOP10",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "213610",
@@ -1919,13 +1926,6 @@
       "provider_category_code": 7,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "0080G0",
-      "name": "KODEX 방산TOP10",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0089D0",
@@ -2061,15 +2061,15 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "471780",
-      "name": "TIGER 코리아테크액티브",
+      "symbol": "422420",
+      "name": "RISE 2차전지액티브",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "422420",
-      "name": "RISE 2차전지액티브",
+      "symbol": "471780",
+      "name": "TIGER 코리아테크액티브",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -2138,29 +2138,15 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "433980",
-      "name": "KODEX TDF2040액티브 적격",
-      "provider_category_code": 7,
+      "symbol": "243880",
+      "name": "TIGER 200IT레버리지",
+      "provider_category_code": 2,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "423170",
       "name": "SOL 글로벌AI반도체탑픽액티브",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "490090",
-      "name": "TIGER 미국AI빅테크10",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "0043Y0",
-      "name": "TIME 차이나AI테크액티브",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -2173,6 +2159,20 @@
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
+      "symbol": "433980",
+      "name": "KODEX TDF2040액티브 적격",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "490090",
+      "name": "TIGER 미국AI빅테크10",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
       "symbol": "228790",
       "name": "TIGER 화장품",
       "provider_category_code": 2,
@@ -2180,11 +2180,11 @@
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
-      "symbol": "243880",
-      "name": "TIGER 200IT레버리지",
-      "provider_category_code": 2,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "0043Y0",
+      "name": "TIME 차이나AI테크액티브",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "0162Y0",
@@ -2201,11 +2201,11 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "251340",
-      "name": "KODEX 코스닥150선물인버스",
-      "provider_category_code": 3,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "471760",
+      "name": "TIGER AI반도체핵심공정",
+      "provider_category_code": 2,
+      "review_status": "registered_reviewed",
+      "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
       "symbol": "272560",
@@ -2222,18 +2222,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "471760",
-      "name": "TIGER AI반도체핵심공정",
-      "provider_category_code": 2,
-      "review_status": "registered_reviewed",
-      "reason": "고정 유니버스에 등록; 자동 편입 아님"
-    },
-    {
       "symbol": "471040",
       "name": "KoAct 글로벌AI&로봇액티브",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "251340",
+      "name": "KODEX 코스닥150선물인버스",
+      "provider_category_code": 3,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "117700",
@@ -2250,18 +2250,18 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "0082V0",
-      "name": "KODEX TDF2060액티브 적격",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "200250",
       "name": "KIWOOM 인도Nifty50(합성)",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "0082V0",
+      "name": "KODEX TDF2060액티브 적격",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "480020",
@@ -2327,13 +2327,6 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "490600",
-      "name": "RISE 미국배당100데일리고정커버드콜",
-      "provider_category_code": 4,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "457990",
       "name": "PLUS 태양광&ESS",
       "provider_category_code": 2,
@@ -2355,15 +2348,22 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "266160",
-      "name": "RISE 고배당",
+      "symbol": "490600",
+      "name": "RISE 미국배당100데일리고정커버드콜",
+      "provider_category_code": 4,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "494330",
+      "name": "ACE 라이프자산주주가치액티브",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "494330",
-      "name": "ACE 라이프자산주주가치액티브",
+      "symbol": "266160",
+      "name": "RISE 고배당",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -2390,11 +2390,11 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "472870",
-      "name": "RISE 미국30년국채엔화노출(합성 H)",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "363580",
+      "name": "KODEX 200IT TR",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0228G0",
@@ -2404,11 +2404,11 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "363580",
-      "name": "KODEX 200IT TR",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+      "symbol": "472870",
+      "name": "RISE 미국30년국채엔화노출(합성 H)",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "442320",
@@ -2420,20 +2420,6 @@
     {
       "symbol": "0221V0",
       "name": "IBK 초단기채권액티브",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "0151S0",
-      "name": "KODEX 미국AI반도체TOP3플러스",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "491610",
-      "name": "1Q CD금리액티브(합성)",
       "provider_category_code": 6,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
@@ -2453,11 +2439,18 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "480030",
-      "name": "ACE 미국500데일리타겟커버드콜(합성)",
-      "provider_category_code": 4,
+      "symbol": "491610",
+      "name": "1Q CD금리액티브(합성)",
+      "provider_category_code": 6,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0151S0",
+      "name": "KODEX 미국AI반도체TOP3플러스",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "461950",
@@ -2465,6 +2458,13 @@
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "480030",
+      "name": "ACE 미국500데일리타겟커버드콜(합성)",
+      "provider_category_code": 4,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "0261H0",
@@ -2537,6 +2537,13 @@
       "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
     },
     {
+      "symbol": "475310",
+      "name": "SOL 반도체후공정",
+      "provider_category_code": 2,
+      "review_status": "registered_reviewed",
+      "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
       "symbol": "495550",
       "name": "SOL 코리아밸류업TR",
       "provider_category_code": 1,
@@ -2549,13 +2556,6 @@
       "provider_category_code": 6,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "475310",
-      "name": "SOL 반도체후공정",
-      "provider_category_code": 2,
-      "review_status": "registered_reviewed",
-      "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
       "symbol": "0047A0",
@@ -2593,13 +2593,6 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "160580",
-      "name": "TIGER 구리실물",
-      "provider_category_code": 5,
-      "review_status": "outside_domestic_sector_candidate",
-      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
-    },
-    {
       "symbol": "466930",
       "name": "SOL 자동차TOP3플러스",
       "provider_category_code": 2,
@@ -2607,29 +2600,15 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
+      "symbol": "160580",
+      "name": "TIGER 구리실물",
+      "provider_category_code": 5,
+      "review_status": "outside_domestic_sector_candidate",
+      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
+    },
+    {
       "symbol": "332930",
       "name": "HANARO 200TR",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
-    },
-    {
-      "symbol": "433500",
-      "name": "ACE 원자력TOP10",
-      "provider_category_code": 2,
-      "review_status": "registered_reviewed",
-      "reason": "고정 유니버스에 등록; 자동 편입 아님"
-    },
-    {
-      "symbol": "0093A0",
-      "name": "RISE AI반도체TOP10",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
-      "symbol": "495060",
-      "name": "TIME 코리아밸류업액티브",
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
@@ -2642,11 +2621,39 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "0093A0",
+      "name": "RISE AI반도체TOP10",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "433500",
+      "name": "ACE 원자력TOP10",
+      "provider_category_code": 2,
+      "review_status": "registered_reviewed",
+      "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
+      "symbol": "495060",
+      "name": "TIME 코리아밸류업액티브",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
       "symbol": "0115D0",
       "name": "KODEX 조선TOP10",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "122090",
+      "name": "PLUS 코스피50",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "0041E0",
@@ -2661,13 +2668,6 @@
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "122090",
-      "name": "PLUS 코스피50",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "461500",
@@ -2698,25 +2698,11 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0180V0",
-      "name": "ACE 미국우주테크액티브",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "337160",
-      "name": "KODEX 200ESG",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
-      "symbol": "0104H0",
-      "name": "KoAct 미국나스닥채권혼합50액티브",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "354500",
+      "name": "ACE 코스닥150",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "0005G0",
@@ -2726,16 +2712,23 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "354500",
-      "name": "ACE 코스닥150",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+      "symbol": "337160",
+      "name": "KODEX 200ESG",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "463290",
-      "name": "1Q 단기금융채액티브",
-      "provider_category_code": 6,
+      "symbol": "0180V0",
+      "name": "ACE 미국우주테크액티브",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "0104H0",
+      "name": "KoAct 미국나스닥채권혼합50액티브",
+      "provider_category_code": 7,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -2743,6 +2736,13 @@
       "symbol": "233160",
       "name": "TIGER 코스닥150 레버리지",
       "provider_category_code": 3,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "463290",
+      "name": "1Q 단기금융채액티브",
+      "provider_category_code": 6,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -2810,18 +2810,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0051G0",
-      "name": "SOL 미국원자력SMR",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "138520",
       "name": "TIGER 삼성그룹",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "0051G0",
+      "name": "SOL 미국원자력SMR",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "114820",
@@ -2845,13 +2845,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "438560",
-      "name": "SOL 국고채3년",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "139220",
       "name": "TIGER 200 건설",
       "provider_category_code": 2,
@@ -2859,9 +2852,23 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
+      "symbol": "438560",
+      "name": "SOL 국고채3년",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "461460",
       "name": "PLUS 국고채10년액티브",
       "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0190G0",
+      "name": "KODEX 반도체타겟위클리커버드콜",
+      "provider_category_code": 2,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -2880,25 +2887,18 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "481180",
-      "name": "SOL 미국AI소프트웨어",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "0190G0",
-      "name": "KODEX 반도체타겟위클리커버드콜",
-      "provider_category_code": 2,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "475050",
       "name": "ACE KPOP포커스",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "481180",
+      "name": "SOL 미국AI소프트웨어",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "0193M0",
@@ -2950,11 +2950,11 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "308620",
-      "name": "KODEX 미국10년국채선물",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "469170",
+      "name": "ACE 포스코그룹포커스",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "203780",
@@ -2964,37 +2964,23 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0135Y0",
-      "name": "IBK 중기종합채권(AA-이상)액티브",
+      "symbol": "308620",
+      "name": "KODEX 미국10년국채선물",
       "provider_category_code": 6,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "469170",
-      "name": "ACE 포스코그룹포커스",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
-      "symbol": "0052T0",
-      "name": "1Q 중단기회사채(A-이상)액티브",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "411420",
-      "name": "KODEX 미국나스닥AI테크액티브",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "267770",
       "name": "TIGER 200선물레버리지",
       "provider_category_code": 3,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0135Y0",
+      "name": "IBK 중기종합채권(AA-이상)액티브",
+      "provider_category_code": 6,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -3006,11 +2992,25 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
+      "symbol": "0052T0",
+      "name": "1Q 중단기회사채(A-이상)액티브",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "0198A0",
       "name": "KIWOOM 코스닥150커버드콜액티브",
       "provider_category_code": 2,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "411420",
+      "name": "KODEX 미국나스닥AI테크액티브",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "304940",
@@ -3111,11 +3111,11 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0197X0",
-      "name": "SOL SK하이닉스선물단일종목인버스2X",
-      "provider_category_code": 2,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "328370",
+      "name": "PLUS 코스피TR",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "433970",
@@ -3125,15 +3125,29 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "328370",
-      "name": "PLUS 코스피TR",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+      "symbol": "0197X0",
+      "name": "SOL SK하이닉스선물단일종목인버스2X",
+      "provider_category_code": 2,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "455860",
       "name": "SOL 2차전지소부장Fn",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "0151P0",
+      "name": "RISE 코리아전략산업액티브",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "491820",
+      "name": "HANARO 전력설비투자",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -3146,25 +3160,11 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0151P0",
-      "name": "RISE 코리아전략산업액티브",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "168580",
       "name": "ACE 중국본토CSI300",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "491820",
-      "name": "HANARO 전력설비투자",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0123G0",
@@ -3181,13 +3181,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "143850",
-      "name": "TIGER 미국S&P500선물(H)",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "464310",
       "name": "TIGER 글로벌AI&로보틱스 INDXX",
       "provider_category_code": 4,
@@ -3195,11 +3188,18 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0017Y0",
-      "name": "1Q 종합채권(AA-이상)액티브",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "143850",
+      "name": "TIGER 미국S&P500선물(H)",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "0220B0",
+      "name": "DS 코스닥액티브",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "476850",
@@ -3209,11 +3209,18 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "0220B0",
-      "name": "DS 코스닥액티브",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+      "symbol": "0017Y0",
+      "name": "1Q 종합채권(AA-이상)액티브",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0177X0",
+      "name": "ACE K휴머노이드로봇산업TOP2+",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0074K0",
@@ -3242,13 +3249,6 @@
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "0177X0",
-      "name": "ACE K휴머노이드로봇산업TOP2+",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "329670",
@@ -3300,18 +3300,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0066W0",
-      "name": "SOL 국제금",
-      "provider_category_code": 5,
-      "review_status": "outside_domestic_sector_candidate",
-      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
-    },
-    {
       "symbol": "332940",
       "name": "HANARO MSCI Korea TR",
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
+      "symbol": "0066W0",
+      "name": "SOL 국제금",
+      "provider_category_code": 5,
+      "review_status": "outside_domestic_sector_candidate",
+      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
     },
     {
       "symbol": "211900",
@@ -3328,6 +3328,13 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
+      "symbol": "496090",
+      "name": "KIWOOM 코리아밸류업",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
       "symbol": "298340",
       "name": "PLUS 국채선물3년",
       "provider_category_code": 6,
@@ -3342,11 +3349,11 @@
       "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
     },
     {
-      "symbol": "496090",
-      "name": "KIWOOM 코리아밸류업",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+      "symbol": "0092B0",
+      "name": "SOL 한국원자력SMR",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "460960",
@@ -3354,13 +3361,6 @@
       "provider_category_code": 7,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "0092B0",
-      "name": "SOL 한국원자력SMR",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "272910",
@@ -3384,13 +3384,6 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "475350",
-      "name": "RISE 버크셔포트폴리오TOP10",
-      "provider_category_code": 4,
-      "review_status": "outside_domestic_sector_candidate",
-      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
-    },
-    {
       "symbol": "367770",
       "name": "RISE 수소경제테마",
       "provider_category_code": 2,
@@ -3398,8 +3391,22 @@
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
+      "symbol": "475350",
+      "name": "RISE 버크셔포트폴리오TOP10",
+      "provider_category_code": 4,
+      "review_status": "outside_domestic_sector_candidate",
+      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
+    },
+    {
       "symbol": "228810",
       "name": "TIGER 미디어컨텐츠",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "325020",
+      "name": "KODEX 배당가치",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -3410,13 +3417,6 @@
       "provider_category_code": 7,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "325020",
-      "name": "KODEX 배당가치",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0080X0",
@@ -3440,18 +3440,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0098N0",
-      "name": "PLUS 자사주매입고배당주",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "448100",
       "name": "WON 200",
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
+      "symbol": "0098N0",
+      "name": "PLUS 자사주매입고배당주",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0181B0",
@@ -3461,18 +3461,18 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "292770",
-      "name": "KODEX 국채선물3년인버스",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "0000J0",
       "name": "PLUS 한화그룹주",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "292770",
+      "name": "KODEX 국채선물3년인버스",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "266370",
@@ -3559,13 +3559,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "176950",
-      "name": "KODEX 국채선물10년인버스",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "157490",
       "name": "TIGER 소프트웨어",
       "provider_category_code": 2,
@@ -3580,11 +3573,11 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "108450",
-      "name": "ACE 삼성그룹섹터가중",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+      "symbol": "176950",
+      "name": "KODEX 국채선물10년인버스",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "0246X0",
@@ -3594,11 +3587,11 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "455960",
-      "name": "RISE 미국달러SOFR금리액티브(합성)",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "108450",
+      "name": "ACE 삼성그룹섹터가중",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "486240",
@@ -3606,6 +3599,13 @@
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "455960",
+      "name": "RISE 미국달러SOFR금리액티브(합성)",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "419890",
@@ -3636,13 +3636,6 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "228800",
-      "name": "TIGER 여행레저",
-      "provider_category_code": 2,
-      "review_status": "registered_reviewed",
-      "reason": "고정 유니버스에 등록; 자동 편입 아님"
-    },
-    {
       "symbol": "485690",
       "name": "RISE 미국AI밸류체인TOP3Plus",
       "provider_category_code": 4,
@@ -3650,15 +3643,22 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0007N0",
-      "name": "아이엠에셋 200",
+      "symbol": "228800",
+      "name": "TIGER 여행레저",
+      "provider_category_code": 2,
+      "review_status": "registered_reviewed",
+      "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
+      "symbol": "359210",
+      "name": "KODEX 코스피TR",
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "359210",
-      "name": "KODEX 코스피TR",
+      "symbol": "0007N0",
+      "name": "아이엠에셋 200",
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
@@ -3678,16 +3678,16 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "295020",
-      "name": "RISE 국채선물10년인버스",
-      "provider_category_code": 6,
+      "symbol": "0022T0",
+      "name": "SOL 국제금커버드콜액티브",
+      "provider_category_code": 4,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0022T0",
-      "name": "SOL 국제금커버드콜액티브",
-      "provider_category_code": 4,
+      "symbol": "295020",
+      "name": "RISE 국채선물10년인버스",
+      "provider_category_code": 6,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -3706,18 +3706,18 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "266420",
-      "name": "KODEX 헬스케어",
-      "provider_category_code": 2,
-      "review_status": "registered_reviewed",
-      "reason": "고정 유니버스에 등록; 자동 편입 아님"
-    },
-    {
       "symbol": "298770",
       "name": "KODEX 한국대만IT프리미어",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "266420",
+      "name": "KODEX 헬스케어",
+      "provider_category_code": 2,
+      "review_status": "registered_reviewed",
+      "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
       "symbol": "0162L0",
@@ -3727,15 +3727,15 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "211560",
-      "name": "TIGER 배당성장",
+      "symbol": "138530",
+      "name": "TIGER LG그룹플러스",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "138530",
-      "name": "TIGER LG그룹플러스",
+      "symbol": "211560",
+      "name": "TIGER 배당성장",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -3790,8 +3790,8 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0113D0",
-      "name": "TIME 글로벌탑픽액티브",
+      "symbol": "479730",
+      "name": "TIGER 인도빌리언컨슈머",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -3804,18 +3804,11 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "479730",
-      "name": "TIGER 인도빌리언컨슈머",
+      "symbol": "0113D0",
+      "name": "TIME 글로벌탑픽액티브",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "492500",
-      "name": "1Q 현대차그룹채권(A+이상)&국고통안",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "465330",
@@ -3825,8 +3818,8 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "442560",
-      "name": "RISE TDF2040액티브 적격",
+      "symbol": "492500",
+      "name": "1Q 현대차그룹채권(A+이상)&국고통안",
       "provider_category_code": 7,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
@@ -3837,6 +3830,13 @@
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
+      "symbol": "442560",
+      "name": "RISE TDF2040액티브 적격",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "412770",
@@ -3881,6 +3881,13 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
+      "symbol": "337140",
+      "name": "KODEX 코스피대형주",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
       "symbol": "481430",
       "name": "RISE 국고채10년액티브",
       "provider_category_code": 6,
@@ -3893,13 +3900,6 @@
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "337140",
-      "name": "KODEX 코스피대형주",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "114470",
@@ -3958,15 +3958,15 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "0234N0",
-      "name": "KIWOOM 삼성SK그룹TOP4+",
+      "symbol": "0239Z0",
+      "name": "PLUS AI반도체소부장액티브",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "0239Z0",
-      "name": "PLUS AI반도체소부장액티브",
+      "symbol": "0234N0",
+      "name": "KIWOOM 삼성SK그룹TOP4+",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -4028,8 +4028,22 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
+      "symbol": "0080Y0",
+      "name": "SOL 조선TOP3플러스레버리지",
+      "provider_category_code": 2,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "277640",
       "name": "TIGER 코스피대형주",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "0115E0",
+      "name": "KODEX 코리아소버린AI",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -4042,32 +4056,11 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0115E0",
-      "name": "KODEX 코리아소버린AI",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
-      "symbol": "0080Y0",
-      "name": "SOL 조선TOP3플러스레버리지",
-      "provider_category_code": 2,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "140700",
       "name": "KODEX 보험",
       "provider_category_code": 2,
       "review_status": "registered_reviewed",
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
-    },
-    {
-      "symbol": "360140",
-      "name": "KODEX 200롱코스닥150숏선물",
-      "provider_category_code": 2,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "453650",
@@ -4077,6 +4070,13 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
+      "symbol": "360140",
+      "name": "KODEX 200롱코스닥150숏선물",
+      "provider_category_code": 2,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "0262Y0",
       "name": "SOL 200커버드콜액티브",
       "provider_category_code": 2,
@@ -4084,15 +4084,15 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "480310",
-      "name": "TIGER 글로벌온디바이스AI",
+      "symbol": "0041D0",
+      "name": "KODEX 미국AI소프트웨어TOP10",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0041D0",
-      "name": "KODEX 미국AI소프트웨어TOP10",
+      "symbol": "480310",
+      "name": "TIGER 글로벌온디바이스AI",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -4105,18 +4105,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "101280",
-      "name": "KODEX 일본TOPIX100",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "490480",
       "name": "SOL K방산",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "101280",
+      "name": "KODEX 일본TOPIX100",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "0172V0",
@@ -4126,11 +4126,11 @@
       "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
     },
     {
-      "symbol": "440910",
-      "name": "WON 미국우주항공방산",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+      "symbol": "0233A0",
+      "name": "ACE 삼성전자SK하이닉스플러스채권혼합50",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "0186S0",
@@ -4140,11 +4140,11 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0233A0",
-      "name": "ACE 삼성전자SK하이닉스플러스채권혼합50",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "440910",
+      "name": "WON 미국우주항공방산",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "0178H0",
@@ -4189,13 +4189,6 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "261220",
-      "name": "KODEX WTI원유선물(H)",
-      "provider_category_code": 5,
-      "review_status": "outside_domestic_sector_candidate",
-      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
-    },
-    {
       "symbol": "0085N0",
       "name": "ACE 미국10년국채액티브(H)",
       "provider_category_code": 6,
@@ -4217,6 +4210,13 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
+      "symbol": "261220",
+      "name": "KODEX WTI원유선물(H)",
+      "provider_category_code": 5,
+      "review_status": "outside_domestic_sector_candidate",
+      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
+    },
+    {
       "symbol": "495940",
       "name": "RISE 미국AI테크액티브",
       "provider_category_code": 4,
@@ -4231,18 +4231,11 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "252710",
-      "name": "TIGER 200선물인버스2X",
-      "provider_category_code": 3,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "472830",
-      "name": "RISE 미국30년국채커버드콜(합성)",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "0000Z0",
+      "name": "RISE 바이오TOP10액티브",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "287180",
@@ -4252,11 +4245,18 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0000Z0",
-      "name": "RISE 바이오TOP10액티브",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+      "symbol": "472830",
+      "name": "RISE 미국30년국채커버드콜(합성)",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "252710",
+      "name": "TIGER 200선물인버스2X",
+      "provider_category_code": 3,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "0118Z0",
@@ -4273,13 +4273,6 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "385590",
-      "name": "ACE ESG액티브",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "316670",
       "name": "KIWOOM 코스닥150",
       "provider_category_code": 1,
@@ -4287,22 +4280,15 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
+      "symbol": "385590",
+      "name": "ACE ESG액티브",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
       "symbol": "0185L0",
       "name": "TIME 글로벌휴머노이드로봇산업액티브",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "0226A0",
-      "name": "PLUS SK하이닉스샌디스크채권혼합50",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "494840",
-      "name": "TIGER 미국방산TOP10",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -4315,11 +4301,11 @@
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
-      "symbol": "0086B0",
-      "name": "TIGER 리츠부동산인프라TOP10액티브",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+      "symbol": "494840",
+      "name": "TIGER 미국방산TOP10",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "305050",
@@ -4327,6 +4313,20 @@
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
+      "symbol": "0226A0",
+      "name": "PLUS SK하이닉스샌디스크채권혼합50",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0086B0",
+      "name": "TIGER 리츠부동산인프라TOP10액티브",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0111J0",
@@ -4350,13 +4350,6 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "276970",
-      "name": "KODEX 미국S&P500배당귀족커버드콜(합성 H)",
-      "provider_category_code": 4,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "238720",
       "name": "ACE 일본Nikkei225(H)",
       "provider_category_code": 4,
@@ -4364,16 +4357,16 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "464470",
-      "name": "PLUS 미국채30년액티브",
-      "provider_category_code": 6,
+      "symbol": "276970",
+      "name": "KODEX 미국S&P500배당귀족커버드콜(합성 H)",
+      "provider_category_code": 4,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "465350",
-      "name": "RISE 2차전지TOP10인버스(합성)",
-      "provider_category_code": 3,
+      "symbol": "464470",
+      "name": "PLUS 미국채30년액티브",
+      "provider_category_code": 6,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -4392,15 +4385,15 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "276990",
-      "name": "KODEX 글로벌로봇(합성)",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+      "symbol": "465350",
+      "name": "RISE 2차전지TOP10인버스(합성)",
+      "provider_category_code": 3,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "461340",
-      "name": "HANARO 글로벌생성형AI액티브",
+      "symbol": "276990",
+      "name": "KODEX 글로벌로봇(합성)",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -4413,11 +4406,11 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "195930",
-      "name": "TIGER 유로스탁스50(합성 H)",
+      "symbol": "461340",
+      "name": "HANARO 글로벌생성형AI액티브",
       "provider_category_code": 4,
-      "review_status": "outside_domestic_sector_candidate",
-      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "0141S0",
@@ -4427,8 +4420,22 @@
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
+      "symbol": "195930",
+      "name": "TIGER 유로스탁스50(합성 H)",
+      "provider_category_code": 4,
+      "review_status": "outside_domestic_sector_candidate",
+      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
+    },
+    {
       "symbol": "473490",
       "name": "KIWOOM 글로벌AI반도체",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "473590",
+      "name": "ACE 미국주식베스트셀러",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -4437,13 +4444,6 @@
       "symbol": "352540",
       "name": "KODEX 일본부동산리츠(H)",
       "provider_category_code": 7,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "473590",
-      "name": "ACE 미국주식베스트셀러",
-      "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
@@ -4469,15 +4469,15 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "0118S0",
-      "name": "SOL 미국넥스트테크TOP10액티브",
+      "symbol": "465660",
+      "name": "TIGER 일본반도체FACTSET",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "465660",
-      "name": "TIGER 일본반도체FACTSET",
+      "symbol": "0118S0",
+      "name": "SOL 미국넥스트테크TOP10액티브",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -4497,18 +4497,18 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
+      "symbol": "0166S0",
+      "name": "PLUS K제조업핵심기업액티브",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
       "symbol": "140950",
       "name": "파워 코스피100",
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
-    },
-    {
-      "symbol": "445150",
-      "name": "KODEX 친환경조선해운액티브",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0112X0",
@@ -4518,8 +4518,8 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "0166S0",
-      "name": "PLUS K제조업핵심기업액티브",
+      "symbol": "445150",
+      "name": "KODEX 친환경조선해운액티브",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -4560,18 +4560,18 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "0241D0",
-      "name": "KODEX 미국AI에이전트액티브",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "442090",
       "name": "에셋플러스 코리아대장장이액티브",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "0241D0",
+      "name": "KODEX 미국AI에이전트액티브",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "494410",
@@ -4623,22 +4623,22 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "241390",
-      "name": "RISE V&S셀렉트밸류채권혼합",
-      "provider_category_code": 7,
+      "symbol": "278240",
+      "name": "RISE 코스닥150선물레버리지",
+      "provider_category_code": 3,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "474800",
-      "name": "KIWOOM 미국원유에너지기업",
+      "symbol": "491830",
+      "name": "TIGER 미국AI반도체팹리스",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "491830",
-      "name": "TIGER 미국AI반도체팹리스",
+      "symbol": "474800",
+      "name": "KIWOOM 미국원유에너지기업",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -4651,11 +4651,11 @@
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
-      "symbol": "0132H0",
-      "name": "KODEX 미국원자력SMR",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+      "symbol": "241390",
+      "name": "RISE V&S셀렉트밸류채권혼합",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "400970",
@@ -4665,11 +4665,18 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "278240",
-      "name": "RISE 코스닥150선물레버리지",
-      "provider_category_code": 3,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "0132H0",
+      "name": "KODEX 미국원자력SMR",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "476260",
+      "name": "HANARO 반도체핵심공정주도주",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "426150",
@@ -4688,13 +4695,6 @@
     {
       "symbol": "104530",
       "name": "KIWOOM 코리아고배당",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
-      "symbol": "476260",
-      "name": "HANARO 반도체핵심공정주도주",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -4728,18 +4728,18 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "256750",
-      "name": "KODEX 차이나심천ChiNext(합성)",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "306950",
       "name": "KODEX KRX300레버리지",
       "provider_category_code": 3,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "256750",
+      "name": "KODEX 차이나심천ChiNext(합성)",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "276650",
@@ -4749,13 +4749,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0138T0",
-      "name": "RISE 미국S&P500데일리고정커버드콜",
-      "provider_category_code": 4,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "0189B0",
       "name": "TIGER 은액티브",
       "provider_category_code": 5,
@@ -4763,15 +4756,15 @@
       "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
     },
     {
-      "symbol": "0122W0",
-      "name": "RISE 26-11 회사채(AA-이상)액티브",
-      "provider_category_code": 6,
+      "symbol": "0138T0",
+      "name": "RISE 미국S&P500데일리고정커버드콜",
+      "provider_category_code": 4,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "167860",
-      "name": "KIWOOM 국고채10년레버리지",
+      "symbol": "0122W0",
+      "name": "RISE 26-11 회사채(AA-이상)액티브",
       "provider_category_code": 6,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
@@ -4784,18 +4777,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "167860",
+      "name": "KIWOOM 국고채10년레버리지",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "407830",
       "name": "에셋플러스 글로벌플랫폼액티브",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "481340",
-      "name": "RISE 미국30년국채액티브",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "100910",
@@ -4805,18 +4798,11 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "099140",
-      "name": "KODEX 차이나H",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "227540",
-      "name": "TIGER 200 헬스케어",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+      "symbol": "481340",
+      "name": "RISE 미국30년국채액티브",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "472840",
@@ -4826,18 +4812,18 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "0115C0",
-      "name": "RISE 미국고배당다우존스TOP10",
+      "symbol": "227540",
+      "name": "TIGER 200 헬스케어",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "099140",
+      "name": "KODEX 차이나H",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "0184E0",
-      "name": "1Q 200채권혼합50액티브",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "450910",
@@ -4847,6 +4833,20 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
+      "symbol": "0184E0",
+      "name": "1Q 200채권혼합50액티브",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0115C0",
+      "name": "RISE 미국고배당다우존스TOP10",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
       "symbol": "493420",
       "name": "SOL 미국배당다우존스2호",
       "provider_category_code": 4,
@@ -4854,15 +4854,15 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "469050",
-      "name": "RISE 미국반도체NYSE(H)",
+      "symbol": "256440",
+      "name": "ACE MSCI인도네시아(합성)",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "256440",
-      "name": "ACE MSCI인도네시아(합성)",
+      "symbol": "469050",
+      "name": "RISE 미국반도체NYSE(H)",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -4903,13 +4903,6 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "322400",
-      "name": "HANARO e커머스",
-      "provider_category_code": 2,
-      "review_status": "registered_reviewed",
-      "reason": "고정 유니버스에 등록; 자동 편입 아님"
-    },
-    {
       "symbol": "491700",
       "name": "HK 200",
       "provider_category_code": 1,
@@ -4917,15 +4910,22 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "0238F0",
-      "name": "KODEX 미국AI메모리TOP2플러스",
+      "symbol": "322400",
+      "name": "HANARO e커머스",
+      "provider_category_code": 2,
+      "review_status": "registered_reviewed",
+      "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
+      "symbol": "459750",
+      "name": "RISE 글로벌주식분산액티브",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "459750",
-      "name": "RISE 글로벌주식분산액티브",
+      "symbol": "0238F0",
+      "name": "KODEX 미국AI메모리TOP2플러스",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -4938,18 +4938,18 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "487130",
-      "name": "KoAct AI인프라액티브",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "174360",
       "name": "RISE 중국본토대형주CSI100",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "487130",
+      "name": "KoAct AI인프라액티브",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "261250",
@@ -5022,23 +5022,9 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "138910",
-      "name": "KODEX 구리선물(H)",
-      "provider_category_code": 5,
-      "review_status": "outside_domestic_sector_candidate",
-      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
-    },
-    {
       "symbol": "437350",
       "name": "RISE 미국단기투자등급회사채액티브",
       "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "0224X0",
-      "name": "1Q 엔비디아알파벳미국채혼합50",
-      "provider_category_code": 7,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -5048,6 +5034,20 @@
       "provider_category_code": 7,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "138910",
+      "name": "KODEX 구리선물(H)",
+      "provider_category_code": 5,
+      "review_status": "outside_domestic_sector_candidate",
+      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
+    },
+    {
+      "symbol": "0224X0",
+      "name": "1Q 엔비디아알파벳미국채혼합50",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "0107F0",
@@ -5064,13 +5064,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "245350",
-      "name": "TIGER 유로스탁스배당30",
-      "provider_category_code": 4,
-      "review_status": "outside_domestic_sector_candidate",
-      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
-    },
-    {
       "symbol": "385520",
       "name": "KODEX 자율주행액티브",
       "provider_category_code": 2,
@@ -5078,11 +5071,32 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
+      "symbol": "0155N0",
+      "name": "HANARO K휴머노이드테마TOP10",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "245350",
+      "name": "TIGER 유로스탁스배당30",
+      "provider_category_code": 4,
+      "review_status": "outside_domestic_sector_candidate",
+      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
+    },
+    {
       "symbol": "440340",
       "name": "TIGER 글로벌멀티에셋TIF액티브",
       "provider_category_code": 7,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "117460",
+      "name": "KODEX 에너지화학",
+      "provider_category_code": 2,
+      "review_status": "registered_reviewed",
+      "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
       "symbol": "139270",
@@ -5099,22 +5113,15 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "117460",
-      "name": "KODEX 에너지화학",
-      "provider_category_code": 2,
-      "review_status": "registered_reviewed",
-      "reason": "고정 유니버스에 등록; 자동 편입 아님"
-    },
-    {
-      "symbol": "0137W0",
-      "name": "KIWOOM 미국S&P500&GOLD",
+      "symbol": "475070",
+      "name": "KoAct 글로벌친환경전력인프라액티브",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "475070",
-      "name": "KoAct 글로벌친환경전력인프라액티브",
+      "symbol": "0137W0",
+      "name": "KIWOOM 미국S&P500&GOLD",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -5125,13 +5132,6 @@
       "provider_category_code": 3,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "0155N0",
-      "name": "HANARO K휴머노이드테마TOP10",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "253150",
@@ -5148,18 +5148,18 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "0089C0",
-      "name": "KODEX 미국S&P500변동성확대시커버드콜",
-      "provider_category_code": 4,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "0204S0",
       "name": "TIGER 코스닥액티브",
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
+      "symbol": "0089C0",
+      "name": "KODEX 미국S&P500변동성확대시커버드콜",
+      "provider_category_code": 4,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "0023B0",
@@ -5169,11 +5169,11 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "245360",
-      "name": "TIGER 차이나HSCEI",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+      "symbol": "0192T0",
+      "name": "SOL 코스닥TOP10",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "105780",
@@ -5181,6 +5181,13 @@
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "245360",
+      "name": "TIGER 차이나HSCEI",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "145850",
@@ -5197,13 +5204,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0192T0",
-      "name": "SOL 코스닥TOP10",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "395170",
       "name": "KODEX Top10동일가중",
       "provider_category_code": 2,
@@ -5216,6 +5216,13 @@
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "0150K0",
+      "name": "KoAct 수소전력ESS인프라액티브",
+      "provider_category_code": 2,
+      "review_status": "registered_reviewed",
+      "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
       "symbol": "471460",
@@ -5237,13 +5244,6 @@
       "provider_category_code": 7,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "0150K0",
-      "name": "KoAct 수소전력ESS인프라액티브",
-      "provider_category_code": 2,
-      "review_status": "registered_reviewed",
-      "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
       "symbol": "138230",
@@ -5281,13 +5281,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "442550",
-      "name": "RISE TDF2030액티브 적격",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "447660",
       "name": "PLUS 애플채권혼합",
       "provider_category_code": 7,
@@ -5295,8 +5288,22 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "269420",
-      "name": "KODEX S&P글로벌인프라(합성)",
+      "symbol": "442550",
+      "name": "RISE TDF2030액티브 적격",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0260F0",
+      "name": "IBK 현대차로보틱스채권혼합50",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "387270",
+      "name": "TIGER 글로벌이노베이션액티브",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -5309,11 +5316,11 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "0260F0",
-      "name": "IBK 현대차로보틱스채권혼합50",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "269420",
+      "name": "KODEX S&P글로벌인프라(합성)",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "156080",
@@ -5330,11 +5337,11 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "387270",
-      "name": "TIGER 글로벌이노베이션액티브",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+      "symbol": "152500",
+      "name": "ACE 레버리지",
+      "provider_category_code": 3,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "239660",
@@ -5358,13 +5365,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "152500",
-      "name": "ACE 레버리지",
-      "provider_category_code": 3,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "0203S0",
       "name": "WON 삼성전자현대차채권혼합50",
       "provider_category_code": 7,
@@ -5386,6 +5386,13 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "153270",
+      "name": "KIWOOM 코스피100",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
       "symbol": "461600",
       "name": "SOL 미국30년국채액티브(H)",
       "provider_category_code": 6,
@@ -5393,18 +5400,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "469790",
+      "name": "KIWOOM 코리아테크TOP10",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
       "symbol": "414270",
       "name": "ACE 글로벌자율주행액티브",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "153270",
-      "name": "KIWOOM 코스피100",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "450190",
@@ -5428,16 +5435,16 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "469790",
-      "name": "KIWOOM 코리아테크TOP10",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "451600",
       "name": "PLUS 국고채30년액티브",
       "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0192S0",
+      "name": "SOL 코스피200채권혼합50",
+      "provider_category_code": 7,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -5447,13 +5454,6 @@
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "0192S0",
-      "name": "SOL 코스피200채권혼합50",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "0223R0",
@@ -5477,25 +5477,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0152E0",
-      "name": "SOL 배당성향탑픽액티브",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
-      "symbol": "0193L0",
-      "name": "PLUS 삼성전자선물단일종목인버스2X",
-      "provider_category_code": 2,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "0206G0",
       "name": "1Q 현대차기아채권혼합50",
       "provider_category_code": 7,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0152E0",
+      "name": "SOL 배당성향탑픽액티브",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "494340",
@@ -5526,11 +5519,11 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "415920",
-      "name": "PLUS 글로벌희토류&전략자원생산기업",
-      "provider_category_code": 5,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+      "symbol": "0193L0",
+      "name": "PLUS 삼성전자선물단일종목인버스2X",
+      "provider_category_code": 2,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "277540",
@@ -5540,11 +5533,11 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "253290",
-      "name": "RISE 헬스케어채권혼합",
-      "provider_category_code": 7,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "415920",
+      "name": "PLUS 글로벌희토류&전략자원생산기업",
+      "provider_category_code": 5,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "117680",
@@ -5552,6 +5545,13 @@
       "provider_category_code": 2,
       "review_status": "registered_reviewed",
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
+      "symbol": "253290",
+      "name": "RISE 헬스케어채권혼합",
+      "provider_category_code": 7,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "147970",
@@ -5603,13 +5603,6 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "489000",
-      "name": "PLUS 일본엔화초단기국채(합성)",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "0166N0",
       "name": "PLUS 코스닥150액티브",
       "provider_category_code": 1,
@@ -5622,6 +5615,13 @@
       "provider_category_code": 4,
       "review_status": "outside_domestic_sector_candidate",
       "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
+    },
+    {
+      "symbol": "489000",
+      "name": "PLUS 일본엔화초단기국채(합성)",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "0238C0",
@@ -5638,6 +5638,13 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
+      "symbol": "0100K0",
+      "name": "KODEX 방산TOP10레버리지",
+      "provider_category_code": 2,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "437070",
       "name": "KODEX 아시아달러채권ESG플러스액티브",
       "provider_category_code": 6,
@@ -5652,32 +5659,11 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0100K0",
-      "name": "KODEX 방산TOP10레버리지",
-      "provider_category_code": 2,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "0155M0",
       "name": "ACE 미국SMR원자력TOP10",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "204450",
-      "name": "KODEX 차이나H레버리지(H)",
-      "provider_category_code": 4,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "367740",
-      "name": "HANARO Fn5G산업",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "261060",
@@ -5687,18 +5673,11 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "0153X0",
-      "name": "PLUS 미국고배당주액티브",
+      "symbol": "204450",
+      "name": "KODEX 차이나H레버리지(H)",
       "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "446690",
-      "name": "KODEX 아시아AI반도체exChina액티브",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "0197W0",
@@ -5708,6 +5687,27 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "0153X0",
+      "name": "PLUS 미국고배당주액티브",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "367740",
+      "name": "HANARO Fn5G산업",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "446690",
+      "name": "KODEX 아시아AI반도체exChina액티브",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
       "symbol": "496120",
       "name": "ACE 코리아밸류업",
       "provider_category_code": 1,
@@ -5715,11 +5715,11 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "0067V0",
-      "name": "TIGER 차이나글로벌리더스TOP3+",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+      "symbol": "479850",
+      "name": "HANARO K-뷰티",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0240J0",
@@ -5729,11 +5729,11 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "479850",
-      "name": "HANARO K-뷰티",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+      "symbol": "0067V0",
+      "name": "TIGER 차이나글로벌리더스TOP3+",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "460660",
@@ -5785,6 +5785,13 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "225130",
+      "name": "ACE 골드선물 레버리지(합성 H)",
+      "provider_category_code": 4,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "497780",
       "name": "KoAct 미국천연가스인프라액티브",
       "provider_category_code": 4,
@@ -5797,13 +5804,6 @@
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "225130",
-      "name": "ACE 골드선물 레버리지(합성 H)",
-      "provider_category_code": 4,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "433220",
@@ -5953,6 +5953,13 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
+      "symbol": "487950",
+      "name": "KODEX 대만테크고배당다우존스",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
       "symbol": "250730",
       "name": "RISE 차이나HSCEI(H)",
       "provider_category_code": 4,
@@ -5967,18 +5974,11 @@
       "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
     },
     {
-      "symbol": "487950",
-      "name": "KODEX 대만테크고배당다우존스",
+      "symbol": "453820",
+      "name": "KODEX 인도Nifty50레버리지(합성)",
       "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "108590",
-      "name": "TREX 200",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "236350",
@@ -5988,11 +5988,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "453820",
-      "name": "KODEX 인도Nifty50레버리지(합성)",
+      "symbol": "108590",
+      "name": "TREX 200",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
+      "symbol": "469160",
+      "name": "ACE 일본반도체",
       "provider_category_code": 4,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "0105D0",
@@ -6009,25 +6016,11 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "469160",
-      "name": "ACE 일본반도체",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "332620",
       "name": "PLUS 미국장기우량회사채",
       "provider_category_code": 6,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "453630",
-      "name": "KODEX 미국S&P500필수소비재",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "464600",
@@ -6037,11 +6030,32 @@
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
+      "symbol": "453630",
+      "name": "KODEX 미국S&P500필수소비재",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
       "symbol": "0104P0",
       "name": "TIGER 코리아배당다우존스위클리커버드콜",
       "provider_category_code": 2,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0209Z0",
+      "name": "ACE 코리아AI전력TOP10",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "304770",
+      "name": "HANARO 코스닥150",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "219390",
@@ -6065,25 +6079,11 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0209Z0",
-      "name": "ACE 코리아AI전력TOP10",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "337120",
       "name": "KODEX 멀티팩터",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
-      "symbol": "304770",
-      "name": "HANARO 코스닥150",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "417630",
@@ -6093,18 +6093,18 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "485810",
-      "name": "TIME 글로벌바이오액티브",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "183710",
       "name": "RISE 주식혼합",
       "provider_category_code": 7,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "485810",
+      "name": "TIME 글로벌바이오액티브",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "438320",
@@ -6121,11 +6121,25 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "0192L0",
+      "name": "RISE SK하이닉스단일종목레버리지",
+      "provider_category_code": 2,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "416090",
       "name": "ACE 중국과창판STAR50",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "0177A0",
+      "name": "WON 두산그룹포커스",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "477490",
@@ -6149,13 +6163,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0192L0",
-      "name": "RISE SK하이닉스단일종목레버리지",
-      "provider_category_code": 2,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "461450",
       "name": "KODEX 코스닥글로벌",
       "provider_category_code": 1,
@@ -6163,25 +6170,11 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0177A0",
-      "name": "WON 두산그룹포커스",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "461910",
       "name": "PLUS 미국테크TOP10레버리지(합성)",
       "provider_category_code": 4,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "131890",
-      "name": "ACE 삼성그룹동일가중",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0231Z0",
@@ -6198,8 +6191,8 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "445690",
-      "name": "BNK 주주가치액티브",
+      "symbol": "131890",
+      "name": "ACE 삼성그룹동일가중",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -6212,6 +6205,20 @@
       "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
     },
     {
+      "symbol": "376410",
+      "name": "TIGER 탄소효율그린뉴딜",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "445690",
+      "name": "BNK 주주가치액티브",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
       "symbol": "0018Z0",
       "name": "RISE 미국양자컴퓨팅",
       "provider_category_code": 4,
@@ -6219,18 +6226,18 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
+      "symbol": "253250",
+      "name": "KIWOOM 200선물레버리지",
+      "provider_category_code": 3,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "474920",
       "name": "에셋플러스 차이나일등기업포커스10액티브",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "376410",
-      "name": "TIGER 탄소효율그린뉴딜",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "411540",
@@ -6254,13 +6261,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "253250",
-      "name": "KIWOOM 200선물레버리지",
-      "provider_category_code": 3,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "0093D0",
       "name": "KoAct 팔란티어밸류체인액티브",
       "provider_category_code": 7,
@@ -6275,6 +6275,13 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
+      "symbol": "0190M0",
+      "name": "KIWOOM 미국AI테크하이베타",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
       "symbol": "0144M0",
       "name": "KODEX 미국드론UAM TOP10",
       "provider_category_code": 4,
@@ -6282,8 +6289,8 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0190M0",
-      "name": "KIWOOM 미국AI테크하이베타",
+      "symbol": "0258B0",
+      "name": "1Q 미국AI테크플랫폼TOP10",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -6296,15 +6303,29 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "0258B0",
-      "name": "1Q 미국AI테크플랫폼TOP10",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "289250",
       "name": "TIGER MSCI KOREA ESG유니버설",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "0242S0",
+      "name": "파워 SK그룹",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "0192M0",
+      "name": "RISE 삼성전자단일종목레버리지",
+      "provider_category_code": 2,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "385600",
+      "name": "ACE 2차전지&친환경차액티브",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -6317,20 +6338,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "0192M0",
-      "name": "RISE 삼성전자단일종목레버리지",
-      "provider_category_code": 2,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "0242S0",
-      "name": "파워 SK그룹",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "304760",
       "name": "HANARO KRX300",
       "provider_category_code": 1,
@@ -6338,8 +6345,15 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "385600",
-      "name": "ACE 2차전지&친환경차액티브",
+      "symbol": "228820",
+      "name": "TIGER KTOP30",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
+      "symbol": "0256E0",
+      "name": "HANARO 삼성전기고정AI핵심기판",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -6366,15 +6380,8 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0256E0",
-      "name": "HANARO 삼성전기고정AI핵심기판",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
-      "symbol": "228820",
-      "name": "TIGER KTOP30",
+      "symbol": "407310",
+      "name": "HANARO 200 TOP10",
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
@@ -6385,13 +6392,6 @@
       "provider_category_code": 2,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "407310",
-      "name": "HANARO 200 TOP10",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "140710",
@@ -6429,18 +6429,18 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "415760",
-      "name": "SOL 차이나육성산업액티브(합성)",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "491510",
       "name": "파워 K-주주가치액티브",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "415760",
+      "name": "SOL 차이나육성산업액티브(합성)",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "227830",
@@ -6450,18 +6450,18 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "0028X0",
-      "name": "KODEX 미국금융테크액티브",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "225060",
       "name": "TIGER 이머징마켓MSCI레버리지(합성 H)",
       "provider_category_code": 4,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0028X0",
+      "name": "KODEX 미국금융테크액티브",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "363510",
@@ -6597,13 +6597,6 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "269530",
-      "name": "PLUS S&P글로벌인프라",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "337150",
       "name": "KODEX 200exTOP",
       "provider_category_code": 2,
@@ -6618,15 +6611,22 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "251590",
-      "name": "PLUS 고배당저변동50",
+      "symbol": "269530",
+      "name": "PLUS S&P글로벌인프라",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "0243M0",
+      "name": "DS AI반도체액티브",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "0243M0",
-      "name": "DS AI반도체액티브",
+      "symbol": "251590",
+      "name": "PLUS 고배당저변동50",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -6639,16 +6639,16 @@
       "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
     },
     {
-      "symbol": "290080",
-      "name": "RISE 200고배당커버드콜ATM",
-      "provider_category_code": 3,
+      "symbol": "435550",
+      "name": "KIWOOM TDF2050액티브 적격",
+      "provider_category_code": 7,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "435550",
-      "name": "KIWOOM TDF2050액티브 적격",
-      "provider_category_code": 7,
+      "symbol": "290080",
+      "name": "RISE 200고배당커버드콜ATM",
+      "provider_category_code": 3,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -6793,18 +6793,18 @@
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
-      "symbol": "472720",
-      "name": "TRUSTON 주주가치액티브",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
-    },
-    {
       "symbol": "354240",
       "name": "RISE 미국고정배당우선증권",
       "provider_category_code": 7,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "472720",
+      "name": "TRUSTON 주주가치액티브",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "404650",
@@ -6842,6 +6842,13 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
+      "symbol": "0239Y0",
+      "name": "PLUS 코리아HBM반도체",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
       "symbol": "217780",
       "name": "TIGER 차이나CSI300인버스(합성)",
       "provider_category_code": 4,
@@ -6854,13 +6861,6 @@
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "0239Y0",
-      "name": "PLUS 코리아HBM반도체",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0068M0",
@@ -6891,13 +6891,6 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "181480",
-      "name": "ACE 미국부동산리츠(합성 H)",
-      "provider_category_code": 7,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "0222F0",
       "name": "마이티 AI데이터센터밸류체인",
       "provider_category_code": 2,
@@ -6905,15 +6898,22 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "0113G0",
-      "name": "KoAct 미국바이오헬스케어액티브",
-      "provider_category_code": 4,
+      "symbol": "181480",
+      "name": "ACE 미국부동산리츠(합성 H)",
+      "provider_category_code": 7,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "487910",
       "name": "ACE 인도컨슈머파워액티브",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "0113G0",
+      "name": "KoAct 미국바이오헬스케어액티브",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -6954,8 +6954,8 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "354350",
-      "name": "HANARO 글로벌럭셔리S&P(합성)",
+      "symbol": "417450",
+      "name": "RISE 글로벌수소경제",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -6968,8 +6968,8 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "417450",
-      "name": "RISE 글로벌수소경제",
+      "symbol": "354350",
+      "name": "HANARO 글로벌럭셔리S&P(합성)",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -7038,6 +7038,13 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "0219B0",
+      "name": "KoAct 광통신&위성네트워크액티브",
+      "provider_category_code": 2,
+      "review_status": "registered_reviewed",
+      "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
       "symbol": "0252P0",
       "name": "KoAct 코리아TOP5플러스채권혼합50액티브",
       "provider_category_code": 7,
@@ -7050,13 +7057,6 @@
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "0219B0",
-      "name": "KoAct 광통신&위성네트워크액티브",
-      "provider_category_code": 2,
-      "review_status": "registered_reviewed",
-      "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
       "symbol": "117690",
@@ -7073,6 +7073,13 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "464610",
+      "name": "SOL 의료기기소부장Fn",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
       "symbol": "0093B0",
       "name": "RISE 엔비디아고정테크100",
       "provider_category_code": 4,
@@ -7087,15 +7094,15 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "464610",
-      "name": "SOL 의료기기소부장Fn",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "266390",
       "name": "KODEX 경기소비재",
+      "provider_category_code": 2,
+      "review_status": "registered_reviewed",
+      "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
+      "symbol": "102960",
+      "name": "KODEX 기계장비",
       "provider_category_code": 2,
       "review_status": "registered_reviewed",
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
@@ -7106,13 +7113,6 @@
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "102960",
-      "name": "KODEX 기계장비",
-      "provider_category_code": 2,
-      "review_status": "registered_reviewed",
-      "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
       "symbol": "395760",
@@ -7206,11 +7206,11 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "182490",
-      "name": "TIGER 단기선진하이일드(합성 H)",
-      "provider_category_code": 6,
-      "review_status": "outside_domestic_sector_candidate",
-      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
+      "symbol": "0255G0",
+      "name": "마이티 삼성그룹테크TOP3&하드웨어",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "0184N0",
@@ -7220,8 +7220,15 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0255G0",
-      "name": "마이티 삼성그룹테크TOP3&하드웨어",
+      "symbol": "182490",
+      "name": "TIGER 단기선진하이일드(합성 H)",
+      "provider_category_code": 6,
+      "review_status": "outside_domestic_sector_candidate",
+      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
+    },
+    {
+      "symbol": "280920",
+      "name": "PLUS 주도업종",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
@@ -7241,18 +7248,18 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "280920",
-      "name": "PLUS 주도업종",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
       "symbol": "461580",
       "name": "TIGER 코스닥글로벌",
       "provider_category_code": 1,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "498050",
+      "name": "HANARO 바이오코리아액티브",
+      "provider_category_code": 2,
+      "review_status": "candidate_pending_review",
+      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
       "symbol": "435540",
@@ -7262,11 +7269,11 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "498050",
-      "name": "HANARO 바이오코리아액티브",
-      "provider_category_code": 2,
-      "review_status": "candidate_pending_review",
-      "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+      "symbol": "0191S0",
+      "name": "IBK 코스닥150",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "140570",
@@ -7281,13 +7288,6 @@
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "0191S0",
-      "name": "IBK 코스닥150",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "487920",
@@ -7437,25 +7437,11 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "0236J0",
-      "name": "마이티 미국피지컬AI액티브",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "0198B0",
       "name": "1Q 삼성전자선물단일종목레버리지",
       "provider_category_code": 2,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "437370",
-      "name": "RISE 글로벌농업경제",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "301400",
@@ -7465,11 +7451,18 @@
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
-      "symbol": "252420",
-      "name": "RISE 200선물인버스2X",
-      "provider_category_code": 3,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "0236J0",
+      "name": "마이티 미국피지컬AI액티브",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "437370",
+      "name": "RISE 글로벌농업경제",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "480460",
@@ -7514,11 +7507,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "371150",
-      "name": "RISE 차이나항셍테크",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+      "symbol": "0193K0",
+      "name": "PLUS 삼성전자단일종목레버리지",
+      "provider_category_code": 2,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "252420",
+      "name": "RISE 200선물인버스2X",
+      "provider_category_code": 3,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "429980",
@@ -7535,11 +7535,11 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0193K0",
-      "name": "PLUS 삼성전자단일종목레버리지",
-      "provider_category_code": 2,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+      "symbol": "371150",
+      "name": "RISE 차이나항셍테크",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "449680",
@@ -7591,18 +7591,18 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
-      "symbol": "252000",
-      "name": "TIGER 200동일가중",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
-    },
-    {
       "symbol": "381570",
       "name": "HANARO Fn친환경에너지",
       "provider_category_code": 2,
       "review_status": "registered_reviewed",
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
+      "symbol": "252000",
+      "name": "TIGER 200동일가중",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "456200",
@@ -7675,18 +7675,18 @@
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
-      "symbol": "488480",
-      "name": "RISE 일본섹터TOP4Plus",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "0221Z0",
       "name": "ACE K바이오코스닥액티브",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "488480",
+      "name": "RISE 일본섹터TOP4Plus",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "404540",
@@ -7857,13 +7857,6 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "0114X0",
-      "name": "RISE 글로벌게임테크TOP3Plus",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
       "symbol": "314700",
       "name": "HANARO 농업융복합산업",
       "provider_category_code": 2,
@@ -7871,16 +7864,16 @@
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
+      "symbol": "0114X0",
+      "name": "RISE 글로벌게임테크TOP3Plus",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
       "symbol": "474390",
       "name": "SOL 국고채30년액티브",
       "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
-      "symbol": "225030",
-      "name": "TIGER 미국S&P500선물인버스(H)",
-      "provider_category_code": 4,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
@@ -7892,18 +7885,18 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
+      "symbol": "225030",
+      "name": "TIGER 미국S&P500선물인버스(H)",
+      "provider_category_code": 4,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "0218K0",
       "name": "BNK 스마트카",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
-    },
-    {
-      "symbol": "0215T0",
-      "name": "HANARO 미국AI광통신TOP10",
-      "provider_category_code": 4,
-      "review_status": "excluded_overseas_name",
-      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "0176P0",
@@ -7913,8 +7906,8 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "0047N0",
-      "name": "PLUS 차이나AI테크TOP10",
+      "symbol": "0215T0",
+      "name": "HANARO 미국AI광통신TOP10",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
@@ -7925,6 +7918,13 @@
       "provider_category_code": 2,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0047N0",
+      "name": "PLUS 차이나AI테크TOP10",
+      "provider_category_code": 4,
+      "review_status": "excluded_overseas_name",
+      "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
       "symbol": "0015K0",
@@ -7969,18 +7969,18 @@
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
     },
     {
-      "symbol": "267440",
-      "name": "RISE 미국장기국채선물(H)",
-      "provider_category_code": 6,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "0102X0",
       "name": "ACE 유럽방산TOP10",
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
+    },
+    {
+      "symbol": "267440",
+      "name": "RISE 미국장기국채선물(H)",
+      "provider_category_code": 6,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "411860",
@@ -7990,18 +7990,18 @@
       "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
     },
     {
-      "symbol": "205720",
-      "name": "ACE 일본TOPIX인버스(합성 H)",
-      "provider_category_code": 4,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "307510",
       "name": "TIGER 의료기기",
       "provider_category_code": 2,
       "review_status": "registered_reviewed",
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
+    },
+    {
+      "symbol": "205720",
+      "name": "ACE 일본TOPIX인버스(합성 H)",
+      "provider_category_code": 4,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "490330",
@@ -8025,6 +8025,13 @@
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
     },
     {
+      "symbol": "0191B0",
+      "name": "MIDAS 코스닥액티브",
+      "provider_category_code": 1,
+      "review_status": "excluded_broad_market",
+      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
+    },
+    {
       "symbol": "0138D0",
       "name": "RISE 동학개미",
       "provider_category_code": 2,
@@ -8037,13 +8044,6 @@
       "provider_category_code": 4,
       "review_status": "excluded_overseas_name",
       "reason": "상품명상 해외 노출; 한국 국내업종 아님"
-    },
-    {
-      "symbol": "0191B0",
-      "name": "MIDAS 코스닥액티브",
-      "provider_category_code": 1,
-      "review_status": "excluded_broad_market",
-      "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
     },
     {
       "symbol": "407300",
@@ -8081,6 +8081,13 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
+      "symbol": "0194R0",
+      "name": "KIWOOM SK하이닉스선물단일종목레버리지",
+      "provider_category_code": 2,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
       "symbol": "0053M0",
       "name": "더제이 중소형포커스액티브",
       "provider_category_code": 2,
@@ -8093,13 +8100,6 @@
       "provider_category_code": 1,
       "review_status": "excluded_broad_market",
       "reason": "네이버 국내시장지수 분류; 업종/테마 후보에 자동 포함 안 함"
-    },
-    {
-      "symbol": "0194R0",
-      "name": "KIWOOM SK하이닉스선물단일종목레버리지",
-      "provider_category_code": 2,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "413220",
@@ -8291,18 +8291,18 @@
       "reason": "고정 유니버스에 등록; 자동 편입 아님"
     },
     {
-      "symbol": "0079X0",
-      "name": "ACE BYD밸류체인액티브",
-      "provider_category_code": 4,
-      "review_status": "outside_domestic_sector_candidate",
-      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
-    },
-    {
       "symbol": "243890",
       "name": "TIGER 200에너지화학레버리지",
       "provider_category_code": 2,
       "review_status": "excluded_structure",
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
+    },
+    {
+      "symbol": "0079X0",
+      "name": "ACE BYD밸류체인액티브",
+      "provider_category_code": 4,
+      "review_status": "outside_domestic_sector_candidate",
+      "reason": "원자재·해외·채권·기타 분류; 국내업종 편입에 별도 검토 필요"
     },
     {
       "symbol": "0131A0",
@@ -8340,18 +8340,18 @@
       "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
-      "symbol": "253160",
-      "name": "PLUS 200선물인버스2X",
-      "provider_category_code": 3,
-      "review_status": "excluded_structure",
-      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
-    },
-    {
       "symbol": "476000",
       "name": "UNICORN 포스트IPO액티브",
       "provider_category_code": 2,
       "review_status": "candidate_pending_review",
       "reason": "운용사 국내주식/리츠·업종/테마 및 중복노출 검증 전 후보"
+    },
+    {
+      "symbol": "253160",
+      "name": "PLUS 200선물인버스2X",
+      "provider_category_code": 3,
+      "review_status": "excluded_structure",
+      "reason": "레버리지·인버스·옵션·단일종목·채권·혼합·현금성 구조"
     },
     {
       "symbol": "412560",
