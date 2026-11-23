@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="etf.css">
 <link rel="stylesheet" href="holdings.css">
 <link rel="stylesheet" href="research.css">
+<link rel="stylesheet" href="auth/session.css">
 <style>
   :root{
     --bg:#0a0d12;
@@ -317,7 +318,7 @@
   </nav>
   <span class="spacer"></span>
   <span class="clock" id="clock"></span>
-  <span class="user">로이 님</span>
+  <span class="user" id="ymUser" hidden></span>
 </div>
 
 <div id="view-su">
@@ -572,6 +573,9 @@
   <div class="modal" id="modal"></div>
 </div>
 
+<script src="auth/auth_logic.js"></script>
+<script src="auth/auth.js"></script>
+<script src="auth/session.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="scanner_logic.js"></script>
 <script src="etf_logic.js"></script>

@@ -1,3 +1,22 @@
-# Netlify 프록시 — 브라우저의 CORS 제약 없이 시세 API를 중계한다.
-# /yf/* 요청을 Yahoo Finance 로 서버사이드 프록시 (status 200 = rewrite)
-/yf/*  https://query1.finance.yahoo.com/:splat  200
+# Netlify 접근 규칙 — 위에서부터 처음 맞는 규칙 하나만 적용된다.
+# "Role=" 조건은 로그인 쿠키(nf_jwt)에 든 권한을 Netlify 가 서명까지 검증해서 판단한다.
+# 권한: member = 승인된 회원, admin = 관리자(회원 승인 가능). 회원 관리 화면에서 부여한다.
+
+# 1) 로그인 화면과 그 화면이 쓰는 파일은 누구나 받을 수 있다.
+/auth/*      /auth/:splat      200!
+
+# 2) 회원 관리 화면은 관리자만. 일반 회원은 첫 화면으로 보낸다.
+#    (로그인 전이면 맨 아래 규칙에 따라 로그인 화면이 나오고, 로그인 뒤 이 주소로 돌아온다.)
+/admin.html  /admin.html       200!  Role=admin
+/admin       /admin.html       200!  Role=admin
+/admin.html  /                 302!  Role=member
+/admin       /                 302!  Role=member
+
+# 3) 시세 프록시 — 브라우저의 CORS 제약 없이 Yahoo Finance 를 중계한다. 승인된 회원만.
+/yf/*        https://query1.finance.yahoo.com/:splat  200!  Role=member,admin
+
+# 4) 나머지 모든 화면·자료(JSON 포함)는 승인된 회원만.
+/*           /:splat           200!  Role=member,admin
+
+# 5) 여기까지 내려온 요청은 로그인 전이거나 승인 대기 중이다 → 로그인 화면(401).
+/*           /auth/login.html  401!

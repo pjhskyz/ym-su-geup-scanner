@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1420'/%3E%3Ctext x='32' y='45' font-family='Arial' font-size='36' font-weight='700' text-anchor='middle' fill='%23ffb020'%3EY%3C/text%3E%3C/svg%3E">
+<title>회원 관리 — YM리서치 스캐너</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/auth/auth.css">
+<link rel="stylesheet" href="/auth/session.css">
+</head>
+<body data-ym-admin>
+<div class="ym-top">
+  <div class="ym-brand"><span class="dot"></span>YM리서치 스캐너 <small>회원 관리</small></div>
+  <span class="spacer"></span>
+  <a class="back" href="/">← 스캐너<span>로 돌아가기</span></a>
+  <span class="user" id="ymUser" hidden></span>
+</div>
+<main class="ym-page">
+  <h1>회원 관리</h1>
+  <p class="lead">구글 계정으로 로그인한 사람은 먼저 <b>승인 대기</b>로 올라옵니다. 승인한 계정만 스캐너 화면과 자료를 볼 수 있습니다.</p>
+  <div class="ym-bar">
+    <div class="ym-seg" id="ymFilter" role="tablist" aria-label="회원 구분">
+      <button type="button" data-filter="pending">승인 대기<b id="ymCountPending">0</b></button>
+      <button type="button" data-filter="approved">승인된 회원<b id="ymCountApproved">0</b></button>
+      <button type="button" data-filter="all">전체<b id="ymCountAll">0</b></button>
+    </div>
+    <span class="spacer" style="flex:1"></span>
+    <button class="ym-btn small quiet" id="ymReload" type="button">새로 고침</button>
+  </div>
+  <div class="ym-note" id="ymNotice" hidden role="status"></div>
+  <div class="ym-tablebox">
+    <table class="ym-table">
+      <thead><tr><th>상태</th><th>계정</th><th>가입 요청</th><th style="text-align:right">처리</th></tr></thead>
+      <tbody id="ymRows"></tbody>
+    </table>
+    <div class="ym-empty" id="ymEmpty">불러오는 중입니다…</div>
+  </div>
+  <div class="ym-help">
+    · 승인하면 상대방의 대기 화면이 1분 안에 자동으로 넘어갑니다(<b>승인되었는지 확인</b>을 누르면 바로).<br>
+    · 승인 해제·삭제는 이미 로그인해 있는 기기에는 최대 1시간 뒤에 적용됩니다.<br>
+    · 거절(삭제)한 계정도 다시 로그인하면 새 요청으로 올라옵니다.
+  </div>
+</main>
+<script src="/auth/auth_logic.js"></script>
+<script src="/auth/auth.js"></script>
+<script src="/auth/session.js"></script>
+<script src="/admin.js"></script>
+</body>
+</html>

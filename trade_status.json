@@ -1,8 +1,84 @@
 {
- "attempted_at": "2026-11-23T12:01:07+09:00",
+ "attempted_at": "2026-11-23T13:46:02+09:00",
  "ok": true,
  "latest_month": "202610",
  "items": 23,
  "failed": 0,
- "errors": []
+ "errors": [],
+ "sections": {
+  "prelim": {
+   "latest": {
+    "month": "202611",
+    "span": "d20"
+   },
+   "fetched_at": "2026-11-23T13:46:02+09:00"
+  },
+  "nations": {
+   "latest_month": "202610",
+   "countries": 251,
+   "fetched_at": "2026-11-23T13:46:02+09:00"
+  },
+  "item_countries": {
+   "items": 23,
+   "latest_month": "202610"
+  }
+ },
+ "section_failed": 0,
+ "section_errors": [],
+ "fields": {
+  "item_countries": [
+   "balPayments",
+   "expDlr",
+   "expWgt",
+   "hsCd",
+   "impDlr",
+   "impWgt",
+   "statCd",
+   "statCdCntnKor1",
+   "statKor",
+   "year"
+  ],
+  "nations": [
+   "balPayments",
+   "expCnt",
+   "expDlr",
+   "impCnt",
+   "impDlr",
+   "statCd",
+   "statCdCntnKor1",
+   "year"
+  ],
+  "prelim_item": [
+   "itemUsdAmt00",
+   "itemUsdAmt01",
+   "itemUsdAmt02",
+   "itemUsdAmt03",
+   "itemUsdAmt04",
+   "itemUsdAmt05",
+   "itemUsdAmt06",
+   "itemUsdAmt07",
+   "itemUsdAmt08",
+   "itemUsdAmt09",
+   "itemUsdAmt10",
+   "priodDt",
+   "priodMon",
+   "priodYear"
+  ],
+  "prelim_country": [
+   "itemUsdAmt00",
+   "itemUsdAmt01",
+   "itemUsdAmt02",
+   "itemUsdAmt03",
+   "itemUsdAmt04",
+   "itemUsdAmt05",
+   "itemUsdAmt06",
+   "itemUsdAmt07",
+   "itemUsdAmt08",
+   "itemUsdAmt09",
+   "itemUsdAmt10",
+   "priodDt",
+   "priodMon",
+   "priodYear"
+  ]
+ }
 }

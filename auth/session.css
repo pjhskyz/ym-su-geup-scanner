@@ -1,0 +1,15 @@
+/* 상단 막대의 계정 표시와 메뉴 (본 화면·회원 관리 화면 공용). 자리는 예전 "○○ 님" 글자만큼만 쓴다. */
+#ymUser{display:flex;align-items:center;flex-shrink:0;font-size:11px}
+#ymUser[hidden]{display:none}
+.ym-user-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:none;color:var(--txt-faint);font-family:var(--sans);font-size:11px;padding:6px 0;cursor:pointer;white-space:nowrap}
+.ym-user-btn:hover,.ym-user-btn[aria-expanded="true"]{color:var(--txt)}
+.ym-user-btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.ym-user-btn .who{max-width:96px;overflow:hidden;text-overflow:ellipsis}
+.ym-user-btn b,.ym-user-menu a b{display:inline-block;padding:1px 6px;border-radius:9px;background:var(--gold);color:#241900;font-family:var(--mono);font-size:10px;font-weight:600;line-height:1.5}
+.ym-user-menu{position:fixed;z-index:60;min-width:200px;max-width:calc(100vw - 16px);background:var(--panel2);border:1px solid var(--line2);border-radius:9px;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,.5)}
+.ym-user-menu[hidden]{display:none}
+.ym-user-menu .mail{padding:7px 9px 9px;margin-bottom:5px;border-bottom:1px solid var(--line);color:var(--txt-faint);font-family:var(--mono);font-size:11px;word-break:break-all}
+.ym-user-menu a,.ym-user-menu button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;background:none;border:none;border-radius:6px;color:var(--txt-dim);font-family:var(--sans);font-size:12.5px;padding:8px 9px;cursor:pointer;text-decoration:none;text-align:left}
+.ym-user-menu a:hover,.ym-user-menu button:hover,.ym-user-menu a:focus-visible,.ym-user-menu button:focus-visible{background:var(--panel);color:var(--txt);outline:none}
+/* 좁은 화면에서는 상단 막대가 옆으로 밀리므로 계정 버튼을 오른쪽 끝에 붙여 둔다. */
+@media(max-width:700px){#ymUser{position:sticky;right:0;padding-left:10px;background:var(--bg2);box-shadow:-10px 0 10px var(--bg2)}}

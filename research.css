@@ -120,3 +120,13 @@
 .rs-table td small{font-size:10px;margin-left:4px}
 .rs-v.rs-up{color:var(--up)}.rs-v.rs-down{color:var(--down)}
 #rsTradeDetail .rs-chart,#rsConsDetail .rs-chart{height:220px}
+
+/* 수출입 분석: 잠정치 요약 · 국가별 */
+.rs-table th[data-rs-tsort],.rs-table th[data-rs-nsort]{cursor:pointer}
+.rs-table tr.rs-sum td{color:var(--txt-dim);background:var(--panel)}
+.rs-gap{margin-top:12px}
+#rsPrelim .rs-tablebox{max-height:none}
+#rsPrelim .rs-table,#rsTradeDetail .rs-table{min-width:0}
+#rsPrelim .rs-chart,#rsNationDetail .rs-chart{height:200px}
+#rsTradeDetail .rs-sub{margin-top:16px}
+.rs-grid>*{min-width:0}

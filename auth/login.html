@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1420'/%3E%3Ctext x='32' y='45' font-family='Arial' font-size='36' font-weight='700' text-anchor='middle' fill='%23ffb020'%3EY%3C/text%3E%3C/svg%3E">
+<title>로그인 — YM리서치 스캐너</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/auth/auth.css">
+</head>
+<body>
+<!-- 승인된 회원이 아니면 어느 주소로 들어와도 이 화면이 대신 나온다(_redirects 의 마지막 규칙). -->
+<main class="ym-gate">
+  <div class="ym-card">
+    <div class="ym-brand"><span class="dot"></span>YM리서치 스캐너 <small>YM Research</small></div>
+
+    <section data-view="loading">
+      <div class="ym-wait" role="status">로그인 상태를 확인하고 있습니다</div>
+    </section>
+
+    <section data-view="login" hidden>
+      <h1>로그인이 필요합니다</h1>
+      <p>회사 구성원만 볼 수 있는 내부 리서치 화면입니다. 구글 계정으로 로그인하면 관리자에게 가입 요청이 전달되고, 승인된 뒤부터 이용할 수 있습니다.</p>
+      <div class="ym-note bad" id="ymLoginError" hidden></div>
+      <div class="ym-actions">
+        <button class="ym-btn primary" id="ymLogin" type="button">Google 계정으로 로그인</button>
+      </div>
+    </section>
+
+    <section data-view="pending" hidden>
+      <h1>승인을 기다리고 있습니다</h1>
+      <p>가입 요청이 접수되었습니다. 관리자가 승인하면 이 화면이 자동으로 넘어갑니다. 창을 닫았다가 나중에 다시 들어와도 됩니다.</p>
+      <div class="ym-who" id="ymPendingWho"></div>
+      <div class="ym-note" id="ymPendingNote" hidden role="status"></div>
+      <div class="ym-actions">
+        <button class="ym-btn primary" id="ymRecheck" type="button">승인되었는지 확인</button>
+        <button class="ym-btn quiet" id="ymSwitch" type="button">다른 계정으로 로그인</button>
+      </div>
+    </section>
+
+    <section data-view="ready" hidden>
+      <h1>로그인되었습니다</h1>
+      <p>아래 버튼을 눌러 화면으로 이동해 주세요.</p>
+      <div class="ym-actions">
+        <a class="ym-btn primary" id="ymEnter" href="/">스캐너 열기</a>
+      </div>
+    </section>
+
+    <section data-view="denied" hidden>
+      <h1>화면을 열지 못했습니다</h1>
+      <p>로그인은 되었지만 서버가 접근을 허용하지 않았습니다. 다시 로그인해 보시고, 계속되면 관리자에게 알려 주세요.</p>
+      <div class="ym-who" id="ymDeniedWho"></div>
+      <div class="ym-actions">
+        <button class="ym-btn primary" id="ymRetry" type="button">다시 로그인</button>
+        <button class="ym-btn quiet" id="ymLeave" type="button">로그아웃</button>
+      </div>
+    </section>
+
+    <div class="ym-foot">YM Investment 내부용 · 승인된 계정만 접속할 수 있습니다.</div>
+  </div>
+</main>
+<noscript><p style="padding:20px;text-align:center">로그인하려면 브라우저의 자바스크립트를 켜 주세요.</p></noscript>
+<script src="/auth/auth_logic.js"></script>
+<script src="/auth/auth.js"></script>
+<script src="/auth/login.js"></script>
+</body>
+</html>
