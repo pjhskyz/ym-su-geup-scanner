@@ -126,7 +126,28 @@ def latest_month(now: dt.datetime) -> str:
     return month_add(current, -1 if now.day >= 15 else -2)
 
 
-def build(items: list, previous: dict | None, key: str, now: dt.datetime, fetcher=fetch, pause: float = 0.2) -> dict:
+def scrub(text: str, key: str) -> str:
+    """오류 문구에 인증키가 섞여 들어가도 파일·로그에 남지 않게 가린다."""
+    for secret in {key, urllib.parse.quote(key, safe="")}:
+        if secret:
+            text = text.replace(secret, "***")
+    return text[:200]
+
+
+def status_doc(result: dict, now: dt.datetime) -> dict:
+    """최근 수집 시도 요약(성공 여부·최신월·실패 품목). 실패해도 남겨 원인을 확인할 수 있게 한다."""
+    return {
+        "attempted_at": now.astimezone(KST).isoformat(timespec="seconds"),
+        "ok": bool(result["latest_month"]),
+        "latest_month": result["latest_month"],
+        "items": len(result["items"]),
+        "failed": len(result["errors"]),
+        "errors": result["errors"][:5],
+    }
+
+
+def build(items: list, previous: dict | None, key: str, now: dt.datetime, fetcher=None, pause: float = 0.2) -> dict:
+    fetcher = fetcher or fetch
     end = latest_month(now)
     months = month_range(month_add(end, -(HISTORY_MONTHS - 1)), end)
     old = {item["id"]: item for item in (previous or {}).get("items") or []}
@@ -145,7 +166,7 @@ def build(items: list, previous: dict | None, key: str, now: dt.datetime, fetche
             if pause:
                 time.sleep(pause)
         if failed:
-            errors.append({"id": item["id"], "hs": item["hs"], "error": failed})
+            errors.append({"id": item["id"], "hs": item["hs"], "error": scrub(failed, key)})
         series = merge_series(before, fresh, months)
         out_items.append({"id": item["id"], "label": item["label"], "hs": item["hs"], "stocks": item.get("stocks") or [], **series})
     observed = [m for it in out_items for m, v in zip(it["months"], it["exp"]) if v is not None]
@@ -165,6 +186,7 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--items", default="trade_pipeline/items.json")
     parser.add_argument("--output", default="trade_data.json")
+    parser.add_argument("--status", default="trade_status.json")
     args = parser.parse_args(argv)
     key = normalize_key(os.environ.get("DATA_GO_KR_KEY", ""))
     if not key:
@@ -173,7 +195,9 @@ def main(argv=None) -> int:
     items = json.loads(Path(args.items).read_text(encoding="utf-8")).get("items") or []
     output = Path(args.output)
     previous = json.loads(output.read_text(encoding="utf-8")) if output.exists() else None
-    result = build(items, previous, key, dt.datetime.now(KST))
+    now = dt.datetime.now(KST)
+    result = build(items, previous, key, now)
+    Path(args.status).write_text(json.dumps(status_doc(result, now), ensure_ascii=False, indent=1), encoding="utf-8")
     if not result["latest_month"]:
         # 한 건도 받지 못했으면 기존 파일을 지키고 실패로 끝낸다.
         for error in result["errors"][:5]:

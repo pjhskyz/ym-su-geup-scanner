@@ -1,5 +1,10 @@
 import datetime as dt
+import json
+import os
+import tempfile
 import unittest
+from pathlib import Path
+from unittest import mock
 
 import build_trade_data as T
 
@@ -87,6 +92,38 @@ class TradeDataTest(unittest.TestCase):
         calls.clear()
         T.build(changed, second, "k", dt.datetime(2026, 12, 16, tzinfo=T.KST), fetcher, pause=0)
         self.assertEqual(sum(1 for c in calls if c[0] == "3333"), 6, "HS 코드를 바꾸면 처음부터 다시 받는다")
+
+    def test_main_writes_status_and_never_leaks_key(self):
+        key = "abc+def=="
+        with tempfile.TemporaryDirectory() as folder:
+            items, out, status = Path(folder, "items.json"), Path(folder, "trade.json"), Path(folder, "status.json")
+            items.write_text(json.dumps({"items": [{"id": "a", "label": "A", "hs": "1111"}]}), encoding="utf-8")
+            args = ["--items", str(items), "--output", str(out), "--status", str(status)]
+
+            def failing(k, hs, start, end):
+                raise ValueError(f"요청 실패: https://x/?serviceKey={k} 그리고 abc%2Bdef%3D%3D")
+
+            with mock.patch.dict(os.environ, {"DATA_GO_KR_KEY": "abc%2Bdef%3D%3D"}), mock.patch.object(T, "fetch", failing):
+                self.assertEqual(T.main(args), 1)
+            self.assertFalse(out.exists(), "한 건도 못 받으면 데이터 파일을 만들지 않는다")
+            text = status.read_text(encoding="utf-8")
+            self.assertNotIn(key, text)
+            self.assertNotIn("abc%2Bdef", text)
+            doc = json.loads(text)
+            self.assertEqual((doc["ok"], doc["failed"], doc["latest_month"]), (False, 1, None))
+            self.assertIn("***", doc["errors"][0]["error"])
+
+            def working(k, hs, start, end):
+                return {m: {"exp": 1.0, "imp": 2.0, "exp_wgt": 3.0, "imp_wgt": 4.0} for m in T.month_range(start, end)}
+
+            with mock.patch.dict(os.environ, {"DATA_GO_KR_KEY": key}), mock.patch.object(T, "fetch", working), mock.patch.object(T.time, "sleep", lambda s: None):
+                self.assertEqual(T.main(args), 0)
+            self.assertTrue(json.loads(status.read_text(encoding="utf-8"))["ok"])
+            self.assertEqual(len(json.loads(out.read_text(encoding="utf-8"))["items"][0]["months"]), T.HISTORY_MONTHS)
+            with mock.patch.dict(os.environ, {"DATA_GO_KR_KEY": ""}):
+                status.unlink()
+                self.assertEqual(T.main(args), 0)
+            self.assertFalse(status.exists(), "키가 없으면 상태 파일도 만들지 않는다")
 
 
 if __name__ == "__main__":
