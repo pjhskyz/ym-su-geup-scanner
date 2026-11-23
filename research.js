@@ -28,7 +28,8 @@
     sizeDays: 63, flowDays: 60, tileKey: 'r1', dispDays: 120, fundDays: 63,
     heat: {minCap: 3000, key: 'r1', grouped: false, query: ''},
     sectorKey: 'r1', trendDays: 60, etfSort: {key: 'rs_price_21', dir: -1},
-    trade: {flow: 'exp', sort: 'yoy', dir: -1, query: '', selected: null},
+    trade: {flow: 'exp', sort: 'yoy', dir: -1, query: '', selected: null, view: 'item',
+      nation: {sort: 'amount', dir: -1, query: '', selected: null}, prelim: {span: 'auto', kind: 'item', index: 0}},
     cons: {filter: 'all', sort: 'week_pct', dir: -1, query: '', selected: null},
   };
   let root = null, view = 'overview', charts = [], quoteTimer = null, resizeTimer = null, renderToken = 0;
@@ -330,51 +331,138 @@
 
   // ---- 수출입 분석 ----
   const TRADE_COLS = [['label', '품목', 0], ['amount', '금액', 1], ['yoy', 'YoY', 1], ['mom', 'MoM', 1], ['sum12', '12개월 누적', 1], ['sum12Yoy', '누적 YoY', 1], ['unitYoy', '단가 YoY', 1]];
+  const NATION_COLS = [['name', '국가·지역', 0], ['amount', '금액', 1], ['yoy', 'YoY', 1], ['mom', 'MoM', 1], ['sum12', '12개월 누적', 1], ['sum12Yoy', '누적 YoY', 1], ['balance', '무역수지', 1]];
+  const SERIES_COLORS = [COLORS.kospi, COLORS.kosdaq, COLORS.down, COLORS.violet, COLORS.up, COLORS.dim];
+  const flowName = () => (state.trade.flow === 'exp' ? '수출' : '수입');
+  const toMillion = values => (values || []).map(v => (L.isNumber(v) ? v / 1e6 : null));
+  const chartCard = (id, title, unit) => `<div class="rs-card"><div class="rs-k">${title}<small>${unit}</small></div><div class="rs-chart"><canvas id="${id}"></canvas></div></div>`;
+  const sortTh = (attr, s) => ([key, label, numeric]) => `<th data-rs-${attr}="${key}" class="${numeric ? 'n ' : ''}${s.sort === key ? 'on' : ''}">${label}${s.sort === key ? (s.dir < 0 ? ' ▼' : ' ▲') : ''}</th>`;
+
+  // 수출 잠정치 요약: 주요 품목·주요 국가의 같은 구간 누계와 전년·전월 동기 대비
+  function prelimTable(title, kind, rows) {
+    const s = state.trade.prelim;
+    if (!rows.length) return `<div><h3 class="rs-sub">${title}</h3>${missing('이 구간의 잠정치를 받지 못했습니다.')}</div>`;
+    return `<div><h3 class="rs-sub">${title}</h3><div class="rs-tablebox"><table class="rs-table"><thead><tr><th>${kind === 'item' ? '품목' : '국가'}</th><th class="n">금액</th><th class="n">비중</th><th class="n">전년 동기 대비</th><th class="n">전월 동기 대비</th></tr></thead>
+      <tbody>${rows.map(r => `<tr data-row="prelim" data-kind="${kind}" data-id="${r.index}" class="${s.kind === kind && s.index === r.index ? 'sel' : ''}"><td>${esc(r.name)}</td><td class="n">${L.usdLabel(r.amount)}</td><td class="n">${L.isNumber(r.share) ? num(r.share, 1) + '%' : '—'}</td><td class="n">${pct(r.yoy, 1)}</td><td class="n">${pct(r.mom, 1)}</td></tr>`).join('')}</tbody></table></div></div>`;
+  }
+  function paintPrelim(trade) {
+    const box = document.getElementById('rsPrelim'), p = trade.prelim, s = state.trade.prelim;
+    if (!box) return;
+    const spans = seg('prelimSpan', s.span, [['auto', '최신'], ['d10', '1~10일'], ['d20', '1~20일'], ['m', '월 전체']]);
+    const head = (sub, tools = '') => `<div class="rs-panel-head"><div><h2>수출 잠정치</h2><p>${sub}</p></div><div class="rs-tools">${tools}</div></div>`;
+    const pick = p && L.prelimPick(p, s.span === 'auto' ? null : s.span);
+    if (!pick) { box.innerHTML = head('관세청 10일 단위 잠정치', p ? spans : '') + missing(p ? '이 구간의 잠정치를 아직 받지 못했습니다.' : '10일 단위 잠정치를 아직 받지 못했습니다. 다음 수집 뒤에 표시됩니다.'); return; }
+    const items = L.prelimRows(p, 'item', pick), countries = L.prelimRows(p, 'country', pick), total = items[0] || countries[0];
+    if (!((p[s.kind] || [])[s.index])) { s.kind = items.length ? 'item' : 'country'; s.index = 0; }
+    const rest = L.prelimExcluding(p, pick, '반도체'), label = `${L.formatMonth(pick.month)} · ${L.prelimSpanLabel(pick.span)}${pick.span === 'm' ? '' : ' 누계'}`;
+    const series = L.prelimSeries(p, s.kind, s.index, pick.span), shown = `${esc(series.name)} · ${L.prelimSpanLabel(pick.span)}`;
+    box.innerHTML = head(`${label} · 수출신고 수리일 기준 · 조업일수 보정 전`, spans)
+      + `<div class="rs-stats"><div><span>전체 수출</span><b>${L.usdLabel(total.amount)}</b><small>${label}</small></div><div><span>전년 동기 대비</span><b class="rs-${L.direction(total.yoy)}">${L.signed(total.yoy, 1)}</b><small>전년 같은 구간 누계와 비교</small></div><div><span>전월 동기 대비</span><b class="rs-${L.direction(total.mom)}">${L.signed(total.mom, 1)}</b><small>전월 같은 구간 누계와 비교</small></div><div><span>반도체 제외 수출</span><b>${L.usdLabel(rest && rest.amount)}</b><small>전년 동기 대비 ${L.signed(rest && rest.yoy, 1)}</small></div></div>
+      <div class="rs-grid rs-g2">${prelimTable('주요 품목', 'item', items)}${prelimTable('주요 국가', 'country', countries)}</div>
+      <div class="rs-grid rs-g2 rs-gap">${chartCard('rsPrelimAmount', `${shown} 금액`, '억 달러')}${chartCard('rsPrelimYoy', `${shown} 전년 동기 대비`, '%')}</div>
+      <p class="rs-note">표의 행을 누르면 그 품목·국가의 추이를 아래에 표시합니다. 매월 11일·21일·익월 1일경 공표되는 잠정치이며 이후 정정될 수 있습니다. 관세청이 정한 주요 품목 10개·주요 국가 10개만 제공되고(추적 품목과 분류가 다름) 수입은 포함하지 않습니다. 원자료 단위는 천 달러입니다.</p>`;
+    const labels = series.months.map(L.formatMonth);
+    lineChart('rsPrelimAmount', labels, [{label: shown, data: series.amount.map(v => (L.isNumber(v) ? v / 1e8 : null)), borderColor: COLORS.kospi}], {decimals: 1, suffix: '억$'});
+    lineChart('rsPrelimYoy', labels, [{label: '전년 동기 대비', data: series.yoy, borderColor: COLORS.up}], {decimals: 1, suffix: '%', baseline: 0, baselineLabel: '0'});
+  }
+
+  // 품목별
   function tradeRows(trade) {
     const t = state.trade, query = t.query.trim().toLowerCase();
     const rows = (trade.items || []).map(item => ({item, m: L.tradeMetrics(item, t.flow)})).filter(r => !query || r.item.label.toLowerCase().includes(query) || r.item.hs.includes(query) || (r.item.stocks || []).some(s => s.name.toLowerCase().includes(query) || s.code.includes(query)));
     return L.sortBy(rows, r => (t.sort === 'label' ? r.item.label : r.m && r.m[t.sort]), t.dir);
   }
-  function paintTrade() {
-    const trade = cache.trade && cache.trade.data, table = document.getElementById('rsTradeTable');
-    if (!trade || !table) return;
+  function paintItems(trade) {
+    const table = document.getElementById('rsTradeTable');
+    if (!table) return;
     const t = state.trade, rows = tradeRows(trade);
     if (!rows.some(r => r.item.id === t.selected)) t.selected = rows.length ? rows[0].item.id : null;
-    const th = ([key, label, numeric]) => `<th data-rs-tsort="${key}" class="${numeric ? 'n ' : ''}${t.sort === key ? 'on' : ''}">${label}${t.sort === key ? (t.dir < 0 ? ' ▼' : ' ▲') : ''}</th>`;
+    const th = sortTh('tsort', t);
     table.innerHTML = rows.length ? `<div class="rs-tablebox"><table class="rs-table"><thead><tr>${th(TRADE_COLS[0])}<th>관련 종목</th><th>기준월</th>${TRADE_COLS.slice(1).map(th).join('')}</tr></thead><tbody>${rows.map(({item, m}) => `<tr data-row="trade" data-id="${esc(item.id)}" class="${item.id === t.selected ? 'sel' : ''}"><td>${esc(item.label)} <small class="rs-dim">HS ${esc(item.hs)}</small></td><td class="rs-dim">${(item.stocks || []).map(s => esc(s.name)).join(', ') || '—'}</td>
       <td class="n">${m ? L.formatMonth(m.month) : '—'}</td><td class="n">${L.usdLabel(m && m.amount)}</td><td class="n">${pct(m && m.yoy, 1)}</td><td class="n">${pct(m && m.mom, 1)}</td><td class="n">${L.usdLabel(m && m.sum12)}</td><td class="n">${pct(m && m.sum12Yoy, 1)}</td><td class="n">${pct(m && m.unitYoy, 1)}</td></tr>`).join('')}</tbody></table></div>` : missing('조건에 맞는 품목이 없습니다.');
     paintTradeDetail(trade);
   }
+  function countryBlock(item) {
+    const b = L.countryBreakdown(item.countries, state.trade.flow), name = flowName();
+    if (!b) return `<h3 class="rs-sub">국가별 ${name}</h3>${missing(item.countries ? `이 품목의 국가별 ${name} 실적이 없습니다.` : '국가별 실적을 아직 받지 못했습니다. 다음 수집 뒤에 표시됩니다.')}`;
+    const line = (r, cls = '') => `<tr class="${cls}"><td>${esc(r.name)}${r.code.length === 2 ? ` <small class="rs-dim">${esc(r.code)}</small>` : ''}</td><td class="n">${L.usdLabel(r.m && r.m.amount)}</td><td class="n">${L.isNumber(r.share) ? num(r.share, 1) + '%' : '—'}</td><td class="n">${pct(r.m && r.m.yoy, 1)}</td><td class="n">${L.usdLabel(r.m && r.m.sum12)}</td><td class="n">${pct(r.m && r.m.sum12Yoy, 1)}</td></tr>`;
+    return `<h3 class="rs-sub">국가별 ${name} · ${L.formatMonth(b.month)} 기준</h3>
+      <div class="rs-grid rs-g2"><div class="rs-tablebox"><table class="rs-table"><thead><tr><th>${state.trade.flow === 'exp' ? '목적국' : '원산국'}</th><th class="n">금액</th><th class="n">비중</th><th class="n">YoY</th><th class="n">12개월 누적</th><th class="n">누적 YoY</th></tr></thead>
+        <tbody>${b.rows.map(r => line(r)).join('')}${line(b.rest, 'rs-sum')}${line(b.total, 'rs-sum')}</tbody></table></div>
+        ${chartCard('rsTradeCountry', `상위 국가 월별 ${name}`, '백만 달러')}</div>
+      <p class="rs-note">최근 12개월 ${name} 누계가 큰 순서로 ${b.rows.length}개국을 보여 줍니다(${(item.countries.countries || 0).toLocaleString('ko-KR')}개국 중). 수출은 최종 목적국, 수입은 원산국 기준이며 비중은 국가별 합계 대비입니다. 실적이 공표된 달에 기록이 없는 국가는 0으로 봅니다.</p>`;
+  }
   function paintTradeDetail(trade) {
     const box = document.getElementById('rsTradeDetail'), t = state.trade, item = (trade.items || []).find(i => i.id === t.selected);
     if (!box) return;
-    destroyCharts();
     if (!item) { box.innerHTML = missing('품목을 선택하세요.'); return; }
-    const m = L.tradeMetrics(item, t.flow), flowName = t.flow === 'exp' ? '수출' : '수입';
-    box.innerHTML = `<div class="rs-panel-head"><div><h2>${esc(item.label)} · ${flowName}</h2><p>HS ${esc(item.hs)} · ${m ? L.formatMonth(m.month) + ' 기준' : '관측값 없음'}</p></div><div class="rs-tools">${(item.stocks || []).map(s => `<button class="btn" data-code="${esc(s.code)}">${esc(s.name)} 상세 →</button>`).join('')}</div></div>
+    const m = L.tradeMetrics(item, t.flow), name = flowName();
+    box.innerHTML = `<div class="rs-panel-head"><div><h2>${esc(item.label)} · ${name}</h2><p>HS ${esc(item.hs)} · ${m ? L.formatMonth(m.month) + ' 기준' : '관측값 없음'}</p></div><div class="rs-tools">${(item.stocks || []).map(s => `<button class="btn" data-code="${esc(s.code)}">${esc(s.name)} 상세 →</button>`).join('')}</div></div>
       <div class="rs-stats"><div><span>최근월 금액</span><b>${L.usdLabel(m && m.amount)}</b><small>YoY ${L.signed(m && m.yoy, 1)} · MoM ${L.signed(m && m.mom, 1)}</small></div><div><span>12개월 누적</span><b>${L.usdLabel(m && m.sum12)}</b><small>전년 같은 기간 대비 ${L.signed(m && m.sum12Yoy, 1)}</small></div><div><span>단가(금액 ÷ 중량)</span><b>${m && L.isNumber(m.unit) ? num(m.unit, 2) + ' $/kg' : '—'}</b><small>YoY ${L.signed(m && m.unitYoy, 1)}</small></div></div>
-      <div class="rs-grid rs-g3"><div class="rs-card"><div class="rs-k">월별 금액<small>백만 달러</small></div><div class="rs-chart"><canvas id="rsTradeAmount"></canvas></div></div><div class="rs-card"><div class="rs-k">전년 동월 대비<small>%</small></div><div class="rs-chart"><canvas id="rsTradeYoy"></canvas></div></div><div class="rs-card"><div class="rs-k">단가<small>달러/kg</small></div><div class="rs-chart"><canvas id="rsTradeUnit"></canvas></div></div></div>`;
+      <div class="rs-grid rs-g3">${chartCard('rsTradeAmount', '월별 금액', '백만 달러')}${chartCard('rsTradeYoy', '전년 동월 대비', '%')}${chartCard('rsTradeUnit', '단가', '달러/kg')}</div>
+      ${countryBlock(item)}`;
     const labels = item.months.map(L.formatMonth), amount = item[t.flow] || [];
-    lineChart('rsTradeAmount', labels, [{label: flowName + ' 금액', data: amount.map(v => (L.isNumber(v) ? v / 1e6 : null)), borderColor: COLORS.kospi}], {decimals: 1, suffix: '백만$'});
+    lineChart('rsTradeAmount', labels, [{label: name + ' 금액', data: toMillion(amount), borderColor: COLORS.kospi}], {decimals: 1, suffix: '백만$'});
     lineChart('rsTradeYoy', labels, [{label: 'YoY', data: L.yoySeries(amount), borderColor: COLORS.up}], {decimals: 1, suffix: '%', baseline: 0, baselineLabel: '0'});
     lineChart('rsTradeUnit', labels, [{label: '단가', data: L.unitSeries(amount, item[t.flow + '_wgt']), borderColor: COLORS.kosdaq}], {decimals: 2, suffix: '$/kg'});
+    const b = L.countryBreakdown(item.countries, t.flow);
+    if (b && b.rows.length) lineChart('rsTradeCountry', b.months.map(L.formatMonth), b.rows.slice(0, SERIES_COLORS.length).map((r, i) => ({label: r.name, data: toMillion(r.values), borderColor: SERIES_COLORS[i]})), {decimals: 1, suffix: '백만$'});
+  }
+
+  // 국가·지역
+  function nationRows(nations) {
+    const t = state.trade, n = t.nation, query = n.query.trim().toLowerCase();
+    const rows = (nations.rows || []).map(row => ({row, m: L.nationMetrics(row, nations.months, t.flow)})).filter(r => !query || r.row.name.toLowerCase().includes(query) || r.row.code.toLowerCase().includes(query));
+    return L.sortBy(rows, r => (n.sort === 'name' ? r.row.name : r.m && r.m[n.sort]), n.dir);
+  }
+  function paintNations(trade) {
+    const table = document.getElementById('rsNationTable'), box = document.getElementById('rsNationDetail'), nations = trade.nations;
+    if (!table || !box) return;
+    if (!nations || !(nations.rows || []).length) { table.innerHTML = missing('국가별 실적을 아직 받지 못했습니다. 다음 수집 뒤에 표시됩니다.'); box.innerHTML = ''; return; }
+    const t = state.trade, n = t.nation, rows = nationRows(nations), name = flowName();
+    if (!rows.some(r => r.row.code === n.selected)) n.selected = rows.length ? rows[0].row.code : null;
+    const th = sortTh('nsort', n), tag = row => (row.kind === 'country' ? `<small class="rs-dim">${esc(row.code)}</small>` : row.kind === 'region' ? '<small class="rs-dim">지역</small>' : '');
+    table.innerHTML = rows.length ? `<div class="rs-tablebox"><table class="rs-table"><thead><tr>${th(NATION_COLS[0])}<th>기준월</th>${NATION_COLS.slice(1).map(th).join('')}</tr></thead><tbody>${rows.map(({row, m}) => `<tr data-row="nation" data-id="${esc(row.code)}" class="${row.code === n.selected ? 'sel' : ''}"><td>${esc(row.name)} ${tag(row)}</td>
+      <td class="n">${m ? L.formatMonth(m.month) : '—'}</td><td class="n">${L.usdLabel(m && m.amount)}</td><td class="n">${pct(m && m.yoy, 1)}</td><td class="n">${pct(m && m.mom, 1)}</td><td class="n">${L.usdLabel(m && m.sum12)}</td><td class="n">${pct(m && m.sum12Yoy, 1)}</td><td class="n rs-${L.direction(m && m.balance)}">${L.usdLabel(m && m.balance)}</td></tr>`).join('')}</tbody></table></div>` : missing('조건에 맞는 국가가 없습니다.');
+    const row = (nations.rows || []).find(r => r.code === n.selected);
+    if (!row) { box.innerHTML = missing('국가를 선택하세요.'); return; }
+    const m = L.nationMetrics(row, nations.months, t.flow), other = L.nationMetrics(row, nations.months, t.flow === 'exp' ? 'imp' : 'exp');
+    box.innerHTML = `<div class="rs-panel-head"><div><h2>${esc(row.name)} · ${name}</h2><p>${m ? L.formatMonth(m.month) + ' 기준' : '관측값 없음'} · 수출은 최종 목적국, 수입은 원산국 기준</p></div></div>
+      <div class="rs-stats"><div><span>최근월 ${name}</span><b>${L.usdLabel(m && m.amount)}</b><small>YoY ${L.signed(m && m.yoy, 1)} · MoM ${L.signed(m && m.mom, 1)}</small></div><div><span>12개월 누적 ${name}</span><b>${L.usdLabel(m && m.sum12)}</b><small>전년 같은 기간 대비 ${L.signed(m && m.sum12Yoy, 1)}</small></div><div><span>최근월 ${t.flow === 'exp' ? '수입' : '수출'}</span><b>${L.usdLabel(other && other.amount)}</b><small>YoY ${L.signed(other && other.yoy, 1)}</small></div><div><span>최근월 무역수지</span><b class="rs-${L.direction(m && m.balance)}">${L.usdLabel(m && m.balance)}</b><small>수출 − 수입</small></div></div>
+      <div class="rs-grid rs-g2">${chartCard('rsNationAmount', '월별 수출·수입', '백만 달러')}${chartCard('rsNationYoy', `${name} 전년 동월 대비`, '%')}</div>`;
+    const labels = nations.months.map(L.formatMonth);
+    lineChart('rsNationAmount', labels, [{label: '수출', data: toMillion(row.exp), borderColor: COLORS.kospi}, {label: '수입', data: toMillion(row.imp), borderColor: COLORS.kosdaq}], {decimals: 1, suffix: '백만$'});
+    lineChart('rsNationYoy', labels, [{label: 'YoY', data: L.yoySeries(row[t.flow] || []), borderColor: COLORS.up}], {decimals: 1, suffix: '%', baseline: 0, baselineLabel: '0'});
+  }
+  function paintTrade() {
+    const trade = cache.trade && cache.trade.data;
+    if (!trade) return;
+    destroyCharts();
+    paintPrelim(trade);
+    if (state.trade.view === 'nation') paintNations(trade); else paintItems(trade);
   }
   async function renderTrade(force) {
     const token = ++renderToken, trade = await load('trade', force);
     if (token !== renderToken) return;
     if (!trade || !(trade.items || []).length) return renderPending('trade');
-    const t = state.trade, failed = (trade.errors || []).length;
-    root.innerHTML = header(`<span class="basis">최신 ${L.formatMonth(trade.latest_month)} · 통관 기준</span>`) + `<div class="rs-wrap">
-      ${statusLine([`수집 ${esc(String(trade.generated_at || '').slice(0, 16).replace('T', ' '))}`, `품목 ${trade.items.length}개`, failed ? `<span class="rs-warn">이번 수집 실패 ${failed}개 품목 · 직전 값 유지</span>` : ''])}
-      ${panel('품목별 수출입 추이', '헤더를 누르면 정렬 · 행을 누르면 아래에 추이 표시', '<div id="rsTradeTable"></div>', seg('tradeFlow', t.flow, [['exp', '수출'], ['imp', '수입']]) + `<input class="search" id="rsTradeSearch" placeholder="품목·HS·관련 종목 검색" value="${esc(t.query)}">`)}
-      <section class="rs-panel" id="rsTradeDetail"></section>
-      <p class="rs-foot">${esc(trade.source && trade.source.provider)} · ${esc(trade.source && trade.source.basis)}. YoY는 전년 동월, MoM은 전월 대비이며 조업일수를 보정하지 않았습니다. 관련 종목은 YM이 지정한 목록으로 해당 품목의 매출 비중을 뜻하지 않습니다. 통계적 관찰 자료이며 매수·매도 권유가 아닙니다.</p></div>`;
+    const t = state.trade, failed = (trade.errors || []).length, sectionFailed = (trade.section_errors || []).length, nations = trade.nations;
+    const flow = seg('tradeFlow', t.flow, [['exp', '수출'], ['imp', '수입']]);
+    const body = t.view === 'nation'
+      ? panel('국가·지역별 수출입', nations ? `전체와 지역 합산, 최근 12개월 수출입 합계 상위 ${(nations.rows || []).filter(r => r.kind === 'country').length}개국 · 헤더를 누르면 정렬 · 행을 누르면 아래에 추이 표시` : '', '<div id="rsNationTable"></div>', flow + `<input class="search" id="rsNationSearch" placeholder="국가명·코드 검색" value="${esc(t.nation.query)}">`) + '<section class="rs-panel" id="rsNationDetail"></section>'
+      : panel('품목별 수출입 추이', '헤더를 누르면 정렬 · 행을 누르면 아래에 추이와 국가별 실적 표시', '<div id="rsTradeTable"></div>', flow + `<input class="search" id="rsTradeSearch" placeholder="품목·HS·관련 종목 검색" value="${esc(t.query)}">`) + '<section class="rs-panel" id="rsTradeDetail"></section>';
+    root.innerHTML = header(`<span class="basis">확정 ${L.formatMonth(trade.latest_month)} · 통관 기준</span>` + seg('tradeView', t.view, [['item', '품목별'], ['nation', '국가·지역']])) + `<div class="rs-wrap">
+      ${statusLine([`수집 ${esc(String(trade.generated_at || '').slice(0, 16).replace('T', ' '))}`, `품목 ${trade.items.length}개`, nations ? `국가별 확정 ${L.formatMonth(nations.latest_month)}` : '', failed ? `<span class="rs-warn">이번 수집 실패 ${failed}개 품목 · 직전 값 유지</span>` : '', sectionFailed ? `<span class="rs-warn">국가별·잠정치 수집 실패 ${sectionFailed}건 · 직전 값 유지</span>` : ''])}
+      <section class="rs-panel" id="rsPrelim"></section>
+      ${body}
+      <p class="rs-foot">${esc(trade.source && trade.source.provider)} · ${esc(trade.source && trade.source.basis)}. 국가별 실적은 관세청 국가별·품목별 국가별 수출입실적이며, 유럽연합·아세안은 회원국 실적을 더한 값입니다. YoY는 전년 동월, MoM은 전월 대비이며 조업일수를 보정하지 않았습니다. 관련 종목은 YM이 지정한 목록으로 해당 품목의 매출 비중을 뜻하지 않습니다. 통계적 관찰 자료이며 매수·매도 권유가 아닙니다.</p></div>`;
     paintTrade();
   }
   function tradeDigest(trade) {
     if (!trade || !(trade.items || []).length) return pendingCard('수출입 모니터', '품목별 수출입 금액과 전년 대비 증감은 관세청 통계 인증키를 등록한 뒤 표시됩니다.', 'trade');
     const top = L.sortBy(trade.items.map(item => ({item, m: L.tradeMetrics(item, 'exp')})).filter(r => r.m && L.isNumber(r.m.yoy)), r => r.m.yoy, -1).slice(0, 5);
-    return panel('수출입 모니터', `수출 전년 동월 대비 상위 · 최신 ${L.formatMonth(trade.latest_month)}`, top.length ? `<ol class="rs-rank">${top.map((r, i) => `<li><i>${i + 1}</i><div><b>${esc(r.item.label)}</b><small>${L.formatMonth(r.m.month)} · ${L.usdLabel(r.m.amount)} · ${(r.item.stocks || []).map(s => esc(s.name)).join(', ')}</small></div><em class="rs-${L.direction(r.m.yoy)}">${L.signed(r.m.yoy, 1)}</em></li>`).join('')}</ol>` : missing('전년 동월과 비교할 수 있는 품목이 없습니다.'), '<button class="rs-link" data-rs-go="trade">수출입 분석 →</button>');
+    const pick = L.prelimPick(trade.prelim, null), total = pick && L.prelimRows(trade.prelim, 'item', pick)[0];
+    const headline = total && L.isNumber(total.amount) ? `<div class="rs-stats"><div><span>수출 잠정치 · ${L.formatMonth(pick.month)} ${L.prelimSpanLabel(pick.span)}</span><b>${L.usdLabel(total.amount)}</b><small>전년 동기 대비 ${L.signed(total.yoy, 1)} · 전월 동기 대비 ${L.signed(total.mom, 1)}</small></div></div>` : '';
+    return panel('수출입 모니터', `수출 전년 동월 대비 상위 · 확정 ${L.formatMonth(trade.latest_month)}`, headline + (top.length ? `<ol class="rs-rank">${top.map((r, i) => `<li><i>${i + 1}</i><div><b>${esc(r.item.label)}</b><small>${L.formatMonth(r.m.month)} · ${L.usdLabel(r.m.amount)} · ${(r.item.stocks || []).map(s => esc(s.name)).join(', ')}</small></div><em class="rs-${L.direction(r.m.yoy)}">${L.signed(r.m.yoy, 1)}</em></li>`).join('')}</ol>` : missing('전년 동월과 비교할 수 있는 품목이 없습니다.')), '<button class="rs-link" data-rs-go="trade">수출입 분석 →</button>');
   }
 
   // ---- 컨센서스 누적 분석 ----
@@ -433,7 +521,7 @@
     trade: {
       lead: '품목별 수출입 금액·물량·단가를 월별·순별 잠정치와 함께 보는 화면입니다. 관세청 통계를 직접 수집해야 하므로 인증키와 추적 품목 목록이 필요합니다.',
       plan: ['최근 잠정치 요약: 수출·수입 총액과 주요 품목·국가별 금액, 전년 동기 대비 · 전월 대비', '품목별 월별 금액 추이와 YoY·MoM, 일평균 기준 증감', '품목과 관련 종목 연결, 종목을 누르면 개별종목 상세로 이동', '수출/수입 전환, 증감률·금액순 정렬, 품목·종목 검색'],
-      need: ['공공데이터포털에서 관세청 품목별 수출입실적 API를 활용신청하고 인증키를 받습니다(무료)', '인증키를 GitHub 저장소 Secrets에 DATA_GO_KR_KEY로 등록합니다', 'Actions에서 build-research-sources를 한 번 실행하면 5년치 월별 실적을 받아 옵니다', '추적 품목과 관련 종목은 trade_pipeline/items.json에서 고칩니다', '순별(1~10일, 1~20일) 잠정치는 이 API에 없어 아직 포함하지 않았습니다'],
+      need: ['공공데이터포털에서 관세청 API 다섯 개를 같은 계정으로 활용신청하고 인증키를 받습니다(무료): 품목별 수출입실적 · 품목별 국가별 수출입실적 · 국가별 수출입실적 · 수출 주요품목별 10일 단위 잠정치 · 수출 주요국가별 10일 단위 잠정치', '인증키를 GitHub 저장소 Secrets에 DATA_GO_KR_KEY로 등록합니다', 'Actions에서 build-research-sources를 한 번 실행하면 5년치 월별 실적과 잠정치를 받아 옵니다', '추적 품목과 관련 종목은 trade_pipeline/items.json에서 고칩니다', '잠정치는 수출만 제공되며 관세청이 정한 주요 품목 10개·주요 국가 10개 기준입니다'],
     },
   };
   function renderPending(kind) {
@@ -460,6 +548,13 @@
     const t = event.target.closest('button,th,tr[data-row]');
     if (!t || !root.contains(t)) return;
     if (t.dataset.row === 'trade') { state.trade.selected = t.dataset.id; return paintTrade(); }
+    if (t.dataset.row === 'nation') { state.trade.nation.selected = t.dataset.id; return paintTrade(); }
+    if (t.dataset.row === 'prelim') { state.trade.prelim.kind = t.dataset.kind; state.trade.prelim.index = Number(t.dataset.id); return paintTrade(); }
+    if (t.dataset.rsNsort) {
+      const s = state.trade.nation, key = t.dataset.rsNsort;
+      s.dir = s.sort === key ? -s.dir : (key === 'name' ? 1 : -1); s.sort = key;
+      return paintTrade();
+    }
     if (t.dataset.row === 'cons') { state.cons.selected = t.dataset.id; return paintCons(); }
     if (t.dataset.rsTsort || t.dataset.rsCsort) {
       const s = t.dataset.rsTsort ? state.trade : state.cons, key = t.dataset.rsTsort || t.dataset.rsCsort, text = ['label', 'name', 'class'].includes(key);
@@ -480,7 +575,8 @@
     if (!group) return;
     const name = group.dataset.rsSeg, raw = t.dataset.v, value = /^-?\d+$/.test(raw) ? Number(raw) : raw;
     if (name === 'heatCap') state.heat.minCap = value; else if (name === 'heatKey') state.heat.key = value; else if (name === 'heatGroup') state.heat.grouped = value === 1;
-    else if (name === 'tradeFlow') state.trade.flow = value; else if (name === 'consFilter') state.cons.filter = raw; else state[name] = value;
+    else if (name === 'tradeFlow') state.trade.flow = value; else if (name === 'tradeView') state.trade.view = value; else if (name === 'prelimSpan') state.trade.prelim.span = value;
+    else if (name === 'consFilter') state.cons.filter = raw; else state[name] = value;
     if (name.startsWith('heat')) { group.querySelectorAll('button').forEach(b => b.classList.toggle('on', b === t)); return paintHeat(); }
     render(false);
   }
@@ -488,6 +584,7 @@
     const id = event.target.id, value = event.target.value;
     if (id === 'rsHeatSearch') { state.heat.query = value; paintHeat(); }
     else if (id === 'rsTradeSearch') { state.trade.query = value; paintTrade(); }
+    else if (id === 'rsNationSearch') { state.trade.nation.query = value; paintTrade(); }
     else if (id === 'rsConsSearch') { state.cons.query = value; paintCons(); }
   }
   function onResize() { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { if (root && view === 'heatmap' && root.offsetParent) paintHeat(); }, 150); }

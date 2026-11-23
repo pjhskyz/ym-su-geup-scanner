@@ -77,6 +77,65 @@
   }
   function yoySeries(values) { return (values || []).map((v, i) => pctChange(v, i >= 12 ? values[i - 12] : null)); }
   function unitSeries(amount, weight) { return (amount || []).map((v, i) => (isNumber(v) && isNumber((weight || [])[i]) && weight[i] > 0 ? v / weight[i] : null)); }
+  // ---- 수출 잠정치(10일 단위 누계) ----
+  const PRELIM_SPANS = ['d10', 'd20', 'm'];
+  function prelimSpanLabel(span) { return {d10: '1~10일', d20: '1~20일', m: '월 전체'}[span] || '—'; }
+  // 볼 (월, 구간)을 고른다. span이 없으면 수집기가 표시한 최신 구간, 있으면 그 구간 값이 있는 가장 최근 월.
+  function prelimPick(prelim, span) {
+    const months = (prelim && prelim.months) || [];
+    const total = prelim && ((prelim.item && prelim.item[0]) || (prelim.country && prelim.country[0]));
+    if (!total || !months.length) return null;
+    if (!span) {
+      const latest = prelim.latest, index = latest ? months.indexOf(latest.month) : -1;
+      return index >= 0 && PRELIM_SPANS.includes(latest.span) && isNumber((total[latest.span] || [])[index]) ? {index, month: latest.month, span: latest.span} : null;
+    }
+    const last = PRELIM_SPANS.includes(span) ? lastValid(total[span] || []) : null;
+    return last ? {index: last.index, month: months[last.index], span} : null;
+  }
+  // kind: 'item' | 'country'. 같은 구간끼리만 비교한다(전년 동기 = 12개월 전, 전월 동기 = 1개월 전). 비중은 첫 행(전체) 대비.
+  function prelimRows(prelim, kind, pick) {
+    const rows = (prelim && prelim[kind]) || [];
+    if (!pick || !rows.length) return [];
+    const at = (row, k) => (k >= 0 ? (row[pick.span] || [])[k] : null), total = at(rows[0], pick.index);
+    return rows.map((row, index) => {
+      const amount = at(row, pick.index);
+      return {index, name: row.name, amount, yoy: pctChange(amount, at(row, pick.index - 12)), mom: pctChange(amount, at(row, pick.index - 1)),
+        share: index > 0 && isNumber(amount) && isNumber(total) && total > 0 ? amount / total * 100 : null};
+    });
+  }
+  // 전체에서 한 품목을 뺀 금액의 지표(예: 반도체 제외 수출). 둘 중 하나라도 없으면 계산하지 않는다.
+  function prelimExcluding(prelim, pick, name) {
+    const rows = (prelim && prelim.item) || [], part = rows.find(row => row.name === name);
+    if (!pick || !part || !rows[0]) return null;
+    const at = k => { const a = k >= 0 ? (rows[0][pick.span] || [])[k] : null, b = k >= 0 ? (part[pick.span] || [])[k] : null; return isNumber(a) && isNumber(b) ? a - b : null; };
+    const amount = at(pick.index);
+    return isNumber(amount) ? {amount, yoy: pctChange(amount, at(pick.index - 12)), mom: pctChange(amount, at(pick.index - 1))} : null;
+  }
+  function prelimSeries(prelim, kind, index, span) {
+    const row = ((prelim && prelim[kind]) || [])[index], amount = (row && row[span]) || [];
+    return {name: row ? row.name : '', months: (prelim && prelim.months) || [], amount, yoy: yoySeries(amount)};
+  }
+
+  // ---- 국가별 ----
+  // 국가·지역 한 행(exp·imp 월별 금액) → 최신월 지표와 같은 달 무역수지.
+  function nationMetrics(row, months, flow) {
+    const m = tradeMetrics({months, exp: row && row.exp, imp: row && row.imp}, flow);
+    if (!m) return null;
+    const exp = (row.exp || [])[m.index], imp = (row.imp || [])[m.index];
+    return {...m, balance: isNumber(exp) && isNumber(imp) ? exp - imp : null};
+  }
+  // 품목의 국가 분해 → 상위 국가 행 + 그 외 + 전체. 비중은 국가 합계의 최신월 대비.
+  function countryBreakdown(countries, flow) {
+    const months = (countries && countries.months) || [], total = (countries && countries.total && countries.total[flow]) || [];
+    const all = tradeMetrics({months, v: total}, 'v');
+    if (!all) return null;
+    const share = m => (m && m.index === all.index && all.amount > 0 ? m.amount / all.amount * 100 : null);
+    const rows = ((countries && countries[flow]) || []).map(row => { const m = tradeMetrics({months, v: row.values}, 'v'); return {code: row.code, name: row.name, values: row.values || [], m, share: share(m)}; });
+    const rest = total.map((v, k) => (isNumber(v) && rows.every(r => isNumber(r.values[k])) ? v - rows.reduce((sum, r) => sum + r.values[k], 0) : null));
+    const restM = tradeMetrics({months, v: rest}, 'v');
+    return {months, month: all.month, total: {code: 'ALL', name: '전체', values: total, m: all, share: null}, rows, rest: {code: 'REST', name: '그 외 국가', values: rest, m: restM, share: share(restM)}};
+  }
+
   // null은 방향과 무관하게 항상 뒤로 보내는 정렬
   function sortBy(rows, getter, dir) {
     return rows.slice().sort((a, b) => {
@@ -213,6 +272,7 @@
     isNumber, signed, direction, formatDate, shortDate, capLabel,
     lastValid, previousValid, movingAverage, tail, periodReturn,
     pctChange, formatMonth, usdLabel, tradeMetrics, yoySeries, unitSeries, sortBy,
+    prelimSpanLabel, prelimPick, prelimRows, prelimExcluding, prelimSeries, nationMetrics, countryBreakdown,
     tileWeight, treemap, heatColor, heatmapRows, moveCounts,
     marketReading, leaderScore, etfCandidates, etfLeaders, etfRebounds, quoteFromYahoo,
   };

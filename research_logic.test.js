@@ -161,3 +161,66 @@ test('수출입 지표: 전년 동월·전월·12개월 누적·단가, 결측�
   assert.deepEqual(L.sortBy([{v: 1}, {v: null}, {v: 3}], r => r.v, 1).map(r => r.v), [1, 3, null]);
   assert.deepEqual(L.sortBy([{v: '나'}, {v: '가'}], r => r.v, 1).map(r => r.v), ['가', '나']);
 });
+
+test('수출 잠정치: 같은 구간끼리 전년·전월 동기 비교, 없는 구간은 고르지 않는다', () => {
+  const months = Array.from({length: 14}, (_, i) => (i < 2 ? `2025${String(11 + i).padStart(2, '0')}` : `2026${String(i - 1).padStart(2, '0')}`));
+  assert.deepEqual([months[0], months[12], months[13]], ['202511', '202611', '202612']);
+  const fill = (base, last) => months.map((_, i) => (i === 13 ? last : base + i));
+  const prelim = {months, latest: {month: '202612', span: 'd10'},
+    item: [{name: '전체', d10: fill(100, 150), d20: fill(200, null), m: fill(300, null)}, {name: '반도체', d10: fill(40, 90), d20: fill(80, null), m: fill(120, null)}, {name: '선박', d10: months.map(() => null), d20: months.map(() => null), m: months.map(() => null)}],
+    country: [{name: '전체', d10: fill(100, 150), d20: fill(200, null), m: fill(300, null)}, {name: '중국', d10: fill(20, 30), d20: fill(50, null), m: fill(70, null)}]};
+  assert.deepEqual(L.prelimPick(prelim, null), {index: 13, month: '202612', span: 'd10'});
+  assert.deepEqual(L.prelimPick(prelim, 'd20'), {index: 12, month: '202611', span: 'd20'}, '1~20일 값이 아직 없는 달은 건너뛴다');
+  assert.equal(L.prelimPick(prelim, 'x'), null);
+  assert.equal(L.prelimPick({...prelim, latest: {month: '202612', span: 'm'}}, null), null, '표시된 최신 구간에 값이 없으면 고르지 않는다');
+  assert.equal(L.prelimPick(null, null), null);
+  assert.equal(L.prelimPick({months: [], item: []}, 'd10'), null);
+  const rows = L.prelimRows(prelim, 'item', L.prelimPick(prelim, null));
+  assert.deepEqual(rows.map(r => r.name), ['전체', '반도체', '선박']);
+  assert.equal(rows[0].amount, 150);
+  assert.equal(rows[0].yoy, L.pctChange(150, 101));
+  assert.equal(rows[0].mom, L.pctChange(150, 112));
+  assert.equal(rows[0].share, null, '전체 행은 비중을 표시하지 않는다');
+  assert.equal(rows[1].share, 60);
+  assert.deepEqual([rows[2].amount, rows[2].yoy, rows[2].share], [null, null, null], '값이 없는 품목은 0으로 보지 않는다');
+  const d20 = L.prelimRows(prelim, 'country', L.prelimPick(prelim, 'd20'));
+  assert.equal(d20[1].amount, 62);
+  assert.equal(d20[1].yoy, L.pctChange(62, 50));
+  assert.ok(Math.abs(d20[1].share - 62 / 212 * 100) < 1e-9);
+  assert.deepEqual(L.prelimRows(prelim, 'item', null), []);
+  const ex = L.prelimExcluding(prelim, L.prelimPick(prelim, null), '반도체');
+  assert.deepEqual([ex.amount, ex.yoy, ex.mom], [60, L.pctChange(60, 60), L.pctChange(60, 60)]);
+  assert.equal(L.prelimExcluding(prelim, L.prelimPick(prelim, null), '없는 품목'), null);
+  assert.equal(L.prelimExcluding(prelim, L.prelimPick(prelim, null), '선박'), null);
+  const series = L.prelimSeries(prelim, 'item', 1, 'd10');
+  assert.equal(series.name, '반도체');
+  assert.equal(series.yoy[12], L.pctChange(52, 40));
+  assert.equal(series.yoy[11], null);
+  assert.deepEqual(L.prelimSeries(prelim, 'item', 9, 'd10').amount, []);
+  assert.deepEqual(['d10', 'd20', 'm', 'q'].map(L.prelimSpanLabel), ['1~10일', '1~20일', '월 전체', '—']);
+});
+
+test('국가별: 무역수지·국가 분해 비중, 그 외 국가는 전체에서 뺀다', () => {
+  const months = Array.from({length: 24}, (_, i) => `${2024 + Math.floor((10 + i) / 12)}${String((10 + i) % 12 + 1).padStart(2, '0')}`);
+  assert.deepEqual([months[0], months[23]], ['202411', '202610']);
+  const flat = v => months.map(() => v);
+  const n = L.nationMetrics({exp: months.map((_, i) => 100 + i), imp: flat(80)}, months, 'exp');
+  assert.deepEqual([n.month, n.amount, n.balance], ['202610', 123, 43]);
+  assert.equal(n.yoy, L.pctChange(123, 111));
+  assert.equal(L.nationMetrics({exp: flat(null), imp: flat(1)}, months, 'exp'), null);
+  assert.equal(L.nationMetrics({exp: flat(5), imp: flat(null)}, months, 'exp').balance, null, '한쪽이 없으면 수지를 계산하지 않는다');
+  const countries = {months, total: {exp: flat(100), imp: flat(10)}, exp: [{code: 'US', name: '미국', values: months.map((_, i) => (i < 12 ? 30 : 60))}, {code: 'CN', name: '중국', values: flat(25)}], imp: []};
+  const b = L.countryBreakdown(countries, 'exp');
+  assert.equal(b.month, '202610');
+  assert.deepEqual(b.rows.map(r => [r.code, r.m.amount, r.share]), [['US', 60, 60], ['CN', 25, 25]]);
+  assert.equal(b.rows[0].m.yoy, 100);
+  assert.equal(b.rows[0].m.sum12Yoy, 100);
+  assert.deepEqual([b.rest.values[0], b.rest.values[23], b.rest.share], [45, 15, 15]);
+  assert.equal(b.total.m.sum12, 1200);
+  const imp = L.countryBreakdown(countries, 'imp');
+  assert.deepEqual([imp.rows.length, imp.rest.m.amount, imp.rest.share], [0, 10, 100], '상위 국가가 없으면 전부 그 외로 본다');
+  assert.equal(L.countryBreakdown({months, total: {exp: flat(null)}, exp: []}, 'exp'), null);
+  assert.equal(L.countryBreakdown(null, 'exp'), null);
+  const lagging = L.countryBreakdown({months, total: {exp: flat(100)}, exp: [{code: 'US', name: '미국', values: months.map((_, i) => (i === 23 ? null : 50))}]}, 'exp');
+  assert.deepEqual([lagging.rows[0].share, lagging.rest.values[23]], [null, null], '기준월이 다르면 비중을 계산하지 않는다');
+});

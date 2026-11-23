@@ -1,11 +1,12 @@
 name: build-research-sources
 
 # 투자 리서치의 수출입 분석·컨센서스 누적 분석 자료를 만든다.
-# - 수출입: 관세청 품목별 수출입실적(공공데이터포털). Secrets의 DATA_GO_KR_KEY가 없으면 건너뛴다.
+# - 수출입: 관세청 품목별·국가별 수출입실적과 수출 10일 단위 잠정치(공공데이터포털). Secrets의 DATA_GO_KR_KEY가 없으면 건너뛴다.
 # - 컨센서스: consensus_pipeline/inbox/ 의 날짜별 CSV를 history/ 로 보관하고 비교한다(네트워크 미사용).
 on:
   schedule:
     - cron: '20 14 * * 1-5'   # 23:20 KST (월~금). GitHub 예약은 지연될 수 있다.
+    - cron: '10 1 1-3,11-13,21-23 * *'   # 10:10 KST. 수출 잠정치 공표일(1·11·21일, 휴일이면 다음 날) 오전에 한 번 더.
   workflow_dispatch:
   # 품목 목록·CSV·수집기를 고쳐 올리면 예약 시각을 기다리지 않고 그 브랜치에서 바로 다시 만든다.
   push:
@@ -26,7 +27,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,7 +40,7 @@ jobs:
       - name: Validate builders
         run: python -m unittest test_trade_data test_consensus_data
 
-      - name: Build trade_data.json (관세청 수출입실적)
+      - name: Build trade_data.json (관세청 수출입실적·잠정치)
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         run: python build_trade_data.py
