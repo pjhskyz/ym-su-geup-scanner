@@ -11,6 +11,9 @@
 // 연도문자(두 가지 매핑 후보) × 분기월로 후보 코드를 생성해 순서대로 조회하고
 // 값이 오는 첫 코드를 12시간 캐시한다 → 분기 만기 롤오버 자동 해결.
 
+import L from "../../auth/auth_logic.js";
+import { currentUser } from "../lib/identity.mjs";
+
 const BASE = "https://openapi.koreainvestment.com:9443";
 let tok = { v: null, exp: 0 };
 let resolved = { code: null, at: 0 };          // 자동 탐지된 월물 코드 캐시
@@ -134,6 +137,10 @@ export default async (req) => {
       status: s,
       headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
     });
+
+  // 승인된 회원만 시세를 받을 수 있다 (사이트 화면과 같은 로그인 쿠키로 확인).
+  const viewer = await currentUser(req);
+  if (!viewer || !L.canView(viewer.roles)) return json({ error: "로그인이 필요합니다." }, 401);
 
   if (!process.env.KIS_APPKEY || !process.env.KIS_APPSECRET)
     return json({ error: "환경변수 KIS_APPKEY / KIS_APPSECRET 미설정" }, 500);

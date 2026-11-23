@@ -181,3 +181,55 @@ python -m unittest test_research_data.py test_trade_data.py test_consensus_data.
 node --test research_logic.test.js
 python build_research_data.py
 ```
+
+## 로그인과 회원 승인
+
+사이트는 **구글 계정으로 로그인하고 관리자가 승인한 사람만** 볼 수 있습니다. 화면뿐 아니라 자료 파일(JSON), 시세 프록시(`/yf/*`), 야간선물 Function 까지 같은 기준으로 막습니다.
+
+| 상태 | 권한(`app_metadata.roles`) | 볼 수 있는 것 |
+|---|---|---|
+| 로그인 전 | — | 로그인 화면(`/auth/*`)만 |
+| 승인 대기 | 없음 | 로그인 화면의 "승인을 기다리고 있습니다" 안내만 |
+| 회원 | `member` | 스캐너 화면과 모든 자료 |
+| 관리자 | `admin` | 위 전부 + 회원 관리 화면(`/admin.html`) |
+
+흐름: 구글 로그인 → 가입 요청이 **승인 대기**로 등록 → 관리자가 `/admin.html` 에서 **승인** → 요청한 사람의 대기 화면이 1분 안에 자동으로 넘어감("승인되었는지 확인"을 누르면 바로). 관리자에게는 상단 계정 이름 옆에 대기 건수가 표시되고, 이름을 누르면 회원 관리·로그아웃 메뉴가 열립니다.
+
+### 구성
+
+- `_redirects` — 접근 규칙. `Role=` 조건은 Netlify 가 로그인 쿠키(`nf_jwt`)의 서명을 검증해 판단합니다. 공개 경로는 `/auth/*` 하나뿐이고, 나머지는 `member`·`admin` 만 통과하며, 그 밖의 요청에는 로그인 화면을 401 로 돌려줍니다.
+- `auth/login.html`, `auth/login.js`, `auth/auth.css` — 로그인·승인 대기 화면.
+- `auth/auth.js` — 브라우저용 로그인 도우미. 외부 라이브러리 없이 Netlify Identity 의 표준 주소(`/.netlify/identity/authorize`·`token`·`logout`)만 씁니다. 로그인 상태는 쿠키 두 개(`nf_jwt`, `nf_refresh`)에만 두고, 여러 탭이 동시에 토큰을 갱신하지 않도록 잠금을 겁니다.
+- `auth/session.js`, `auth/session.css` — 상단 계정 메뉴와 로그인이 풀렸을 때의 처리.
+- `auth/auth_logic.js` — 권한 판정 등 순수 로직(브라우저·Function·테스트 공용).
+- `admin.html`, `admin.js` — 회원 관리 화면.
+- `netlify/functions/members.mjs` — 목록·승인·해제·관리자 지정·삭제. 호출한 사람이 관리자인지 Identity 에 다시 물어 확인합니다.
+- `netlify/lib/identity.mjs` — Function 공용 로그인 확인. `kis-night` 도 이 확인을 거칩니다.
+
+### 처음 켤 때 (Netlify 화면에서 한 번)
+
+이 설정은 코드로 할 수 없고 Netlify 프로젝트 설정에서 직접 해야 합니다. **아래를 마치기 전에 이 변경을 `main` 에 병합하면 아무도 로그인할 수 없으니 순서를 지킵니다.**
+
+1. 프로젝트의 Identity 설정에서 **Identity 를 켭니다**.
+2. 가입 방식(Registration)은 **Open** 으로 둡니다(누구나 요청은 할 수 있고, 승인 전에는 아무것도 볼 수 없습니다).
+3. 외부 로그인(External providers)에 **Google** 을 추가합니다(기본 설정 사용).
+4. 배포 미리보기 주소에서 본인 구글 계정으로 한 번 로그인해 "승인을 기다리고 있습니다"가 뜨는지 확인합니다.
+5. Identity 의 사용자 목록에서 본인 계정을 열고 역할(Roles)에 `admin` 을 넣습니다. 첫 관리자만 이렇게 지정하고, 이후는 회원 관리 화면에서 처리합니다.
+6. 다시 로그인해 화면이 열리고 `/admin.html` 이 동작하는지 확인한 뒤 병합합니다.
+
+### 운영 메모
+
+- 로그인은 브라우저를 닫아도 30일 동안 유지됩니다(공용 PC 에서는 로그아웃, 사파리는 브라우저 정책상 7일). 접근 토큰은 1시간짜리이고 만료 5분 전부터 자동으로 갱신됩니다.
+- 승인 해제·삭제는 이미 로그인한 기기에는 **최대 1시간 뒤**(토큰 갱신 시점)에 적용됩니다.
+- 거절(삭제)한 계정도 다시 로그인하면 새 요청으로 올라옵니다.
+- 관리자는 본인 권한을 스스로 내리거나 삭제할 수 없습니다(관리자가 0명이 되는 것을 막기 위함).
+- **저장소가 공개이면 GitHub 에서 자료 파일을 그대로 볼 수 있습니다.** 사이트 로그인만으로는 막히지 않으므로 저장소를 비공개로 바꾸고 GitHub Pages 배포를 꺼야 합니다. 비공개 저장소는 GitHub Actions 무료 사용량(월 2,000분)을 씁니다.
+- Function 의 URL(`/.netlify/functions/*`)은 `_redirects` 로 막을 수 없어 각 Function 이 직접 로그인을 확인합니다. 새 Function 을 추가할 때는 `currentUser()` 확인을 넣습니다.
+
+### 고치고 확인하기
+
+```bash
+node --test auth_logic.test.js auth_server.test.mjs   # 권한 판정, 접근 규칙, Function 처리
+```
+
+Netlify Identity 는 로컬(`netlify dev`)에서 동작하지 않으므로 실제 로그인은 배포 미리보기(Deploy Preview)에서 확인합니다.

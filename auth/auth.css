@@ -1,0 +1,90 @@
+/* 로그인 화면·회원 관리 화면 공용 스타일. 본 화면(index.html)과 같은 색을 쓴다. */
+:root{
+  --bg:#0a0d12;--bg2:#0e131a;--panel:#121821;--panel2:#161d27;--line:#222b38;--line2:#2c3744;
+  --txt:#e2e8f0;--txt-dim:#aebaca;--txt-faint:#8c9bad;
+  --up:#ff4d4d;--up-bg:rgba(255,77,77,.10);--down:#3d8bff;--down-bg:rgba(61,139,255,.10);
+  --gold:#ffb020;--gold-dim:rgba(255,176,32,.14);--accent:#1fd1a3;
+  --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans KR',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;background:var(--bg);color:var(--txt);font-family:var(--sans);font-size:14px;-webkit-font-smoothing:antialiased}
+body{background-image:radial-gradient(circle at 15% -10%,rgba(31,209,163,.05),transparent 40%),radial-gradient(circle at 90% 0%,rgba(61,139,255,.05),transparent 35%);background-repeat:no-repeat}
+a{color:var(--accent)}
+[hidden]{display:none!important}
+
+.ym-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans);font-size:13px;font-weight:600;padding:10px 16px;border-radius:8px;border:1px solid var(--line2);background:var(--panel2);color:var(--txt);cursor:pointer;text-decoration:none;transition:.15s}
+.ym-btn:hover{border-color:#3a4757}
+.ym-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ym-btn:disabled{opacity:.5;cursor:not-allowed}
+.ym-btn.primary{background:var(--accent);border-color:var(--accent);color:#062018}
+.ym-btn.primary:hover{filter:brightness(1.08)}
+.ym-btn.quiet{background:none;border-color:var(--line);color:var(--txt-dim);font-weight:500}
+.ym-btn.small{font-size:12px;padding:6px 11px;border-radius:7px}
+.ym-btn.danger{color:var(--up);border-color:rgba(255,77,77,.35);background:var(--up-bg)}
+
+/* ---- 로그인 화면 ---- */
+.ym-gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.ym-card{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:30px 28px 26px}
+.ym-brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px;letter-spacing:-.3px}
+.ym-brand .dot{width:9px;height:9px;border-radius:50%;background:var(--up);box-shadow:0 0 10px var(--up)}
+.ym-brand small{color:var(--txt-faint);font-weight:400;font-size:11px}
+.ym-card h1{font-size:19px;font-weight:700;letter-spacing:-.4px;margin:22px 0 8px}
+.ym-card p{color:var(--txt-dim);font-size:13px;line-height:1.7}
+.ym-card .ym-actions{display:flex;flex-direction:column;gap:9px;margin-top:22px}
+.ym-card .ym-actions .ym-btn{width:100%;padding:12px 16px}
+.ym-who{margin-top:16px;padding:11px 13px;background:var(--bg2);border:1px solid var(--line);border-radius:9px;font-family:var(--mono);font-size:12.5px;color:var(--txt);word-break:break-all}
+.ym-note{margin-top:14px;padding:10px 12px;border-radius:8px;font-size:12.5px;line-height:1.6;background:var(--gold-dim);border:1px solid rgba(255,176,32,.3);color:#ffd27a}
+.ym-note.bad{background:var(--up-bg);border-color:rgba(255,77,77,.3);color:#ff9a9a}
+.ym-foot{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);color:var(--txt-faint);font-size:11.5px;line-height:1.6}
+.ym-wait{display:flex;align-items:center;gap:10px;color:var(--txt-dim);font-size:13px;margin-top:22px}
+.ym-wait::before{content:"";width:14px;height:14px;border-radius:50%;border:2px solid var(--line2);border-top-color:var(--accent);animation:ym-spin .8s linear infinite}
+@keyframes ym-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.ym-wait::before{animation:none}}
+
+/* ---- 회원 관리 화면 ---- */
+.ym-top{display:flex;align-items:center;gap:16px;padding:0 18px;height:52px;background:var(--bg2);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.ym-top .spacer{flex:1}
+.ym-top .back{color:var(--txt-dim);font-size:12.5px;text-decoration:none}
+.ym-top .back:hover{color:var(--txt)}
+.ym-page{max-width:1080px;margin:0 auto;padding:22px 18px 60px}
+.ym-page h1{font-size:19px;font-weight:700;letter-spacing:-.4px}
+.ym-page .lead{color:var(--txt-dim);font-size:13px;line-height:1.7;margin-top:6px}
+.ym-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:18px 0 12px}
+.ym-seg{display:inline-flex;background:var(--panel);border:1px solid var(--line);border-radius:7px;overflow:hidden}
+.ym-seg button{background:none;border:none;border-right:1px solid var(--line);color:var(--txt-dim);font-family:var(--sans);font-size:12px;padding:7px 13px;cursor:pointer;white-space:nowrap}
+.ym-seg button:last-child{border-right:none}
+.ym-seg button.on{background:var(--up-bg);color:var(--up);font-weight:600}
+.ym-seg b{font-family:var(--mono);font-weight:600;margin-left:4px}
+.ym-tablebox{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow-x:auto}
+.ym-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ym-table th{text-align:left;font-weight:500;color:var(--txt-faint);font-size:11.5px;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.ym-table td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.ym-table tr:last-child td{border-bottom:none}
+.ym-table .who b{display:block;font-weight:600;font-size:13px;word-break:break-all}
+.ym-table .who span{color:var(--txt-faint);font-size:11.5px}
+.ym-table .when{font-family:var(--mono);font-size:11.5px;color:var(--txt-dim);white-space:nowrap}
+.ym-table .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.ym-tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 8px;border-radius:5px;white-space:nowrap}
+.ym-tag.pending{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(255,176,32,.3)}
+.ym-tag.member{background:rgba(31,209,163,.12);color:var(--accent);border:1px solid rgba(31,209,163,.3)}
+.ym-tag.admin{background:var(--down-bg);color:#7fb2ff;border:1px solid rgba(61,139,255,.3)}
+.ym-empty{padding:34px 16px;text-align:center;color:var(--txt-faint);font-size:13px}
+.ym-page .ym-note{margin:0 0 12px}
+.ym-help{margin-top:16px;color:var(--txt-faint);font-size:12px;line-height:1.8}
+.ym-top .ym-brand,.ym-top .back{white-space:nowrap}
+@media(max-width:700px){
+  .ym-top{padding:0 10px;gap:10px}
+  .ym-top .ym-brand small,.ym-top .back span{display:none}
+  .ym-page{padding:16px 10px 50px}
+  /* 좁은 화면에서는 표 대신 한 사람씩 카드로: 상태 + 계정, 그 아래 처리 버튼 */
+  .ym-table thead{display:none}
+  .ym-table,.ym-table tbody{display:block}
+  .ym-table tr{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:10px 12px;padding:13px 12px;border-bottom:1px solid var(--line)}
+  .ym-table tr:last-child{border-bottom:none}
+  .ym-table td{padding:0;border:none}
+  .ym-table td.when{display:none}
+  .ym-table td:last-child{grid-column:1 / -1}
+  .ym-table td:last-child:has(.acts:empty){display:none}
+  .ym-table .acts{justify-content:flex-start}
+  .ym-table .acts .ym-btn{padding:9px 14px;font-size:12.5px}
+}
