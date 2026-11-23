@@ -4,7 +4,7 @@
   'use strict';
   const L = window.ResearchLogic;
   const TITLES = {overview: '시장 종합 현황', heatmap: '시장 히트맵', breadth: '시장 수급 변화', consensus: '컨센서스 누적 분석', trade: '수출입 분석'};
-  const FILES = {research: 'research_data.json', market: 'market_data.json', disparity: 'disparity_data.json', etf: 'etf_data.json'};
+  const FILES = {research: 'research_data.json', market: 'market_data.json', disparity: 'disparity_data.json', etf: 'etf_data.json', trade: 'trade_data.json', consensus: 'consensus_data.json'};
   const STALE_MS = 5 * 60 * 1000, QUOTE_MS = 15 * 60 * 1000;
   const COLORS = {kospi: '#ffb020', kosdaq: '#1fd1a3', up: '#ff4d4d', down: '#3d8bff', dim: '#8c9bad', violet: '#b08cff'};
   const QUOTES = [
@@ -28,6 +28,8 @@
     sizeDays: 63, flowDays: 60, tileKey: 'r1', dispDays: 120, fundDays: 63,
     heat: {minCap: 3000, key: 'r1', grouped: false, query: ''},
     sectorKey: 'r1', trendDays: 60, etfSort: {key: 'rs_price_21', dir: -1},
+    trade: {flow: 'exp', sort: 'yoy', dir: -1, query: '', selected: null},
+    cons: {filter: 'all', sort: 'week_pct', dir: -1, query: '', selected: null},
   };
   let root = null, view = 'overview', charts = [], quoteTimer = null, resizeTimer = null, renderToken = 0;
   const cache = {}, quotes = {};
@@ -207,7 +209,7 @@
 
   async function renderOverview(force) {
     const token = ++renderToken;
-    const [research, market, disp] = await Promise.all([load('research', force), load('market', force), load('disparity', force)]);
+    const [research, market, disp, trade, cons] = await Promise.all([load('research', force), load('market', force), load('disparity', force), load('trade', force), load('consensus', force)]);
     if (token !== renderToken) return;
     const etf = cache.etf && cache.etf.data;
     const groups = [...new Set(QUOTES.filter(q => q.grp !== 'kr').map(q => q.grp))];
@@ -221,8 +223,8 @@
         ${panel('시장의 흐름', research && research.breadth ? `WICS ${research.breadth.n_sectors}개 업종의 상승 비율 · ${L.formatDate(research.asof)}` : '', flowPanel(research), seg('flowDays', state.flowDays, [[20, '20일'], [60, '60일'], [0, '전체']]))}
         ${panel('업종 흐름', '등락률 순 · 색이 진할수록 등락 폭이 큽니다', sectorTiles(research), seg('tileKey', state.tileKey, [['r1', '하루'], ['r5', '한 주'], ['r20', '한 달']]))}
         <div class="rs-slot rs-span2 rs-grid rs-g2" id="rsEtfSlot">${etfPanels(etf)}</div>
-        ${pendingCard('수출입 모니터', '품목별 수출입 금액과 전년 대비 증감은 관세청 통계 수집을 연결한 뒤 표시됩니다.', 'trade')}
-        ${pendingCard('컨센서스 요약', '분기 영업이익 예상치의 상향·하향 집계는 컨센서스 원자료를 연결한 뒤 표시됩니다.', 'consensus')}
+        ${tradeDigest(trade)}
+        ${consDigest(cons)}
         ${panel('코스피, 코스닥 이격도 추이', '50일 이동평균선에서 얼마나 떨어져 있는지 확인합니다', dispPanel(disp), seg('dispDays', state.dispDays, [[60, '3개월'], [120, '6개월'], [250, '1년']]), 'rs-span2')}
         ${fundPanels(market)}
       </div>
@@ -326,17 +328,111 @@
     if (!etf || force) load('etf', force).then(() => { const slot = document.getElementById('rsEtfTable'); if (slot && view === 'breadth' && token === renderToken) slot.innerHTML = etfTable(cache.etf.data); });
   }
 
+  // ---- 수출입 분석 ----
+  const TRADE_COLS = [['label', '품목', 0], ['amount', '금액', 1], ['yoy', 'YoY', 1], ['mom', 'MoM', 1], ['sum12', '12개월 누적', 1], ['sum12Yoy', '누적 YoY', 1], ['unitYoy', '단가 YoY', 1]];
+  function tradeRows(trade) {
+    const t = state.trade, query = t.query.trim().toLowerCase();
+    const rows = (trade.items || []).map(item => ({item, m: L.tradeMetrics(item, t.flow)})).filter(r => !query || r.item.label.toLowerCase().includes(query) || r.item.hs.includes(query) || (r.item.stocks || []).some(s => s.name.toLowerCase().includes(query) || s.code.includes(query)));
+    return L.sortBy(rows, r => (t.sort === 'label' ? r.item.label : r.m && r.m[t.sort]), t.dir);
+  }
+  function paintTrade() {
+    const trade = cache.trade && cache.trade.data, table = document.getElementById('rsTradeTable');
+    if (!trade || !table) return;
+    const t = state.trade, rows = tradeRows(trade);
+    if (!rows.some(r => r.item.id === t.selected)) t.selected = rows.length ? rows[0].item.id : null;
+    const th = ([key, label, numeric]) => `<th data-rs-tsort="${key}" class="${numeric ? 'n ' : ''}${t.sort === key ? 'on' : ''}">${label}${t.sort === key ? (t.dir < 0 ? ' ▼' : ' ▲') : ''}</th>`;
+    table.innerHTML = rows.length ? `<div class="rs-tablebox"><table class="rs-table"><thead><tr>${th(TRADE_COLS[0])}<th>관련 종목</th><th>기준월</th>${TRADE_COLS.slice(1).map(th).join('')}</tr></thead><tbody>${rows.map(({item, m}) => `<tr data-row="trade" data-id="${esc(item.id)}" class="${item.id === t.selected ? 'sel' : ''}"><td>${esc(item.label)} <small class="rs-dim">HS ${esc(item.hs)}</small></td><td class="rs-dim">${(item.stocks || []).map(s => esc(s.name)).join(', ') || '—'}</td>
+      <td class="n">${m ? L.formatMonth(m.month) : '—'}</td><td class="n">${L.usdLabel(m && m.amount)}</td><td class="n">${pct(m && m.yoy, 1)}</td><td class="n">${pct(m && m.mom, 1)}</td><td class="n">${L.usdLabel(m && m.sum12)}</td><td class="n">${pct(m && m.sum12Yoy, 1)}</td><td class="n">${pct(m && m.unitYoy, 1)}</td></tr>`).join('')}</tbody></table></div>` : missing('조건에 맞는 품목이 없습니다.');
+    paintTradeDetail(trade);
+  }
+  function paintTradeDetail(trade) {
+    const box = document.getElementById('rsTradeDetail'), t = state.trade, item = (trade.items || []).find(i => i.id === t.selected);
+    if (!box) return;
+    destroyCharts();
+    if (!item) { box.innerHTML = missing('품목을 선택하세요.'); return; }
+    const m = L.tradeMetrics(item, t.flow), flowName = t.flow === 'exp' ? '수출' : '수입';
+    box.innerHTML = `<div class="rs-panel-head"><div><h2>${esc(item.label)} · ${flowName}</h2><p>HS ${esc(item.hs)} · ${m ? L.formatMonth(m.month) + ' 기준' : '관측값 없음'}</p></div><div class="rs-tools">${(item.stocks || []).map(s => `<button class="btn" data-code="${esc(s.code)}">${esc(s.name)} 상세 →</button>`).join('')}</div></div>
+      <div class="rs-stats"><div><span>최근월 금액</span><b>${L.usdLabel(m && m.amount)}</b><small>YoY ${L.signed(m && m.yoy, 1)} · MoM ${L.signed(m && m.mom, 1)}</small></div><div><span>12개월 누적</span><b>${L.usdLabel(m && m.sum12)}</b><small>전년 같은 기간 대비 ${L.signed(m && m.sum12Yoy, 1)}</small></div><div><span>단가(금액 ÷ 중량)</span><b>${m && L.isNumber(m.unit) ? num(m.unit, 2) + ' $/kg' : '—'}</b><small>YoY ${L.signed(m && m.unitYoy, 1)}</small></div></div>
+      <div class="rs-grid rs-g3"><div class="rs-card"><div class="rs-k">월별 금액<small>백만 달러</small></div><div class="rs-chart"><canvas id="rsTradeAmount"></canvas></div></div><div class="rs-card"><div class="rs-k">전년 동월 대비<small>%</small></div><div class="rs-chart"><canvas id="rsTradeYoy"></canvas></div></div><div class="rs-card"><div class="rs-k">단가<small>달러/kg</small></div><div class="rs-chart"><canvas id="rsTradeUnit"></canvas></div></div></div>`;
+    const labels = item.months.map(L.formatMonth), amount = item[t.flow] || [];
+    lineChart('rsTradeAmount', labels, [{label: flowName + ' 금액', data: amount.map(v => (L.isNumber(v) ? v / 1e6 : null)), borderColor: COLORS.kospi}], {decimals: 1, suffix: '백만$'});
+    lineChart('rsTradeYoy', labels, [{label: 'YoY', data: L.yoySeries(amount), borderColor: COLORS.up}], {decimals: 1, suffix: '%', baseline: 0, baselineLabel: '0'});
+    lineChart('rsTradeUnit', labels, [{label: '단가', data: L.unitSeries(amount, item[t.flow + '_wgt']), borderColor: COLORS.kosdaq}], {decimals: 2, suffix: '$/kg'});
+  }
+  async function renderTrade(force) {
+    const token = ++renderToken, trade = await load('trade', force);
+    if (token !== renderToken) return;
+    if (!trade || !(trade.items || []).length) return renderPending('trade');
+    const t = state.trade, failed = (trade.errors || []).length;
+    root.innerHTML = header(`<span class="basis">최신 ${L.formatMonth(trade.latest_month)} · 통관 기준</span>`) + `<div class="rs-wrap">
+      ${statusLine([`수집 ${esc(String(trade.generated_at || '').slice(0, 16).replace('T', ' '))}`, `품목 ${trade.items.length}개`, failed ? `<span class="rs-warn">이번 수집 실패 ${failed}개 품목 · 직전 값 유지</span>` : ''])}
+      ${panel('품목별 수출입 추이', '헤더를 누르면 정렬 · 행을 누르면 아래에 추이 표시', '<div id="rsTradeTable"></div>', seg('tradeFlow', t.flow, [['exp', '수출'], ['imp', '수입']]) + `<input class="search" id="rsTradeSearch" placeholder="품목·HS·관련 종목 검색" value="${esc(t.query)}">`)}
+      <section class="rs-panel" id="rsTradeDetail"></section>
+      <p class="rs-foot">${esc(trade.source && trade.source.provider)} · ${esc(trade.source && trade.source.basis)}. YoY는 전년 동월, MoM은 전월 대비이며 조업일수를 보정하지 않았습니다. 관련 종목은 YM이 지정한 목록으로 해당 품목의 매출 비중을 뜻하지 않습니다. 통계적 관찰 자료이며 매수·매도 권유가 아닙니다.</p></div>`;
+    paintTrade();
+  }
+  function tradeDigest(trade) {
+    if (!trade || !(trade.items || []).length) return pendingCard('수출입 모니터', '품목별 수출입 금액과 전년 대비 증감은 관세청 통계 인증키를 등록한 뒤 표시됩니다.', 'trade');
+    const top = L.sortBy(trade.items.map(item => ({item, m: L.tradeMetrics(item, 'exp')})).filter(r => r.m && L.isNumber(r.m.yoy)), r => r.m.yoy, -1).slice(0, 5);
+    return panel('수출입 모니터', `수출 전년 동월 대비 상위 · 최신 ${L.formatMonth(trade.latest_month)}`, top.length ? `<ol class="rs-rank">${top.map((r, i) => `<li><i>${i + 1}</i><div><b>${esc(r.item.label)}</b><small>${L.formatMonth(r.m.month)} · ${L.usdLabel(r.m.amount)} · ${(r.item.stocks || []).map(s => esc(s.name)).join(', ')}</small></div><em class="rs-${L.direction(r.m.yoy)}">${L.signed(r.m.yoy, 1)}</em></li>`).join('')}</ol>` : missing('전년 동월과 비교할 수 있는 품목이 없습니다.'), '<button class="rs-link" data-rs-go="trade">수출입 분석 →</button>');
+  }
+
+  // ---- 컨센서스 누적 분석 ----
+  const CONS_COLS = [['name', '종목', 0], ['current', '현재 예상치', 1], ['prev_pct', '직전 관측 대비', 1], ['week_pct', '누적 주간', 1], ['month_pct', '누적 월간', 1], ['class', '분류', 0]];
+  const CONS_LIMIT = 200;
+  function consRows(cons) {
+    const c = state.cons, query = c.query.trim().toLowerCase();
+    const rows = (cons.rows || []).filter(r => (c.filter === 'all' || r.class === c.filter) && (!query || String(r.name).toLowerCase().includes(query) || r.code.includes(query)));
+    return L.sortBy(rows, r => r[c.sort], c.dir);
+  }
+  function paintCons() {
+    const cons = cache.consensus && cache.consensus.data, table = document.getElementById('rsConsTable');
+    if (!cons || !table) return;
+    const c = state.cons, rows = consRows(cons), shown = rows.slice(0, CONS_LIMIT);
+    if (!rows.some(r => r.code === c.selected)) c.selected = rows.length ? rows[0].code : null;
+    const th = ([key, label, numeric]) => `<th data-rs-csort="${key}" class="${numeric ? 'n ' : ''}${c.sort === key ? 'on' : ''}">${label}${c.sort === key ? (c.dir < 0 ? ' ▼' : ' ▲') : ''}</th>`;
+    table.innerHTML = rows.length ? `<div class="rs-tablebox"><table class="rs-table"><thead><tr>${th(CONS_COLS[0])}<th>대상 분기</th>${CONS_COLS.slice(1).map(th).join('')}</tr></thead><tbody>${shown.map(r => `<tr data-row="cons" data-id="${esc(r.code)}" class="${r.code === c.selected ? 'sel' : ''}"><td>${esc(r.name || r.code)} <small class="rs-dim">${esc(r.code)}</small></td><td class="rs-dim">${r.period ? L.formatMonth(r.period) : '—'}</td><td class="n">${num(r.current, 0)}</td><td class="n">${pct(r.prev_pct)}</td><td class="n">${pct(r.week_pct)}</td><td class="n">${pct(r.month_pct)}</td><td>${esc(r.class)}</td></tr>`).join('')}</tbody></table></div>
+      <p class="rs-note">${rows.length.toLocaleString('ko-KR')}종목 중 ${shown.length}개 표시${rows.length > shown.length ? ' · 검색이나 분류로 좁혀 보세요' : ''}. 비교할 수 없는 값은 —로 두고 목록 뒤에 둡니다.</p>` : missing('조건에 맞는 종목이 없습니다.');
+    const box = document.getElementById('rsConsDetail'), row = (cons.rows || []).find(r => r.code === c.selected);
+    if (!box) return;
+    destroyCharts();
+    if (!row) { box.innerHTML = missing('종목을 선택하세요.'); return; }
+    box.innerHTML = `<div class="rs-panel-head"><div><h2>${esc(row.name || row.code)}</h2><p>${esc(row.code)} · ${esc(cons.metric)} · 대상 ${row.period ? L.formatMonth(row.period) : '미지정'} · ${esc(row.class)}</p></div><div class="rs-tools"><button class="btn" data-code="${esc(row.code)}">개별종목 상세 →</button></div></div>
+      <div class="rs-stats"><div><span>현재 예상치</span><b>${num(row.current, 0)} ${esc(cons.unit)}</b><small>관측 ${esc(cons.asof)}</small></div><div><span>직전 관측</span><b>${num(row.prev, 0)} ${esc(cons.unit)}</b><small>${esc(cons.previous || '비교 대상 없음')} · ${L.signed(row.prev_pct)}</small></div><div><span>누적 주간 / 월간</span><b>${L.signed(row.week_pct)} / ${L.signed(row.month_pct)}</b><small>${esc(cons.week_base || '—')} · ${esc(cons.month_base || '—')} 대비</small></div></div>
+      <div class="rs-chart"><canvas id="rsConsChart"></canvas></div><p class="rs-note">변화율 = (이번 예상치 − 기준 예상치) ÷ |기준 예상치|. 같은 대상 분기의 값만 비교하고, 관측일에 값이 없으면 선을 끊습니다.</p>`;
+    lineChart('rsConsChart', (cons.series_dates || []).map(d => d.slice(5).replace('-', '.')), [{label: '예상치', data: row.series || [], borderColor: COLORS.kospi, pointRadius: 2, spanGaps: false}], {decimals: 0, suffix: cons.unit});
+  }
+  async function renderConsensus(force) {
+    const token = ++renderToken, cons = await load('consensus', force);
+    if (token !== renderToken) return;
+    if (!cons || !(cons.rows || []).length) return renderPending('consensus');
+    const c = state.cons, s = cons.summary || {}, classes = [...new Set(cons.rows.map(r => r.class))];
+    const kpi = (title, value, sub, cls = '') => `<div class="rs-card"><div class="rs-k">${title}</div><div class="rs-v ${cls}">${value}</div><div class="rs-t">${sub}</div></div>`;
+    root.innerHTML = header(`<span class="basis">기준일 ${esc(cons.asof)}</span>`) + `<div class="rs-wrap">
+      ${statusLine([`관측일 ${cons.observations}개 · ${esc(cons.first_observation)}부터`, cons.previous ? `직전 관측 ${esc(cons.previous)}` : '<span class="rs-warn">관측일이 하나뿐이라 아직 비교할 수 없습니다</span>'])}
+      <div class="rs-grid rs-g4">${kpi('수록 종목', cons.rows.length.toLocaleString('ko-KR') + '<em>종목</em>', esc(cons.metric))}${kpi('직전 관측 대비 상향', (s.up ?? 0) + '<em>종목</em>', cons.previous ? `${esc(cons.previous)} → ${esc(cons.asof)}` : '', 'rs-up')}${kpi('직전 관측 대비 하향', (s.down ?? 0) + '<em>종목</em>', '', 'rs-down')}${kpi('유지 / 비교 불가', `${s.flat ?? 0} / ${s.na ?? 0}`, '분류는 중복 집계하지 않습니다')}</div>
+      ${panel('종목별 분기 영업이익 예상치 변화', '헤더를 누르면 정렬 · 행을 누르면 아래에 추이 표시', '<div id="rsConsTable"></div>', seg('consFilter', c.filter, [['all', '전체'], ...classes.map(k => [k, k])]) + `<input class="search" id="rsConsSearch" placeholder="종목명·코드 검색" value="${esc(c.query)}">`)}
+      <section class="rs-panel" id="rsConsDetail"></section>
+      <p class="rs-foot">주가 수익률이 아니라 예상치의 변화입니다. 실제 확정 실적과 다르며, 통계적 관찰 자료로 매수·매도 권유가 아닙니다.</p></div>`;
+    paintCons();
+  }
+  function consDigest(cons) {
+    if (!cons || !(cons.rows || []).length) return pendingCard('컨센서스 요약', '분기 영업이익 예상치의 상향·하향 집계는 컨센서스 원자료를 넣은 뒤 표시됩니다.', 'consensus');
+    const s = cons.summary || {};
+    return panel('컨센서스 요약', `${esc(cons.metric)} · 기준일 ${esc(cons.asof)}`, `<div class="rs-stats"><div><span>직전 관측 대비 상향</span><b class="rs-up">${s.up ?? 0}종목</b></div><div><span>하향</span><b class="rs-down">${s.down ?? 0}종목</b></div><div><span>유지 / 비교 불가</span><b>${s.flat ?? 0} / ${s.na ?? 0}</b></div></div>`, '<button class="rs-link" data-rs-go="consensus">컨센서스 누적 분석 →</button>');
+  }
+
   // ---- 수집 연결 전 화면 ----
   const PENDING = {
     consensus: {
       lead: '증권사 실적 예상치(컨센서스)가 날마다 어떻게 바뀌는지 누적해서 보는 화면입니다. 예상치 원자료를 매 거래일 저장해야 하므로, 자료 출처를 정한 뒤 수집을 시작한 날부터 추이가 쌓입니다.',
       plan: ['요약 카드: 직전 관측 대비 상향·하향·유지·비교 불가 종목 수', '종목별 분기 영업이익 예상치 변화 표: 누적 주간 · 누적 월간 · 직전 관측 대비', '종목을 고르면 현재·1주 전·1개월 전 예상치와 전망치 추이, 직전 관측 대비 변화율 차트', '대상 분기·회계기준(연결/별도)별 필터와 상향순·하향순 정렬'],
-      need: ['컨센서스 원자료 출처 결정: 이용 계약이 있는 데이터 제공처의 API 또는 내려받은 파일', '출처별 이용 조건 확인(재배포·화면 게시 가능 범위)', '수집 시각과 보관 기간 결정(예: 거래일 밤 1회, 최근 1년)'],
+      need: ['consensus_pipeline/inbox/ 폴더에 날짜별 CSV(종목코드 · 대상분기 · 영업이익)를 넣으면 다음 수집 때 반영됩니다', '첫 파일을 넣은 날부터 추이가 쌓이고, 관측일이 2개 이상이면 상향·하향 비교가 시작됩니다', '이용 계약이 있는 제공처의 자료만 넣으세요(재배포·화면 게시 가능 범위 확인)', '자동 수집은 제공처 API를 정한 뒤 붙일 수 있습니다'],
     },
     trade: {
       lead: '품목별 수출입 금액·물량·단가를 월별·순별 잠정치와 함께 보는 화면입니다. 관세청 통계를 직접 수집해야 하므로 인증키와 추적 품목 목록이 필요합니다.',
       plan: ['최근 잠정치 요약: 수출·수입 총액과 주요 품목·국가별 금액, 전년 동기 대비 · 전월 대비', '품목별 월별 금액 추이와 YoY·MoM, 일평균 기준 증감', '품목과 관련 종목 연결, 종목을 누르면 개별종목 상세로 이동', '수출/수입 전환, 증감률·금액순 정렬, 품목·종목 검색'],
-      need: ['관세청 수출입무역통계 API 인증키(공공데이터포털에서 발급) → GitHub Secrets 등록', '추적할 품목(HS코드) 목록과 품목별 관련 종목 지정', '월 1회 확정치와 순별(1~10일, 1~20일) 잠정치 중 어디까지 볼지 결정'],
+      need: ['공공데이터포털에서 관세청 품목별 수출입실적 API를 활용신청하고 인증키를 받습니다(무료)', '인증키를 GitHub 저장소 Secrets에 DATA_GO_KR_KEY로 등록합니다', 'Actions에서 build-research-sources를 한 번 실행하면 5년치 월별 실적을 받아 옵니다', '추적 품목과 관련 종목은 trade_pipeline/items.json에서 고칩니다', '순별(1~10일, 1~20일) 잠정치는 이 API에 없어 아직 포함하지 않았습니다'],
     },
   };
   function renderPending(kind) {
@@ -355,11 +451,20 @@
     if (view === 'overview') return renderOverview(force);
     if (view === 'heatmap') return renderHeatmap(force);
     if (view === 'breadth') return renderBreadth(force);
+    if (view === 'trade') return renderTrade(force);
+    if (view === 'consensus') return renderConsensus(force);
     return renderPending(view);
   }
   function onClick(event) {
-    const t = event.target.closest('button,th');
+    const t = event.target.closest('button,th,tr[data-row]');
     if (!t || !root.contains(t)) return;
+    if (t.dataset.row === 'trade') { state.trade.selected = t.dataset.id; return paintTrade(); }
+    if (t.dataset.row === 'cons') { state.cons.selected = t.dataset.id; return paintCons(); }
+    if (t.dataset.rsTsort || t.dataset.rsCsort) {
+      const s = t.dataset.rsTsort ? state.trade : state.cons, key = t.dataset.rsTsort || t.dataset.rsCsort, text = ['label', 'name', 'class'].includes(key);
+      s.dir = s.sort === key ? -s.dir : (text ? 1 : -1); s.sort = key;
+      return t.dataset.rsTsort ? paintTrade() : paintCons();
+    }
     if (t.dataset.rs === 'reload') return render(true);
     if (t.dataset.rsGo) { const nav = document.querySelector(`#nav button[data-tab="r-${t.dataset.rsGo}"]`); if (nav) nav.click(); return; }
     if (t.dataset.rsTab) { const nav = document.querySelector(`#nav button[data-tab="${t.dataset.rsTab}"]`); if (nav) nav.click(); return; }
@@ -373,11 +478,17 @@
     const group = t.closest('[data-rs-seg]');
     if (!group) return;
     const name = group.dataset.rsSeg, raw = t.dataset.v, value = /^-?\d+$/.test(raw) ? Number(raw) : raw;
-    if (name === 'heatCap') state.heat.minCap = value; else if (name === 'heatKey') state.heat.key = value; else if (name === 'heatGroup') state.heat.grouped = value === 1; else state[name] = value;
+    if (name === 'heatCap') state.heat.minCap = value; else if (name === 'heatKey') state.heat.key = value; else if (name === 'heatGroup') state.heat.grouped = value === 1;
+    else if (name === 'tradeFlow') state.trade.flow = value; else if (name === 'consFilter') state.cons.filter = raw; else state[name] = value;
     if (name.startsWith('heat')) { group.querySelectorAll('button').forEach(b => b.classList.toggle('on', b === t)); return paintHeat(); }
     render(false);
   }
-  function onInput(event) { if (event.target.id === 'rsHeatSearch') { state.heat.query = event.target.value; paintHeat(); } }
+  function onInput(event) {
+    const id = event.target.id, value = event.target.value;
+    if (id === 'rsHeatSearch') { state.heat.query = value; paintHeat(); }
+    else if (id === 'rsTradeSearch') { state.trade.query = value; paintTrade(); }
+    else if (id === 'rsConsSearch') { state.cons.query = value; paintCons(); }
+  }
   function onResize() { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { if (root && view === 'heatmap' && root.offsetParent) paintHeat(); }, 150); }
 
   window.ResearchDesk = {

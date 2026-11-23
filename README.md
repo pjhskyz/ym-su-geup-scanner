@@ -114,8 +114,8 @@ ETF별 순자산총액과 기준일, 비교 시작일 순자산을 곱한 **비�
 | 시장 종합 현황 | `/#overview` | 지수·해외 시세(`/yf` 프록시), `research_data.json`, `disparity_data.json`, `market_data.json`, `etf_data.json` | 사용 가능 |
 | 시장 히트맵 | `/#heatmap` | `research_data.json` | 사용 가능 |
 | 시장 수급 변화 | `/#breadth` | `research_data.json`, `disparity_data.json`, `etf_data.json` | 사용 가능 |
-| 컨센서스 누적 분석 | `/#consensus` | 컨센서스 원자료(미연결) | 수집 연결 전 |
-| 수출입 분석 | `/#trade` | 관세청 수출입 통계(미연결) | 수집 연결 전 |
+| 컨센서스 누적 분석 | `/#consensus` | `consensus_data.json` (넣어 준 CSV를 누적) | 원자료 CSV를 넣으면 동작 |
+| 수출입 분석 | `/#trade` | `trade_data.json` (관세청 품목별 수출입실적) | 인증키를 등록하면 동작 |
 | 자산운용사 ETF 비중 변화 | `/#holdings` | `holdings_data.json` (기존 ETF 구성변동 화면) | 사용 가능 |
 
 `build_research_data.py`는 네트워크를 쓰지 않고 방금 발행된 `scanner_data.json`·`stocks_data.json`만 읽어 `research_data.json`을 만듭니다. `build-scanner-data` 워크플로에서 시장지표 생성 직후 실행되며, 실패해도 시장지표 발행을 막지 않고 기존 파일을 유지합니다.
@@ -133,10 +133,30 @@ ETF별 순자산총액과 기준일, 비교 시작일 순자산을 곱한 **비�
 - 히트맵 타일 면적은 시가총액의 제곱근입니다. 종목 등락률은 스캐너 수록값(소수 첫째 자리)입니다.
 - 주도섹터 점수: ETF의 벤치마크(KOSPI/SPY) 대비 21·63·126거래일 가격 상대강도 평균. 반등 관찰: 126거래일 상대강도가 음수이고 21거래일 상대강도가 63거래일보다 개선된 폭.
 
-결측은 0이나 직전 값으로 채우지 않습니다. 컨센서스·수출입 화면은 자료가 연결되기 전까지 예시 수치를 표시하지 않습니다.
+결측은 0이나 직전 값으로 채우지 않습니다. 컨센서스·수출입 화면은 자료 파일이 생기기 전까지 예시 수치 없이 준비 안내만 표시합니다.
+
+### 수출입 분석 켜기
+
+1. [공공데이터포털](https://www.data.go.kr/)에서 **관세청 품목별 수출입실적** API를 활용신청하고 인증키를 받습니다(무료, 개발계정 하루 10,000건).
+2. GitHub 저장소 Settings → Secrets and variables → Actions에 `DATA_GO_KR_KEY`로 등록합니다. Encoding 키와 Decoding 키 어느 쪽이든 됩니다.
+3. Actions의 `build-research-sources` → Run workflow. 첫 실행은 품목마다 5년치(61개월)를 받고, 이후 평일 23:20 KST에 최근 3개월만 다시 받아 정정치를 반영합니다.
+
+- 추적 품목과 관련 종목은 `trade_pipeline/items.json`에서 고칩니다. HS 코드는 2~10자리. 코드를 바꾸면 그 품목은 처음부터 다시 받습니다.
+- 금액 USD·중량 kg, 통관 기준. 매월 15일경 전월 실적이 공표되며 이후 정정될 수 있습니다. YoY·MoM은 조업일수 보정 전입니다.
+- 순별(1~10일, 1~20일) 잠정치는 이 API에 없어 포함하지 않습니다.
+- 품목 하나가 실패하면 그 품목만 직전 값을 유지하고 화면에 실패 건수를 표시합니다. 한 건도 받지 못하면 기존 파일을 유지하고 워크플로가 실패합니다.
+
+### 컨센서스 누적 분석 켜기
+
+`consensus_pipeline/inbox/`에 날짜가 들어간 CSV(`YYYY-MM-DD.csv`)를 넣고 `build-research-sources`를 실행합니다. 형식은 `consensus_pipeline/inbox/README.md`에 있습니다.
+
+- 필수 열은 `종목코드`, `영업이익`(억원), 선택 열은 `종목명`, `대상분기`.
+- 관측일별 가공본을 `consensus_pipeline/history/`에 400일 보관하고, 같은 종목·같은 대상분기 값만 비교합니다.
+- 변화율 = (이번 예상치 − 기준 예상치) ÷ |기준 예상치|. 기준은 직전 관측, 7일 전 이전의 마지막 관측(누적 주간), 30일 전 이전의 마지막 관측(누적 월간)입니다.
+- 관측일이 하나뿐이면 비교하지 않습니다. 이용 계약이 있는 제공처의 자료만 넣고, 재배포·화면 게시 가능 범위는 제공처 약관을 확인하세요.
 
 ```bash
-python -m unittest test_research_data.py
+python -m unittest test_research_data.py test_trade_data.py test_consensus_data.py
 node --test research_logic.test.js
 python build_research_data.py
 ```

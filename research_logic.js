@@ -54,6 +54,38 @@
     return isNumber(start) && start > 0 ? {pct: (last.value / start - 1) * 100, from: startIndex, to: last.index} : null;
   }
 
+  // ---- 수출입 ----
+  // (현재 − 기준) ÷ |기준| × 100. 기준이 없거나 0이면 계산하지 않는다.
+  function pctChange(now, base) { return isNumber(now) && isNumber(base) && base !== 0 ? (now - base) / Math.abs(base) * 100 : null; }
+  function formatMonth(yyyymm) { const s = String(yyyymm || ''); return /^\d{6}$/.test(s) ? `${s.slice(0, 4)}-${s.slice(4)}` : '—'; }
+  function usdLabel(usd) {
+    if (!isNumber(usd)) return '—';
+    const million = usd / 1e6;
+    return Math.abs(million) >= 100 ? (million / 100).toFixed(2) + '억$' : million.toFixed(1) + '백만$';
+  }
+  // 품목 시계열(금액 USD·중량 kg) → 최신 관측월 지표. flow: 'exp' | 'imp'
+  function tradeMetrics(item, flow) {
+    const amount = (item && item[flow]) || [], weight = (item && item[flow + '_wgt']) || [], months = (item && item.months) || [];
+    const last = lastValid(amount);
+    if (!last) return null;
+    const i = last.index, at = k => (k >= 0 ? amount[k] : null);
+    const sum = (from, to) => { let total = 0; for (let k = from; k <= to; k++) { if (k < 0 || !isNumber(amount[k])) return null; total += amount[k]; } return total; };
+    const unit = k => (k >= 0 && isNumber(amount[k]) && isNumber(weight[k]) && weight[k] > 0 ? amount[k] / weight[k] : null);
+    const sum12 = sum(i - 11, i);
+    return {index: i, month: months[i], amount: last.value, yoy: pctChange(last.value, at(i - 12)), mom: pctChange(last.value, at(i - 1)),
+      sum12, sum12Yoy: pctChange(sum12, sum(i - 23, i - 12)), unit: unit(i), unitYoy: pctChange(unit(i), unit(i - 12))};
+  }
+  function yoySeries(values) { return (values || []).map((v, i) => pctChange(v, i >= 12 ? values[i - 12] : null)); }
+  function unitSeries(amount, weight) { return (amount || []).map((v, i) => (isNumber(v) && isNumber((weight || [])[i]) && weight[i] > 0 ? v / weight[i] : null)); }
+  // null은 방향과 무관하게 항상 뒤로 보내는 정렬
+  function sortBy(rows, getter, dir) {
+    return rows.slice().sort((a, b) => {
+      const x = getter(a), y = getter(b), ex = x == null || (typeof x === 'number' && !Number.isFinite(x)), ey = y == null || (typeof y === 'number' && !Number.isFinite(y));
+      if (ex || ey) return ex === ey ? 0 : ex ? 1 : -1;
+      return (typeof x === 'number' && typeof y === 'number' ? x - y : String(x).localeCompare(String(y), 'ko')) * dir;
+    });
+  }
+
   // ---- 히트맵 ----
   // 타일 면적: 시가총액의 제곱근(대형주 면적 집중 완화).
   function tileWeight(mcap) { return isNumber(mcap) && mcap > 0 ? Math.sqrt(mcap) : 0; }
@@ -180,6 +212,7 @@
   return {
     isNumber, signed, direction, formatDate, shortDate, capLabel,
     lastValid, previousValid, movingAverage, tail, periodReturn,
+    pctChange, formatMonth, usdLabel, tradeMetrics, yoySeries, unitSeries, sortBy,
     tileWeight, treemap, heatColor, heatmapRows, moveCounts,
     marketReading, leaderScore, etfCandidates, etfLeaders, etfRebounds, quoteFromYahoo,
   };

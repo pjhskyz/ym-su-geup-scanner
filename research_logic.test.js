@@ -127,3 +127,37 @@ test('발행된 research_data.json과 함께 동작한다', () => {
   assert.ok(['시장 전반 강세', '시장 전반 약세', '업종별 차별화'].includes(L.marketReading(data.breadth).label));
   data.size.buckets.forEach(b => assert.equal(b.levels.length, data.size.dates.length));
 });
+
+test('수출입 지표: 전년 동월·전월·12개월 누적·단가, 결측은 계산하지 않는다', () => {
+  assert.equal(L.pctChange(110, 100), 10);
+  assert.equal(L.pctChange(-50, -100), 50);
+  assert.equal(L.pctChange(1, 0), null);
+  assert.equal(L.pctChange(null, 5), null);
+  assert.equal(L.formatMonth('202610'), '2026-10');
+  assert.equal(L.formatMonth('2026'), '—');
+  assert.equal(L.usdLabel(12_300_000), '12.3백만$');
+  assert.equal(L.usdLabel(1_234_000_000), '12.34억$');
+  assert.equal(L.usdLabel(null), '—');
+  const months = Array.from({length: 25}, (_, i) => String(202410 + (i < 3 ? i : 0)).slice(0, 4) + String(i).padStart(2, '0'));
+  const exp = Array.from({length: 25}, (_, i) => 100 + i * 10), wgt = Array.from({length: 25}, () => 10);
+  const item = {months, exp, exp_wgt: wgt, imp: Array(25).fill(null), imp_wgt: Array(25).fill(null)};
+  const m = L.tradeMetrics(item, 'exp');
+  assert.equal(m.index, 24);
+  assert.equal(m.amount, 340);
+  assert.ok(Math.abs(m.yoy - (340 / 220 - 1) * 100) < 1e-9);
+  assert.ok(Math.abs(m.mom - (340 / 330 - 1) * 100) < 1e-9);
+  assert.equal(m.sum12, exp.slice(13).reduce((a, b) => a + b, 0));
+  assert.equal(m.sum12Yoy, L.pctChange(m.sum12, exp.slice(1, 13).reduce((a, b) => a + b, 0)));
+  assert.equal(m.unit, 34);
+  assert.equal(L.tradeMetrics(item, 'imp'), null, '값이 하나도 없으면 지표를 만들지 않는다');
+  const gap = {...item, exp: exp.map((v, i) => (i === 20 ? null : v)), exp_wgt: wgt.map((v, i) => (i === 24 ? 0 : v))};
+  const g = L.tradeMetrics(gap, 'exp');
+  assert.equal(g.sum12, null, '12개월 중 빈 달이 있으면 누적을 비운다');
+  assert.equal(g.unit, null, '중량이 0이면 단가를 비운다');
+  assert.equal(L.tradeMetrics({months: ['202610'], exp: [5]}, 'exp').yoy, null);
+  assert.deepEqual(L.yoySeries([1, ...Array(11).fill(1), 2]).slice(-2), [null, 100]);
+  assert.deepEqual(L.unitSeries([10, 20, null], [2, 0, 3]), [5, null, null]);
+  assert.deepEqual(L.sortBy([{v: 1}, {v: null}, {v: 3}], r => r.v, -1).map(r => r.v), [3, 1, null]);
+  assert.deepEqual(L.sortBy([{v: 1}, {v: null}, {v: 3}], r => r.v, 1).map(r => r.v), [1, 3, null]);
+  assert.deepEqual(L.sortBy([{v: '나'}, {v: '가'}], r => r.v, 1).map(r => r.v), ['가', '나']);
+});
