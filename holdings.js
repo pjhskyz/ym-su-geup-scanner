@@ -140,8 +140,11 @@
     if (!root || !data) return;
     const active = document.activeElement, focus = active && active.id === 'hold-search' ? {start: active.selectionStart, end: active.selectionEnd} : null;
     const result = L.aggregate(data, state);
-    root.innerHTML = header() + navigation() + '<div id="hold-panel" role="tabpanel" aria-labelledby="hold-tab-' + state.tab + '">' + toolbar(result) + (state.tab === 'stocks' ? stocks(result) : state.tab === 'funds' ? funds() : coverage()) + '</div>' + methodology();
-    if (focus) { const input = root.querySelector('#hold-search'); if (input) { input.focus(); try { input.setSelectionRange(focus.start, focus.end); } catch (_) {} } }
+    const html = header() + navigation() + '<div id="hold-panel" role="tabpanel" aria-labelledby="hold-tab-' + state.tab + '">' + toolbar(result) + (state.tab === 'stocks' ? stocks(result) : state.tab === 'funds' ? funds() : coverage()) + '</div>' + methodology();
+    // 검색창에 입력 중이면 입력창은 그대로 두고 나머지만 바꾼다(한글 조합 유지).
+    const kept = !!(window.patchKeepingInput && window.patchKeepingInput(root, html, 'hold-search'));
+    if (!kept) root.innerHTML = html;
+    if (focus && !kept) { const input = root.querySelector('#hold-search'); if (input) { input.focus(); try { input.setSelectionRange(focus.start, focus.end); } catch (_) {} } }
   }
   function setTab(tab) { state.tab = tab; state.query = ''; state.expanded = ''; render(); }
   function bind() {

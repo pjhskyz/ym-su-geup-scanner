@@ -213,9 +213,12 @@
   function render() {
     if (!root || !data) return;
     const focus = document.activeElement && document.activeElement.id === 'etf-search' ? {start: document.activeElement.selectionStart, end: document.activeElement.selectionEnd} : null;
-    root.innerHTML = header() + tabs() + '<div id="etf-panel" role="tabpanel" aria-labelledby="etf-tab-' + state.tab + '">' + toolbar() + (state.tab === 'strength' ? strength() : state.tab === 'us-high' ? highs('US') : state.tab === 'kr-high' ? highs('KR') : state.tab === 'catalogue' ? catalogueTable() : cross()) + '</div>' + methodology() +
+    const html = header() + tabs() + '<div id="etf-panel" role="tabpanel" aria-labelledby="etf-tab-' + state.tab + '">' + toolbar() + (state.tab === 'strength' ? strength() : state.tab === 'us-high' ? highs('US') : state.tab === 'kr-high' ? highs('KR') : state.tab === 'catalogue' ? catalogueTable() : cross()) + '</div>' + methodology() +
       '<footer class="etf-foot"><span>YM Research · 가격 기반 업종 조사 우선순위</span><span>원자료·계산 기준을 분리해 표시합니다. <a href="etf_data.json" target="_blank" rel="noopener">현재 데이터 ↗</a></span></footer>';
-    if (focus) { const input = root.querySelector('#etf-search'); if (input) { input.focus(); try { input.setSelectionRange(focus.start, focus.end); } catch (_) {} } }
+    // 검색창에 입력 중이면 입력창은 그대로 두고 나머지만 바꾼다(한글 조합 유지).
+    const kept = !!(window.patchKeepingInput && window.patchKeepingInput(root, html, 'etf-search'));
+    if (!kept) root.innerHTML = html;
+    if (focus && !kept) { const input = root.querySelector('#etf-search'); if (input) { input.focus(); try { input.setSelectionRange(focus.start, focus.end); } catch (_) {} } }
   }
   function selectTab(tab) { state.tab = tab; state.query = ''; state.sortKey = tab === 'catalogue' ? 'name' : 'rank'; state.sortDir = 'asc'; render(); }
   function events() {
