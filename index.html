@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="etf.css">
 <link rel="stylesheet" href="holdings.css">
+<link rel="stylesheet" href="research.css">
 <style>
   :root{
     --bg:#0a0d12;
@@ -293,17 +294,26 @@
 
 <div class="topbar">
   <div class="brand"><span class="dot"></span>YM리서치 스캐너 <small>YM Research</small></div>
+  <div class="nav-groups" id="navGroups">
+    <button data-group="research">투자 리서치</button>
+    <button data-group="scanner" class="on">스캐너</button>
+  </div>
   <nav class="nav" id="nav">
-    <button data-tab="su" class="active">수급</button>
-    <button data-tab="etf">ETF 주도섹터</button>
-    <button data-tab="holdings">ETF 구성변동</button>
-    <button data-tab="disp">이격도</button>
-    <button data-tab="adr">ADR</button>
-    <button data-tab="fund">증시자금</button>
-    <button data-tab="global">글로벌</button>
-    <button data-tab="stock">개별종목</button>
-    <button data-tab="fav">즐겨찾기</button>
-    <button data-tab="set">설정</button>
+    <button data-tab="r-overview" data-group="research" hidden>시장 종합 현황</button>
+    <button data-tab="r-heatmap" data-group="research" hidden>시장 히트맵</button>
+    <button data-tab="r-breadth" data-group="research" hidden>시장 수급 변화</button>
+    <button data-tab="r-consensus" data-group="research" hidden>컨센서스 누적 분석</button>
+    <button data-tab="r-trade" data-group="research" hidden>수출입 분석</button>
+    <button data-tab="holdings" data-group="research" hidden>자산운용사 ETF 비중 변화</button>
+    <button data-tab="su" data-group="scanner" class="active">수급</button>
+    <button data-tab="etf" data-group="scanner">ETF 주도섹터</button>
+    <button data-tab="disp" data-group="scanner">이격도</button>
+    <button data-tab="adr" data-group="scanner">ADR</button>
+    <button data-tab="fund" data-group="scanner">증시자금</button>
+    <button data-tab="global" data-group="scanner">글로벌</button>
+    <button data-tab="stock" data-group="scanner">개별종목</button>
+    <button data-tab="fav" data-group="scanner">즐겨찾기</button>
+    <button data-tab="set" data-group="scanner">설정</button>
   </nav>
   <span class="spacer"></span>
   <span class="clock" id="clock"></span>
@@ -371,6 +381,7 @@
 
 <div id="view-etf" style="display:none"></div>
 <div id="view-holdings" style="display:none"></div>
+<div id="view-research" style="display:none"></div>
 <div id="view-ph" style="display:none"></div>
 
 <div id="view-disp" style="display:none">
@@ -567,6 +578,8 @@
 <script src="etf.js"></script>
 <script src="holdings_logic.js"></script>
 <script src="holdings.js"></script>
+<script src="research_logic.js"></script>
+<script src="research.js"></script>
 <script>
 // Source data is loaded before any scanner rows are shown.
 const KEYS=["name","sector","neti","it","id1","id2","netf","ft","fd1","fd2","istk","i30","fstk","f30","i1","i5","i20","f1","f5","f20","r1","r5","r20","code","per","pbr","div","mcap"];
@@ -1403,16 +1416,32 @@ function gWsStop(){
 }
 
 // tabs
+// 탭 ↔ 주소 해시. 투자 리서치 화면과 ETF 화면은 주소로 바로 열 수 있다.
+const TAB_HASH={etf:"#etf",holdings:"#holdings","r-overview":"#overview","r-heatmap":"#heatmap","r-breadth":"#breadth","r-consensus":"#consensus","r-trade":"#trade"};
+const HASH_TAB=Object.fromEntries(Object.entries(TAB_HASH).map(([t,h])=>[h,t]));
+HASH_TAB["#etf-holdings"]="holdings";
+// 상단 묶음(투자 리서치 / 스캐너): 선택한 묶음의 탭만 보여 준다.
+function setNavGroup(group){
+  document.querySelectorAll("#navGroups button").forEach(g=>g.classList.toggle("on",g.dataset.group===group));
+  document.querySelectorAll("#nav button").forEach(x=>{x.hidden=x.dataset.group!==group;});
+}
+document.querySelectorAll("#navGroups button").forEach(g=>g.onclick=()=>{
+  const current=document.querySelector("#nav button.active");
+  if(current&&current.dataset.group===g.dataset.group){setNavGroup(g.dataset.group);return;}
+  document.querySelector('#nav button[data-group="'+g.dataset.group+'"]').click();
+});
 document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("#nav button").forEach(x=>x.classList.remove("active"));
-  b.classList.add("active");tab=b.dataset.tab;
+  b.classList.add("active");tab=b.dataset.tab;setNavGroup(b.dataset.group);
   const V=id=>document.getElementById(id);
-  ["view-su","view-etf","view-holdings","view-ph","view-disp","view-adr","view-fund","view-global","view-stock"].forEach(id=>V(id).style.display="none");
-  if(tab==="etf")history.replaceState(null,"",location.pathname+location.search+"#etf");
-  else if(tab==="holdings")history.replaceState(null,"",location.pathname+location.search+"#holdings");
-  else if(["#etf","#holdings"].includes(location.hash))history.replaceState(null,"",location.pathname+location.search);
+  ["view-su","view-etf","view-holdings","view-research","view-ph","view-disp","view-adr","view-fund","view-global","view-stock"].forEach(id=>V(id).style.display="none");
+  if(TAB_HASH[tab])history.replaceState(null,"",location.pathname+location.search+TAB_HASH[tab]);
+  else if(HASH_TAB[location.hash])history.replaceState(null,"",location.pathname+location.search);
   if(tab!=="global")gStop();
-  if(tab==="su"||tab==="fav"){
+  if(!tab.startsWith("r-")&&window.ResearchDesk)window.ResearchDesk.unmount();
+  if(tab.startsWith("r-")){
+    V("view-research").style.display="";window.ResearchDesk.mount(tab.slice(2));
+  }else if(tab==="su"||tab==="fav"){
     V("view-su").style.display="";
     favOnly=(tab==="fav");buildChips();render();
   }else if(tab==="etf"){
@@ -1435,7 +1464,7 @@ document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
     ph.innerHTML=`<div class="ph"><h2>${names[tab]}</h2><p>이 탭은 화면 구조만 잡아둔 자리입니다. 데이터 레이어 연결 후 활성화됩니다.</p></div>`;
   }
 });
-function openScannerHash(){const dest={"#etf":"etf","#holdings":"holdings"}[location.hash];if(dest)document.querySelector('#nav button[data-tab="'+dest+'"]').click();}
+function openScannerHash(){const dest=HASH_TAB[location.hash];if(dest&&dest!==tab)document.querySelector('#nav button[data-tab="'+dest+'"]').click();}
 openScannerHash();
 window.addEventListener('hashchange',openScannerHash);
 
