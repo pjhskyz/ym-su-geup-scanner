@@ -1,0 +1,74 @@
+name: build-research-sources
+
+# 투자 리서치의 수출입 분석·컨센서스 누적 분석 자료를 만든다.
+# - 수출입: 관세청 품목별 수출입실적(공공데이터포털). Secrets의 DATA_GO_KR_KEY가 없으면 건너뛴다.
+# - 컨센서스: consensus_pipeline/inbox/ 의 날짜별 CSV를 history/ 로 보관하고 비교한다(네트워크 미사용).
+on:
+  schedule:
+    - cron: '20 14 * * 1-5'   # 23:20 KST (월~금). GitHub 예약은 지연될 수 있다.
+  workflow_dispatch:
+  # 품목 목록·CSV·수집기를 고쳐 올리면 예약 시각을 기다리지 않고 그 브랜치에서 바로 다시 만든다.
+  push:
+    paths:
+      - 'trade_pipeline/**'
+      - 'consensus_pipeline/inbox/**'
+      - 'build_trade_data.py'
+      - 'build_consensus_data.py'
+      - '.github/workflows/research.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-research-sources
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate builders
+        run: python -m unittest test_trade_data test_consensus_data
+
+      - name: Build trade_data.json (관세청 수출입실적)
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+        run: python build_trade_data.py
+
+      - name: Build consensus_data.json (보관 CSV 누적 비교)
+        if: always()
+        run: python build_consensus_data.py
+
+      - name: Commit if changed
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A consensus_pipeline/history
+          if [ -f trade_data.json ]; then git add trade_data.json; fi
+          if [ -f trade_status.json ]; then git add trade_status.json; fi
+          if [ -f consensus_data.json ]; then git add consensus_data.json; fi
+          if git diff --staged --quiet; then
+            echo "변경 없음 — 커밋 건너뜀"
+            exit 0
+          fi
+          git commit -m "data: 수출입·컨센서스 갱신 ($(date -u +%Y-%m-%d))"
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "push 성공"
+              exit 0
+            fi
+            echo "push 거부됨 — 원격 최신 위로 다시 올림 ($i)"
+            git pull --rebase origin "$GITHUB_REF_NAME"
+          done
+          echo "push 5회 실패"
+          exit 1

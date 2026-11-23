@@ -126,14 +126,21 @@ jobs:
           KRX_PW: ${{ secrets.KRX_PW }}
         run: python build_market.py
 
+      # 투자 리서치 화면용 파생 지표. 방금 만든 scanner_data.json·stocks_data.json만 읽으며 네트워크를 쓰지 않는다.
+      # 실패해도 시장지표 발행을 막지 않고, 기존 research_data.json을 그대로 둔다.
+      - name: Build research_data.json (투자 리서치 파생 지표)
+        if: ${{ steps.build_scanner.outcome == 'success' }}
+        continue-on-error: true
+        run: python build_research_data.py
+
       - name: Commit market data
         if: ${{ steps.build_scanner.outcome == 'success' }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           market_generated_dir=$(mktemp -d "$RUNNER_TEMP/market-data.XXXXXX")
-          cp market_data.json stocks_data.json "$market_generated_dir/"
-          git add market_data.json stocks_data.json
+          cp market_data.json stocks_data.json research_data.json "$market_generated_dir/"
+          git add market_data.json stocks_data.json research_data.json
           if git diff --staged --quiet; then
             echo "변경 없음 — 커밋 건너뜀"
             exit 0
@@ -150,7 +157,8 @@ jobs:
             git reset --hard origin/main
             cp "$market_generated_dir/market_data.json" market_data.json
             cp "$market_generated_dir/stocks_data.json" stocks_data.json
-            git add market_data.json stocks_data.json
+            cp "$market_generated_dir/research_data.json" research_data.json
+            git add market_data.json stocks_data.json research_data.json
             if git diff --staged --quiet; then
               echo "원격이 이미 동일 데이터 — 갱신 불필요"
               exit 0
