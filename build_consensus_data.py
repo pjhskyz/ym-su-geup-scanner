@@ -14,6 +14,8 @@ import io
 import json
 import re
 import sys
+import xml.etree.ElementTree as ET
+import zipfile
 from pathlib import Path
 
 SCHEMA_VERSION = 1
@@ -26,6 +28,10 @@ COLUMNS = {
     "period": ("대상분기", "대상기간", "분기", "period", "quarter"),
     "op": ("영업이익", "영업이익(억원)", "op", "operating_profit", "estimate"),
 }
+SHEET_NS = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
+# FnGuide 스크리너 엑셀의 추정치 열: '영업이익(FY1)(억원)', '영업이익(FY2)(억원)' …
+# 'Fwd.12M' 열은 머리글 단위(억원)와 실제 값의 단위가 달라 읽지 않는다.
+OP_COLUMN = re.compile(r"^영업이익\((F[YQ][1-9])\)")  # FY0(확정 실적)은 추정치가 아니므로 제외
 DATE_IN_NAME = re.compile(r"(20\d{2})[-_.]?(\d{2})[-_.]?(\d{2})")
 
 
@@ -58,8 +64,71 @@ def normalize_code(text) -> str | None:
 
 
 def normalize_period(text) -> str:
-    digits = re.sub(r"\D", "", str(text or ""))
+    raw = str(text or "").strip().upper()
+    if re.fullmatch(r"F[YQ]\d", raw):
+        return raw
+    digits = re.sub(r"\D", "", raw)
     return digits[:6] if len(digits) >= 6 else ""
+
+def read_xlsx(data: bytes) -> list:
+    """엑셀(.xlsx) 첫 시트를 문자열 2차원 배열로 읽는다. 표준 라이브러리만 쓴다."""
+    with zipfile.ZipFile(io.BytesIO(data)) as archive:
+        names = archive.namelist()
+        shared = []
+        if "xl/sharedStrings.xml" in names:
+            for item in ET.fromstring(archive.read("xl/sharedStrings.xml")).findall(f"{SHEET_NS}si"):
+                shared.append("".join(t.text or "" for t in item.iter(f"{SHEET_NS}t")))
+        sheets = sorted(n for n in names if re.fullmatch(r"xl/worksheets/sheet\d+\.xml", n))
+        if not sheets:
+            raise ValueError("엑셀에서 시트를 찾지 못했습니다.")
+        root = ET.fromstring(archive.read(sheets[0]))
+    rows = []
+    for row in root.iter(f"{SHEET_NS}row"):
+        cells = {}
+        for cell in row.findall(f"{SHEET_NS}c"):
+            letters = re.match(r"[A-Z]+", cell.get("r") or "")
+            if not letters:
+                continue
+            index = 0
+            for ch in letters.group():
+                index = index * 26 + ord(ch) - 64
+            kind, value = cell.get("t"), cell.find(f"{SHEET_NS}v")
+            if kind == "s" and value is not None:
+                text = shared[int(value.text)]
+            elif kind == "inlineStr":
+                text = "".join(t.text or "" for t in cell.iter(f"{SHEET_NS}t"))
+            else:
+                text = value.text if value is not None and value.text is not None else ""
+            cells[index - 1] = text
+        rows.append([cells.get(i, "") for i in range(max(cells) + 1)] if cells else [])
+    return rows
+
+
+def parse_screener(rows: list) -> list:
+    """FnGuide 스크리너 엑셀 → [[code, name, period, op]]. 추정치 열마다 기간(FY1, FY2 …)을 나눠 읽는다."""
+    header_index = next((i for i, r in enumerate(rows) if "종목코드" in [str(c).strip() for c in r]), None)
+    if header_index is None:
+        raise ValueError("'종목코드' 머리글 행을 찾지 못했습니다.")
+    header = [str(c).strip() for c in rows[header_index]]
+    code_col = header.index("종목코드")
+    name_col = header.index("종목명") if "종목명" in header else None
+    op_cols = [(i, match.group(1)) for i, h in enumerate(header) if (match := OP_COLUMN.match(h))]
+    if not op_cols:
+        raise ValueError("'영업이익(FY1)' 형태의 추정치 열을 찾지 못했습니다.")
+    out, seen = [], set()
+    for row in rows[header_index + 1:]:
+        code = normalize_code(row[code_col] if code_col < len(row) else None)
+        if not code:
+            continue
+        name = str(row[name_col]).strip() if name_col is not None and name_col < len(row) else ""
+        for col, period in op_cols:
+            op = to_number(row[col] if col < len(row) else None)
+            if op is None or (code, period) in seen:
+                continue
+            seen.add((code, period))
+            out.append([code, name, period, op])
+    return out
+
 
 
 def parse_csv(data: bytes) -> list:
@@ -93,14 +162,14 @@ def parse_csv(data: bytes) -> list:
 def ingest(inbox: Path, history: Path) -> list:
     """inbox의 CSV를 history의 날짜별 JSON으로 옮겨 적는다. 반환: 새로 반영한 날짜."""
     added = []
-    for path in sorted(inbox.glob("*.csv")):
+    for path in sorted(p for p in inbox.iterdir() if p.suffix.lower() in (".csv", ".xlsx")) if inbox.is_dir() else []:
         date = date_from_name(path.name)
         if not date:
             print(f"건너뜀(파일명에 날짜 없음): {path.name}", file=sys.stderr)
             continue
         try:
-            rows = parse_csv(path.read_bytes())
-        except ValueError as error:
+            rows = parse_screener(read_xlsx(path.read_bytes())) if path.suffix.lower() == ".xlsx" else parse_csv(path.read_bytes())
+        except (ValueError, KeyError, IndexError, zipfile.BadZipFile, ET.ParseError) as error:
             print(f"건너뜀({path.name}): {error}", file=sys.stderr)
             continue
         if not rows:
@@ -213,7 +282,7 @@ def build(snapshots: list, now: dt.datetime) -> dict:
         "first_observation": snapshots[0]["date"],
         "series_dates": [snapshot["date"] for snapshot in recent],
         "unit": "억원",
-        "metric": "분기 영업이익 예상치",
+        "metric": "연간 영업이익 예상치" if any(p.startswith("F") for p in chosen.values()) else "분기 영업이익 예상치",
         "summary": summary,
         "rows": rows,
     }

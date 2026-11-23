@@ -1,5 +1,7 @@
 import datetime as dt
+import io
 import json
+import zipfile
 import tempfile
 import unittest
 from pathlib import Path
@@ -7,7 +9,65 @@ from pathlib import Path
 import build_consensus_data as C
 
 
+def make_xlsx(rows):
+    """문자열은 sharedStrings, 숫자는 값 그대로 넣은 최소 xlsx."""
+    strings, sheet = [], []
+    for r, row in enumerate(rows, 1):
+        cells = []
+        for c, value in enumerate(row):
+            if value is None:
+                continue
+            ref = f"{chr(65 + c)}{r}"
+            if isinstance(value, str):
+                strings.append(value)
+                cells.append(f'<c r="{ref}" t="s"><v>{len(strings) - 1}</v></c>')
+            else:
+                cells.append(f'<c r="{ref}"><v>{value}</v></c>')
+        sheet.append(f'<row r="{r}">{"".join(cells)}</row>')
+    ns = 'xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"'
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, "w") as z:
+        z.writestr("xl/sharedStrings.xml", f'<sst {ns}>{"".join(f"<si><t>{s}</t></si>" for s in strings)}</sst>')
+        z.writestr("xl/worksheets/sheet1.xml", f'<worksheet {ns}><sheetData>{"".join(sheet)}</sheetData></worksheet>')
+    return buffer.getvalue()
+
+
+SCREENER = [
+    [], ["스크리너"], ["시장 : 전체"], [],
+    ["종목코드", "종목명", "시장", "매출액(FY1)(억원)", "영업이익(FY1)(억원)", "영업이익(FY2)(억원)", "영업이익(Fwd.12M)(억원)"],
+    ["005930", "삼성전자", "KOSPI", "7207350.32", "3830971.64", 6165286.27, "597076005.3"],
+    ["204270", "제이앤티씨", "KOSDAQ", "2000", "-432", None, "1"],
+    ["", "합계", "", "1", "1", "1", "1"],
+]
+
+
 class ConsensusDataTest(unittest.TestCase):
+    def test_fnguide_screener_xlsx_is_read_per_fiscal_period(self):
+        rows = C.parse_screener(C.read_xlsx(make_xlsx(SCREENER)))
+        self.assertEqual(rows, [["005930", "삼성전자", "FY1", 3830971.64], ["005930", "삼성전자", "FY2", 6165286.27], ["204270", "제이앤티씨", "FY1", -432.0]])
+        self.assertEqual(C.normalize_period("fy1"), "FY1")
+        with self.assertRaisesRegex(ValueError, "종목코드"):
+            C.parse_screener([["이름", "값"]])
+        with self.assertRaisesRegex(ValueError, "추정치 열"):
+            C.parse_screener([["종목코드", "종목명", "영업이익(FY0)(억원)", "영업이익(Fwd.12M)(억원)"]])
+
+    def test_xlsx_in_inbox_builds_annual_metric_and_skips_broken_files(self):
+        later = [row[:] for row in SCREENER]
+        later[5][4] = "4000000"
+        with tempfile.TemporaryDirectory() as folder:
+            inbox, history, out = Path(folder, "inbox"), Path(folder, "history"), Path(folder, "out.json")
+            inbox.mkdir()
+            (inbox / "FnGuide_FnScreener_스크리너_20261123115316.xlsx").write_bytes(make_xlsx(SCREENER))
+            (inbox / "FnGuide_FnScreener_스크리너_20261125090000.XLSX").write_bytes(make_xlsx(later))
+            (inbox / "2026-11-24.xlsx").write_bytes(b"not a zip")
+            (inbox / "README.md").write_text("안내", encoding="utf-8")
+            self.assertEqual(C.main(["--inbox", str(inbox), "--history", str(history), "--output", str(out)]), 0)
+            data = json.loads(out.read_text(encoding="utf-8"))
+        self.assertEqual((data["asof"], data["previous"], data["observations"], data["metric"]), ("2026-11-25", "2026-11-23", 2, "연간 영업이익 예상치"))
+        rows = {r["code"]: r for r in data["rows"]}
+        self.assertEqual((rows["005930"]["period"], rows["005930"]["current"], rows["005930"]["prev_pct"], rows["005930"]["class"]), ("FY1", 4000000.0, 4.41, "상향"))
+        self.assertEqual((rows["204270"]["prev_pct"], rows["204270"]["class"]), (0.0, "유지"))
+
     def test_normalizers(self):
         self.assertEqual(C.date_from_name("2026-11-20.csv"), "2026-11-20")
         self.assertEqual(C.date_from_name("20261120_fn.csv"), "2026-11-20")

@@ -380,6 +380,7 @@
   // ---- 컨센서스 누적 분석 ----
   const CONS_COLS = [['name', '종목', 0], ['current', '현재 예상치', 1], ['prev_pct', '직전 관측 대비', 1], ['week_pct', '누적 주간', 1], ['month_pct', '누적 월간', 1], ['class', '분류', 0]];
   const CONS_LIMIT = 200;
+  const periodLabel = p => (/^\d{6}$/.test(String(p || '')) ? L.formatMonth(p) : esc(p || '미지정'));
   function consRows(cons) {
     const c = state.cons, query = c.query.trim().toLowerCase();
     const rows = (cons.rows || []).filter(r => (c.filter === 'all' || r.class === c.filter) && (!query || String(r.name).toLowerCase().includes(query) || r.code.includes(query)));
@@ -391,13 +392,13 @@
     const c = state.cons, rows = consRows(cons), shown = rows.slice(0, CONS_LIMIT);
     if (!rows.some(r => r.code === c.selected)) c.selected = rows.length ? rows[0].code : null;
     const th = ([key, label, numeric]) => `<th data-rs-csort="${key}" class="${numeric ? 'n ' : ''}${c.sort === key ? 'on' : ''}">${label}${c.sort === key ? (c.dir < 0 ? ' ▼' : ' ▲') : ''}</th>`;
-    table.innerHTML = rows.length ? `<div class="rs-tablebox"><table class="rs-table"><thead><tr>${th(CONS_COLS[0])}<th>대상 분기</th>${CONS_COLS.slice(1).map(th).join('')}</tr></thead><tbody>${shown.map(r => `<tr data-row="cons" data-id="${esc(r.code)}" class="${r.code === c.selected ? 'sel' : ''}"><td>${esc(r.name || r.code)} <small class="rs-dim">${esc(r.code)}</small></td><td class="rs-dim">${r.period ? L.formatMonth(r.period) : '—'}</td><td class="n">${num(r.current, 0)}</td><td class="n">${pct(r.prev_pct)}</td><td class="n">${pct(r.week_pct)}</td><td class="n">${pct(r.month_pct)}</td><td>${esc(r.class)}</td></tr>`).join('')}</tbody></table></div>
+    table.innerHTML = rows.length ? `<div class="rs-tablebox"><table class="rs-table"><thead><tr>${th(CONS_COLS[0])}<th>대상 기간</th>${CONS_COLS.slice(1).map(th).join('')}</tr></thead><tbody>${shown.map(r => `<tr data-row="cons" data-id="${esc(r.code)}" class="${r.code === c.selected ? 'sel' : ''}"><td>${esc(r.name || r.code)} <small class="rs-dim">${esc(r.code)}</small></td><td class="rs-dim">${periodLabel(r.period)}</td><td class="n">${num(r.current, 0)}</td><td class="n">${pct(r.prev_pct)}</td><td class="n">${pct(r.week_pct)}</td><td class="n">${pct(r.month_pct)}</td><td>${esc(r.class)}</td></tr>`).join('')}</tbody></table></div>
       <p class="rs-note">${rows.length.toLocaleString('ko-KR')}종목 중 ${shown.length}개 표시${rows.length > shown.length ? ' · 검색이나 분류로 좁혀 보세요' : ''}. 비교할 수 없는 값은 —로 두고 목록 뒤에 둡니다.</p>` : missing('조건에 맞는 종목이 없습니다.');
     const box = document.getElementById('rsConsDetail'), row = (cons.rows || []).find(r => r.code === c.selected);
     if (!box) return;
     destroyCharts();
     if (!row) { box.innerHTML = missing('종목을 선택하세요.'); return; }
-    box.innerHTML = `<div class="rs-panel-head"><div><h2>${esc(row.name || row.code)}</h2><p>${esc(row.code)} · ${esc(cons.metric)} · 대상 ${row.period ? L.formatMonth(row.period) : '미지정'} · ${esc(row.class)}</p></div><div class="rs-tools"><button class="btn" data-code="${esc(row.code)}">개별종목 상세 →</button></div></div>
+    box.innerHTML = `<div class="rs-panel-head"><div><h2>${esc(row.name || row.code)}</h2><p>${esc(row.code)} · ${esc(cons.metric)} · 대상 ${periodLabel(row.period)} · ${esc(row.class)}</p></div><div class="rs-tools"><button class="btn" data-code="${esc(row.code)}">개별종목 상세 →</button></div></div>
       <div class="rs-stats"><div><span>현재 예상치</span><b>${num(row.current, 0)} ${esc(cons.unit)}</b><small>관측 ${esc(cons.asof)}</small></div><div><span>직전 관측</span><b>${num(row.prev, 0)} ${esc(cons.unit)}</b><small>${esc(cons.previous || '비교 대상 없음')} · ${L.signed(row.prev_pct)}</small></div><div><span>누적 주간 / 월간</span><b>${L.signed(row.week_pct)} / ${L.signed(row.month_pct)}</b><small>${esc(cons.week_base || '—')} · ${esc(cons.month_base || '—')} 대비</small></div></div>
       <div class="rs-chart"><canvas id="rsConsChart"></canvas></div><p class="rs-note">변화율 = (이번 예상치 − 기준 예상치) ÷ |기준 예상치|. 같은 대상 분기의 값만 비교하고, 관측일에 값이 없으면 선을 끊습니다.</p>`;
     lineChart('rsConsChart', (cons.series_dates || []).map(d => d.slice(5).replace('-', '.')), [{label: '예상치', data: row.series || [], borderColor: COLORS.kospi, pointRadius: 2, spanGaps: false}], {decimals: 0, suffix: cons.unit});
@@ -411,7 +412,7 @@
     root.innerHTML = header(`<span class="basis">기준일 ${esc(cons.asof)}</span>`) + `<div class="rs-wrap">
       ${statusLine([`관측일 ${cons.observations}개 · ${esc(cons.first_observation)}부터`, cons.previous ? `직전 관측 ${esc(cons.previous)}` : '<span class="rs-warn">관측일이 하나뿐이라 아직 비교할 수 없습니다</span>'])}
       <div class="rs-grid rs-g4">${kpi('수록 종목', cons.rows.length.toLocaleString('ko-KR') + '<em>종목</em>', esc(cons.metric))}${kpi('직전 관측 대비 상향', (s.up ?? 0) + '<em>종목</em>', cons.previous ? `${esc(cons.previous)} → ${esc(cons.asof)}` : '', 'rs-up')}${kpi('직전 관측 대비 하향', (s.down ?? 0) + '<em>종목</em>', '', 'rs-down')}${kpi('유지 / 비교 불가', `${s.flat ?? 0} / ${s.na ?? 0}`, '분류는 중복 집계하지 않습니다')}</div>
-      ${panel('종목별 분기 영업이익 예상치 변화', '헤더를 누르면 정렬 · 행을 누르면 아래에 추이 표시', '<div id="rsConsTable"></div>', seg('consFilter', c.filter, [['all', '전체'], ...classes.map(k => [k, k])]) + `<input class="search" id="rsConsSearch" placeholder="종목명·코드 검색" value="${esc(c.query)}">`)}
+      ${panel(`종목별 ${esc(cons.metric)} 변화`, '헤더를 누르면 정렬 · 행을 누르면 아래에 추이 표시', '<div id="rsConsTable"></div>', seg('consFilter', c.filter, [['all', '전체'], ...classes.map(k => [k, k])]) + `<input class="search" id="rsConsSearch" placeholder="종목명·코드 검색" value="${esc(c.query)}">`)}
       <section class="rs-panel" id="rsConsDetail"></section>
       <p class="rs-foot">주가 수익률이 아니라 예상치의 변화입니다. 실제 확정 실적과 다르며, 통계적 관찰 자료로 매수·매도 권유가 아닙니다.</p></div>`;
     paintCons();
