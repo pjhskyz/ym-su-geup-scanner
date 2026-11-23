@@ -25,6 +25,7 @@ from pathlib import Path
 SCHEMA_VERSION = 1
 KST = dt.timezone(dt.timedelta(hours=9))
 UNCLASSIFIED = "미분류"
+MARKETS = ("KOSPI", "KOSDAQ")
 GAP_WINDOW = 20
 GAP_TOP_N = 3
 # KRX 일일 가격제한폭은 ±30%. 이를 넘는 종가 변화는 액면분할·병합·신규상장 첫날 등
@@ -87,7 +88,10 @@ def cumulative_return(returns: list, end: int, window: int) -> float | None:
 
 
 def universe_from_scanner(scanner: dict) -> list:
-    """스캐너 수록 종목 → [{code,name,sector,mcap,r1,r5,r20}] (시총 내림차순)."""
+    """스캐너 수록 종목 → [{code,name,sector,mcap,r1,r5,r20,market}] (시총 내림차순).
+
+    market 은 스캐너가 rank_details 에 적어 둔 상장 시장(KOSPI/KOSDAQ)이며, 없으면 None 으로 둔다."""
+    details = scanner.get("rank_details") if isinstance(scanner.get("rank_details"), dict) else {}
     items = []
     for row in scanner.get("rows") or []:
         if not isinstance(row, list) or len(row) <= COL_MCAP:
@@ -100,9 +104,15 @@ def universe_from_scanner(scanner: dict) -> list:
             "r1": row[COL_R1] if is_number(row[COL_R1]) else None,
             "r5": row[COL_R5] if is_number(row[COL_R5]) else None,
             "r20": row[COL_R20] if is_number(row[COL_R20]) else None,
+            "market": market_of(details.get(code)),
         })
     items.sort(key=lambda item: (-item["mcap"], item["code"]))
     return items
+
+
+def market_of(detail) -> str | None:
+    market = detail.get("market") if isinstance(detail, dict) else None
+    return market if market in MARKETS else None
 
 
 def sector_summary(universe: list) -> list:
@@ -228,10 +238,12 @@ def build(scanner: dict, stocks: dict, now: dt.datetime | None = None) -> dict:
             "scanner_updated": scanner.get("updated"), "stocks_updated": stocks.get("updated"),
             "price_basis": "KRX 정규장 일별 종가(pykrx)", "sector_basis": "FnGuide WICS 대분류(스캐너 수록 분류)",
             "universe": "KOSPI·KOSDAQ 시가총액 500억원 이상 스캐너 수록 종목",
+            "market_basis": "KRX 시장별 순매수 응답 기준 상장 시장(스캐너 rank_details.market)",
         },
         "heatmap": {
-            "columns": ["code", "name", "sector", "mcap", "r1", "r5", "r20"],
-            "rows": [[u["code"], u["name"], u["sector"], u["mcap"], u["r1"], u["r5"], u["r20"]] for u in universe],
+            "columns": ["code", "name", "sector", "mcap", "r1", "r5", "r20", "market"],
+            "rows": [[u["code"], u["name"], u["sector"], u["mcap"], u["r1"], u["r5"], u["r20"], u["market"]]
+                     for u in universe],
         },
         "sectors": sector_summary(universe),
         "size": size_series(universe, stocks),
