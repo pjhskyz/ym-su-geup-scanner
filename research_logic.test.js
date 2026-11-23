@@ -224,3 +224,24 @@ test('국가별: 무역수지·국가 분해 비중, 그 외 국가는 전체에
   const lagging = L.countryBreakdown({months, total: {exp: flat(100)}, exp: [{code: 'US', name: '미국', values: months.map((_, i) => (i === 23 ? null : 50))}]}, 'exp');
   assert.deepEqual([lagging.rows[0].share, lagging.rest.values[23]], [null, null], '기준월이 다르면 비중을 계산하지 않는다');
 });
+
+test('히트맵 시장 전환: 시장별 종목만 고르고, 시장을 모르는 종목은 전체에만 남긴다', () => {
+  const rows = L.heatmapRows({columns: ['code', 'name', 'market'], rows: [['1', '가', 'KOSPI'], ['2', '나', 'KOSDAQ'], ['3', '다', 'KOSPI'], ['4', '라', null], ['5', '마', 'KONEX']]});
+  assert.deepEqual(L.marketCounts(rows), {KOSPI: 2, KOSDAQ: 1, unknown: 2, available: true});
+  assert.deepEqual(L.marketRows(rows, 'KOSPI').map(r => r.code), ['1', '3']);
+  assert.deepEqual(L.marketRows(rows, 'KOSDAQ').map(r => r.code), ['2']);
+  assert.equal(L.marketRows(rows, 'all').length, 5);
+  assert.equal(L.marketRows(rows, undefined).length, 5);
+  assert.equal(L.marketRows(rows, 'KONEX').length, 5, '지원하지 않는 값은 전체로 본다');
+  assert.deepEqual(L.marketRows(null, 'KOSPI'), []);
+  assert.equal(L.marketLabel('KOSPI'), '코스피');
+  assert.equal(L.marketLabel('KOSDAQ'), '코스닥');
+  assert.equal(L.marketLabel('all'), '전체');
+});
+
+test('히트맵 시장 전환: 시장 칸이 없는 예전 자료는 전환할 수 없다고 알린다', () => {
+  const old = L.heatmapRows({columns: ['code', 'name', 'sector', 'mcap', 'r1', 'r5', 'r20'], rows: [['1', '가', 'IT', 100, 1, 2, 3]]});
+  assert.deepEqual(L.marketCounts(old), {KOSPI: 0, KOSDAQ: 0, unknown: 1, available: false});
+  assert.deepEqual(L.marketCounts([]), {KOSPI: 0, KOSDAQ: 0, unknown: 0, available: false});
+  assert.deepEqual(L.marketCounts(undefined), {KOSPI: 0, KOSDAQ: 0, unknown: 0, available: false});
+});

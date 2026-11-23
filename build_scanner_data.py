@@ -99,14 +99,17 @@ def business_days(asof: str, n: int) -> list[str]:
 
 # ----------------------- 순매수 랭킹/맵 -----------------------
 def ranking(asof: str, investor: str, lookback: int) -> dict:
-    """lookback>0: 누적 / 0: 일별. {ticker:{net,rank,bucket,name}}"""
+    """lookback>0: 누적 / 0: 일별. {ticker:{net,rank,bucket,name,market}}
+
+    market 은 그 종목이 응답에 들어 있던 시장(KOSPI/KOSDAQ)이다. 시장별로 따로 조회하므로
+    추가 요청 없이 알 수 있고, 투자 리서치 히트맵의 시장 전환에 쓴다."""
     start = shift(asof, lookback) if lookback > 0 else asof
     frames = []
     for mkt in MARKETS:
         df = stock.get_market_net_purchases_of_equities(start, asof, mkt, investor)
         time.sleep(SLEEP)
         if df is not None and not df.empty and "순매수거래대금" in df.columns:
-            frames.append(df[["순매수거래대금", "종목명"]])
+            frames.append(df[["순매수거래대금", "종목명"]].assign(시장=mkt))
     if not frames:
         return {}
     if len(frames) != len(MARKETS):
@@ -122,7 +125,7 @@ def ranking(asof: str, investor: str, lookback: int) -> dict:
     for i, (tkr, row) in enumerate(alldf.iterrows(), start=1):
         bucket = min(MAX_BUCKET, max(1, math.ceil(i / n * 100 / BUCKET_SIZE)))
         out[tkr] = {"net": int(row["순매수거래대금"]), "rank": i,
-                    "bucket": bucket, "name": str(row["종목명"])}
+                    "bucket": bucket, "name": str(row["종목명"]), "market": str(row["시장"])}
     return out
 
 
@@ -171,6 +174,9 @@ def make_rank_details(daily: dict, dates: list[str], caps: dict) -> dict:
         item["net_won"] = {k: daily[k][dates[0]].get(tkr, {}).get("net", 0) for k in INVESTORS}
         item["ratio_pct"] = {k: raw_ratio(item["net_won"][k], caps.get(tkr)) for k in INVESTORS}
         item["cap_won"] = caps[tkr]
+        # 상장 시장: 기준일 순매수 응답이 온 시장. 어느 투자자 응답에도 없으면 추정하지 않고 비운다.
+        item["market"] = next((found for found in (
+            daily[k].get(dates[0], {}).get(tkr, {}).get("market") for k in INVESTORS) if found), None)
         details[tkr] = item
     return details
 

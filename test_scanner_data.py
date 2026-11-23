@@ -283,6 +283,11 @@ class ScannerDataTests(unittest.TestCase):
         self.assertEqual(values["000002"]["rank"], 2)
         self.assertEqual(values["000001"]["bucket"], values["000002"]["bucket"])
         self.assertEqual(len({v["rank"] for v in values.values()}), 600)
+        # 시장별로 따로 받은 응답이므로 각 종목의 상장 시장을 함께 기록한다.
+        self.assertEqual(values["000001"]["market"], "KOSPI")
+        self.assertEqual(values["000300"]["market"], "KOSPI")
+        self.assertEqual(values["000301"]["market"], "KOSDAQ")
+        self.assertEqual({v["market"] for v in values.values()}, {"KOSPI", "KOSDAQ"})
 
     def test_one_missing_market_does_not_publish_a_partial_rank(self):
         fake = Mock()
@@ -356,6 +361,17 @@ class ScannerDataTests(unittest.TestCase):
         self.assertEqual(detail["000002"]["inst"]["today"], 2)
         self.assertIsNone(detail["000002"]["frgn"]["today"])
         self.assertEqual(detail["000002"]["net_won"]["frgn"], 0)
+        self.assertIsNone(detail["000002"]["market"], "시장 정보가 없는 응답은 추정하지 않는다")
+
+    def test_rank_details_carry_listing_market_from_either_investor(self):
+        daily = {
+            "inst": {"20260911": {"000001": {**ranked(100, 1), "market": "KOSPI"}}},
+            "frgn": {"20260911": {"000001": {**ranked(50, 2), "market": "KOSPI"},
+                                  "000002": {**ranked(100, 1), "market": "KOSDAQ"}}},
+        }
+        detail = scanner.make_rank_details(daily, ["20260911"], {"000001": 100_000_000_000, "000002": 100_000_000_000})
+        self.assertEqual(detail["000001"]["market"], "KOSPI")
+        self.assertEqual(detail["000002"]["market"], "KOSDAQ", "기관 응답에 없어도 외국인 응답의 시장을 쓴다")
 
     def test_failed_build_preserves_last_good_data_and_records_failure(self):
         script = Path(scanner.__file__).resolve()

@@ -194,6 +194,19 @@
     const cols = (heatmap && heatmap.columns) || [];
     return ((heatmap && heatmap.rows) || []).map(row => { const o = {}; cols.forEach((c, i) => { o[c] = row[i]; }); return o; });
   }
+  // ---- 히트맵 시장 전환 (코스피/코스닥) ----
+  const MARKET_LABELS = {KOSPI: '코스피', KOSDAQ: '코스닥'};
+  const marketLabel = market => MARKET_LABELS[market] || '전체';
+  // 시장별 종목 수. 시장 칸이 하나도 채워지지 않은 자료(예전 수집본)면 available 이 false 다.
+  function marketCounts(rows) {
+    const counts = {KOSPI: 0, KOSDAQ: 0, unknown: 0};
+    (rows || []).forEach(r => { if (r && MARKET_LABELS[r.market]) counts[r.market]++; else counts.unknown++; });
+    return {...counts, available: counts.KOSPI + counts.KOSDAQ > 0};
+  }
+  // 'all' 이면 전부, 아니면 그 시장 종목만. 시장을 모르는 종목은 전체에서만 보인다.
+  function marketRows(rows, market) {
+    return MARKET_LABELS[market] ? (rows || []).filter(r => r && r.market === market) : (rows || []);
+  }
   function moveCounts(rows, key) {
     const counts = {up: 0, down: 0, flat: 0, missing: 0};
     (rows || []).forEach(r => { const v = r[key]; if (!isNumber(v)) counts.missing++; else if (v > 0) counts.up++; else if (v < 0) counts.down++; else counts.flat++; });
@@ -273,7 +286,7 @@
     lastValid, previousValid, movingAverage, tail, periodReturn,
     pctChange, formatMonth, usdLabel, tradeMetrics, yoySeries, unitSeries, sortBy,
     prelimSpanLabel, prelimPick, prelimRows, prelimExcluding, prelimSeries, nationMetrics, countryBreakdown,
-    tileWeight, treemap, heatColor, heatmapRows, moveCounts,
+    tileWeight, treemap, heatColor, heatmapRows, moveCounts, marketLabel, marketCounts, marketRows,
     marketReading, leaderScore, etfCandidates, etfLeaders, etfRebounds, quoteFromYahoo,
   };
 });

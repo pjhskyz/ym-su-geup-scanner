@@ -109,6 +109,17 @@ class ResearchDataTest(unittest.TestCase):
         self.assertEqual(size["buckets"][2]["count"], 0)
         self.assertIsNone(size["buckets"][2]["r1"], "종목이 없는 구간은 수익률을 비운다")
 
+    def test_heatmap_market_comes_from_scanner_rank_details_without_guessing(self):
+        rows = [scanner_row("가", "IT", 1.0, 2.0, 3.0, "000001", 3000), scanner_row("나", "금융", 0.0, 0.0, 0.0, "000002", 2000),
+                scanner_row("다", "소재", 0.0, 0.0, 0.0, "000003", 1000), scanner_row("라", "소재", 0.0, 0.0, 0.0, "000004", 500)]
+        scanner = {"rows": rows, "rank_details": {
+            "000001": {"market": "KOSPI"}, "000002": {"market": "KOSDAQ"},
+            "000003": {"market": "KONEX"}, "000004": {"cap_won": 1},
+        }}
+        universe = R.universe_from_scanner(scanner)
+        self.assertEqual([item["market"] for item in universe], ["KOSPI", "KOSDAQ", None, None])
+        self.assertEqual([item["market"] for item in R.universe_from_scanner({"rows": rows, "rank_details": []})], [None] * 4)
+
     def test_build_and_cli_keep_previous_file_on_failure(self):
         rows = [scanner_row("A", "IT", 1.5, 2.5, 3.5, "A", 2000), scanner_row("B", "금융", -1.0, 0.0, 1.0, "B", 1000)]
         scanner = {"asof": "20260105", "updated": "2026-01-05T16:03:00+09:00", "rows": rows}
@@ -117,7 +128,9 @@ class ResearchDataTest(unittest.TestCase):
         result = R.build(scanner, stocks, now)
         self.assertEqual(result["generated_at"], "2026-01-05T16:05:00+09:00")
         self.assertTrue(result["dates_match"])
-        self.assertEqual(result["heatmap"]["rows"][0], ["A", "A", "IT", 2000, 1.5, 2.5, 3.5])
+        self.assertEqual(result["heatmap"]["columns"][-1], "market")
+        self.assertEqual(result["heatmap"]["rows"][0], ["A", "A", "IT", 2000, 1.5, 2.5, 3.5, None],
+                         "시장 구분이 없는 예전 스캐너 자료에서는 시장 칸을 비운다")
         self.assertFalse(R.build({**scanner, "asof": "20260106"}, stocks, now)["dates_match"])
         with self.assertRaises(ValueError):
             R.build({"rows": []}, stocks, now)

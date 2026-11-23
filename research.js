@@ -26,7 +26,7 @@
   ];
   const state = {
     sizeDays: 63, flowDays: 60, tileKey: 'r1', dispDays: 120, fundDays: 63,
-    heat: {minCap: 3000, key: 'r1', grouped: false, query: ''},
+    heat: {market: 'all', minCap: 3000, key: 'r1', grouped: false, query: ''},
     sectorKey: 'r1', trendDays: 60, etfSort: {key: 'rs_price_21', dir: -1},
     trade: {flow: 'exp', sort: 'yoy', dir: -1, query: '', selected: null, view: 'item',
       nation: {sort: 'amount', dir: -1, query: '', selected: null}, prelim: {span: 'auto', kind: 'item', index: 0}},
@@ -38,7 +38,8 @@
   const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
   const num = (v, d = 2) => L.isNumber(v) ? v.toLocaleString('ko-KR', {minimumFractionDigits: d, maximumFractionDigits: d}) : '—';
   const pct = (v, d = 2, suffix = '%') => `<span class="rs-${L.direction(v)}">${L.signed(v, d, suffix)}</span>`;
-  const seg = (name, value, options) => `<div class="seg" data-rs-seg="${name}">${options.map(([v, label]) => `<button data-v="${v}" class="${String(v) === String(value) ? 'on' : ''}">${label}</button>`).join('')}</div>`;
+  // disabled 에 이유를 넘기면 현재 선택 말고는 누를 수 없게 하고, 이유를 풍선말로 보여 준다.
+  const seg = (name, value, options, disabled = '') => `<div class="seg" data-rs-seg="${name}"${disabled ? ` title="${esc(disabled)}"` : ''}>${options.map(([v, label]) => `<button data-v="${v}" class="${String(v) === String(value) ? 'on' : ''}"${disabled && String(v) !== String(value) ? ' disabled' : ''}>${label}</button>`).join('')}</div>`;
   const panel = (title, sub, body, tools = '', cls = '') => `<section class="rs-panel ${cls}"><div class="rs-panel-head"><div><h2>${title}</h2>${sub ? `<p>${sub}</p>` : ''}</div>${tools ? `<div class="rs-tools">${tools}</div>` : ''}</div>${body}</section>`;
   const missing = text => `<div class="rs-empty">${esc(text)}</div>`;
 
@@ -240,14 +241,16 @@
     const size = Math.max(9, Math.min(20, Math.sqrt(w * h) / 5.2));
     const showName = w > 42 && h > 22, showPct = w > 42 && h > 36;
     const dim = query && !(r.name.toLowerCase().includes(query) || r.code.includes(query));
-    return `<button class="rs-heat${dim ? ' dim' : ''}" data-code="${esc(r.code)}" title="${esc(r.name)} (${esc(r.code)}) · ${esc(r.sector)} · ${L.signed(value, 1)} · 시총 ${L.capLabel(r.mcap)}원"
+    return `<button class="rs-heat${dim ? ' dim' : ''}" data-code="${esc(r.code)}" title="${esc(r.name)} (${esc(r.code)}) · ${r.market ? L.marketLabel(r.market) + ' · ' : ''}${esc(r.sector)} · ${L.signed(value, 1)} · 시총 ${L.capLabel(r.mcap)}원"
       style="left:${rect.x.toFixed(1)}px;top:${rect.y.toFixed(1)}px;width:${Math.max(0, w - 1).toFixed(1)}px;height:${Math.max(0, h - 1).toFixed(1)}px;background:${L.heatColor(value, limit)};font-size:${size.toFixed(1)}px">${showName ? `<b>${esc(r.name)}</b>` : ''}${showPct ? `<span>${L.signed(value, 1)}</span>` : ''}</button>`;
   }
   function paintHeat() {
     const box = document.getElementById('rsHeatBox'), research = cache.research && cache.research.data;
     if (!box || !research) return;
     const h = state.heat, limit = {r1: 3, r5: 6, r20: 12}[h.key], query = h.query.trim().toLowerCase();
-    const rows = L.heatmapRows(research.heatmap).filter(r => r.mcap >= h.minCap).map(r => ({...r, weight: L.tileWeight(r.mcap)}));
+    const listed = L.heatmapRows(research.heatmap), markets = L.marketCounts(listed);
+    const market = markets.available ? h.market : 'all', all = L.marketRows(listed, market);
+    const rows = all.filter(r => r.mcap >= h.minCap).map(r => ({...r, weight: L.tileWeight(r.mcap)}));
     const width = box.clientWidth || 1100, height = Math.max(520, Math.min(860, Math.round(width * 0.58)));
     box.style.height = height + 'px';
     let html = '';
@@ -261,23 +264,25 @@
       });
     } else html = L.treemap(rows, width, height).map(t => heatTile(t, h.key, limit, query)).join('');
     box.innerHTML = html || missing('표시할 종목이 없습니다.');
-    const all = L.heatmapRows(research.heatmap), counts = L.moveCounts(all, h.key), total = counts.up + counts.down + counts.flat || 1;
+    const counts = L.moveCounts(all, h.key), total = counts.up + counts.down + counts.flat || 1;
+    const scope = market === 'all' ? '' : L.marketLabel(market) + ' ', hidden = market === 'all' ? 0 : markets.unknown;
     const capShown = rows.reduce((s, r) => s + r.mcap, 0), capAll = all.reduce((s, r) => s + r.mcap, 0);
-    document.getElementById('rsHeatSummary').innerHTML = `<div><b>${all.length.toLocaleString('ko-KR')}</b> 종목 <span class="rs-up">상승 ${counts.up}</span> <span class="rs-down">하락 ${counts.down}</span> <span class="rs-flat">보합 ${counts.flat}</span></div>
+    document.getElementById('rsHeatSummary').innerHTML = `<div>${scope}<b>${all.length.toLocaleString('ko-KR')}</b> 종목 <span class="rs-up">상승 ${counts.up}</span> <span class="rs-down">하락 ${counts.down}</span> <span class="rs-flat">보합 ${counts.flat}</span></div>
       <div class="rs-bar"><i class="u" style="width:${counts.up / total * 100}%"></i><i class="f" style="width:${counts.flat / total * 100}%"></i><i class="d" style="width:${counts.down / total * 100}%"></i></div>
-      <div class="rs-dim">${rows.length.toLocaleString('ko-KR')}종목 표시 · 수록 시가총액의 ${num(capAll ? capShown / capAll * 100 : null, 1)}%</div>`;
+      <div class="rs-dim">${rows.length.toLocaleString('ko-KR')}종목 표시 · ${scope}수록 시가총액의 ${num(capAll ? capShown / capAll * 100 : null, 1)}%${hidden ? ` · 시장 미확인 ${hidden}종목은 전체에서만 표시` : ''}</div>`;
     document.getElementById('rsHeatLegend').innerHTML = [-1, -2 / 3, -1 / 3, 0, 1 / 3, 2 / 3, 1].map(t => `<i style="background:${L.heatColor(t * limit, limit)}">${t === -1 ? '≤' : t === 1 ? '≥' : ''}${L.signed(t * limit, 0)}</i>`).join('');
   }
   async function renderHeatmap(force) {
     const token = ++renderToken, research = await load('research', force);
     if (token !== renderToken) return;
-    const h = state.heat;
+    const h = state.heat, markets = L.marketCounts(L.heatmapRows(research && research.heatmap));
+    const marketWait = markets.available ? '' : '시장 구분 자료는 다음 수집(평일 16시)부터 제공됩니다';
     root.innerHTML = header(research ? `<span class="basis">${L.formatDate(research.asof)} · KRX 정규장 종가 기준</span>` : '') + `<div class="rs-wrap">
       ${statusLine([fileNote('research', '히트맵 자료')])}
       ${research ? `<div class="rs-panel"><div class="rs-heat-top"><div id="rsHeatSummary" class="rs-heat-summary"></div>
-        <div class="rs-tools">${seg('heatCap', h.minCap, [[3000, '시총 3,000억↑'], [10000, '1조↑'], [0, '전체']])}${seg('heatKey', h.key, [['r1', '하루'], ['r5', '1주'], ['r20', '1개월']])}${seg('heatGroup', h.grouped ? 1 : 0, [[0, '전체'], [1, '업종별']])}<input class="search" id="rsHeatSearch" placeholder="종목명·코드 찾기" value="${esc(h.query)}"></div></div>
+        <div class="rs-tools">${seg('heatMarket', markets.available ? h.market : 'all', [['all', '전체'], ['KOSPI', '코스피'], ['KOSDAQ', '코스닥']], marketWait)}${seg('heatCap', h.minCap, [[3000, '시총 3,000억↑'], [10000, '1조↑'], [0, '전체']])}${seg('heatKey', h.key, [['r1', '하루'], ['r5', '1주'], ['r20', '1개월']])}${seg('heatGroup', h.grouped ? 1 : 0, [[0, '전체'], [1, '업종별']])}<input class="search" id="rsHeatSearch" placeholder="종목명·코드 찾기" value="${esc(h.query)}"></div></div>
         <div id="rsHeatLegend" class="rs-legend"></div><div id="rsHeatBox" class="rs-heatbox"></div>
-        <p class="rs-note">타일 면적은 시가총액의 제곱근으로 대형주 쏠림을 줄였습니다(실제 시총 비중과 다름). 스캐너 수록 범위는 KOSPI·KOSDAQ 시가총액 500억원 이상입니다. 타일을 누르면 개별종목 수급 상세로 이동합니다.</p></div>` : missing('히트맵 자료(research_data.json)를 불러오지 못했습니다.')}</div>`;
+        <p class="rs-note">타일 면적은 시가총액의 제곱근으로 대형주 쏠림을 줄였습니다(실제 시총 비중과 다름). 스캐너 수록 범위는 KOSPI·KOSDAQ 시가총액 500억원 이상입니다. 타일을 누르면 개별종목 수급 상세로 이동합니다.${marketWait ? ` <b>${marketWait}.</b>` : ''}</p></div>` : missing('히트맵 자료(research_data.json)를 불러오지 못했습니다.')}</div>`;
     paintHeat();
   }
 
@@ -574,7 +579,7 @@
     const group = t.closest('[data-rs-seg]');
     if (!group) return;
     const name = group.dataset.rsSeg, raw = t.dataset.v, value = /^-?\d+$/.test(raw) ? Number(raw) : raw;
-    if (name === 'heatCap') state.heat.minCap = value; else if (name === 'heatKey') state.heat.key = value; else if (name === 'heatGroup') state.heat.grouped = value === 1;
+    if (name === 'heatMarket') state.heat.market = raw; else if (name === 'heatCap') state.heat.minCap = value; else if (name === 'heatKey') state.heat.key = value; else if (name === 'heatGroup') state.heat.grouped = value === 1;
     else if (name === 'tradeFlow') state.trade.flow = value; else if (name === 'tradeView') state.trade.view = value; else if (name === 'prelimSpan') state.trade.prelim.span = value;
     else if (name === 'consFilter') state.cons.filter = raw; else state[name] = value;
     if (name.startsWith('heat')) { group.querySelectorAll('button').forEach(b => b.classList.toggle('on', b === t)); return paintHeat(); }
