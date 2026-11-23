@@ -105,7 +105,6 @@
       picture: text(meta.avatar_url),
       provider: text(app.provider),
       createdAt: text(raw.created_at),
-      lastSignInAt: text(raw.last_sign_in_at),
       roles,
       status: statusOf(roles),
     };

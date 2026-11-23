@@ -86,7 +86,7 @@
     if (!mine) for (const spec of BUTTONS[member.status] || []) acts.append(actionButton(member, spec));
     const cell = element('td');
     cell.append(acts);
-    line.append(status, who, element('td', 'when', L.dateLabel(member.createdAt)), element('td', 'when', L.dateLabel(member.lastSignInAt)), cell);
+    line.append(status, who, element('td', 'when', L.dateLabel(member.createdAt)), cell);
     return line;
   }
 

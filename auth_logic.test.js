@@ -93,7 +93,7 @@ test('회원 목록: 필요한 항목만 추리고 대기 → 관리자 → 회�
   assert.deepEqual(list.map(item => item.email), ['new1@x.com', 'new2@x.com', 'roy@x.com', 'a@x.com', 'b@x.com']);
   assert.deepEqual(list.map(item => item.status), ['pending', 'pending', 'admin', 'member', 'member']);
   assert.deepEqual(L.counts(list), { pending: 2, member: 2, admin: 1, total: 5 });
-  assert.deepEqual(Object.keys(list[2]).sort(), ['createdAt', 'email', 'id', 'lastSignInAt', 'name', 'picture', 'provider', 'roles', 'status']);
+  assert.deepEqual(Object.keys(list[2]).sort(), ['createdAt', 'email', 'id', 'name', 'picture', 'provider', 'roles', 'status']);
   assert.equal(list[1].name, '둘');
   assert.equal(list[1].provider, 'google');
 });

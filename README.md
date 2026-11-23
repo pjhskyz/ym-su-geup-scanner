@@ -232,4 +232,4 @@ python build_research_data.py
 node --test auth_logic.test.js auth_server.test.mjs   # 권한 판정, 접근 규칙, Function 처리
 ```
 
-Netlify Identity 는 로컬(`netlify dev`)에서 동작하지 않으므로 실제 로그인은 배포 미리보기(Deploy Preview)에서 확인합니다.
+Netlify Identity 는 로컬(`netlify dev`)에서 동작하지 않으므로 실제 로그인은 배포 미리보기(Deploy Preview)에서 확인합니다. 미리보기에는 `KIS_APPKEY`·`KIS_APPSECRET` 이 없어 야간선물 Function 은 로그인 확인만 통과하고 500(환경변수 미설정)으로 끝나는 것이 정상입니다.
